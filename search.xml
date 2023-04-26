@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>test_page</title>
+      <link href="/2023/04/26/test-page/"/>
+      <url>/2023/04/26/test-page/</url>
+      
+        <content type="html"><![CDATA[<p>useless page for test</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Stack_based_overflow</title>
       <link href="/2023/04/26/stack-based-overflow/"/>
       <url>/2023/04/26/stack-based-overflow/</url>
