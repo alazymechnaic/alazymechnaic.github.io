@@ -55,19 +55,6 @@
     
     
     <entry>
-      <title>draft</title>
-      <link href="/2023/05/02/draft/"/>
-      <url>/2023/05/02/draft/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>one_byte_overflow</title>
       <link href="/2023/04/27/one-byte-overflow/"/>
       <url>/2023/04/27/one-byte-overflow/</url>
@@ -81,19 +68,6 @@
             <tag> binary security </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>test_page</title>
-      <link href="/2023/04/26/test-page/"/>
-      <url>/2023/04/26/test-page/</url>
-      
-        <content type="html"><![CDATA[<p>useless page for test</p>]]></content>
-      
-      
       
     </entry>
     
