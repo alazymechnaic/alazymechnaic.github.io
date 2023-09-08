@@ -1,171 +1,195 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>alazymechnaic - Alazymechnaic&amp;PersonalBlog</title><meta name="author" content="alazymechnaic"><meta name="copyright" content="alazymechnaic"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta property="og:type" content="website">
-<meta property="og:title" content="alazymechnaic">
-<meta property="og:url" content="https://alazymechnaic.github.io/page/2/index.html">
-<meta property="og:site_name" content="alazymechnaic">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://avatars.githubusercontent.com/u/36987782?v=4">
-<meta property="article:author" content="alazymechnaic">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/36987782?v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://alazymechnaic.github.io/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'alazymechnaic',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2023-09-06 09:44:07'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="alazymachine" href="https://alazymechnaic.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="alazymachine" href="https://alazymechnaic.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="alazymachine" href="https://alazymechnaic.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0">
+
+<link rel="canonical" href="https://alazymechnaic.github.io/page/2/">
+
+
+
+  <title>Alazymachine = alazymachine = Alazymachine&PersonalBlog</title>
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/6d9fe552b4cad896fe94cd74913c097a.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="alazymechnaic"><span class="site-name">alazymechnaic</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">alazymechnaic</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VIPER_SSGVDOA"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-06-27T01:50:02.000Z" title="发表于 2023-06-27 09:50:02">2023-06-27</time></span></div><div class="content">VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+            <a href="/" class="logo" rel="start"><p class="artboard">Alazymachine</p>
+              <h1 itemprop="name headline" class="title">alazymachine</h1>
+            </a>
+            <p class="meta" itemprop="description">= Alazymachine&PersonalBlog =</p>
+          
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Alazymachine</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuv0socj20zk0m8qes.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="index wrap">
+    <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/06/27/viper-ssgvdoa/" itemprop="url" title="VIPER_SSGVDOA"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclimtf7dj20zk0m8qav.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-06-27 09:50:02">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-06-27T09:50:02+08:00">2023-06-27</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/06/27/viper-ssgvdoa/" itemprop="url" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></h3>
+    <div class="excerpt">
+        VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks
 摘要
 文章的主要目的是检查那些影响数据流，促使程序运行至关键系统调用的关键变量。VIPER能够自动化地查找实现对系统调用保护分支和变量的自动和可扩展检测
 两个关键定义：Syscall-Guard Variables，syscallguard变量决定是否调用与安全相关的系统调用 ，因此它们的值对程序安全性有直接影响。这意味着它们应该被视为关键数据。同样也衍生出，syscall-Guard branch，用于决定是否会执行当前的系统调用。
-一个关键方法： 文章提出了分支强制（branch force），它有意地翻转执行过程中的每个条件分支，并检查是否调用了新的与安全相关的syscalls。如果是，则进行数据流分析以估计通过常见内存错误翻转这些分支的可行性。
-基本逻辑：程序想要通过数据流攻击实现一定的攻击语义，必须要依赖于一定的系统调用实现。然而系统调用在处理不受信任的输入前一定会存在一定的检查操作。
+一个关键方法：...
+    </div>
+    <a href="/2023/06/27/viper-ssgvdoa/" itemprop="url" title="VIPER_SSGVDOA" class="btn">more...</a>
+  </div>
+</article>
 
-识别困难​	关键变量可能会以任何数据类型，任何存储位置存在。这会导 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/05/12/blind-rop/" title="blind-rop"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blind-rop"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-12T12:28:01.000Z" title="发表于 2023-05-12 20:28:01">2023-05-12</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HEAP-EXP-heap_management"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-12T11:47:55.000Z" title="发表于 2023-05-12 19:47:55">2023-05-12</time></span></div><div class="content">堆利用
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/12/blind-rop/" itemprop="url" title="blind-rop"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciub8ja1j20zk0m81ky.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-12 20:28:01">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-12T20:28:01+08:00">2023-05-12</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/12/blind-rop/" itemprop="url" title="blind-rop">blind-rop</a></h3>
+    <div class="excerpt">
+        
+    </div>
+    <a href="/2023/05/12/blind-rop/" itemprop="url" title="blind-rop" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclffsa1cj20zk0m811l.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-12 19:47:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-12T19:47:55+08:00">2023-05-12</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></h3>
+    <div class="excerpt">
+        堆利用
 ​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。
 堆管理机制​	堆区域与栈区域在内存使用上存在不同：
 
@@ -173,70 +197,448 @@
 堆在使用时从低地址内存向高地址内存增长，栈从高地址内存向低地址内存增长
 堆和栈都可以是每个线程所有独有的，堆依然存在线程堆的概念
 
-
 (上图中的共享库段中包含有不同权限的几个内存段，如下图所示，其中mapped区域是当前so文件代码段对应的heap段)
 
 内存管理
-32位下的text段是即时elf文件装入操作系统的起始位置0x8048000，也就是整个虚拟内存中用户可用的起始位置,最远的访问位置到0xbfffffff.
-64位下的内存起始位置在0x0000000000400000处，64位下总的内存大小为2的48次方，
+32位下的text段是即时elf文件装入操作系统的起始位置0x8048000，也就是整个虚拟内存中用户可用的起始位置,最远的访问位...
+    </div>
+    <a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management" class="btn">more...</a>
+  </div>
+</article>
 
-内存的分配管理策略
-具有较长生命周期的大内存使用mmap进行分配（例如说，在初始化给用户分配堆的过程）
-特别大的内存分配使用的是mmap，使用mmap申请的内存在释放后并不会放入bin，而是直接还给操作系统，因为这一部分内存块一般都比较大
-短生命周期的内存分配使用b ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/05/05/bypass-aslr/" title="bypass-aslr"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bypass-aslr"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/05/bypass-aslr/" title="bypass-aslr">bypass-aslr</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-05T02:29:48.000Z" title="发表于 2023-05-05 10:29:48">2023-05-05</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/05/02/cfi-sec/" title="CFI-Sec"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CFI-Sec"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-02T10:21:39.000Z" title="发表于 2023-05-02 18:21:39">2023-05-02</time></span></div><div class="content">Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicis3attqj20zk0m8k7l.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-05 10:29:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-05T10:29:48+08:00">2023-05-05</time>
+  </span>
+</div>
 
-​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）
-​	当前的任何CFI控制流安全策略都需要解决以下几个问题：
+    <h3><a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr">bypass-aslr</a></h3>
+    <div class="excerpt">
+        
+    </div>
+    <a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr" class="btn">more...</a>
+  </div>
+</article>
 
-如何让claimed boundary和real boundary match？
-有些可行的目标组合依然会导致漏洞利用（这不就是DOP么？）
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 18:21:39">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T18:21:39+08:00">2023-05-02</time>
+  </span>
+</div>
 
-然后这个文章后面讲了评估CFI方案好坏的方法，等用到的时候再看
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/05/02/bypass-nx/" title="bypass-NX"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bypass-NX"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/02/bypass-nx/" title="bypass-NX">bypass-NX</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-02T06:56:58.000Z" title="发表于 2023-05-02 14:56:58">2023-05-02</time></span></div><div class="content">Bypass NX（DEP）简介​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的SIGSEGV 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。
+    <h3><a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec">CFI-Sec</a></h3>
+    <div class="excerpt">
+        Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms
+
+​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control...
+    </div>
+    <a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 14:56:58">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T14:56:58+08:00">2023-05-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX">bypass-NX</a></h3>
+    <div class="excerpt">
+        Bypass NX（DEP）简介​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的SIGSEGV 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。
 绕过​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（如果在开启了NX的情况下如何进行单字节溢出的利用）。
-least privilege &amp; seteuid(getuid())
-​	在实际的应用程序中会采用最小特权原则，并且能够进行权限继承，因此，攻击者能够获取与当前程序相同权限的shell，但在程序中可以通过setuid的方式主动放弃不必要的权限。因此，如果想要获得更高权限的shell需要构造以下调用序列：
-seteuid(0)
-system(“sh”)
-exit()
+least...
+    </div>
+    <a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX" class="btn">more...</a>
+  </div>
+</article>
 
-但是存在问题，setuid的参 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/05/02/personal-plan/" title="personal_plan"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="personal_plan"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-02T06:30:16.000Z" title="发表于 2023-05-02 14:30:16">2023-05-02</time></span></div><div class="content">技术路线​	本文用于对当前的栈中的内容和未学习内容进行索引。https://github.com/CHYbeta/Software-Security-Learning
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 14:30:16">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T14:30:16+08:00">2023-05-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan">personal_plan</a></h3>
+    <div class="excerpt">
+        技术路线​	本文用于对当前的栈中的内容和未学习内容进行索引。https://github.com/CHYbeta/Software-Security-Learning
 二进制安全Windows
 SEH机制
-
 
 Linux
 One byte overflow
 
 安卓安全渗透实战后渗透
 
+CTF WP
+    </div>
+    <a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan" class="btn">more...</a>
+  </div>
+</article>
 
-CTF WP</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="one_byte_overflow"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-04-27T11:40:42.000Z" title="发表于 2023-04-27 19:40:42">2023-04-27</time></span></div><div class="content">off-By-One 缓冲区溢出前言​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等。主要参考：https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/
-单字节溢出案例#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/04/27/one-byte-overflow/" itemprop="url" title="one_byte_overflow"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-27 19:40:42">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-27T19:40:42+08:00">2023-04-27</time>
+  </span>
+</div>
 
-void foo(char* arg);
-void bar(char* arg);
+    <h3><a href="/2023/04/27/one-byte-overflow/" itemprop="url" title="one_byte_overflow">one_byte_overflow</a></h3>
+    <div class="excerpt">
+        off-By-One 缓冲区溢出前言​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等。主要参考：https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/
+单字节溢出案例#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
 
-void foo(char* arg) {
- bar(arg); /* [1] */
-}
+void...
+    </div>
+    <a href="/2023/04/27/one-byte-overflow/" itemprop="url" title="one_byte_overflow" class="btn">more...</a>
+  </div>
+</article>
 
-void bar(char* arg) {
- char buf[256];
- strcpy(buf, arg); /* [2] */
-}
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/04/26/stack-based-overflow/" itemprop="url" title="Stack_based_overflow"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciszlczyj20zk0m816d.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-04-26 11:17:43">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-04-26T11:17:43+08:00">2023-04-26</time>
+  </span>
+</div>
 
-int main(int argc, char *argv[]) {
- if(strlen(argv[1])&gt;256) {  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stack_based_overflow"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">Stack_based_overflow</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-04-26T03:17:43.000Z" title="发表于 2023-04-26 11:17:43">2023-04-26</time></span></div><div class="content">随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。
-之所以称之为 ROP，是因为核心在于利用了指令集中的 ret 指令，改变了指令流的执行顺序。ROP 攻击一般得满足如下条件
+    <h3><a href="/2023/04/26/stack-based-overflow/" itemprop="url" title="Stack_based_overflow">Stack_based_overflow</a></h3>
+    <div class="excerpt">
+        随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。
+之所以称之为 ROP，是因为核心在于利用了指令集中的 ret 指令，改变了指令流的执行顺序。ROP...
+    </div>
+    <a href="/2023/04/26/stack-based-overflow/" itemprop="url" title="Stack_based_overflow" class="btn">more...</a>
+  </div>
+</article>
 
-程序存在溢出，并且可以控制返回地址。
-可以找到满足条件的 gadgets 以及相应 gadgets 的地址。
+    </div>
 
-如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。
-ret2text¶原理 ¶ret2text 即控制程序执行程序本身已有的的代码 (.text)。其实，这种攻击方法是一种笼统的描述。我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码 (也就 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">alazymechnaic</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/alazymechnaic"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/libdft64/" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/09/05/libdft64/" title="无题">无题</a><time datetime="2023-09-05T09:14:20.637Z" title="发表于 2023-09-05 17:14:20">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/useful-command/" title="Useful_command"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Useful_command"/></a><div class="content"><a class="title" href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a><time datetime="2023-09-05T07:15:02.000Z" title="发表于 2023-09-05 15:15:02">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/03/libdft/" title="libdft"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="libdft"/></a><div class="content"><a class="title" href="/2023/09/03/libdft/" title="libdft">libdft</a><time datetime="2023-09-03T08:24:26.000Z" title="发表于 2023-09-03 16:24:26">2023-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="afl_fuzz_DIY"/></a><div class="content"><a class="title" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a><time datetime="2023-08-30T08:38:13.000Z" title="发表于 2023-08-30 16:38:13">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sec_paper_list"/></a><div class="content"><a class="title" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a><time datetime="2023-08-22T02:00:57.000Z" title="发表于 2023-08-22 10:00:57">2023-08-22</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/paper/" style="font-size: 1.5em; color: #99a9bf">paper</a> <a href="/tags/clash/" style="font-size: 1.1em; color: #999">clash</a> <a href="/tags/Paper/" style="font-size: 1.1em; color: #999">Paper</a> <a href="/tags/binary/" style="font-size: 1.1em; color: #999">binary</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/bypass/" style="font-size: 1.1em; color: #999">bypass</a> <a href="/tags/fuzz/" style="font-size: 1.1em; color: #999">fuzz</a> <a href="/tags/personal/" style="font-size: 1.1em; color: #999">personal</a> <a href="/tags/kernel-pwn/" style="font-size: 1.1em; color: #999">kernel pwn</a> <a href="/tags/go-RE/" style="font-size: 1.1em; color: #999">go, RE</a> <a href="/tags/pwn/" style="font-size: 1.1em; color: #999">pwn</a> <a href="/tags/HEAP-PWN-CTF/" style="font-size: 1.1em; color: #999">HEAP PWN CTF</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/04/"><span class="card-archive-list-date">四月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">21</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">26.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-09-06T01:44:07.165Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By alazymechnaic</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = true;
-POWERMODE.mobile = false;
-document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+  </div>
+
+  
+  <nav class="pagination">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/"><i class="ic i-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </div>
+  </nav>
+
+
+
+        </div>
+        <div id="sidebar">
+          
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="alazymachine"
+      data-src="/images/myavatar.jpg">
+  <p class="name" itemprop="name">alazymachine</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">21</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">12</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>friends</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/links/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/20/go-reverse/" title="go_reverse">go_reverse</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/bypass-nx/" title="bypass-NX">bypass-NX</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/05/libdft64/" title="未命名">未命名</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">alazymachine @ Alazymachine</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'page/2/',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

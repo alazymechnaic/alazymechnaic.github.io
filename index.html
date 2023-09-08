@@ -1,164 +1,168 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>alazymechnaic - Alazymechnaic&amp;PersonalBlog</title><meta name="author" content="alazymechnaic"><meta name="copyright" content="alazymechnaic"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta property="og:type" content="website">
-<meta property="og:title" content="alazymechnaic">
-<meta property="og:url" content="https://alazymechnaic.github.io/index.html">
-<meta property="og:site_name" content="alazymechnaic">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://avatars.githubusercontent.com/u/36987782?v=4">
-<meta property="article:author" content="alazymechnaic">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/36987782?v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://alazymechnaic.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'alazymechnaic',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2023-09-06 09:44:07'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="alazymachine" href="https://alazymechnaic.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="alazymachine" href="https://alazymechnaic.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="alazymachine" href="https://alazymechnaic.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0">
+
+<link rel="canonical" href="https://alazymechnaic.github.io/">
+
+
+
+  <title>Alazymachine = alazymachine = Alazymachine&PersonalBlog</title>
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/6d9fe552b4cad896fe94cd74913c097a.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="alazymechnaic"><span class="site-name">alazymechnaic</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">alazymechnaic</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/09/05/libdft64/" title="无题"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/05/libdft64/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-05T09:14:20.637Z" title="发表于 2023-09-05 17:14:20">2023-09-05</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/09/05/useful-command/" title="Useful_command"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Useful_command"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-05T07:15:02.000Z" title="发表于 2023-09-05 15:15:02">2023-09-05</time></span></div><div class="content">tar# 打包操作
+</head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+            <a href="/" class="logo" rel="start"><p class="artboard">Alazymachine</p>
+              <h1 itemprop="name headline" class="title">alazymachine</h1>
+            </a>
+            <p class="meta" itemprop="description">= Alazymachine&PersonalBlog =</p>
+          
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Alazymachine</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="index wrap">
+    <h2 class="divider">文章列表</h2>
+    <div class="segments posts">
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/09/05/libdft64/" itemprop="url" title="未命名"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicli9lfebj20zk0m84qp.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-09-05 17:14:20">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-09-05T17:14:20+08:00">2023-09-05</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/09/05/libdft64/" itemprop="url" title="未命名">未命名</a></h3>
+    <div class="excerpt">
+        
+    </div>
+    <a href="/2023/09/05/libdft64/" itemprop="url" title="未命名" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicitzannuj20zk0m8b29.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-09-05 15:15:02">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-09-05T15:15:02+08:00">2023-09-05</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command">Useful_command</a></h3>
+    <div class="excerpt">
+        tar# 打包操作
 tar -cvf archive.tar file1 file2 ...
 
 # -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录
@@ -170,14 +174,31 @@ tar -xvf archive.tar -C target_directory
 du# 查看文件大小用量
 du -sh ./target_file
 
-intel pin# 编译可供32位可执行文件使用的pintool
-make obj-ia32/inscount0.so TARGET=ia32
-# 编译可供64位可执行文件使用的pintool
-make obj-intel64/inscount0.so TARGET=intel64
-# 对目标程序进行插装
-../../../pin -t obj-intel64/inscount0.so -o inscount0.log -- /bin/ls
+intel pin#...
+    </div>
+    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command" class="btn">more...</a>
+  </div>
+</article>
 
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/09/03/libdft/" title="libdft"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="libdft"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/09/03/libdft/" title="libdft">libdft</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-03T08:24:26.000Z" title="发表于 2023-09-03 16:24:26">2023-09-03</time></span></div><div class="content">libdft64https://github.com/AngoraFuzzer/libdft64
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-09-03 16:24:26">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-09-03T16:24:26+08:00">2023-09-03</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/09/03/libdft/" itemprop="url" title="libdft">libdft</a></h3>
+    <div class="excerpt">
+        libdft64https://github.com/AngoraFuzzer/libdft64
 安装踩坑# 设置pin
 进入libdft64中执行 ./install_pin.sh
 # 手动执行
@@ -187,80 +208,206 @@ export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux
 make
 
 使用踩坑# 官方给出的使用方法如下
+    </div>
+    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft" class="btn">more...</a>
+  </div>
+</article>
 
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclga70tsj20zk0m84mr.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-08-30 16:38:13">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-08-30T16:38:13+08:00">2023-08-30</time>
+  </span>
+</div>
 
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="afl_fuzz_DIY"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-30T08:38:13.000Z" title="发表于 2023-08-30 16:38:13">2023-08-30</time></span></div><div class="content">AFL ++
+    <h3><a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY">afl_fuzz_DIY</a></h3>
+    <div class="excerpt">
+        AFL ++
 ​	本文介绍如何利用AFL Plus Plus实现自定义目标的模糊测试。
 Tutorials ： https://github.com/AFLplusplus/AFLplusplus/blob/stable/docs/tutorials.md
 AFL源码阅读// afl-fuzz.h: line 431
 // 该结构用于存储本次afl运行所需要的上下文内容
 typedef struct afl_state {
 /* Position of this state in the global states list */
-  u32 _id;
+u32 _id;
 
-  afl_forkserver_t fsrv;
-  sharedmem_t      shm;
-  sharedmem_t     *shm_fuzz;
-  afl_env_vars_t   afl_env;	
-  //...
-} afl_state_t;
+afl_forkserver_t...
+    </div>
+    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY" class="btn">more...</a>
+  </div>
+</article>
 
-// afl-fuzz-init.c 该函数的目的是使用原始输入执行程序
-void perform_dry_run(afl_state_t *afl) {}
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciukx8a7j20zk0m8aio.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-08-22 10:00:57">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-08-22T10:00:57+08:00">2023-08-22</time>
+  </span>
+</div>
 
-// afl-f ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/08/22/sec-paper-list/" title="Sec_paper_list"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sec_paper_list"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-22T02:00:57.000Z" title="发表于 2023-08-22 10:00:57">2023-08-22</time></span></div><div class="content">安全相关论文及博客汇总
+    <h3><a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list">Sec_paper_list</a></h3>
+    <div class="excerpt">
+        安全相关论文及博客汇总
 安全会议
-NDSS：  https://www.ndss-symposium.org/ndss2023/accepted-papers/
+NDSS： https://www.ndss-symposium.org/ndss2023/accepted-papers/
 ACM CCS： https://www.sigsac.org/ccs/CCS2023/
 USENIX：https://www.usenix.org/conference/usenixsecurity23/
-S&amp;P: https://www.ieee-security.org/TC/SP2023/program-papers.html
+S&amp;amp;P:...
+    </div>
+    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list" class="btn">more...</a>
+  </div>
+</article>
 
-更新活跃的安全媒体
-先知社区：https://xz.aliyun.com/
-安全客：https://www.anquanke.com/
-360 核心安全技术博客：https://blogs.360.net/
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclwrdwyaj20zk0m8are.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-08-21 14:40:17">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-08-21T14:40:17+08:00">2023-08-21</time>
+  </span>
+</div>
 
-技术博客
-知道创宇：https://paper.seebug.org/
-棱角社区：https://forum.ywhack.com/forum-59-1.html
-奇安信攻防社区：https://forum.butian.net/community/all/newest
-
-Per ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AEG_reviwer"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer">AEG_reviwer</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-21T06:40:17.000Z" title="发表于 2023-08-21 14:40:17">2023-08-21</time></span></div><div class="content">Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs
+    <h3><a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer">AEG_reviwer</a></h3>
+    <div class="excerpt">
+        Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs
 文章贡献：
 
-提出了primitive-crucialbehaviors analysis  ，该方法用于在符号执行过程中查找关键执行结构
+提出了primitive-crucialbehaviors analysis ，该方法用于在符号执行过程中查找关键执行结构
 利用模糊测试和符号执行设计了一套攻击原语确定方法
 设计DEPA方法用于检测堆溢出相关原语
 
 文章提出了一种新的堆溢出漏洞原语的查找方法DEPA，基于以下两种技术：
 
-primitive-crucial-behavior analysis module 
-该模块对目标程序进行符号执行，在执行过程中进行primitive-crucial-behavior analysis（关键原语行为分析）
-primitive-crucial-behavior   ：实现原语的关键结构，此类结构往往与程序语义以及系统API有关
-如何精准识别这些结构？
-如何利用该结构进行漏洞的发现？
+primitive-crucial-behavior analysis...
+    </div>
+    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer" class="btn">more...</a>
+  </div>
+</article>
 
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giclh5u05ej20zk0m87df.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-08-03 23:22:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-08-03T23:22:19+08:00">2023-08-03</time>
+  </span>
+</div>
 
+    <h3><a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework">android_framework</a></h3>
+    <div class="excerpt">
+        
+    </div>
+    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework" class="btn">more...</a>
+  </div>
+</article>
 
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipexj2jgzj20zk0m8b09.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-20 19:50:06">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-20T19:50:06+08:00">2023-07-20</time>
+  </span>
+</div>
 
-exploit primitive determination method  ：
-
-事件循环驱动（even ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/08/03/android-framework/" title="android_framework"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="android_framework"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/08/03/android-framework/" title="android_framework">android_framework</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-08-03T15:22:19.000Z" title="发表于 2023-08-03 23:22:19">2023-08-03</time></span></div><div class="content"></div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/07/20/go-reverse/" title="go_reverse"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="go_reverse"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/20/go-reverse/" title="go_reverse">go_reverse</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-20T11:50:06.000Z" title="发表于 2023-07-20 19:50:06">2023-07-20</time></span></div><div class="content">GO  reverse
+    <h3><a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse">go_reverse</a></h3>
+    <div class="excerpt">
+        GO reverse
 简介​	GO语言是谷歌开发的强类型静态静态语言，其编译出的汇编代码与 C/ C++语言存在极大的差异。本身Go在编译过程中将所有的库函数和第三方包都进行了静态的打包操作，还打包进去了自身的runtime和（Garbage Collection， 垃圾回收）模块部分代码，导致其编译后的二进制文件体积十分庞大，存在较大的分析难度。
 Go语言特性
 独有的数据表示方式： 例如String类型使用，（start_address，length）二元组进行表示，导致其在进行函数调用时，传入的内容由原本C中的字符串地址变为了两个参数。
-独有的栈管理机制：Go语言中的栈使用continue stack机制，每个runtime在初始状态下分配一个较小的区域当做栈，每次运行时如果栈不够用了就再申请一个更大的栈，将旧栈中的内容复制进去。
-全静态链接：程序中并不按照函数名对库函数进行动态使用，而是进行全静态链接，在没有调试信息和符号表的情况下调试难度很大
-独有的函数调用机制：Go语言函数中的callee的栈空间由caller来进行管理，caller在进入callee之前预先将栈中把参数留 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/07/20/android-basic/" title="Android_Basic"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android_Basic"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-20T11:07:47.000Z" title="发表于 2023-07-20 19:07:47">2023-07-20</time></span></div><div class="content">本文用于介绍安卓基础架构以及安卓安全的学习方法及路线
+独有的栈管理机制：Go语言中的栈使用continue...
+    </div>
+    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gicitspjpbj20zk0m81ky.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-20 19:07:47">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-20T19:07:47+08:00">2023-07-20</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic">Android_Basic</a></h3>
+    <div class="excerpt">
+        本文用于介绍安卓基础架构以及安卓安全的学习方法及路线
 采用课程与笔记相结合的方式
 移动安全课程
 看完这些课程就行，每天一节，方便以后找工作
 https://www.bilibili.com/video/BV1nb411f777/?spm_id_from=333.337.search-card.all.click
 https://www.bilibili.com/video/BV1t3411u7cp/?spm_id_from=333.337.search-card.all.click
+    </div>
+    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic" class="btn">more...</a>
+  </div>
+</article>
 
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giph4baakhj20zk0m8h5q.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-14 10:14:42">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-14T10:14:42+08:00">2023-07-14</time>
+  </span>
+</div>
 
-
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/07/14/clash-build/" title="clash_build"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="clash_build"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/14/clash-build/" title="clash_build">clash_build</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-14T02:14:42.000Z" title="发表于 2023-07-14 10:14:42">2023-07-14</time></span></div><div class="content">Clash Install
+    <h3><a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build">clash_build</a></h3>
+    <div class="excerpt">
+        Clash Install
 # 下载clash
 wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz
 # 解压
@@ -270,40 +417,342 @@ sudo mkdir /opt/clash
 sudo mv clash /opt/clash
 cd /opt/clash
 # 下载配置文件
-sudo wget https://github.com/Dreamacro/maxmind-geoip/releases/download/20230612/Country.mmdb
-# config.yaml中存放的是
-# 这里的配置文件需要clash的订阅文件，可以在客户端里找到
-mv /home/harry/1688348600374.yml ./config.yaml 
-./clash -f config.yaml
-# 保证clash后台运行
-cp Country.mmdb config.yam ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/07/13/kernel-pwn/" title="kernel_pwn"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="kernel_pwn"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/13/kernel-pwn/" title="kernel_pwn">kernel_pwn</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-13T12:41:24.000Z" title="发表于 2023-07-13 20:41:24">2023-07-13</time></span></div><div class="content">Kernel PWN
+sudo wget...
+    </div>
+    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1giciundwu5j20zk0m8n9e.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-13 20:41:24">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-13T20:41:24+08:00">2023-07-13</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn">kernel_pwn</a></h3>
+    <div class="excerpt">
+        Kernel PWN
 
 内核保护技术
-SMAP/SMEP: 
+SMAP/SMEP:
 
 arm里面叫PXN(Privilege Execute Never)和PAN(Privileged Access Never)。
 SMAP(Supervisor Mode Access Prevention，管理模式访问保护): 禁止内核访问用户空间数据
 SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内核访问用户代码区域
-使用cat /proc/cpuinfo指令查看当前程序中存在的SMAP/SMEP功能是否支持，win8之后开始支持SMEP，并且在RC4中设置适当的位来表示应该强制执行SMEP，可以通过ROP或者jmp到一个RWX的内核地址来绕过。linux内核从3.0开始支持SMEP，3.7开始支持SMAP。
+使用cat...
+    </div>
+    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn" class="btn">more...</a>
+  </div>
+</article>
 
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack"><img data-src="https://tva1.sinaimg.cn/mw690/6833939bly1gipeuibk9fj20zk0m8ay2.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-07-04 17:09:42">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-07-04T17:09:42+08:00">2023-07-04</time>
+  </span>
+</div>
 
-ret2User: 在没有SMAP/SMEP保护的情况下将内核指针重定向到用户空间进行漏洞利用
-ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/07/04/bopc-data-only-attack/" title="BOPC_Data_Only_Attack"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BOPC_Data_Only_Attack"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/07/04/bopc-data-only-attack/" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-07-04T09:09:42.000Z" title="发表于 2023-07-04 17:09:42">2023-07-04</time></span></div><div class="content">Block Oriented Programming: Automating Data-Only Attacks
+    <h3><a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a></h3>
+    <div class="excerpt">
+        Block Oriented Programming: Automating Data-Only Attacks
 目的： 能够依照代码块组指出包含特定语义的结构。构造出了一种自己的语言SPL，生成SPL payload来组织成特定的语义。
-前提： 一个任意内存写原语（能够向任意位置中写入任意值），一个任意内存读原语（可选），以及执行完上述两个原语后自然到达的位置。（其实本质上来讲改文章的贡献在于如何充分利用给一个AWP(任意内存写原语)
-流程：
+前提：...
+    </div>
+    <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack" class="btn">more...</a>
+  </div>
+</article>
 
-BOPC提供了一个面向exploit编程的语言SPL，使分析人员能够定义一个独立于目标问题和底层架构的exploit
-在目标程序中搜索相应的功能块作为基本块
-搜索Dispatcher块用于将各个功能块链接在一起
-依照AWP构造出相应的BOP链的payload
+    </div>
 
-关键技术：
-Block Oriented Programming：
+  </div>
 
-BOP链由表示一条SPL语义的BOP gadget和链接这些BOP gadget的DIspatcher组成
-将每个基本块抽象为块约束摘要便于与SPL语言的一一对应。但是由于进入该块的时候上下文的不同，每一个块可能会表 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/36987782?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">alazymechnaic</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/alazymechnaic"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/libdft64/" title="无题"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/09/05/libdft64/" title="无题">无题</a><time datetime="2023-09-05T09:14:20.637Z" title="发表于 2023-09-05 17:14:20">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/05/useful-command/" title="Useful_command"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Useful_command"/></a><div class="content"><a class="title" href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a><time datetime="2023-09-05T07:15:02.000Z" title="发表于 2023-09-05 15:15:02">2023-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/03/libdft/" title="libdft"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="libdft"/></a><div class="content"><a class="title" href="/2023/09/03/libdft/" title="libdft">libdft</a><time datetime="2023-09-03T08:24:26.000Z" title="发表于 2023-09-03 16:24:26">2023-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="afl_fuzz_DIY"/></a><div class="content"><a class="title" href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a><time datetime="2023-08-30T08:38:13.000Z" title="发表于 2023-08-30 16:38:13">2023-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sec_paper_list"/></a><div class="content"><a class="title" href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a><time datetime="2023-08-22T02:00:57.000Z" title="发表于 2023-08-22 10:00:57">2023-08-22</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/paper/" style="font-size: 1.5em; color: #99a9bf">paper</a> <a href="/tags/clash/" style="font-size: 1.1em; color: #999">clash</a> <a href="/tags/Paper/" style="font-size: 1.1em; color: #999">Paper</a> <a href="/tags/binary/" style="font-size: 1.1em; color: #999">binary</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/bypass/" style="font-size: 1.1em; color: #999">bypass</a> <a href="/tags/fuzz/" style="font-size: 1.1em; color: #999">fuzz</a> <a href="/tags/personal/" style="font-size: 1.1em; color: #999">personal</a> <a href="/tags/kernel-pwn/" style="font-size: 1.1em; color: #999">kernel pwn</a> <a href="/tags/go-RE/" style="font-size: 1.1em; color: #999">go, RE</a> <a href="/tags/pwn/" style="font-size: 1.1em; color: #999">pwn</a> <a href="/tags/HEAP-PWN-CTF/" style="font-size: 1.1em; color: #999">HEAP PWN CTF</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/07/"><span class="card-archive-list-date">七月 2023</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/06/"><span class="card-archive-list-date">六月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/04/"><span class="card-archive-list-date">四月 2023</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">21</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">26.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-09-06T01:44:07.165Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By alazymechnaic</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = true;
-POWERMODE.mobile = false;
-document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+  
+  <nav class="pagination">
+    <div class="inner">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    </div>
+  </nav>
+
+
+
+        </div>
+        <div id="sidebar">
+          
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="alazymachine"
+      data-src="/images/myavatar.jpg">
+  <p class="name" itemprop="name">alazymachine</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">21</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">12</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>friends</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/links/" rel="section"><i class="ic i-magic"></i>links</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/page/2/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/05/bypass-aslr/" title="bypass-aslr">bypass-aslr</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">alazymachine @ Alazymachine</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '',
+    favicon: {
+      show: "（●´3｀●）やれやれだぜ",
+      hide: "(´Д｀)大変だ！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

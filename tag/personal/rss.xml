@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;personal&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Tue, 02 May 2023 14:30:16 +0800</pubDate>
+        <lastBuildDate>Tue, 02 May 2023 14:30:16 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>HEAP PWN CTF</category>
+        <category>pwn</category>
+        <category>Linux</category>
+        <category>Paper</category>
+        <category>fuzz</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>personal</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/02/personal-plan/</guid>
+            <title>personal_plan</title>
+            <link>https://alazymechnaic.github.io/2023/05/02/personal-plan/</link>
+            <category>personal</category>
+            <pubDate>Tue, 02 May 2023 14:30:16 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;技术路线&#34;&gt;&lt;a href=&#34;#技术路线&#34; class=&#34;headerlink&#34; title=&#34;技术路线&#34;&gt;&lt;/a&gt;技术路线&lt;/h1&gt;&lt;p&gt;​	本文用于对当前的栈中的内容和未学习内容进行索引。&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0NIWWJldGEvU29mdHdhcmUtU2VjdXJpdHktTGVhcm5pbmc=&#34;&gt;https://github.com/CHYbeta/Software-Security-Learning&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二进制安全&#34;&gt;&lt;a href=&#34;#二进制安全&#34; class=&#34;headerlink&#34; title=&#34;二进制安全&#34;&gt;&lt;/a&gt;二进制安全&lt;/h2&gt;&lt;h3 id=&#34;Windows&#34;&gt;&lt;a href=&#34;#Windows&#34; class=&#34;headerlink&#34; title=&#34;Windows&#34;&gt;&lt;/a&gt;Windows&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SEH机制&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;Linux&#34;&gt;&lt;a href=&#34;#Linux&#34; class=&#34;headerlink&#34; title=&#34;Linux&#34;&gt;&lt;/a&gt;Linux&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;One byte overflow&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;安卓安全&#34;&gt;&lt;a href=&#34;#安卓安全&#34; class=&#34;headerlink&#34; title=&#34;安卓安全&#34;&gt;&lt;/a&gt;安卓安全&lt;/h2&gt;&lt;h2 id=&#34;渗透实战&#34;&gt;&lt;a href=&#34;#渗透实战&#34; class=&#34;headerlink&#34; title=&#34;渗透实战&#34;&gt;&lt;/a&gt;渗透实战&lt;/h2&gt;&lt;h3 id=&#34;后渗透&#34;&gt;&lt;a href=&#34;#后渗透&#34; class=&#34;headerlink&#34; title=&#34;后渗透&#34;&gt;&lt;/a&gt;后渗透&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;CTF-WP&#34;&gt;&lt;a href=&#34;#CTF-WP&#34; class=&#34;headerlink&#34; title=&#34;CTF WP&#34;&gt;&lt;/a&gt;CTF WP&lt;/h2&gt; ]]></description>
+        </item>
+    </channel>
+</rss>

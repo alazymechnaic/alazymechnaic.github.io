@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;linux&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-09-05T07:15:02.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/09/05/useful-command/</id>
+        <title>Useful_command</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/05/useful-command/"/>
+        <content type="html">&lt;h2 id=&#34;tar&#34;&gt;&lt;a href=&#34;#tar&#34; class=&#34;headerlink&#34; title=&#34;tar&#34;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 打包操作&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-cvf&lt;/span&gt; archive.tar file1 file2 &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.
+
+&lt;span class=&#34;token comment&#34;&gt;# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录&lt;/span&gt;
+
+&lt;span class=&#34;token comment&#34;&gt;# 解包操作&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-xvf&lt;/span&gt; archive.tar
+&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-xvf&lt;/span&gt; archive.tar &lt;span class=&#34;token parameter variable&#34;&gt;-C&lt;/span&gt; target_directory&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;du&#34;&gt;&lt;a href=&#34;#du&#34; class=&#34;headerlink&#34; title=&#34;du&#34;&gt;&lt;/a&gt;du&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看文件大小用量&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;du&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-sh&lt;/span&gt; ./target_file&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;intel-pin&#34;&gt;&lt;a href=&#34;#intel-pin&#34; class=&#34;headerlink&#34; title=&#34;intel pin&#34;&gt;&lt;/a&gt;intel pin&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 编译可供32位可执行文件使用的pintool&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;make&lt;/span&gt; obj-ia32/inscount0.so &lt;span class=&#34;token assign-left variable&#34;&gt;TARGET&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;ia32
+&lt;span class=&#34;token comment&#34;&gt;# 编译可供64位可执行文件使用的pintool&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;make&lt;/span&gt; obj-intel64/inscount0.so &lt;span class=&#34;token assign-left variable&#34;&gt;TARGET&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;intel64
+&lt;span class=&#34;token comment&#34;&gt;# 对目标程序进行插装&lt;/span&gt;
+&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/pin &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; obj-intel64/inscount0.so &lt;span class=&#34;token parameter variable&#34;&gt;-o&lt;/span&gt; inscount0.log -- /bin/ls&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+</content>
+        <category term="Linux" />
+        <updated>2023-09-05T07:15:02.000Z</updated>
+    </entry>
+</feed>

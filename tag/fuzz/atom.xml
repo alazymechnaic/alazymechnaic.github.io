@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;fuzz&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-08-30T08:38:13.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/08/30/afl-fuzz-diy/</id>
+        <title>afl_fuzz_DIY</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/30/afl-fuzz-diy/"/>
+        <content type="html">&lt;h1 id=&#34;AFL&#34;&gt;&lt;a href=&#34;#AFL&#34; class=&#34;headerlink&#34; title=&#34;AFL ++&#34;&gt;&lt;/a&gt;AFL ++&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;​	本文介绍如何利用AFL Plus Plus实现自定义目标的模糊测试。&lt;/p&gt;
+&lt;p&gt;Tutorials ： &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL0FGTHBsdXNwbHVzL0FGTHBsdXNwbHVzL2Jsb2Ivc3RhYmxlL2RvY3MvdHV0b3JpYWxzLm1k&#34;&gt;https://github.com/AFLplusplus/AFLplusplus/blob/stable/docs/tutorials.md&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;AFL源码阅读&#34;&gt;&lt;a href=&#34;#AFL源码阅读&#34; class=&#34;headerlink&#34; title=&#34;AFL源码阅读&#34;&gt;&lt;/a&gt;AFL源码阅读&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;// afl-fuzz.h: line 431&lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;// 该结构用于存储本次afl运行所需要的上下文内容&lt;/span&gt;
+&lt;span class=&#34;token keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;afl_state&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;/* Position of this state in the global states list */&lt;/span&gt;
+  u32 _id&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+
+  &lt;span class=&#34;token class-name&#34;&gt;afl_forkserver_t&lt;/span&gt; fsrv&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token class-name&#34;&gt;sharedmem_t&lt;/span&gt;      shm&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token class-name&#34;&gt;sharedmem_t&lt;/span&gt;     &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;shm_fuzz&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token class-name&#34;&gt;afl_env_vars_t&lt;/span&gt;   afl_env&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;	
+  &lt;span class=&#34;token comment&#34;&gt;//...&lt;/span&gt;
+&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;afl_state_t&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;token comment&#34;&gt;// afl-fuzz-init.c 该函数的目的是使用原始输入执行程序&lt;/span&gt;
+&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;perform_dry_run&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;afl_state_t&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;afl&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;token comment&#34;&gt;// afl-forkserver.c &lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;// 该函数用于进行子程序的执行&lt;/span&gt;
+&lt;span class=&#34;token class-name&#34;&gt;fsrv_run_result_t&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;__attribute__&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;hot&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;token function&#34;&gt;afl_fsrv_run_target&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;afl_forkserver_t&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;fsrv&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; u32 timeout&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;
+                    &lt;span class=&#34;token keyword&#34;&gt;volatile&lt;/span&gt; u8 &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;stop_soon_p&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+</content>
+        <category term="fuzz" />
+        <updated>2023-08-30T08:38:13.000Z</updated>
+    </entry>
+</feed>

@@ -1,1152 +1,2455 @@
-document.addEventListener("DOMContentLoaded", function () {
-  volantis.requestAnimationFrame(() => {
-    VolantisApp.init();
-    VolantisApp.subscribe();
-    VolantisFancyBox.init();
-    highlightKeyWords.startFromURL();
-    locationHash();
+var CONFIG = {"version":"0.2.5","hostname":"https://alazymechnaic.github.io","root":"/","statics":"/","favicon":{"normal":"images/favicon.ico","hidden":"images/failure.ico"},"darkmode":false,"auto_scroll":true,"js":{"valine":"gh/amehime/MiniValine@4.2.2-beta10/dist/MiniValine.min.js","chart":"npm/frappe-charts@1.5.0/dist/frappe-charts.min.iife.min.js","copy_tex":"npm/katex@0.12.0/dist/contrib/copy-tex.min.js","fancybox":"combine/npm/jquery@3.5.1/dist/jquery.min.js,npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js,npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"},"css":{"valine":"css/comment.css","katex":"npm/katex@0.12.0/dist/katex.min.css","mermaid":"css/mermaid.css","fancybox":"combine/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css,npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"},"loader":{"start":true,"switch":true},"search":null,"valine":{"appId":null,"appKey":null,"placeholder":"ヽ(○´∀`)ﾉ♪","avatar":"mp","pageSize":10,"lang":"en","visitor":true,"NoRecordIP":false,"serverURLs":null,"powerMode":true,"tagMeta":{"visitor":"新朋友","master":"主人","friend":"小伙伴","investor":"金主粑粑"},"tagColor":{"master":"var(--color-orange)","friend":"var(--color-aqua)","investor":"var(--color-pink)"},"tagMember":{"master":null,"friend":null,"investor":null}},"quicklink":{"timeout":3000,"priority":true},"fireworks":["rgba(255,182,185,.9)","rgba(250,227,217,.9)","rgba(187,222,214,.9)","rgba(138,198,209,.9)"]};const getRndInteger = function (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const getDocHeight = function () {
+  return $('main > .inner').offsetHeight;
+}
+
+const getScript = function(url, callback, condition) {
+  if (condition) {
+    callback();
+  } else {
+    var script = document.createElement('script');
+    script.onload = script.onreadystatechange = function(_, isAbort) {
+      if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+        script.onload = script.onreadystatechange = null;
+        script = undefined;
+        if (!isAbort && callback) setTimeout(callback, 0);
+      }
+    };
+    script.src = url;
+    document.head.appendChild(script);
+  }
+}
+
+const assetUrl = function(asset, type) {
+  var str = CONFIG[asset][type]
+  if(str.indexOf('npm')>-1||str.indexOf('gh')>-1||str.indexOf('combine')>-1)
+    return "//cdn.jsdelivr.net/" + str
+
+  if(str.indexOf('http')>-1)
+    return str
+
+  return statics + str;
+}
+
+const vendorJs = function(type, callback, condition) {
+  if(LOCAL[type]) {
+    getScript(assetUrl("js", type), callback || function(){
+      window[type] = true;
+    }, condition || window[type]);
+  }
+}
+
+const vendorCss = function(type, condition) {
+  if(window['css'+type])
+    return;
+
+  if(LOCAL[type]) {
+
+    document.head.createChild('link', {
+      rel: 'stylesheet',
+      href: assetUrl("css", type)
+    });
+
+    window['css'+type] = true;
+  }
+}
+
+const pjaxScript = function(element) {
+  var code = element.text || element.textContent || element.innerHTML || '';
+  var parent = element.parentNode;
+  parent.removeChild(element);
+  var script = document.createElement('script');
+  if (element.id) {
+    script.id = element.id;
+  }
+  if (element.className) {
+    script.className = element.className;
+  }
+  if (element.type) {
+    script.type = element.type;
+  }
+  if (element.src) {
+    script.src = element.src;
+    // Force synchronous loading of peripheral JS.
+    script.async = false;
+  }
+  if (element.dataset.pjax !== undefined) {
+    script.dataset.pjax = '';
+  }
+  if (code !== '') {
+    script.appendChild(document.createTextNode(code));
+  }
+  parent.appendChild(script);
+}
+
+const pageScroll = function(target, offset, complete) {
+  var opt = {
+    targets: typeof offset == 'number' ? target.parentNode : document.scrollingElement,
+    duration: 500,
+    easing: "easeInOutQuad",
+    scrollTop: offset || (typeof target == 'number' ? target : (target ? target.top() + document.documentElement.scrollTop - siteNavHeight : 0)),
+    complete: function() {
+      complete && complete()
+    }
+  }
+  anime(opt);
+}
+
+const transition = function(target, type, complete) {
+  var animation = {}
+  var display = 'none'
+  switch(type) {
+    case 0:
+      animation = {opacity: [1, 0]}
+    break;
+    case 1:
+      animation = {opacity: [0, 1]}
+      display = 'block'
+    break;
+    case 'bounceUpIn':
+      animation = {
+        begin: function(anim) {
+          target.display('block')
+        },
+        translateY: [
+          { value: -60, duration: 200 },
+          { value: 10, duration: 200 },
+          { value: -5, duration: 200 },
+          { value: 0, duration: 200 }
+        ],
+        opacity: [0, 1]
+      }
+      display = 'block'
+    break;
+    case 'shrinkIn':
+      animation = {
+        begin: function(anim) {
+          target.display('block')
+        },
+        scale: [
+          { value: 1.1, duration: 300 },
+          { value: 1, duration: 200 }
+        ],
+        opacity: 1
+      }
+      display = 'block'
+    break;
+    case 'slideRightIn':
+      animation = {
+        begin: function(anim) {
+          target.display('block')
+        },
+        translateX: [100, 0],
+        opacity: [0, 1]
+      }
+      display = 'block'
+    break;
+    case 'slideRightOut':
+      animation = {
+        translateX: [0, 100],
+        opacity: [1, 0]
+      }
+    break;
+    default:
+      animation = type
+      display = type.display
+    break;
+  }
+  anime(Object.assign({
+    targets: target,
+    duration: 200,
+    easing: 'linear'
+  }, animation)).finished.then(function() {
+      target.display(display)
+      complete && complete()
+    });
+}
+
+const store = {
+  get: function(item) {
+    return localStorage.getItem(item);
+  },
+  set: function(item, str) {
+    localStorage.setItem(item, str);
+    return str;
+  },
+  del: function(item) {
+    localStorage.removeItem(item);
+  }
+}
+const $ = function(selector, element) {
+  element = element || document;
+  if(selector.indexOf('#') === 0) {
+    return element.getElementById(selector.replace('#', ''))
+  }
+  return element.querySelector(selector)
+};
+
+$.all = function(selector, element) {
+  element = element || document;
+  return element.querySelectorAll(selector)
+};
+
+$.each = function(selector, callback, element) {
+  return $.all(selector, element).forEach(callback)
+}
+
+
+Object.assign(HTMLElement.prototype, {
+  createChild: function(tag, obj, positon) {
+    var child = document.createElement(tag);
+    Object.assign(child, obj)
+    switch(positon) {
+      case 'after':
+        this.insertAfter(child)
+        break;
+      case 'replace':
+        this.innerHTML = ""
+      default:
+        this.appendChild(child)
+    }
+    return child
+  },
+  wrap: function (obj) {
+    var box = document.createElement('div');
+    Object.assign(box, obj)
+    this.parentNode.insertBefore(box, this);
+    this.parentNode.removeChild(this);
+    box.appendChild(this);
+  },
+  height: function(h) {
+    if(h) {
+      this.style.height = typeof h == 'number' ? h + 'rem' : h;
+    }
+    return this.getBoundingClientRect().height
+  },
+  width: function(w) {
+    if(w) {
+      this.style.width = typeof w == 'number' ? w + 'rem' : w;
+    }
+    return this.getBoundingClientRect().width
+  },
+  top: function() {
+    return this.getBoundingClientRect().top
+  },
+  left:function() {
+    return this.getBoundingClientRect().left
+  },
+  attr: function(type, value) {
+    if(value === null) {
+      return this.removeAttribute(type)
+    }
+
+    if(value) {
+      this.setAttribute(type, value)
+      return this
+    } else {
+      return this.getAttribute(type)
+    }
+  },
+  insertAfter: function(element) {
+    var parent = this.parentNode;
+    if(parent.lastChild == this){
+        parent.appendChild(element);
+    }else{
+        parent.insertBefore(element, this.nextSibling);
+    }
+  },
+  display: function(d) {
+    if(d == null) {
+      return this.style.display
+    } else {
+      this.style.display = d;
+      return this
+    }
+  },
+  child: function(selector) {
+    return $(selector, this)
+  },
+  find: function(selector) {
+    return $.all(selector, this)
+  },
+  _class: function(type, className, display) {
+    var classNames = className.indexOf(' ') ?  className.split(' ') : [className];
+    var that = this;
+    classNames.forEach(function(name) {
+      if(type == 'toggle') {
+        that.classList.toggle(name, display)
+      } else {
+        that.classList[type](name)
+      }
+    })
+  },
+  addClass: function(className) {
+    this._class('add', className);
+    return this;
+  },
+  removeClass: function(className) {
+    this._class('remove', className);
+    return this;
+  },
+  toggleClass: function(className, display) {
+    this._class('toggle', className, display);
+    return this;
+  },
+  hasClass: function(className) {
+    return this.classList.contains(className)
+  }
+});
+var NOWPLAYING = null
+const isMobile = /mobile/i.test(window.navigator.userAgent);
+const mediaPlayer = function(t, config) {
+  var option = {
+    type: 'audio',
+    mode: 'random',
+    btns: ['play-pause', 'music'],
+    controls: ['mode', 'backward', 'play-pause', 'forward', 'volume'],
+    events: {
+      "play-pause": function(event) {
+          if(source.paused) {
+            t.player.play()
+          } else {
+            t.player.pause()
+          }
+      },
+      "music": function(event) {
+        if(info.el.hasClass('show')) {
+          info.hide()
+        } else {
+          info.el.addClass('show');
+          playlist.scroll().title()
+        }
+      }
+    }
+  }, utils = {
+    random: function(len) {
+      return Math.floor((Math.random()*len))
+    },
+    parse: function(link) {
+      var result = [];
+      [
+        ['music.163.com.*song.*id=(\\d+)', 'netease', 'song'],
+        ['music.163.com.*album.*id=(\\d+)', 'netease', 'album'],
+        ['music.163.com.*artist.*id=(\\d+)', 'netease', 'artist'],
+        ['music.163.com.*playlist.*id=(\\d+)', 'netease', 'playlist'],
+        ['music.163.com.*discover/toplist.*id=(\\d+)', 'netease', 'playlist'],
+        ['y.qq.com.*song/(\\w+).html', 'tencent', 'song'],
+        ['y.qq.com.*album/(\\w+).html', 'tencent', 'album'],
+        ['y.qq.com.*singer/(\\w+).html', 'tencent', 'artist'],
+        ['y.qq.com.*playsquare/(\\w+).html', 'tencent', 'playlist'],
+        ['y.qq.com.*playlist/(\\w+).html', 'tencent', 'playlist'],
+        ['xiami.com.*song/(\\w+)', 'xiami', 'song'],
+        ['xiami.com.*album/(\\w+)', 'xiami', 'album'],
+        ['xiami.com.*artist/(\\w+)', 'xiami', 'artist'],
+        ['xiami.com.*collect/(\\w+)', 'xiami', 'playlist'],
+      ].forEach(function(rule) {
+        var patt = new RegExp(rule[0])
+        var res = patt.exec(link)
+        if (res !== null) {
+          result = [rule[1], rule[2], res[1]]
+        }
+      })
+      return result
+    },
+    fetch: function(source) {
+      var list = []
+
+      return new Promise(function(resolve, reject) {
+        source.forEach(function(raw) {
+          var meta = utils.parse(raw)
+          if(meta[0]) {
+            var skey = JSON.stringify(meta)
+            var playlist = store.get(skey)
+            if(playlist) {
+              list.push.apply(list, JSON.parse(playlist));
+              resolve(list);
+            } else {
+              fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
+                .then(function(response) {
+                  return response.json()
+                }).then(function(json) {
+                  store.set(skey, JSON.stringify(json))
+                  list.push.apply(list, json);
+                  resolve(list);
+                }).catch(function(ex) {})
+            }
+          } else {
+            list.push(raw);
+            resolve(list);
+          }
+        })
+      })
+    },
+    secondToTime: function(second) {
+      var add0 = function(num) {
+        return isNaN(num) ? '00' : (num < 10 ? '0' + num : '' + num)
+      };
+      var hour = Math.floor(second / 3600);
+      var min = Math.floor((second - hour * 3600) / 60);
+      var sec = Math.floor(second - hour * 3600 - min * 60);
+      return (hour > 0 ? [hour, min, sec] : [min, sec]).map(add0).join(':');
+    },
+    nameMap: {
+      dragStart: isMobile ? 'touchstart' : 'mousedown',
+      dragMove: isMobile ? 'touchmove' : 'mousemove',
+      dragEnd: isMobile ? 'touchend' : 'mouseup',
+    }
+  }, source = null;
+
+  t.player = {
+    _id: utils.random(999999),
+    group: true,
+    // 加载播放列表
+    load: function(newList) {
+      var d = ""
+      var that = this
+
+      if(newList && newList.length > 0) {
+        if(this.options.rawList !== newList) {
+          this.options.rawList = newList;
+          playlist.clear()
+          // 获取新列表
+          //this.fetch()
+        }
+      } else {
+        // 没有列表时，隐藏按钮
+        d = "none"
+        this.pause()
+      }
+      for(var el in buttons.el) {
+        buttons.el[el].display(d)
+      }
+      return this
+    },
+    fetch: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+          if(playlist.data.length > 0) {
+            resolve()
+          } else {
+            if(that.options.rawList) {
+              var promises = [];
+
+              that.options.rawList.forEach(function(raw, index) {
+                promises.push(new Promise(function(resolve, reject) {
+                  var group = index
+                  var source
+                  if(!raw.list) {
+                    group = 0
+                    that.group = false
+                    source = [raw]
+                  } else {
+                    that.group = true
+                    source = raw.list
+                  }
+                  utils.fetch(source).then(function(list) {
+                    playlist.add(group, list)
+                    resolve()
+                  })
+                }))
+              })
+
+              Promise.all(promises).then(function() {
+                resolve(true)
+              })
+            }
+          }
+        }).then(function(c) {
+          if(c) {
+            playlist.create()
+            controller.create()
+            that.mode()
+          }
+        })
+    },
+    // 根据模式切换当前曲目index
+    mode: function() {
+      var total = playlist.data.length;
+
+      if(!total || playlist.errnum == total)
+        return;
+
+      var step = controller.step == 'next' ? 1 : -1
+
+      var next = function() {
+        var index = playlist.index + step
+        if(index > total || index < 0) {
+          index = controller.step == 'next' ? 0 : total-1;
+        }
+        playlist.index = index;
+      }
+
+      var random = function() {
+        var p = utils.random(total)
+        if(playlist.index !== p) {
+          playlist.index = p
+        } else {
+          next()
+        }
+      }
+
+      switch (this.options.mode) {
+        case 'random':
+          random()
+          break;
+        case 'order':
+          next()
+          break;
+        case 'loop':
+          if(controller.step)
+            next()
+
+          if(playlist.index == -1)
+            random()
+          break;
+      }
+
+      this.init()
+    },
+    // 直接设置当前曲目index
+    switch: function(index) {
+      if(typeof index == 'number'
+        && index != playlist.index
+        && playlist.current()
+        && !playlist.current().error) {
+        playlist.index = index;
+        this.init()
+      }
+    },
+    // 更新source为当前曲目index
+    init: function() {
+      var item = playlist.current()
+
+      if(!item || item['error']) {
+        this.mode();
+        return;
+      }
+
+      var playing = false;
+      if(!source.paused) {
+        playing = true
+        this.stop()
+      }
+
+      source.attr('src', item.url);
+      source.attr('title', item.name + ' - ' + item.artist);
+      this.volume(store.get('_PlayerVolume') || '0.7')
+      this.muted(store.get('_PlayerMuted'))
+
+      progress.create()
+
+      if(this.options.type == 'audio')
+        preview.create()
+
+      if(playing == true) {
+        this.play()
+      }
+    },
+    play: function() {
+      NOWPLAYING && NOWPLAYING.player.pause()
+
+      if(playlist.current().error) {
+        this.mode();
+        return;
+      }
+      var that = this
+      source.play().then(function() {
+        playlist.scroll()
+      }).catch(function(e) {});
+    },
+    pause: function() {
+      source.pause()
+      document.title = originTitle
+    },
+    stop: function() {
+      source.pause();
+      source.currentTime = 0;
+      document.title = originTitle;
+    },
+    seek: function(time) {
+      time = Math.max(time, 0)
+      time = Math.min(time, source.duration)
+      source.currentTime = time;
+      progress.update(time / source.duration)
+    },
+    muted: function(status) {
+      if(status == 'muted') {
+        source.muted = status
+        store.set('_PlayerMuted', status)
+        controller.update(0)
+      } else {
+        store.del('_PlayerMuted')
+        source.muted = false
+        controller.update(source.volume)
+      }
+    },
+    volume: function(percentage) {
+      if (!isNaN(percentage)) {
+        controller.update(percentage)
+        store.set('_PlayerVolume', percentage)
+        source.volume = percentage
+      }
+    },
+    mini: function() {
+      info.hide()
+    }
+  };
+
+  var info = {
+    el: null,
+    create: function() {
+      if(this.el)
+        return;
+
+      this.el = t.createChild('div', {
+        className: 'player-info',
+        innerHTML: (t.player.options.type == 'audio' ? '<div class="preview"></div>' : '') + '<div class="controller"></div><div class="playlist"></div>'
+      }, 'after');
+
+      preview.el = this.el.child(".preview");
+      playlist.el = this.el.child(".playlist");
+      controller.el = this.el.child(".controller");
+    },
+    hide: function() {
+      var el = this.el
+      el.addClass('hide');
+      window.setTimeout(function() {
+        el.removeClass('show hide')
+      }, 300);
+    }
+  }
+
+  var playlist = {
+    el: null,
+    data: [],
+    index: -1,
+    errnum: 0,
+    add: function(group, list) {
+      var that = this
+      list.forEach(function(item, i) {
+        item.group = group;
+        item.name = item.name || item.title || 'Meida name';
+        item.artist = item.artist || item.author || 'Anonymous';
+        item.cover = item.cover || item.pic;
+        item.type = item.type || 'normal';
+
+        that.data.push(item);
+      });
+    },
+    clear: function() {
+      this.data = []
+      this.el.innerHTML = ""
+
+      if(this.index !== -1) {
+        this.index = -1
+        t.player.fetch()
+      }
+    },
+    create: function() {
+      var el = this.el
+
+      this.data.map(function(item, index) {
+        if(item.el)
+          return
+
+        var id = 'list-' + t.player._id + '-'+item.group
+        var tab = $('#' + id)
+        if(!tab) {
+          tab = el.createChild('div', {
+            id: id,
+            className: t.player.group ?'tab':'',
+            innerHTML: '<ol></ol>',
+          })
+          if(t.player.group) {
+            tab.attr('data-title', t.player.options.rawList[item.group]['title'])
+                .attr('data-id', t.player._id)
+          }
+        }
+
+        item.el = tab.child('ol').createChild('li', {
+          title: item.name + ' - ' + item.artist,
+          innerHTML: '<span class="info"><span>'+item.name+'</span><span>'+item.artist+'</span></span>',
+          onclick: function(event) {
+            var current = event.currentTarget;
+            if(playlist.index === index && progress.el) {
+              if(source.paused) {
+                t.player.play();
+              } else {
+                t.player.seek(source.duration * progress.percent(event, current))
+              }
+              return;
+            }
+            t.player.switch(index);
+            t.player.play();
+          }
+        })
+
+        return item
+      })
+
+      tabFormat()
+    },
+    current: function() {
+      return this.data[this.index]
+    },
+    scroll: function() {
+      var item = this.current()
+      var li = this.el.child('li.active')
+      li && li.removeClass('active')
+      var tab = this.el.child('.tab.active')
+      tab && tab.removeClass('active')
+      li = this.el.find('.nav li')[item.group]
+      li && li.addClass('active')
+      tab = this.el.find('.tab')[item.group]
+      tab && tab.addClass('active')
+
+      pageScroll(item.el, item.el.offsetTop)
+
+      return this
+    },
+    title: function() {
+      if(source.paused)
+        return
+
+      var current = this.current()
+      document.title = 'Now Playing...' + current['name'] + ' - ' + current['artist'] + ' | ' + originTitle;
+    },
+    error: function() {
+      var current = this.current()
+      current.el.removeClass('current').addClass('error')
+      current.error = true
+      this.errnum++
+    }
+  }
+
+  var lyrics = {
+    el: null,
+    data: null,
+    index: 0,
+    create: function(box) {
+      var current = playlist.index
+      var that = this
+      var raw = playlist.current().lrc
+
+      var callback = function(body) {
+        if(current !== playlist.index)
+          return;
+
+        that.data = that.parse(body)
+
+        var lrc = ''
+        that.data.forEach(function(line, index) {
+          lrc += '<p'+(index===0?' class="current"':'')+'>'+line[1]+'</p>';
+        })
+
+        that.el = box.createChild('div', {
+          className: 'inner',
+          innerHTML: lrc
+        }, 'replace')
+
+        that.index = 0;
+      }
+
+      if(raw.startsWith('http'))
+        this.fetch(raw, callback)
+      else
+        callback(raw)
+    },
+    update: function(currentTime) {
+      if(!this.data)
+        return
+
+      if (this.index > this.data.length - 1 || currentTime < this.data[this.index][0] || (!this.data[this.index + 1] || currentTime >= this.data[this.index + 1][0])) {
+        for (var i = 0; i < this.data.length; i++) {
+          if (currentTime >= this.data[i][0] && (!this.data[i + 1] || currentTime < this.data[i + 1][0])) {
+            this.index = i;
+            var y = -(this.index-1);
+            this.el.style.transform = 'translateY('+y+'rem)';
+            this.el.style.webkitTransform = 'translateY('+y+'rem)';
+            this.el.getElementsByClassName('current')[0].removeClass('current');
+            this.el.getElementsByTagName('p')[i].addClass('current');
+          }
+        }
+      }
+    },
+    parse: function(lrc_s) {
+      if (lrc_s) {
+          lrc_s = lrc_s.replace(/([^\]^\n])\[/g, function(match, p1){return p1 + '\n['});
+          const lyric = lrc_s.split('\n');
+          var lrc = [];
+          const lyricLen = lyric.length;
+          for (var i = 0; i < lyricLen; i++) {
+              // match lrc time
+              const lrcTimes = lyric[i].match(/\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/g);
+              // match lrc text
+              const lrcText = lyric[i]
+                  .replace(/.*\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/g, '')
+                  .replace(/<(\d{2}):(\d{2})(\.(\d{2,3}))?>/g, '')
+                  .replace(/^\s+|\s+$/g, '');
+
+              if (lrcTimes) {
+                  // handle multiple time tag
+                  const timeLen = lrcTimes.length;
+                  for (var j = 0; j < timeLen; j++) {
+                      const oneTime = /\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/.exec(lrcTimes[j]);
+                      const min2sec = oneTime[1] * 60;
+                      const sec2sec = parseInt(oneTime[2]);
+                      const msec2sec = oneTime[4] ? parseInt(oneTime[4]) / ((oneTime[4] + '').length === 2 ? 100 : 1000) : 0;
+                      const lrcTime = min2sec + sec2sec + msec2sec;
+                      lrc.push([lrcTime, lrcText]);
+                  }
+              }
+          }
+          // sort by time
+          lrc = lrc.filter(function(item){return item[1]});
+          lrc.sort(function(a, b){return a[0] - b[0]});
+          return lrc;
+      } else {
+          return [];
+      }
+    },
+    fetch: function(url, callback) {
+      fetch(url)
+          .then(function(response) {
+            return response.text()
+          }).then(function(body) {
+            callback(body)
+          }).catch(function(ex) {})
+    }
+  }
+
+  var preview = {
+    el: null,
+    create: function () {
+      var current = playlist.current()
+
+      this.el.innerHTML = '<div class="cover"><div class="disc"><img src="'+(current.cover)+'" class="blur" /></div></div>'
+      + '<div class="info"><h4 class="title">'+current.name+'</h4><span>'+current.artist+'</span>'
+      + '<div class="lrc"></div></div>'
+
+      this.el.child('.cover').addEventListener('click', t.player.options.events['play-pause'])
+
+      lyrics.create(this.el.child('.lrc'))
+    }
+  }
+
+  var progress = {
+    el: null,
+    bar: null,
+    create: function() {
+      var current = playlist.current().el
+
+      if(current) {
+
+        if(this.el) {
+          this.el.parentNode.removeClass('current')
+            .removeEventListener(utils.nameMap.dragStart, this.drag)
+          this.el.remove()
+        }
+
+        this.el = current.createChild('div', {
+          className: 'progress'
+        })
+
+        this.el.attr('data-dtime', utils.secondToTime(0))
+
+        this.bar = this.el.createChild('div', {
+          className: 'bar',
+        })
+
+        current.addClass('current')
+
+        current.addEventListener(utils.nameMap.dragStart, this.drag);
+
+        playlist.scroll()
+      }
+    },
+    update: function(percent) {
+      this.bar.width(Math.floor(percent * 100) + '%')
+      this.el.attr('data-ptime', utils.secondToTime(percent * source.duration))
+    },
+    seeking: function(type) {
+      if(type)
+        this.el.addClass('seeking')
+      else
+        this.el.removeClass('seeking')
+    },
+    percent: function(e, el) {
+      var percentage = ((e.clientX || e.changedTouches[0].clientX) - el.left()) / el.width();
+      percentage = Math.max(percentage, 0);
+      return Math.min(percentage, 1)
+    },
+    drag: function(e) {
+      e.preventDefault()
+
+      var current = playlist.current().el
+
+      var thumbMove = function(e) {
+        e.preventDefault()
+        var percentage = progress.percent(e, current)
+        progress.update(percentage)
+        lyrics.update(percentage * source.duration);
+      };
+
+      var thumbUp = function(e) {
+        e.preventDefault()
+        current.removeEventListener(utils.nameMap.dragEnd, thumbUp)
+        current.removeEventListener(utils.nameMap.dragMove, thumbMove)
+        var percentage = progress.percent(e, current)
+        progress.update(percentage)
+        t.player.seek(percentage * source.duration)
+        source.disableTimeupdate = false
+        progress.seeking(false)
+      };
+
+      source.disableTimeupdate = true
+      progress.seeking(true)
+      current.addEventListener(utils.nameMap.dragMove, thumbMove)
+      current.addEventListener(utils.nameMap.dragEnd, thumbUp)
+    }
+  }
+
+  var controller = {
+    el: null,
+    btns: {},
+    step: 'next',
+    create: function () {
+      if(!t.player.options.controls)
+        return
+
+      var that = this
+      t.player.options.controls.forEach(function(item) {
+        if(that.btns[item])
+          return;
+
+        var opt = {
+          onclick: function(event){
+            that.events[item] ? that.events[item](event) : t.player.options.events[item](event)
+          }
+        }
+
+        switch(item) {
+          case 'volume':
+            opt.className = ' ' + (source.muted ? 'off' : 'on')
+            opt.innerHTML = '<div class="bar"></div>'
+            opt['on'+utils.nameMap.dragStart] = that.events['volume']
+            opt.onclick = null
+            break;
+          case 'mode':
+            opt.className = ' ' + t.player.options.mode
+            break;
+          default:
+            opt.className = ''
+            break;
+        }
+
+        opt.className = item + opt.className + ' btn'
+
+        that.btns[item] = that.el.createChild('div', opt)
+      })
+
+      that.btns['volume'].bar = that.btns['volume'].child('.bar')
+    },
+    events: {
+      mode: function(e) {
+        switch(t.player.options.mode) {
+          case 'loop':
+            t.player.options.mode = 'random'
+            break;
+          case 'random':
+            t.player.options.mode = 'order'
+            break;
+          default:
+            t.player.options.mode = 'loop'
+        }
+
+        controller.btns['mode'].className = 'mode ' + t.player.options.mode + ' btn'
+        store.set('_PlayerMode', t.player.options.mode)
+      },
+      volume: function(e) {
+        e.preventDefault()
+
+        var current = e.currentTarget
+
+        var drag = false
+
+        var thumbMove = function(e) {
+          e.preventDefault()
+          t.player.volume(controller.percent(e, current))
+          drag = true
+        };
+
+        var thumbUp = function(e) {
+          e.preventDefault()
+          current.removeEventListener(utils.nameMap.dragEnd, thumbUp)
+          current.removeEventListener(utils.nameMap.dragMove, thumbMove)
+          if(drag) {
+            t.player.muted()
+            t.player.volume(controller.percent(e, current))
+          } else {
+            if (source.muted) {
+              t.player.muted()
+              t.player.volume(source.volume)
+            } else {
+              t.player.muted('muted')
+              controller.update(0)
+            }
+          }
+        };
+
+        current.addEventListener(utils.nameMap.dragMove, thumbMove)
+        current.addEventListener(utils.nameMap.dragEnd, thumbUp)
+      },
+      backward: function(e) {
+        controller.step = 'prev'
+        t.player.mode()
+      },
+      forward: function(e) {
+        controller.step = 'next'
+        t.player.mode()
+      },
+    },
+    update: function(percent) {
+      controller.btns['volume'].className = 'volume '+ (!source.muted && percent > 0? 'on' :'off') +' btn'
+      controller.btns['volume'].bar.width(Math.floor(percent * 100) + '%')
+    },
+    percent: function(e, el) {
+      var percentage = ((e.clientX || e.changedTouches[0].clientX) - el.left()) / el.width();
+      percentage = Math.max(percentage, 0);
+      return Math.min(percentage, 1);
+    }
+  }
+
+  var events = {
+    onerror: function() {
+      playlist.error()
+      t.player.mode()
+    },
+    ondurationchange: function() {
+      if (source.duration !== 1) {
+        progress.el.attr('data-dtime', utils.secondToTime(source.duration))
+      }
+    },
+    onloadedmetadata: function() {
+      t.player.seek(0)
+      progress.el.attr('data-dtime', utils.secondToTime(source.duration))
+    },
+    onplay: function() {
+      t.parentNode.addClass('playing')
+      showtip(this.attr('title'))
+      NOWPLAYING = t
+    },
+    onpause: function() {
+      t.parentNode.removeClass('playing')
+      NOWPLAYING = null
+    },
+    ontimeupdate: function() {
+      if(!this.disableTimeupdate) {
+        progress.update(this.currentTime / this.duration)
+        lyrics.update(this.currentTime)
+      }
+    },
+    onended: function(argument) {
+      t.player.mode()
+      t.player.play()
+    }
+  }
+
+  var buttons = {
+    el: {},
+    create: function() {
+      if(!t.player.options.btns)
+        return
+
+      var that = this
+      t.player.options.btns.forEach(function(item) {
+        if(that.el[item])
+          return;
+
+        that.el[item] = t.createChild('div', {
+            className: item + ' btn',
+            onclick: function(event){
+              t.player.fetch().then(function() {
+                t.player.options.events[item](event)
+              })
+            }
+          });
+      });
+    }
+  }
+
+  var init = function(config) {
+    if(t.player.created)
+      return;
+
+
+    t.player.options = Object.assign(option, config);
+    t.player.options.mode = store.get('_PlayerMode') || t.player.options.mode
+
+    // 初始化button、controls以及click事件
+    buttons.create()
+
+    // 初始化audio or video
+    source = t.createChild(t.player.options.type, events);
+    // 初始化播放列表、预览、控件按钮等
+    info.create();
+
+    t.parentNode.addClass(t.player.options.type)
+
+    t.player.created = true;
+  }
+
+  init(config)
+
+  return t;
+}
+var statics = CONFIG.statics.indexOf('//') > 0 ? CONFIG.statics : CONFIG.root
+var scrollAction = { x: 'undefined', y: 'undefined' };
+var diffY = 0;
+var originTitle, titleTime;
+
+const BODY = document.getElementsByTagName('body')[0];
+const HTML = document.documentElement;
+const Container = $('#container');
+const loadCat = $('#loading');
+const siteNav = $('#nav');
+const siteHeader = $('#header');
+const menuToggle = siteNav.child('.toggle');
+const quickBtn = $('#quick');
+const sideBar = $('#sidebar');
+const siteBrand = $('#brand');
+var toolBtn = $('#tool'), toolPlayer, backToTop, goToComment, showContents;
+var siteSearch = $('#search');
+var siteNavHeight, headerHightInner, headerHight;
+var oWinHeight = window.innerHeight;
+var oWinWidth = window.innerWidth;
+var LOCAL_HASH = 0, LOCAL_URL = window.location.href;
+var pjax;
+const lazyload = lozad('img, [data-background-image]', {
+    loaded: function(el) {
+        el.addClass('lozaded');
+    }
+})
+
+const Loader = {
+  timer: null,
+  lock: false,
+  show: function() {
+    clearTimeout(this.timer);
+    document.body.removeClass('loaded');
+    loadCat.attr('style', 'display:block');
+    Loader.lock = false;
+  },
+  hide: function(sec) {
+    if(!CONFIG.loader.start)
+      sec = -1
+    this.timer = setTimeout(this.vanish, sec||3000);
+  },
+  vanish: function() {
+    if(Loader.lock)
+      return;
+    if(CONFIG.loader.start)
+      transition(loadCat, 0)
+    document.body.addClass('loaded');
+    Loader.lock = true;
+  }
+}
+
+const changeTheme = function(type) {
+  var btn = $('.theme .ic')
+  if(type == 'dark') {
+    HTML.attr('data-theme', type);
+    btn.removeClass('i-sun')
+    btn.addClass('i-moon')
+  } else {
+    HTML.attr('data-theme', null);
+    btn.removeClass('i-moon');
+    btn.addClass('i-sun');
+  }
+}
+
+const changeMetaTheme = function(color) {
+  if(HTML.attr('data-theme') == 'dark')
+    color = '#222'
+
+  $('meta[name="theme-color"]').attr('content', color);
+}
+
+const themeColorListener = function () {
+  window.matchMedia('(prefers-color-scheme: dark)').addListener(function(mediaQueryList) {
+    if(mediaQueryList.matches){
+      changeTheme('dark');
+    } else {
+      changeTheme();
+    }
   });
+
+  var t = store.get('theme');
+  if(t) {
+    changeTheme(t);
+  } else {
+    if(CONFIG.darkmode) {
+      changeTheme('dark');
+    }
+  }
+
+  $('.theme').addEventListener('click', function(event) {
+    var btn = event.currentTarget.child('.ic')
+
+    var neko = BODY.createChild('div', {
+      id: 'neko',
+      innerHTML: '<div class="planet"><div class="sun"></div><div class="moon"></div></div><div class="body"><div class="face"><section class="eyes left"><span class="pupil"></span></section><section class="eyes right"><span class="pupil"></span></section><span class="nose"></span></div></div>'
+    });
+
+    var hideNeko = function() {
+        transition(neko, {
+          delay: 2500,
+          opacity: 0
+        }, function() {
+          BODY.removeChild(neko)
+        });
+    }
+
+    if(btn.hasClass('i-sun')) {
+      var c = function() {
+          neko.addClass('dark');
+          changeTheme('dark');
+          store.set('theme', 'dark');
+          hideNeko();
+        }
+    } else {
+      neko.addClass('dark');
+      var c = function() {
+          neko.removeClass('dark');
+          changeTheme();
+          store.set('theme', 'light');
+          hideNeko();
+        }
+    }
+    transition(neko, 1, function() {
+      setTimeout(c, 210)
+    })
+  });
+}
+
+const visibilityListener = function () {
+  document.addEventListener('visibilitychange', function() {
+    switch(document.visibilityState) {
+      case 'hidden':
+        $('[rel="icon"]').attr('href', statics + CONFIG.favicon.hidden);
+        document.title = LOCAL.favicon.hide;
+        if(CONFIG.loader.switch)
+          Loader.show()
+        clearTimeout(titleTime);
+      break;
+      case 'visible':
+        $('[rel="icon"]').attr('href', statics + CONFIG.favicon.normal);
+        document.title = LOCAL.favicon.show;
+        if(CONFIG.loader.switch)
+          Loader.hide(1000)
+        titleTime = setTimeout(function () {
+          document.title = originTitle;
+        }, 2000);
+      break;
+    }
+  });
+}
+
+const showtip = function(msg) {
+  if(!msg)
+    return
+
+  var tipbox = BODY.createChild('div', {
+    innerHTML: msg,
+    className: 'tip'
+  });
+
+  setTimeout(function() {
+    tipbox.addClass('hide')
+    setTimeout(function() {
+      BODY.removeChild(tipbox);
+    }, 300);
+  }, 3000);
+}
+
+const resizeHandle = function (event) {
+  siteNavHeight = siteNav.height();
+  headerHightInner = siteHeader.height();
+  headerHight = headerHightInner + $('#waves').height();
+
+  if(oWinWidth != window.innerWidth)
+    sideBarToggleHandle(null, 1);
+
+  oWinHeight = window.innerHeight;
+  oWinWidth = window.innerWidth;
+  sideBar.child('.panels').height(oWinHeight + 'px')
+}
+
+const scrollHandle = function (event) {
+  var winHeight = window.innerHeight;
+  var docHeight = getDocHeight();
+  var contentVisibilityHeight = docHeight > winHeight ? docHeight - winHeight : document.body.scrollHeight - winHeight;
+  var SHOW = window.pageYOffset > headerHightInner;
+  var startScroll = window.pageYOffset > 0;
+
+  if (SHOW) {
+    changeMetaTheme('#FFF');
+  } else {
+    changeMetaTheme('#222');
+  }
+
+  siteNav.toggleClass('show', SHOW);
+  toolBtn.toggleClass('affix', startScroll);
+  siteBrand.toggleClass('affix', startScroll);
+  sideBar.toggleClass('affix', window.pageYOffset > headerHight && document.body.offsetWidth > 991);
+
+  if (typeof scrollAction.y == 'undefined') {
+    scrollAction.y = window.pageYOffset;
+    //scrollAction.x = Container.scrollLeft;
+    //scrollAction.y = Container.scrollTop;
+  }
+  //var diffX = scrollAction.x - Container.scrollLeft;
+  diffY = scrollAction.y - window.pageYOffset;
+
+  //if (diffX < 0) {
+  // Scroll right
+  //} else if (diffX > 0) {
+  // Scroll left
+  //} else
+  if (diffY < 0) {
+    // Scroll down
+    siteNav.removeClass('up')
+    siteNav.toggleClass('down', SHOW);
+  } else if (diffY > 0) {
+    // Scroll up
+    siteNav.removeClass('down')
+    siteNav.toggleClass('up', SHOW);
+  } else {
+    // First scroll event
+  }
+  //scrollAction.x = Container.scrollLeft;
+  scrollAction.y = window.pageYOffset;
+
+  var scrollPercent = Math.round(Math.min(100 * window.pageYOffset / contentVisibilityHeight, 100)) + '%';
+  backToTop.child('span').innerText = scrollPercent;
+  $('.percent').width(scrollPercent);
+}
+
+const pagePosition = function() {
+  if(CONFIG.auto_scroll)
+    store.set(LOCAL_URL, scrollAction.y)
+}
+
+const positionInit = function(comment) {
+  var anchor = window.location.hash
+  var target = null;
+  if(LOCAL_HASH) {
+    store.del(LOCAL_URL);
+    return
+  }
+
+  if(anchor)
+    target = $(decodeURI(anchor))
+  else {
+    target = CONFIG.auto_scroll ? parseInt(store.get(LOCAL_URL)) : 0
+  }
+
+  if(target) {
+    pageScroll(target);
+    LOCAL_HASH = 1;
+  }
+
+  if(comment && anchor && !LOCAL_HASH) {
+    pageScroll(target);
+    LOCAL_HASH = 1;
+  }
+
+}
+
+const clipBoard = function(str, callback) {
+  var ta = BODY.createChild('textarea', {
+    style: {
+      top: window.scrollY + 'px', // Prevent page scrolling
+      position: 'absolute',
+      opacity: '0'
+    },
+    readOnly: true,
+    value: str
+  });
+
+  const selection = document.getSelection();
+  const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+  ta.select();
+  ta.setSelectionRange(0, str.length);
+  ta.readOnly = false;
+  var result = document.execCommand('copy');
+  callback && callback(result);
+  ta.blur(); // For iOS
+  if (selected) {
+    selection.removeAllRanges();
+    selection.addRange(selected);
+  }
+  BODY.removeChild(ta);
+}
+
+const sideBarToggleHandle = function (event, force) {
+  if(sideBar.hasClass('on')) {
+    sideBar.removeClass('on');
+    menuToggle.removeClass('close');
+    if(force) {
+      sideBar.style = '';
+    } else {
+      transition(sideBar, 'slideRightOut');
+    }
+  } else {
+    if(force) {
+      sideBar.style = '';
+    } else {
+      transition(sideBar, 'slideRightIn', function () {
+          sideBar.addClass('on');
+          menuToggle.addClass('close');
+        });
+    }
+  }
+}
+
+const sideBarTab = function () {
+  var sideBarInner = sideBar.child('.inner');
+  var panels = sideBar.find('.panel');
+
+  if(sideBar.child('.tab')) {
+    sideBarInner.removeChild(sideBar.child('.tab'));
+  }
+
+  var list = document.createElement('ul'), active = 'active';
+  list.className = 'tab';
+
+  ['contents', 'related', 'overview'].forEach(function (item) {
+    var element = sideBar.child('.panel.' + item)
+
+    if(element.innerHTML.replace(/(^\s*)|(\s*$)/g, "").length < 1) {
+      if(item == 'contents') {
+        showContents.display("none")
+      }
+      return;
+    }
+
+    if(item == 'contents') {
+      showContents.display("")
+    }
+
+    var tab = document.createElement('li')
+    var span = document.createElement('span')
+    var text = document.createTextNode(element.attr('data-title'));
+    span.appendChild(text);
+    tab.appendChild(span);
+    tab.addClass(item + ' item');
+
+    if(active) {
+      element.addClass(active);
+      tab.addClass(active);
+    } else {
+      element.removeClass('active');
+    }
+
+    tab.addEventListener('click', function (element) {
+      var target = event.currentTarget;
+      if (target.hasClass('active'))
+        return;
+
+      sideBar.find('.tab .item').forEach(function (element) {
+        element.removeClass('active')
+      });
+
+      sideBar.find('.panel').forEach(function (element) {
+        element.removeClass('active')
+      });
+
+      sideBar.child('.panel.' + target.className.replace(' item', '')).addClass('active');
+
+      target.addClass('active');
+    });
+
+    list.appendChild(tab);
+    active = '';
+  });
+
+  if (list.childNodes.length > 1) {
+    sideBarInner.insertBefore(list, sideBarInner.childNodes[0]);
+    sideBar.child('.panels').style.paddingTop = ''
+  } else {
+    sideBar.child('.panels').style.paddingTop = '.625rem'
+  }
+}
+
+const sidebarTOC = function () {
+  var navItems = $.all('.contents li');
+
+  if (navItems.length < 1) {
+    return;
+  }
+
+  var sections = Array.prototype.slice.call(navItems) || [];
+  var activeLock = null;
+
+  sections = sections.map(function (element, index) {
+    var link = element.child('a.toc-link');
+    var anchor = $(decodeURI(link.attr('href')));
+    if(!anchor)
+      return
+    var alink = anchor.child('a.anchor');
+
+    var anchorScroll = function (event) {
+      event.preventDefault();
+      var target = $(decodeURI(event.currentTarget.attr('href')));
+
+      activeLock = index;
+      pageScroll(target, null, function() {
+          activateNavByIndex(index)
+          activeLock = null
+        })
+    };
+
+    // TOC item animation navigate.
+    link.addEventListener('click', anchorScroll);
+    alink && alink.addEventListener('click', function(event) {
+      anchorScroll(event)
+      clipBoard(CONFIG.hostname + '/' + LOCAL.path + event.currentTarget.attr('href'))
+    });
+    return anchor;
+  });
+
+  var tocElement = sideBar.child('.contents.panel');
+
+  var activateNavByIndex = function (index, lock) {
+    var target = navItems[index]
+
+    if (!target)
+      return;
+
+    if (target.hasClass('current')) {
+      return;
+    }
+
+    $.each('.toc .active', function (element) {
+      element && element.removeClass('active current');
+    });
+
+    sections.forEach(function (element) {
+      element && element.removeClass('active');
+    });
+
+    target.addClass('active current');
+    sections[index] && sections[index].addClass('active');
+
+    var parent = target.parentNode;
+
+    while (!parent.matches('.contents')) {
+      if (parent.matches('li')) {
+        parent.addClass('active');
+        var t = $(parent.child('a.toc-link').attr('href'))
+        if(t) {
+          t.addClass('active');
+        }
+      }
+      parent = parent.parentNode;
+    }
+    // Scrolling to center active TOC element if TOC content is taller then viewport.
+    if(getComputedStyle(sideBar).display != 'none' && tocElement.hasClass('active')) {
+      pageScroll(tocElement, target.offsetTop- (tocElement.offsetHeight / 4))
+    }
+  }
+
+  var findIndex = function(entries) {
+    var index = 0;
+    var entry = entries[index];
+
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  var createIntersectionObserver = function() {
+    if (!window.IntersectionObserver)
+      return
+
+    var observer = new IntersectionObserver(function (entries, observe) {
+      var index = findIndex(entries) + (diffY < 0? 1 : 0);
+      if(activeLock === null) {
+        activateNavByIndex(index);
+      }
+    }, {
+      rootMargin: '0px 0px -100% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(function (element) {
+      element && observer.observe(element);
+    });
+  }
+
+  createIntersectionObserver();
+}
+
+const backToTopHandle = function () {
+  pageScroll(0);
+}
+
+const goToBottomHandle = function () {
+  pageScroll(parseInt(Container.height()));
+}
+
+const goToCommentHandle = function () {
+  pageScroll($('#comments'));
+}
+
+const menuActive = function () {
+  $.each('.menu .item:not(.title)', function (element) {
+    var target = element.child('a[href]');
+    var parentItem = element.parentNode.parentNode;
+    if (!target) return;
+    var isSamePath = target.pathname === location.pathname || target.pathname === location.pathname.replace('index.html', '');
+    var isSubPath = !CONFIG.root.startsWith(target.pathname) && location.pathname.startsWith(target.pathname);
+    var active = target.hostname === location.hostname && (isSamePath || isSubPath)
+    element.toggleClass('active', active);
+    if(element.parentNode.child('.active') && parentItem.hasClass('dropdown')) {
+      parentItem.removeClass('active').addClass('expand');
+    } else {
+      parentItem.removeClass('expand');
+    }
+  });
+}
+const cardActive = function() {
+  if(!$('.index.wrap'))
+    return
+
+  if (!window.IntersectionObserver) {
+    $.each('.index.wrap article.item, .index.wrap section.item', function(article) {
+      if( article.hasClass("show") === false){
+          article.addClass("show");
+      }
+    })
+  } else {
+    var io = new IntersectionObserver(function(entries) {
+
+        entries.forEach(function(article) {
+          if (article.target.hasClass("show")) {
+            io.unobserve(article.target)
+          } else {
+            if (article.isIntersecting || article.intersectionRatio > 0) {
+              article.target.addClass("show");
+              io.unobserve(article.target);
+            }
+          }
+        })
+    }, {
+        root: null,
+        threshold: [0.3]
+    });
+
+    $.each('.index.wrap article.item, .index.wrap section.item', function(article) {
+      io.observe(article)
+    })
+
+    $('.index.wrap .item:first-child').addClass("show")
+  }
+
+  $.each('.cards .item', function(element, index) {
+    ['mouseenter', 'touchstart'].forEach(function(item){
+      element.addEventListener(item, function(event) {
+        if($('.cards .item.active')) {
+          $('.cards .item.active').removeClass('active')
+        }
+        element.addClass('active')
+      })
+    });
+    ['mouseleave'].forEach(function(item){
+      element.addEventListener(item, function(event) {
+        element.removeClass('active')
+      })
+    });
+  });
+}
+
+const registerExtURL = function() {
+  $.each('span.exturl', function(element) {
+      var link = document.createElement('a');
+      // https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings
+      link.href = decodeURIComponent(atob(element.dataset.url).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      link.rel = 'noopener external nofollow noreferrer';
+      link.target = '_blank';
+      link.className = element.className;
+      link.title = element.title || element.innerText;
+      link.innerHTML = element.innerHTML;
+      if(element.dataset.backgroundImage) {
+        link.dataset.backgroundImage = element.dataset.backgroundImage;
+      }
+      element.parentNode.replaceChild(link, element);
+    });
+}
+
+const postFancybox = function(p) {
+  if($(p + ' .md img')) {
+    vendorCss('fancybox');
+    vendorJs('fancybox', function() {
+      var q = jQuery.noConflict();
+
+      $.each(p + ' p.gallery', function(element) {
+        var box = document.createElement('div');
+        box.className = 'gallery';
+        box.attr('data-height', element.attr('data-height')||220);
+
+        box.innerHTML = element.innerHTML.replace(/<br>/g, "")
+
+        element.parentNode.insertBefore(box, element);
+        element.remove();
+      });
+
+      $.each(p + ' .md img:not(.emoji):not(.vemoji)', function(element) {
+        var $image = q(element);
+        var info, captionClass = 'image-info';
+        if(!$image.is('a img')) {
+          var imageLink = $image.attr('data-src') || $image.attr('src');
+          $image.data('safe-src', imageLink)
+          var $imageWrapLink = $image.wrap('<a class="fancybox" href="'+imageLink+'" itemscope itemtype="http://schema.org/ImageObject" itemprop="url"></a>').parent('a');
+          if (!$image.is('.gallery img')) {
+            $imageWrapLink.attr('data-fancybox', 'default').attr('rel', 'default');
+          } else {
+            captionClass = 'jg-caption'
+          }
+        }
+        if(info = element.attr('title')) {
+          $imageWrapLink.attr('data-caption', info);
+          var para = document.createElement('span');
+          var txt = document.createTextNode(info);
+          para.appendChild(txt);
+          para.addClass(captionClass);
+          element.insertAfter(para);
+        }
+      });
+
+      $.each(p + ' div.gallery', function (el, i) {
+        q(el).justifiedGallery({rowHeight: q(el).data('height')||120, rel: 'gallery-' + i}).on('jg.complete', function () {
+          q(this).find('a').each(function(k, ele) {
+            ele.attr('data-fancybox', 'gallery-' + i);
+          });
+        });
+      });
+
+      q.fancybox.defaults.hash = false;
+      q(p + ' .fancybox').fancybox({
+        loop   : true,
+        helpers: {
+          overlay: {
+            locked: false
+          }
+        }
+      });
+    }, window.jQuery);
+  }
+}
+
+const postBeauty = function () {
+  loadComments();
+
+  if(!$('.md'))
+    return
+
+  postFancybox('.post.block');
+
+  $('.post.block').oncopy = function(event) {
+    showtip(LOCAL.copyright)
+
+    if(LOCAL.nocopy) {
+      event.preventDefault()
+      return
+    }
+
+    var copyright = $('#copyright')
+    if(window.getSelection().toString().length > 30 && copyright) {
+      event.preventDefault();
+      var author = "# " + copyright.child('.author').innerText
+      var link = "# " + copyright.child('.link').innerText
+      var license = "# " + copyright.child('.license').innerText
+      var htmlData = author + "<br>" + link + "<br>" + license + "<br><br>" + window.getSelection().toString().replace(/\r\n/g, "<br>");;
+      var textData = author + "\n" + link + "\n" + license + "\n\n" + window.getSelection().toString().replace(/\r\n/g, "\n");
+      if (event.clipboardData) {
+          event.clipboardData.setData("text/html", htmlData);
+          event.clipboardData.setData("text/plain", textData);
+      } else if (window.clipboardData) {
+          return window.clipboardData.setData("text", textData);
+      }
+    }
+  }
+
+  $.each('li ruby', function(element) {
+    var parent = element.parentNode;
+    if(element.parentNode.tagName != 'LI') {
+      parent = element.parentNode.parentNode;
+    }
+    parent.addClass('ruby');
+  })
+
+  $.each('ol[start]', function(element) {
+    element.style.counterReset = "counter " + parseInt(element.attr('start') - 1)
+  })
+
+  $.each('.md table', function (element) {
+    element.wrap({
+      className: 'table-container'
+    });
+  });
+
+  $.each('.highlight > .table-container', function (element) {
+    element.className = 'code-container'
+  });
+
+  $.each('figure.highlight', function (element) {
+
+    var code_container = element.child('.code-container');
+    var caption = element.child('figcaption');
+
+    element.insertAdjacentHTML('beforeend', '<div class="operation"><span class="breakline-btn"><i class="ic i-align-left"></i></span><span class="copy-btn"><i class="ic i-clipboard"></i></span><span class="fullscreen-btn"><i class="ic i-expand"></i></span></div>');
+
+    var copyBtn = element.child('.copy-btn');
+    if(LOCAL.nocopy) {
+      copyBtn.remove()
+    } else {
+      copyBtn.addEventListener('click', function (event) {
+        var target = event.currentTarget;
+        var comma = '', code = '';
+        code_container.find('pre').forEach(function(line) {
+          code += comma + line.innerText;
+          comma = '\n'
+        })
+
+        clipBoard(code, function(result) {
+          target.child('.ic').className = result ? 'ic i-check' : 'ic i-times';
+          target.blur();
+          showtip(LOCAL.copyright);
+        })
+      });
+      copyBtn.addEventListener('mouseleave', function (event) {
+        setTimeout(function () {
+          event.target.child('.ic').className = 'ic i-clipboard';
+        }, 1000);
+      });
+    }
+
+    var breakBtn = element.child('.breakline-btn');
+    breakBtn.addEventListener('click', function (event) {
+      var target = event.currentTarget;
+      if (element.hasClass('breakline')) {
+        element.removeClass('breakline');
+        target.child('.ic').className = 'ic i-align-left';
+      } else {
+        element.addClass('breakline');
+        target.child('.ic').className = 'ic i-align-justify';
+      }
+    });
+
+    var fullscreenBtn = element.child('.fullscreen-btn');
+    var removeFullscreen = function() {
+      element.removeClass('fullscreen');
+      element.scrollTop = 0;
+      BODY.removeClass('fullscreen');
+      fullscreenBtn.child('.ic').className = 'ic i-expand';
+    }
+    var fullscreenHandle = function(event) {
+      var target = event.currentTarget;
+      if (element.hasClass('fullscreen')) {
+        removeFullscreen();
+        hideCode && hideCode();
+        pageScroll(element)
+      } else {
+        element.addClass('fullscreen');
+        BODY.addClass('fullscreen');
+        fullscreenBtn.child('.ic').className = 'ic i-compress';
+        showCode && showCode();
+      }
+    }
+    fullscreenBtn.addEventListener('click', fullscreenHandle);
+    caption && caption.addEventListener('click', fullscreenHandle);
+
+    if(code_container && code_container.find("tr").length > 15) {
+      
+      code_container.style.maxHeight = "300px";
+      code_container.insertAdjacentHTML('beforeend', '<div class="show-btn"><i class="ic i-angle-down"></i></div>');
+      var showBtn = code_container.child('.show-btn');
+
+      var showCode = function() {
+        code_container.style.maxHeight = ""
+        showBtn.addClass('open')
+      }
+
+      var hideCode = function() {
+        code_container.style.maxHeight = "300px"
+        showBtn.removeClass('open')
+      }
+
+      showBtn.addEventListener('click', function(event) {
+        if (showBtn.hasClass('open')) {
+          removeFullscreen()
+          hideCode()
+          pageScroll(code_container)
+        } else {
+          showCode()
+        }
+      });
+    }
+  });
+
+  $.each('pre.mermaid > svg', function (element) {
+    element.style.maxWidth = ''
+  });
+
+  $.each('.reward button', function (element) {
+    element.addEventListener('click', function (event) {
+      event.preventDefault();
+      var qr = $('#qr')
+      if(qr.display() === 'inline-flex') {
+        transition(qr, 0)
+      } else {
+        transition(qr, 1, function() {
+          qr.display('inline-flex')
+        }) // slideUpBigIn
+      }
+    });
+  });
+
+  //quiz
+  $.each('.quiz > ul.options li', function (element) {
+    element.addEventListener('click', function (event) {
+      if (element.hasClass('correct')) {
+        element.toggleClass('right')
+        element.parentNode.parentNode.addClass('show')
+      } else {
+        element.toggleClass('wrong')
+      }
+    });
+  });
+
+  $.each('.quiz > p', function (element) {
+    element.addEventListener('click', function (event) {
+      element.parentNode.toggleClass('show')
+    });
+  });
+
+  $.each('.quiz > p:first-child', function (element) {
+    var quiz = element.parentNode;
+    var type = 'choice'
+    if(quiz.hasClass('true') || quiz.hasClass('false'))
+      type = 'true_false'
+    if(quiz.hasClass('multi'))
+      type = 'multiple'
+    if(quiz.hasClass('fill'))
+      type = 'gap_fill'
+    if(quiz.hasClass('essay'))
+      type = 'essay'
+    element.attr('data-type', LOCAL.quiz[type])
+  });
+
+  $.each('.quiz .mistake', function (element) {
+    element.attr('data-type', LOCAL.quiz.mistake)
+  });
+
+  $.each('div.tags a', function(element) {
+    element.className = ['primary', 'success', 'info', 'warning', 'danger'][Math.floor(Math.random() * 5)]
+  })
+
+  $.each('.md div.player', function(element) {
+    mediaPlayer(element, {
+      type: element.attr('data-type'),
+      mode: 'order',
+      btns: []
+    }).player.load(JSON.parse(element.attr('data-src'))).fetch()
+  })
+}
+
+const tabFormat = function() {
+  // tab
+  var first_tab
+  $.each('div.tab', function(element, index) {
+    if(element.attr('data-ready'))
+      return
+
+    var id = element.attr('data-id');
+    var title = element.attr('data-title');
+    var box = $('#' + id);
+    if(!box) {
+      box = document.createElement('div');
+      box.className = 'tabs';
+      box.id = id;
+      box.innerHTML = '<div class="show-btn"></div>'
+
+      var showBtn = box.child('.show-btn');
+      showBtn.addEventListener('click', function(event) {
+        pageScroll(box)
+      });
+
+      element.parentNode.insertBefore(box, element);
+      first_tab = true;
+    } else {
+      first_tab = false;
+    }
+
+    var ul = box.child('.nav ul');
+    if(!ul) {
+      ul = box.createChild('div', {
+        className: 'nav',
+        innerHTML: '<ul></ul>'
+      }).child('ul');
+    }
+
+    var li = ul.createChild('li', {
+      innerHTML: title
+    });
+
+    if(first_tab) {
+      li.addClass('active');
+      element.addClass('active');
+    }
+
+    li.addEventListener('click', function(event) {
+      var target = event.currentTarget;
+      box.find('.active').forEach(function(el) {
+        el.removeClass('active');
+      })
+      element.addClass('active');
+      target.addClass('active');
+    });
+
+    box.appendChild(element);
+    element.attr('data-ready', true)
+  });
+}
+
+const loadComments = function () {
+  var element = $('#comments');
+  if (!element) {
+    goToComment.display("none")
+    return;
+  } else {
+    goToComment.display("")
+  }
+
+  if (!window.IntersectionObserver) {
+    vendorCss('valine');
+  } else {
+    var io = new IntersectionObserver(function(entries, observer) {
+      var entry = entries[0];
+      vendorCss('valine');
+      if (entry.isIntersecting || entry.intersectionRatio > 0) {
+        transition($('#comments'), 'bounceUpIn');
+        observer.disconnect();
+      }
+    });
+
+    io.observe(element);
+  }
+}
+
+const algoliaSearch = function(pjax) {
+  if(CONFIG.search === null)
+    return
+
+  if(!siteSearch) {
+    siteSearch = BODY.createChild('div', {
+      id: 'search',
+      innerHTML: '<div class="inner"><div class="header"><span class="icon"><i class="ic i-search"></i></span><div class="search-input-container"></div><span class="close-btn"><i class="ic i-times-circle"></i></span></div><div class="results"><div class="inner"><div id="search-stats"></div><div id="search-hits"></div><div id="search-pagination"></div></div></div></div>'
+    });
+  }
+
+  var search = instantsearch({
+    indexName: CONFIG.search.indexName,
+    searchClient  : algoliasearch(CONFIG.search.appID, CONFIG.search.apiKey),
+    searchFunction: function(helper) {
+      var searchInput = $('.search-input');
+      if (searchInput.value) {
+        helper.search();
+      }
+    }
+  });
+
+  search.on('render', function() {
+    pjax.refresh($('#search-hits'));
+  });
+
+  // Registering Widgets
+  search.addWidgets([
+    instantsearch.widgets.configure({
+      hitsPerPage: CONFIG.search.hits.per_page || 10
+    }),
+
+    instantsearch.widgets.searchBox({
+      container           : '.search-input-container',
+      placeholder         : LOCAL.search.placeholder,
+      // Hide default icons of algolia search
+      showReset           : false,
+      showSubmit          : false,
+      showLoadingIndicator: false,
+      cssClasses          : {
+        input: 'search-input'
+      }
+    }),
+
+    instantsearch.widgets.stats({
+      container: '#search-stats',
+      templates: {
+        text: function(data) {
+          var stats = LOCAL.search.stats
+            .replace(/\$\{hits}/, data.nbHits)
+            .replace(/\$\{time}/, data.processingTimeMS);
+          return stats + '<span class="algolia-powered"></span><hr>';
+        }
+      }
+    }),
+
+    instantsearch.widgets.hits({
+      container: '#search-hits',
+      templates: {
+        item: function(data) {
+          var cats = data.categories ? '<span>'+data.categories.join('<i class="ic i-angle-right"></i>')+'</span>' : '';
+          return '<a href="' + CONFIG.root + data.path +'">'+cats+data._highlightResult.title.value+'</a>';
+        },
+        empty: function(data) {
+          return '<div id="hits-empty">'+
+              LOCAL.search.empty.replace(/\$\{query}/, data.query) +
+            '</div>';
+        }
+      },
+      cssClasses: {
+        item: 'item'
+      }
+    }),
+
+    instantsearch.widgets.pagination({
+      container: '#search-pagination',
+      scrollTo : false,
+      showFirst: false,
+      showLast : false,
+      templates: {
+        first   : '<i class="ic i-angle-double-left"></i>',
+        last    : '<i class="ic i-angle-double-right"></i>',
+        previous: '<i class="ic i-angle-left"></i>',
+        next    : '<i class="ic i-angle-right"></i>'
+      },
+      cssClasses: {
+        root        : 'pagination',
+        item        : 'pagination-item',
+        link        : 'page-number',
+        selectedItem: 'current',
+        disabledItem: 'disabled-item'
+      }
+    })
+  ]);
+
+  search.start();
+
+  // Handle and trigger popup window
+  $.each('.search', function(element) {
+    element.addEventListener('click', function() {
+      document.body.style.overflow = 'hidden';
+      transition(siteSearch, 'shrinkIn', function() {
+          $('.search-input').focus();
+        }) // transition.shrinkIn
+    });
+  });
+
+  // Monitor main search box
+  const onPopupClose = function() {
+    document.body.style.overflow = '';
+    transition(siteSearch, 0); // "transition.shrinkOut"
+  };
+
+  siteSearch.addEventListener('click', function(event) {
+    if (event.target === siteSearch) {
+      onPopupClose();
+    }
+  });
+  $('.close-btn').addEventListener('click', onPopupClose);
+  window.addEventListener('pjax:success', onPopupClose);
+  window.addEventListener('keyup', function(event) {
+    if (event.key === 'Escape') {
+      onPopupClose();
+    }
+  });
+}
+const domInit = function() {
+  $.each('.overview .menu > .item', function(el) {
+    siteNav.child('.menu').appendChild(el.cloneNode(true));
+  })
+
+  loadCat.addEventListener('click', Loader.vanish);
+  menuToggle.addEventListener('click', sideBarToggleHandle);
+  $('.dimmer').addEventListener('click', sideBarToggleHandle);
+
+  quickBtn.child('.down').addEventListener('click', goToBottomHandle);
+  quickBtn.child('.up').addEventListener('click', backToTopHandle);
+
+  if(!toolBtn) {
+    toolBtn = siteHeader.createChild('div', {
+      id: 'tool',
+      innerHTML: '<div class="item player"></div><div class="item contents"><i class="ic i-list-ol"></i></div><div class="item chat"><i class="ic i-comments"></i></div><div class="item back-to-top"><i class="ic i-arrow-up"></i><span>0%</span></div>'
+    });
+  }
+
+  toolPlayer = toolBtn.child('.player');
+  backToTop = toolBtn.child('.back-to-top');
+  goToComment = toolBtn.child('.chat');
+  showContents = toolBtn.child('.contents');
+
+  backToTop.addEventListener('click', backToTopHandle);
+  goToComment.addEventListener('click', goToCommentHandle);
+  showContents.addEventListener('click', sideBarToggleHandle);
+
+  mediaPlayer(toolPlayer)
+  $('main').addEventListener('click', function() {
+    toolPlayer.player.mini()
+  })
+}
+
+const pjaxReload = function () {
+  pagePosition()
+
+  if(sideBar.hasClass('on')) {
+    transition(sideBar, function () {
+        sideBar.removeClass('on');
+        menuToggle.removeClass('close');
+      }); // 'transition.slideRightOut'
+  }
+
+  $('#main').innerHTML = ''
+  $('#main').appendChild(loadCat.lastChild.cloneNode(true));
+  pageScroll(0);
+}
+
+const siteRefresh = function (reload) {
+  LOCAL_HASH = 0
+  LOCAL_URL = window.location.href
+
+  vendorCss('katex');
+  vendorJs('copy_tex');
+  vendorCss('mermaid');
+  vendorJs('chart');
+  vendorJs('valine', function() {
+    var options = Object.assign({}, CONFIG.valine);
+    options = Object.assign(options, LOCAL.valine||{});
+    options.el = '#comments';
+    options.pathname = LOCAL.path;
+    options.pjax = pjax;
+    options.lazyload = lazyload;
+
+    new MiniValine(options);
+
+    setTimeout(function(){
+      positionInit(1);
+      postFancybox('.v');
+    }, 1000);
+  }, window.MiniValine);
+
+  if(!reload) {
+    $.each('script[data-pjax]', pjaxScript);
+  }
+
+  originTitle = document.title
+
+  resizeHandle()
+
+  menuActive()
+
+  sideBarTab()
+  sidebarTOC()
+
+  registerExtURL()
+  postBeauty()
+  tabFormat()
+
+  toolPlayer.player.load(LOCAL.audio || CONFIG.audio || {})
+
+  Loader.hide()
+
+  setTimeout(function(){
+    positionInit()
+  }, 500);
+
+  cardActive()
+
+  lazyload.observe()
+}
+
+const siteInit = function () {
+
+  domInit()
+
+  pjax = new Pjax({
+            selectors: [
+              'head title',
+              '.languages',
+              '.pjax',
+              'script[data-config]'
+            ],
+            analytics: false,
+            cacheBust: false
+          })
+
+  CONFIG.quicklink.ignores = LOCAL.ignores
+  quicklink.listen(CONFIG.quicklink)
+
+  visibilityListener()
+  themeColorListener()
+
+  algoliaSearch(pjax)
+
+  window.addEventListener('scroll', scrollHandle)
+
+  window.addEventListener('resize', resizeHandle)
+
+  window.addEventListener('pjax:send', pjaxReload)
+
+  window.addEventListener('pjax:success', siteRefresh)
+
+  window.addEventListener('beforeunload', function() {
+    pagePosition()
+  })
+
+  siteRefresh(1)
+}
+
+window.addEventListener('DOMContentLoaded', siteInit);
+
+console.log('%c Theme.Shoka v' + CONFIG.version + ' %c https://shoka.lostyu.me/ ', 'color: white; background: #e9546b; padding:5px 0;', 'padding:4px;border:1px solid #e9546b;')
+var canvasEl = document.createElement('canvas');
+canvasEl.style.cssText = 'position:fixed;top:0;left:0;pointer-events:none;z-index:9999999';
+document.body.appendChild(canvasEl);
+
+var ctx = canvasEl.getContext('2d');
+var numberOfParticules = 30;
+var pointerX = 0;
+var pointerY = 0;
+var tap = 'click'; // ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown'
+var colors = CONFIG.fireworks;
+
+function setCanvasSize() {
+  canvasEl.width = window.innerWidth * 2;
+  canvasEl.height = window.innerHeight * 2;
+  canvasEl.style.width = window.innerWidth + 'px';
+  canvasEl.style.height = window.innerHeight + 'px';
+  canvasEl.getContext('2d').scale(2, 2);
+}
+
+function updateCoords(e) {
+  pointerX = e.clientX || e.touches && e.touches[0].clientX;
+  pointerY = e.clientY || e.touches && e.touches[0].clientY;
+}
+
+function setParticuleDirection(p) {
+  var angle = anime.random(0, 360) * Math.PI / 180;
+  var value = anime.random(50, 180);
+  var radius = [-1, 1][anime.random(0, 1)] * value;
+  return {
+    x: p.x + radius * Math.cos(angle),
+    y: p.y + radius * Math.sin(angle)
+  }
+}
+
+function createParticule(x,y) {
+  var p = {};
+  p.x = x;
+  p.y = y;
+  p.color = colors[anime.random(0, colors.length - 1)];
+  p.radius = anime.random(16, 32);
+  p.endPos = setParticuleDirection(p);
+  p.draw = function() {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+  }
+  return p;
+}
+
+function createCircle(x,y) {
+  var p = {};
+  p.x = x;
+  p.y = y;
+  p.color = '#FFF';
+  p.radius = 0.1;
+  p.alpha = .5;
+  p.lineWidth = 6;
+  p.draw = function() {
+    ctx.globalAlpha = p.alpha;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
+    ctx.lineWidth = p.lineWidth;
+    ctx.strokeStyle = p.color;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+  return p;
+}
+
+function renderParticule(anim) {
+  for (var i = 0; i < anim.animatables.length; i++) {
+    anim.animatables[i].target.draw();
+  }
+}
+
+function animateParticules(x, y) {
+  var circle = createCircle(x, y);
+  var particules = [];
+  for (var i = 0; i < numberOfParticules; i++) {
+    particules.push(createParticule(x, y));
+  }
+  anime.timeline().add({
+    targets: particules,
+    x: function(p) { return p.endPos.x; },
+    y: function(p) { return p.endPos.y; },
+    radius: 0.1,
+    duration: anime.random(1200, 1800),
+    easing: 'easeOutExpo',
+    update: renderParticule
+  }).add({
+    targets: circle,
+    radius: anime.random(80, 160),
+    lineWidth: 0,
+    alpha: {
+      value: 0,
+      easing: 'linear',
+      duration: anime.random(600, 800),
+    },
+    duration: anime.random(1200, 1800),
+    easing: 'easeOutExpo',
+    update: renderParticule
+  }, 0);
+}
+
+var render = anime({
+  duration: Infinity,
+  update: function() {
+    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+  }
 });
 
-/* 锚点定位 */
-const locationHash = () => {
-  if (window.location.hash) {
-    let locationID = decodeURI(window.location.hash.split('#')[1]).replace(/\ /g, '-');
-    let target = document.getElementById(locationID);
-    if (target) {
-      setTimeout(() => {
-        if (window.location.hash.startsWith('#fn')) { // hexo-reference https://github.com/volantis-x/hexo-theme-volantis/issues/647
-          volantis.scroll.to(target, { addTop: - volantis.dom.header.offsetHeight - 5, behavior: 'instant', observer: true })
-        } else {
-          // 锚点中上半部有大片空白 高度大概是 volantis.dom.header.offsetHeight
-          volantis.scroll.to(target, { addTop: 5, behavior: 'instant', observer: true })
-        }
-      }, 1000)
-    }
-  }
-}
-Object.freeze(locationHash);
-
-/* Main */
-const VolantisApp = (() => {
-  const fn = {},
-    COPYHTML = '<button class="btn-copy" data-clipboard-snippet=""><i class="fa-solid fa-copy"></i><span>COPY</span></button>';
-  let scrollCorrection = 80;
-
-  fn.init = () => {
-    if (volantis.dom.header) {
-      scrollCorrection = volantis.dom.header.clientHeight + 16;
-    }
-
-    window.onresize = () => {
-      if (document.documentElement.clientWidth < 500) {
-        volantis.isMobile = 1;
-      } else {
-        volantis.isMobile = 0;
-      }
-      if (volantis.isMobile != volantis.isMobileOld) {
-        fn.setGlobalHeaderMenuEvent();
-        fn.setHeader();
-        fn.setHeaderSearch();
-      }
-    }
-    volantis.scroll.push(fn.scrollEventCallBack, "scrollEventCallBack")
-  }
-
-  fn.event = () => {
-    volantis.dom.$(document.getElementById("scroll-down"))?.on('click', function () {
-      fn.scrolltoElement(volantis.dom.bodyAnchor);
-    });
-
-    // 如果 sidebar 为空，隐藏 sidebar。
-    const sidebar = document.querySelector("#l_side")
-    if (sidebar) {
-      const sectionList = sidebar.querySelectorAll("section")
-      if (!sectionList.length) {
-        document.querySelector("#l_main").classList.add("no_sidebar")
-      }
-    }
-
-    // 站点信息 最后活动日期
-    if (volantis.GLOBAL_CONFIG.sidebar.for_page.includes('webinfo') || volantis.GLOBAL_CONFIG.sidebar.for_post.includes('webinfo')) {
-      const lastupd = volantis.GLOBAL_CONFIG.sidebar.webinfo.lastupd;
-      if (!!document.getElementById('last-update-show') && lastupd.enable && lastupd.friendlyShow) {
-        document.getElementById('last-update-show').innerHTML = fn.utilTimeAgo(volantis.GLOBAL_CONFIG.lastupdate);
-      }
-    }
-
-    // 站点信息 运行时间
-    if (!!document.getElementById('webinfo-runtime-count')) {
-      let BirthDay = new Date(volantis.GLOBAL_CONFIG.sidebar.webinfo.runtime.data);
-      let timeold = (new Date().getTime() - BirthDay.getTime());
-      let daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-      document.getElementById('webinfo-runtime-count').innerHTML = `${daysold} ${volantis.GLOBAL_CONFIG.sidebar.webinfo.runtime.unit}`;
-    }
-
-    // 消息提示 复制时弹出
-    document.body.oncopy = function () {
-      fn.messageCopyright()
-    };
-  }
-
-  fn.restData = () => {
-    scrollCorrection = volantis.dom.header ? volantis.dom.header.clientHeight + 16 : 80;
-  }
-
-  fn.setIsMobile = () => {
-    if (document.documentElement.clientWidth < 500) {
-      volantis.isMobile = 1;
-      volantis.isMobileOld = 1;
-    } else {
-      volantis.isMobile = 0;
-      volantis.isMobileOld = 0;
-    }
-  }
-
-  // 校正页面定位（被导航栏挡住的区域）
-  fn.scrolltoElement = (elem, correction = scrollCorrection) => {
-    volantis.scroll.to(elem, {
-      top: elem.getBoundingClientRect().top + document.documentElement.scrollTop - correction
-    })
-  }
-
-  // 滚动事件回调们
-  fn.scrollEventCallBack = () => {
-    // 【移动端 PC】//////////////////////////////////////////////////////////////////////
-
-    // 显示/隐藏 Header导航 topBtn 【移动端 PC】
-    const showHeaderPoint = volantis.dom.bodyAnchor.offsetTop - scrollCorrection;
-    const scrollTop = volantis.scroll.getScrollTop(); // 滚动条距离顶部的距离
-
-    // topBtn
-    if (volantis.dom.topBtn) {
-      if (scrollTop > volantis.dom.bodyAnchor.offsetTop) {
-        volantis.dom.topBtn.addClass('show');
-        // 向上滚动高亮 topBtn
-        if (volantis.scroll.del > 0) {
-          volantis.dom.topBtn.removeClass('hl');
-        } else {
-          volantis.dom.topBtn.addClass('hl');
-        }
-      } else {
-        volantis.dom.topBtn.removeClass('show').removeClass('hl');
-      }
-    }
-
-    // Header导航
-    if (volantis.dom.header) {
-      if (scrollTop - showHeaderPoint > -1) {
-        volantis.dom.header.addClass('show');
-      } else {
-        volantis.dom.header.removeClass('show');
-      }
-    }
-
-    // 决定一二级导航栏的切换 【向上滚动切换为一级导航栏；向下滚动切换为二级导航栏】  【移动端 PC】
-    if (pdata.ispage && volantis.dom.wrapper) {
-      if (volantis.scroll.del > 0 && scrollTop > 100) { // 向下滚动
-        volantis.dom.wrapper.addClass('sub'); // <---- 二级导航显示
-      } else if (volantis.scroll.del < 0) { // 向上滚动
-        volantis.dom.wrapper.removeClass('sub'); // <---- 取消二级导航显示 一级导航显示
-      }
-    }
-
-    // 【移动端】//////////////////////////////////////////////////////////////////////
-    if (volantis.isMobile) {
-      // 【移动端】 页面滚动  隐藏 移动端toc目录按钮
-      if (pdata.ispage && volantis.dom.tocTarget && volantis.dom.toc) {
-        volantis.dom.tocTarget.removeClass('active');
-        volantis.dom.toc.removeClass('active');
-      }
-      // 【移动端】 滚动时隐藏子菜单
-      if (volantis.dom.mPhoneList) {
-        volantis.dom.mPhoneList.forEach(function (e) {
-          volantis.dom.$(e).hide();
-        })
-      }
-    }
-  }
-
-  // 设置滚动锚点
-  fn.setScrollAnchor = () => {
-    // click topBtn 滚动至bodyAnchor 【移动端 PC】
-    if (volantis.dom.topBtn && volantis.dom.bodyAnchor) {
-      volantis.dom.topBtn.click(e => {
-        e.preventDefault();
-        e.stopPropagation();
-        fn.scrolltoElement(volantis.dom.bodyAnchor);
-        e.stopImmediatePropagation();
-      });
-    }
-
-  }
-
-  // 设置导航栏
-  fn.setHeader = () => {
-    // !!! 此处的Dom对象需要重载 !!!
-    if (!pdata.ispage) return;
-
-    // 填充二级导航文章标题 【移动端 PC】
-    volantis.dom.wrapper.find('.nav-sub .title').html(document.title.split(" - ")[0]);
-
-    // ====== bind events to every btn =========
-    // 评论按钮 【移动端 PC】
-    volantis.dom.comment = volantis.dom.$(document.getElementById("s-comment")); // 评论按钮  桌面端 移动端
-    volantis.dom.commentTarget = volantis.dom.$(document.querySelector('#l_main article#comments')); // 评论区域
-    if (volantis.dom.commentTarget) {
-      volantis.dom.comment.click(e => { // 评论按钮点击后 跳转到评论区域
-        e.preventDefault();
-        e.stopPropagation();
-        volantis.cleanContentVisibility();
-        fn.scrolltoElement(volantis.dom.commentTarget);
-        e.stopImmediatePropagation();
-      });
-    } else volantis.dom.comment.style.display = 'none'; // 关闭了评论，则隐藏评论按钮
-
-    // 移动端toc目录按钮 【移动端】
-    if (volantis.isMobile) {
-      volantis.dom.toc = volantis.dom.$(document.getElementById("s-toc")); // 目录按钮  仅移动端
-      volantis.dom.tocTarget = volantis.dom.$(document.querySelector('#l_side .toc-wrapper')); // 侧边栏的目录列表
-      if (volantis.dom.tocTarget) {
-        // 点击移动端目录按钮 激活目录按钮 显示侧边栏的目录列表
-        volantis.dom.toc.click((e) => {
-          e.stopPropagation();
-          volantis.dom.tocTarget.toggleClass('active');
-          volantis.dom.toc.toggleClass('active');
-        });
-        // 点击空白 隐藏
-        volantis.dom.$(document).click(function (e) {
-          e.stopPropagation();
-          if (volantis.dom.tocTarget) {
-            volantis.dom.tocTarget.removeClass('active');
-          }
-          volantis.dom.toc.removeClass('active');
-        });
-      } else if (volantis.dom.toc) volantis.dom.toc.style.display = 'none'; // 隐藏toc目录按钮
-    }
-  }
-
-  // 设置导航栏菜单选中状态  【移动端 PC】
-  fn.setHeaderMenuSelection = () => {
-    // !!! 此处的Dom对象需要重载 !!!
-    volantis.dom.headerMenu = volantis.dom.$(document.querySelectorAll('#l_header .navigation,#l_cover .navigation,#l_side .navigation')); // 导航列表
-
-    // 先把已经激活的取消激活
-    volantis.dom.headerMenu.forEach(element => {
-      let li = volantis.dom.$(element).find('li a.active')
-      if (li)
-        li.removeClass('active')
-      let div = volantis.dom.$(element).find('div a.active')
-      if (div)
-        div.removeClass('active')
-    });
-
-    // replace '%' '/' '.'
-    var idname = location.pathname.replace(/\/|%|\./g, '');
-    if (idname.length == 0) {
-      idname = 'home';
-    }
-    var page = idname.match(/page\d{0,}$/g);
-    if (page) {
-      page = page[0];
-      idname = idname.split(page)[0];
-    }
-    var index = idname.match(/index.html/);
-    if (index) {
-      index = index[0];
-      idname = idname.split(index)[0];
-    }
-    // 转义字符如 [, ], ~, #, @
-    idname = idname.replace(/(\[|\]|~|#|@)/g, '\\$1');
-    if (idname && volantis.dom.headerMenu) {
-      volantis.dom.headerMenu.forEach(element => {
-        // idname 不能为数字开头, 加一个 action- 前缀
-        let id = element.querySelector("[active-action=action-" + idname + "]")
-        if (id) {
-          volantis.dom.$(id).addClass('active')
-        }
-      });
-    }
-  }
-
-  // 设置全局事件
-  fn.setGlobalHeaderMenuEvent = () => {
-    if (volantis.isMobile) {
-      // 【移动端】 关闭已经展开的子菜单 点击展开子菜单
-      document.querySelectorAll('#l_header .m-phone li').forEach(function (e) {
-        if (e.querySelector(".list-v")) {
-          // 点击菜单
-          volantis.dom.$(e).click(function (e) {
-            e.stopPropagation();
-            // 关闭已经展开的子菜单
-            e.currentTarget.parentElement.childNodes.forEach(function (e) {
-              if (Object.prototype.toString.call(e) == '[object HTMLLIElement]') {
-                e.childNodes.forEach(function (e) {
-                  if (Object.prototype.toString.call(e) == '[object HTMLUListElement]') {
-                    volantis.dom.$(e).hide()
-                  }
-                })
-              }
-            })
-            // 点击展开子菜单
-            let array = e.currentTarget.children
-            for (let index = 0; index < array.length; index++) {
-              const element = array[index];
-              if (volantis.dom.$(element).title === 'menu') { // 移动端菜单栏异常
-                volantis.dom.$(element).display = "flex"      // https://github.com/volantis-x/hexo-theme-volantis/issues/706
-              } else {
-                volantis.dom.$(element).show()
-              }
-            }
-          }, 0);
-        }
-      })
-    } else {
-      // 【PC端】 hover时展开子菜单，点击时[target.baseURI==origin时]隐藏子菜单? 现有逻辑大部分情况不隐藏子菜单
-      document.querySelectorAll('#wrapper .m-pc li > a[href]').forEach(function (e) {
-        volantis.dom.$(e.parentElement).click(function (e) {
-          e.stopPropagation();
-          if (e.target.origin == e.target.baseURI) {
-            document.querySelectorAll('#wrapper .m-pc .list-v').forEach(function (e) {
-              volantis.dom.$(e).hide(); // 大概率不会执行
-            })
-          }
-        }, 0);
-      })
-    }
-    fn.setPageHeaderMenuEvent();
-  }
-
-  // 【移动端】隐藏子菜单
-  fn.setPageHeaderMenuEvent = () => {
-    if (!volantis.isMobile) return
-    // 【移动端】 点击空白处隐藏子菜单
-    volantis.dom.$(document).click(function (e) {
-      volantis.dom.mPhoneList.forEach(function (e) {
-        volantis.dom.$(e).hide();
-      })
-    });
-  }
-
-  // 设置导航栏搜索框 【移动端】
-  fn.setHeaderSearch = () => {
-    if (!volantis.isMobile) return;
-    if (!volantis.dom.switcher) return;
-    // 点击移动端搜索按钮
-    volantis.dom.switcher.click(function (e) {
-      e.stopPropagation();
-      volantis.dom.header.toggleClass('z_search-open'); // 激活移动端搜索框
-      volantis.dom.switcher.toggleClass('active'); // 移动端搜索按钮
-    });
-    // 点击空白取消激活
-    volantis.dom.$(document).click(function (e) {
-      volantis.dom.header.removeClass('z_search-open');
-      volantis.dom.switcher.removeClass('active');
-    });
-    // 移动端点击搜索框 停止事件传播
-    volantis.dom.search.click(function (e) {
-      e.stopPropagation();
-    });
-  }
-
-  // 设置 tabs 标签  【移动端 PC】
-  fn.setTabs = () => {
-    let tabs = document.querySelectorAll('#l_main .tabs .nav-tabs')
-    if (!tabs) return
-    tabs.forEach(function (e) {
-      e.querySelectorAll('a').forEach(function (e) {
-        volantis.dom.$(e).on('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const $tab = volantis.dom.$(e.target.parentElement.parentElement.parentElement);
-          $tab.find('.nav-tabs .active').removeClass('active');
-          volantis.dom.$(e.target.parentElement).addClass('active');
-          $tab.find('.tab-content .active').removeClass('active');
-          $tab.find(e.target.className).addClass('active');
-          return false;
-        });
-      })
-    })
-  }
-
-  // hexo-reference 页脚跳转 https://github.com/volantis-x/hexo-theme-volantis/issues/647
-  fn.footnotes = () => {
-    let ref = document.querySelectorAll('#l_main .footnote-backref, #l_main .footnote-ref > a');
-    ref.forEach(function (e, i) {
-      ref[i].click = () => { }; // 强制清空原 click 事件
-      volantis.dom.$(e).on('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        let targetID = decodeURI(e.target.hash.split('#')[1]).replace(/\ /g, '-');
-        let target = document.getElementById(targetID);
-        if (target) {
-          volantis.scroll.to(target, { addTop: - volantis.dom.header.offsetHeight - 5, behavior: 'instant' })
-        }
-      });
-    })
-  }
-
-  // 工具类：代码块复制
-  fn.utilCopyCode = (Selector) => {
-    document.querySelectorAll(Selector).forEach(node => {
-      const test = node.insertAdjacentHTML("beforebegin", COPYHTML);
-      const _BtnCopy = node.previousSibling;
-      _BtnCopy.onclick = e => {
-        e.stopPropagation();
-        const _icon = _BtnCopy.querySelector('i');
-        const _span = _BtnCopy.querySelector('span');
-
-        node.focus();
-        const range = new Range();
-        range.selectNodeContents(node);
-        document.getSelection().removeAllRanges();
-        document.getSelection().addRange(range);
-
-        const str = document.getSelection().toString();
-        fn.utilWriteClipText(str).then(() => {
-          fn.messageCopyright();
-          _BtnCopy.classList.add('copied');
-          _icon.classList.remove('fa-copy');
-          _icon.classList.add('fa-check-circle');
-          _span.innerText = "COPIED";
-          setTimeout(() => {
-            _icon.classList.remove('fa-check-circle');
-            _icon.classList.add('fa-copy');
-            _span.innerText = "COPY";
-          }, 2000)
-        }).catch(e => {
-          VolantisApp.message('系统提示', e, {
-            icon: 'fa fa-exclamation-circle red'
-          });
-          _BtnCopy.classList.add('copied-failed');
-          _icon.classList.remove('fa-copy');
-          _icon.classList.add('fa-exclamation-circle');
-          _span.innerText = "COPY FAILED";
-          setTimeout(() => {
-            _icon.classList.remove('fa-exclamation-circle');
-            _icon.classList.add('fa-copy');
-            _span.innerText = "COPY";
-          })
-        })
-      }
-    });
-  }
-
-  // 工具类：复制字符串到剪切板
-  fn.utilWriteClipText = (str) => {
-    return navigator.clipboard
-      .writeText(str)
-      .then(() => {
-        return Promise.resolve()
-      })
-      .catch(e => {
-        const input = document.createElement('textarea');
-        input.setAttribute('readonly', 'readonly');
-        document.body.appendChild(input);
-        input.innerHTML = str;
-        input.select();
-        try {
-          let result = document.execCommand('copy')
-          document.body.removeChild(input);
-          if (!result || result === 'unsuccessful') {
-            return Promise.reject('复制文本失败!')
-          } else {
-            return Promise.resolve()
-          }
-        } catch (e) {
-          document.body.removeChild(input);
-          return Promise.reject(
-            '当前浏览器不支持复制功能，请检查更新或更换其他浏览器操作!'
-          )
-        }
-      })
-  }
-
-  // 工具类：返回时间间隔
-  fn.utilTimeAgo = (dateTimeStamp) => {
-    const minute = 1e3 * 60, hour = minute * 60, day = hour * 24, week = day * 7, month = day * 30;
-    const now = new Date().getTime();
-    const diffValue = now - dateTimeStamp;
-    const minC = diffValue / minute,
-      hourC = diffValue / hour,
-      dayC = diffValue / day,
-      weekC = diffValue / week,
-      monthC = diffValue / month;
-    if (diffValue < 0) {
-      result = ""
-    } else if (monthC >= 1 && monthC < 7) {
-      result = " " + parseInt(monthC) + " 月前"
-    } else if (weekC >= 1 && weekC < 4) {
-      result = " " + parseInt(weekC) + " 周前"
-    } else if (dayC >= 1 && dayC < 7) {
-      result = " " + parseInt(dayC) + " 天前"
-    } else if (hourC >= 1 && hourC < 24) {
-      result = " " + parseInt(hourC) + " 小时前"
-    } else if (minC >= 1 && minC < 60) {
-      result = " " + parseInt(minC) + " 分钟前"
-    } else if (diffValue >= 0 && diffValue <= minute) {
-      result = "刚刚"
-    } else {
-      const datetime = new Date();
-      datetime.setTime(dateTimeStamp);
-      const Nyear = datetime.getFullYear();
-      const Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-      const Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-      const Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-      const Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-      const Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-      result = Nyear + "-" + Nmonth + "-" + Ndate
-    }
-    return result;
-  }
-
-  // 消息提示：标准
-  fn.message = (title, message, option = {}, done = null) => {
-    if (typeof iziToast === "undefined") {
-      volantis.css(volantis.GLOBAL_CONFIG.cdn.izitoast_css)
-      volantis.js(volantis.GLOBAL_CONFIG.cdn.izitoast_js, () => {
-        tozashMessage(title, message, option, done);
-      });
-    } else {
-      tozashMessage(title, message, option, done);
-    }
-    function tozashMessage(title, message, option, done) {
-      const {
-        icon,
-        time,
-        position,
-        transitionIn,
-        transitionOut,
-        messageColor,
-        titleColor,
-        backgroundColor,
-        zindex,
-        displayMode
-      } = option;
-      iziToast.show({
-        layout: '2',
-        icon: 'Fontawesome',
-        closeOnEscape: 'true',
-        displayMode: displayMode || 'replace',
-        transitionIn: transitionIn || volantis.GLOBAL_CONFIG.plugins.message.transitionIn,
-        transitionOut: transitionOut || volantis.GLOBAL_CONFIG.plugins.message.transitionOut,
-        messageColor: messageColor || volantis.GLOBAL_CONFIG.plugins.message.messageColor,
-        titleColor: titleColor || volantis.GLOBAL_CONFIG.plugins.message.titleColor,
-        backgroundColor: backgroundColor || volantis.GLOBAL_CONFIG.plugins.message.backgroundColor,
-        zindex: zindex || volantis.GLOBAL_CONFIG.plugins.message.zindex,
-        icon: icon || volantis.GLOBAL_CONFIG.plugins.message.icon.default,
-        timeout: time || volantis.GLOBAL_CONFIG.plugins.message.time.default,
-        position: position || volantis.GLOBAL_CONFIG.plugins.message.position,
-        title: title,
-        message: message,
-        onClosed: () => {
-          if (done) done();
-        },
-      });
-    }
-  }
-
-  // 消息提示：询问
-  fn.question = (title, message, option = {}, success = null, cancel = null, done = null) => {
-    if (typeof iziToast === "undefined") {
-      volantis.css(volantis.GLOBAL_CONFIG.cdn.izitoast_css)
-      volantis.js(volantis.GLOBAL_CONFIG.cdn.izitoast_js, () => {
-        tozashQuestion(title, message, option, success, cancel, done);
-      });
-    } else {
-      tozashQuestion(title, message, option, success, cancel, done);
-    }
-
-    function tozashQuestion(title, message, option, success, cancel, done) {
-      const {
-        icon,
-        time,
-        position,
-        transitionIn,
-        transitionOut,
-        messageColor,
-        titleColor,
-        backgroundColor,
-        zindex
-      } = option;
-      iziToast.question({
-        id: 'question',
-        icon: 'Fontawesome',
-        close: false,
-        overlay: true,
-        displayMode: 'once',
-        position: 'center',
-        messageColor: messageColor || volantis.GLOBAL_CONFIG.plugins.message.messageColor,
-        titleColor: titleColor || volantis.GLOBAL_CONFIG.plugins.message.titleColor,
-        backgroundColor: backgroundColor || volantis.GLOBAL_CONFIG.plugins.message.backgroundColor,
-        zindex: zindex || volantis.GLOBAL_CONFIG.plugins.message.zindex,
-        icon: icon || volantis.GLOBAL_CONFIG.plugins.message.icon.quection,
-        timeout: time || volantis.GLOBAL_CONFIG.plugins.message.time.quection,
-        title: title,
-        message: message,
-        buttons: [
-          ['<button><b>是</b></button>', (instance, toast) => {
-            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
-            if (success) success(instance, toast)
-          }],
-          ['<button><b>否</b></button>', (instance, toast) => {
-            instance.hide({ transitionOut: transitionOut || 'fadeOut' }, toast, 'button');
-            if (cancel) cancel(instance, toast)
-          }]
-        ],
-        onClosed: (instance, toast, closedBy) => {
-          if (done) done(instance, toast, closedBy);
-        }
-      });
-    }
-  }
-
-  // 消息提示：隐藏
-  fn.hideMessage = (done = null) => {
-    const toast = document.querySelector('.iziToast');
-    if (!toast) {
-      if (done) done()
-      return;
-    }
-
-    if (typeof iziToast === "undefined") {
-      volantis.css(volantis.GLOBAL_CONFIG.cdn.izitoast_css)
-      volantis.js(volantis.GLOBAL_CONFIG.cdn.izitoast_js, () => {
-        hideMessage(done);
-      });
-    } else {
-      hideMessage(done);
-    }
-
-    function hideMessage(done) {
-      iziToast.hide({}, toast);
-      if (done) done();
-    }
-  }
-
-  // 消息提示：复制
-  let messageCopyrightShow = 0;
-  fn.messageCopyright = () => {
-    // 消息提示 复制时弹出
-    if (volantis.GLOBAL_CONFIG.plugins.message.enable
-      && volantis.GLOBAL_CONFIG.plugins.message.copyright.enable
-      && messageCopyrightShow < 1) {
-      messageCopyrightShow++;
-      VolantisApp.message(volantis.GLOBAL_CONFIG.plugins.message.copyright.title,
-        volantis.GLOBAL_CONFIG.plugins.message.copyright.message, {
-        icon: volantis.GLOBAL_CONFIG.plugins.message.copyright.icon,
-        transitionIn: 'flipInX',
-        transitionOut: 'flipOutX',
-        displayMode: 1
-      });
-    }
-  }
-
-  return {
-    init: () => {
-      fn.init();
-      fn.event();
-    },
-    subscribe: () => {
-      fn.setIsMobile();
-      fn.setHeader();
-      fn.setHeaderMenuSelection();
-      fn.setGlobalHeaderMenuEvent();
-      fn.setHeaderSearch();
-      fn.setScrollAnchor();
-      fn.setTabs();
-      fn.footnotes();
-    },
-    utilCopyCode: fn.utilCopyCode,
-    utilWriteClipText: fn.utilWriteClipText,
-    utilTimeAgo: fn.utilTimeAgo,
-    message: fn.message,
-    question: fn.question,
-    hideMessage: fn.hideMessage,
-    messageCopyright: fn.messageCopyright,
-    scrolltoElement: fn.scrolltoElement
-  }
-})()
-Object.freeze(VolantisApp);
-
-/* FancyBox */
-const VolantisFancyBox = (() => {
-  const fn = {};
-
-  fn.loadFancyBox = (done) => {
-    volantis.css(volantis.GLOBAL_CONFIG.cdn.fancybox_css);
-    volantis.js(volantis.GLOBAL_CONFIG.cdn.fancybox_js).then(() => {
-      if (done) done();
-    })
-  }
-
-  /**
-   * 加载及处理
-   * 
-   * @param {*} checkMain 是否只处理文章区域的文章
-   * @param {*} done      FancyBox 加载完成后的动作，默认执行分组绑定
-   * @returns 
-   */
-  fn.init = (checkMain = true, done = fn.groupBind) => {
-    if (!document.querySelector(".md .gallery img, .fancybox") && checkMain) return;
-    if (typeof Fancybox === "undefined") {
-      fn.loadFancyBox(done);
-    } else {
-      done();
-    }
-  }
-
-  /**
-   * 图片元素预处理
-   * 
-   * @param {*} selectors 选择器
-   * @param {*} name      分组
-   */
-  fn.elementHandling = (selectors, name) => {
-    const nodeList = document.querySelectorAll(selectors);
-    nodeList.forEach($item => {
-      if ($item.hasAttribute('fancybox')) return;
-      $item.setAttribute('fancybox', '');
-      const $link = document.createElement('a');
-      $link.setAttribute('href', $item.src);
-      $link.setAttribute('data-caption', $item.alt);
-      $link.setAttribute('data-fancybox', name);
-      $link.classList.add('fancybox');
-      $link.append($item.cloneNode());
-      $item.replaceWith($link);
-    })
-  }
-
-  /**
-   * 原生绑定
-   * 
-   * @param {*} selectors 选择器
-   */
-  fn.bind = (selectors) => {
-    fn.init(false, () => {
-      Fancybox.bind(selectors, {
-        groupAll: true,
-        Hash: false,
-        hideScrollbar: false,
-        Thumbs: {
-          autoStart: false,
-        },
-        caption: function (fancybox, carousel, slide) {
-          return slide.$trigger.alt || null
-        }
-      });
-    });
-  }
-
-  /**
-   * 分组绑定
-   * 
-   * @param {*} groupName 分组名称
-   */
-  fn.groupBind = (groupName = null) => {
-    const group = new Set();
-
-    document.querySelectorAll(".gallery").forEach(ele => {
-      if (ele.querySelector("img")) {
-        group.add(ele.getAttribute('data-group') || 'default');
-      }
-    })
-
-    if (!!groupName) group.add(groupName);
-
-    for (const iterator of group) {
-      Fancybox.unbind('[data-fancybox="' + iterator + '"]');
-      Fancybox.bind('[data-fancybox="' + iterator + '"]', {
-        Hash: false,
-        hideScrollbar: false,
-        Thumbs: {
-          autoStart: false,
-        }
-      });
-    }
-  }
-
-  return {
-    init: fn.init,
-    bind: fn.bind,
-    groupBind: (selectors, groupName = 'default') => {
-      try {
-        fn.elementHandling(selectors, groupName);
-        fn.init(false, () => {
-          fn.groupBind(groupName)
-        });
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
-})()
-Object.freeze(VolantisFancyBox);
-
-// highlightKeyWords 与 搜索功能搭配 https://github.com/next-theme/hexo-theme-next/blob/eb194a7258058302baf59f02d4b80b6655338b01/source/js/third-party/search/local-search.js
-// Question: 锚点稳定性未知
-// ToDo: 查找模式
-// 0. (/////////要知道浏览器自带全页面查找功能 CTRL + F)
-// 1. 右键开启查找模式 / 导航栏菜单开启?? / CTRL + F ???
-// 2. 查找模式面板 (可拖动? or 固定?)
-// 3. keyword mark id 从 0 开始编号 查找下一处 highlightKeyWords.scrollToNextHighlightKeywordMark() 查找上一处 scrollToPrevHighlightKeywordMark() 循环查找(取模%)
-// 4. 可输入修改 查找关键词 keywords(type:list)
-// 5. 区分大小写 caseSensitive (/ 全字匹配?? / 正则匹配??)
-// 6. 在选定区域中查找 querySelector ??
-// 7. 关闭查找模式
-// 8. 搜索跳转 (URL 入口) 自动开启查找模式 调用 scrollToNextHighlightKeywordMark()
-const highlightKeyWords = (() => {
-  let fn = {}
-  fn.markNum = 0
-  fn.markNextId = -1
-  fn.startFromURL = () => {
-    const params = decodeURI(new URL(location.href).searchParams.get('keyword'));
-    const keywords = params ? params.split(' ') : [];
-    const post = document.querySelector('#l_main');
-    if (keywords.length == 1 && keywords[0] == "null") {
-      return;
-    }
-    fn.start(keywords, post); // 渲染耗时较长
-    fn.scrollToFirstHighlightKeywordMark()
-  }
-  fn.scrollToFirstHighlightKeywordMark = () => {
-    volantis.cleanContentVisibility();
-    let target = fn.scrollToNextHighlightKeywordMark("0");
-    if (!target) {
-      volantis.requestAnimationFrame(fn.scrollToFirstHighlightKeywordMark)
-    }
-  }
-  fn.scrollToNextHighlightKeywordMark = (id) => {
-    // Next Id
-    let input = id || (fn.markNextId + 1) % fn.markNum;
-    fn.markNextId = parseInt(input)
-    let target = document.getElementById("keyword-mark-" + fn.markNextId);
-    if (!target) {
-      fn.markNextId = (fn.markNextId + 1) % fn.markNum;
-      target = document.getElementById("keyword-mark-" + fn.markNextId);
-    }
-    if (target) {
-      volantis.scroll.to(target, { addTop: - volantis.dom.header.offsetHeight - 5, behavior: 'instant' })
-    }
-    // Current target
-    return target
-  }
-  fn.scrollToPrevHighlightKeywordMark = (id) => {
-    // Prev Id
-    let input = id || (fn.markNextId - 1 + fn.markNum) % fn.markNum;
-    fn.markNextId = parseInt(input)
-    let target = document.getElementById("keyword-mark-" + fn.markNextId);
-    if (!target) {
-      fn.markNextId = (fn.markNextId - 1 + fn.markNum) % fn.markNum;
-      target = document.getElementById("keyword-mark-" + fn.markNextId);
-    }
-    if (target) {
-      volantis.scroll.to(target, { addTop: - volantis.dom.header.offsetHeight - 5, behavior: 'instant' })
-    }
-    // Current target
-    return target
-  }
-  fn.start = (keywords, querySelector) => {
-    fn.markNum = 0
-    if (!keywords.length || !querySelector || (keywords.length == 1 && keywords[0] == "null")) return;
-    console.log(keywords);
-    const walk = document.createTreeWalker(querySelector, NodeFilter.SHOW_TEXT, null);
-    const allNodes = [];
-    while (walk.nextNode()) {
-      if (!walk.currentNode.parentNode.matches('button, select, textarea')) allNodes.push(walk.currentNode);
-    }
-    allNodes.forEach(node => {
-      const [indexOfNode] = fn.getIndexByWord(keywords, node.nodeValue);
-      if (!indexOfNode.length) return;
-      const slice = fn.mergeIntoSlice(0, node.nodeValue.length, indexOfNode);
-      fn.highlightText(node, slice, 'keyword');
-      fn.highlightStyle()
-    });
-  }
-  fn.getIndexByWord = (words, text, caseSensitive = false) => {
-    const index = [];
-    const included = new Set();
-    words.forEach(word => {
-      const div = document.createElement('div');
-      div.innerText = word;
-      word = div.innerHTML;
-
-      const wordLen = word.length;
-      if (wordLen === 0) return;
-      let startPosition = 0;
-      let position = -1;
-      if (!caseSensitive) {
-        text = text.toLowerCase();
-        word = word.toLowerCase();
-      }
-      while ((position = text.indexOf(word, startPosition)) > -1) {
-        index.push({ position, word });
-        included.add(word);
-        startPosition = position + wordLen;
-      }
-    });
-    index.sort((left, right) => {
-      if (left.position !== right.position) {
-        return left.position - right.position;
-      }
-      return right.word.length - left.word.length;
-    });
-    return [index, included];
-  };
-  fn.mergeIntoSlice = (start, end, index) => {
-    let item = index[0];
-    let { position, word } = item;
-    const hits = [];
-    const count = new Set();
-    while (position + word.length <= end && index.length !== 0) {
-      count.add(word);
-      hits.push({
-        position,
-        length: word.length
-      });
-      const wordEnd = position + word.length;
-
-      index.shift();
-      while (index.length !== 0) {
-        item = index[0];
-        position = item.position;
-        word = item.word;
-        if (wordEnd > position) {
-          index.shift();
-        } else {
-          break;
-        }
-      }
-    }
-    return {
-      hits,
-      start,
-      end,
-      count: count.size
-    };
-  };
-  fn.highlightText = (node, slice, className) => {
-    const val = node.nodeValue;
-    let index = slice.start;
-    const children = [];
-    for (const { position, length } of slice.hits) {
-      const text = document.createTextNode(val.substring(index, position));
-      index = position + length;
-      let mark = document.createElement('mark');
-      mark.className = className;
-      mark = fn.highlightStyle(mark)
-      mark.appendChild(document.createTextNode(val.substr(position, length)));
-      children.push(text, mark);
-    }
-    node.nodeValue = val.substring(index, slice.end);
-    children.forEach(element => {
-      node.parentNode.insertBefore(element, node);
-    });
-  }
-  fn.highlightStyle = (mark) => {
-    if (!mark) return;
-    mark.id = "keyword-mark-" + fn.markNum;
-    fn.markNum++;
-    mark.style.background = "transparent";
-    mark.style["border-bottom"] = "1px dashed #ff2a2a";
-    mark.style["color"] = "#ff2a2a";
-    mark.style["font-weight"] = "bold";
-    return mark
-  }
-  fn.cleanHighlightStyle = () => {
-    document.querySelectorAll(".keyword").forEach(mark => {
-      mark.style.background = "transparent";
-      mark.style["border-bottom"] = null;
-      mark.style["color"] = null;
-      mark.style["font-weight"] = null;
-    })
-  }
-  return {
-    start: (keywords, querySelector) => {
-      fn.start(keywords, querySelector)
-    },
-    startFromURL: () => {
-      fn.startFromURL()
-    },
-    scrollToNextHighlightKeywordMark: (id) => {
-      fn.scrollToNextHighlightKeywordMark(id)
-    },
-    scrollToPrevHighlightKeywordMark: (id) => {
-      fn.scrollToPrevHighlightKeywordMark(id)
-    },
-    cleanHighlightStyle: () => {
-      fn.cleanHighlightStyle()
-    },
-  }
-})()
-Object.freeze(highlightKeyWords);
-
-/* DOM 控制 */
-const DOMController = {
-  /**
-   * 控制元素显隐
-   */
-  visible: (ele, type = true) => {
-    if (ele) ele.style.display = type === true ? 'block' : 'none';
-  },
-
-  /**
-   * 移除元素
-   */
-  remove: (param) => {
-    const node = document.querySelectorAll(param);
-    node.forEach(ele => {
-      ele.remove();
-    })
-  },
-
-  removeList: (list) => {
-    list.forEach(param => {
-      DOMController.remove(param)
-    })
-  },
-
-  /**
-   * 设置属性
-   */
-  setAttribute: (param, attrName, attrValue) => {
-    const node = document.querySelectorAll(param);
-    node.forEach(ele => {
-      ele.setAttribute(attrName, attrValue)
-    })
-  },
-
-  setAttributeList: (list) => {
-    list.forEach(item => {
-      DOMController.setAttribute(item[0], item[1], item[2])
-    })
-  },
-
-  /**
-   * 设置样式
-   */
-  setStyle: (param, styleName, styleValue) => {
-    const node = document.querySelectorAll(param);
-    node.forEach(ele => {
-      ele.style[styleName] = styleValue;
-    })
-  },
-
-  setStyleList: (list) => {
-    list.forEach(item => {
-      DOMController.setStyle(item[0], item[1], item[2])
-    })
-  },
-
-  fadeIn: (e) => {
-    if (!e) return;
-    e.style.visibility = "visible";
-    e.style.opacity = 1;
-    e.style.display = "block";
-    e.style.transition = "all 0.5s linear";
-    return e
-  },
-
-  fadeOut: (e) => {
-    if (!e) return;
-    e.style.visibility = "hidden";
-    e.style.opacity = 0;
-    e.style.display = "none";
-    e.style.transition = "all 0.5s linear";
-    return e
-  },
-
-  fadeToggle: (e) => {
-    if (!e) return;
-    if (e.style.visibility == "hidden") {
-      e = DOMController.fadeIn(e)
-    } else {
-      e = DOMController.fadeOut(e)
-    }
-    return e
-  },
-
-  fadeToggleList: (list) => {
-    list.forEach(param => {
-      DOMController.fadeToggle(param)
-    })
-  },
-
-  hasClass: (e, c) => {
-    if (!e) return;
-    return e.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
-  },
-
-  addClass: (e, c) => {
-    if (!e) return;
-    e.classList.add(c);
-    return e
-  },
-
-  removeClass: (e, c) => {
-    if (!e) return;
-    e.classList.remove(c);
-    return e
-  },
-
-  toggleClass: (e, c) => {
-    if (!e) return;
-    if (DOMController.hasClass(e, c)) {
-      DOMController.removeClass(e, c)
-    } else {
-      DOMController.addClass(e, c)
-    }
-    return e
-  },
-
-  toggleClassList: (list) => {
-    list.forEach(item => {
-      DOMController.toggleClass(item[0], item[1])
-    })
-  }
-}
-Object.freeze(DOMController);
-
-const VolantisRequest = {
-  timeoutFetch: (url, ms, requestInit) => {
-    const controller = new AbortController()
-    requestInit.signal?.addEventListener('abort', () => controller.abort())
-    let promise = fetch(url, { ...requestInit, signal: controller.signal })
-    if (ms > 0) {
-      const timer = setTimeout(() => controller.abort(), ms)
-      promise.finally(() => { clearTimeout(timer) })
-    }
-    promise = promise.catch((err) => {
-      throw ((err || {}).name === 'AbortError') ? new Error(`Fetch timeout: ${url}`) : err
-    })
-    return promise
-  },
-
-  Fetch: async (url, requestInit, timeout = 15000) => {
-    const resp = await VolantisRequest.timeoutFetch(url, timeout, requestInit);
-    if (!resp.ok) throw new Error(`Fetch error: ${url} | ${resp.status}`);
-    let json = await resp.json()
-    if (!json.success) throw json
-    return json
-  },
-
-  POST: async (url, data) => {
-    const requestInit = {
-      method: 'POST',
-    }
-    if (data) {
-      const formData = new FormData();
-      Object.keys(data).forEach(key => formData.append(key, String(data[key])))
-      requestInit.body = formData;
-    }
-    const json = await VolantisRequest.Fetch(url, requestInit)
-    return json.data;
-  },
-
-  Get: async (url, data) => {
-    const json = await VolantisRequest.Fetch(url + (data ? (`?${new URLSearchParams(data)}`) : ''), {
-      method: 'GET'
-    })
-  }
-}
-Object.freeze(VolantisRequest);
+document.addEventListener(tap, function(e) {
+  render.play();
+  updateCoords(e);
+  animateParticules(pointerX, pointerY);
+}, false);
+
+setCanvasSize();
+window.addEventListener('resize', setCanvasSize, false);
