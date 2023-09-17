@@ -16,12 +16,13 @@
     <category term="kernel pwn" />
     <category term="binary" />
     <category term="personal" />
+    <category term="C" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/13/kernel-pwn/</id>
         <title>kernel_pwn</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/13/kernel-pwn/"/>
         <content type="html">&lt;h2 id=&#34;Kernel-PWN&#34;&gt;&lt;a href=&#34;#Kernel-PWN&#34; class=&#34;headerlink&#34; title=&#34;Kernel PWN&#34;&gt;&lt;/a&gt;Kernel PWN&lt;/h2&gt;&lt;hr&gt;
-&lt;p&gt;&lt;img data-src=&#34;/kernel-pwn.assets/image-20230713204349079.png&#34; alt=&#34;image-20230713204349079&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png&#34; alt=&#34;image-20230713204349079&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;内核保护技术&#34;&gt;&lt;a href=&#34;#内核保护技术&#34; class=&#34;headerlink&#34; title=&#34;内核保护技术&#34;&gt;&lt;/a&gt;内核保护技术&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;SMAP/SMEP&lt;/strong&gt;: &lt;/p&gt;
 &lt;ul&gt;

@@ -16,6 +16,7 @@
     <category term="kernel pwn" />
     <category term="binary" />
     <category term="personal" />
+    <category term="C" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/12/heap-exp-heap-management/</id>
         <title>HEAP-EXP-heap_management</title>
@@ -28,7 +29,7 @@
 &lt;li&gt;堆在使用时从低地址内存向高地址内存增长，栈从高地址内存向低地址内存增长&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;堆和栈都可以是每个线程所有独有的，堆依然存在线程堆的概念&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;/HEAP-EXP-heap-management.assets/image-20230613200259727.png&#34; alt=&#34;先知社区https://xz.aliyun.com/t/10650&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172015938.png&#34; alt=&#34;先知社区https://xz.aliyun.com/t/10650&#34;&gt;&lt;/p&gt;
 &lt;p&gt;(上图中的共享库段中包含有不同权限的几个内存段，如下图所示，其中mapped区域是当前so文件代码段对应的heap段)&lt;/p&gt;
 &lt;p&gt;&lt;img data-src=&#34;/HEAP-EXP-heap-management.assets/image-20230613200729790.png&#34; alt=&#34;image-20230613200729790&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;内存管理&#34;&gt;&lt;a href=&#34;#内存管理&#34; class=&#34;headerlink&#34; title=&#34;内存管理&#34;&gt;&lt;/a&gt;内存管理&lt;/h2&gt;&lt;ul&gt;
@@ -118,9 +119,9 @@
 &lt;li&gt;如果上面的方法均不成功，则会去要求系统新分配一块内存mmap方法&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;已分配chunk的数据结构情况&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/HEAP-EXP-heap-management.assets/image-20230613234305496.png&#34; alt=&#34;image-20230613234305496&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016938.png&#34; alt=&#34;image-20230613234305496&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;未分配的chunk数据结构情况&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;/HEAP-EXP-heap-management.assets/image-20230613234401273.png&#34; alt=&#34;image-20230613234401273&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016286.png&#34; alt=&#34;image-20230613234401273&#34;&gt;&lt;/p&gt;
 &lt;p&gt;​	在上面能够很明显的看到chunk在使用状态下原本存放fd和bk的位置会被直接用来存放用户数据。用户在使用malloc时返回的内存指针是指向chunk头后面的部分，在free后指向的fd的存放位置。&lt;/p&gt;
 &lt;p&gt;​	这里的p是标志前一个chunk（地址更小的）是否处于被使用的状态，如果是则置位1，且prev_size有效（标志相邻的堆块大小，这里是指物理上相邻，主要用于进行内存块的合并操作，&lt;strong&gt;且prev_size的大小指的是包含当前块头部和用户数据的部分&lt;/strong&gt;）&lt;/p&gt;
 &lt;pre class=&#34;line-numbers language-none&#34;&gt;&lt;code class=&#34;language-none&#34;&gt;N：是不是「主分配区」分配的内存 1 表示不是主分配区分配的，0 表示是主分配区分配的
@@ -349,7 +350,7 @@ P：表示前一个 chunk 是否在使用，在初始化的时候通常为 1，�
 &lt;li&gt;注意一点，所有的数据进入malloc之后全部都会被转化为无符号整数。&lt;/li&gt;
 &lt;li&gt;当 fast bin、small bin 中的 chunk 都不能满足用户请求 chunk 大小时，就会考虑是不是 large bin。但是，其实在 large bin 中并没有直接去扫描对应 bin 中的 chunk，而是先利用 malloc_consolidate（参见 malloc_state 相关函数） 函数处理 fast bin 中的 chunk，将有可能能够合并的 chunk 先进行合并后放到 unsorted bin 中，不能够合并的就直接放到 unsorted bin 中，然后再在下面的大循环中进行相应的处理。&lt;strong&gt;为什么不直接从相应的 bin 中取出 large chunk 呢？这是 ptmalloc 的机制，它会在分配 large chunk 之前对堆中碎片 chunk 进行合并，以便减少堆中的碎片。&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;堆溢出常见攻击手段&#34;&gt;&lt;a href=&#34;#堆溢出常见攻击手段&#34; class=&#34;headerlink&#34; title=&#34;堆溢出常见攻击手段&#34;&gt;&lt;/a&gt;堆溢出常见攻击手段&lt;/h2&gt;&lt;p&gt;&lt;img data-src=&#34;/HEAP-EXP-heap-management.assets/image-20230625155220102.png&#34; alt=&#34;image-20230625155220102&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;堆溢出常见攻击手段&#34;&gt;&lt;a href=&#34;#堆溢出常见攻击手段&#34; class=&#34;headerlink&#34; title=&#34;堆溢出常见攻击手段&#34;&gt;&lt;/a&gt;堆溢出常见攻击手段&lt;/h2&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016077.png&#34; alt=&#34;image-20230625155220102&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;堆溢出&#34;&gt;&lt;a href=&#34;#堆溢出&#34; class=&#34;headerlink&#34; title=&#34;堆溢出&#34;&gt;&lt;/a&gt;堆溢出&lt;/h3&gt;&lt;p&gt;​	堆溢出的本质可以类比栈溢出的内容，堆溢出的本质是从用户缓冲区向下溢出到下一个堆块中，如果溢出长度够长，甚至能够重写下一个堆块中的内容。&lt;/p&gt;
 &lt;h3 id=&#34;double-free&#34;&gt;&lt;a href=&#34;#double-free&#34; class=&#34;headerlink&#34; title=&#34;double free&#34;&gt;&lt;/a&gt;double free&lt;/h3&gt;&lt;p&gt;​	double free漏洞的本质是将当前对应块的指针做二次的free操作。对同一个块进行两次free操作，则该块会被加入到bin链两次，那么在后续进行多次malloc时会出现指针相同的情况&lt;/p&gt;
 &lt;h3 id=&#34;unlink-1&#34;&gt;&lt;a href=&#34;#unlink-1&#34; class=&#34;headerlink&#34; title=&#34;unlink&#34;&gt;&lt;/a&gt;unlink&lt;/h3&gt;&lt;ul&gt;

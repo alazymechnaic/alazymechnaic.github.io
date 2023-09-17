@@ -16,6 +16,7 @@
     <category term="kernel pwn" />
     <category term="binary" />
     <category term="personal" />
+    <category term="C" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/14/clash-build/</id>
         <title>clash_build</title>

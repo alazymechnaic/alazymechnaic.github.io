@@ -16,6 +16,7 @@
     <category term="kernel pwn" />
     <category term="binary" />
     <category term="personal" />
+    <category term="C" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/</id>
         <title>Stack_based_overflow</title>

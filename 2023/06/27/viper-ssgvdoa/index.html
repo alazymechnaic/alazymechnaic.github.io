@@ -104,12 +104,12 @@ VIPER_SSGVDOA |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicli3sbvtj20zk0m8x6p.jpg"></li>
-          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicis3attqj20zk0m8k7l.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu7txpzj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicit31ffoj20zk0m8naf.jpg"></li>
         </ul>
       </div>
     </header>
@@ -183,12 +183,12 @@ VIPER_SSGVDOA |
 </ul>
 </li>
 </ul>
-<p><img data-src="/VIPER-SSGVDOA.assets/image-20230628155213365.png" alt="image-20230628155213365"></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016500.png" alt="image-20230628155213365"></p>
 <ul>
 <li><strong>dynamic backward data-flow</strong>：检查每个变量被覆盖利用的可能性</li>
 <li><strong>Corruptibility Assessment</strong> ： 使用数据流来评估每一个分支变量被内存错误污染的可能性。同时使用动态数据流分析，在过程中根据变量的存储位置和内存的声明周期对内存进行定性，分别视为容易利用和难利用三种等级。全局变量相对局部变量更容易被利用，生命周期越长，被修改次数越多，能被利用的概率越高。依此能够筛选出被破坏概率更高的关键变量。</li>
 </ul>
-<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img data-src="/VIPER-SSGVDOA.assets/image-20230628205325968.png" alt="image-20230628205325968"></p>
+<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016755.png" alt="image-20230628205325968"></p>
 <p>VIPER在对程序分析后，最终会报告当前程序中存在的各种危险的关键分支，系统调用及其保护变量。</p>
 <p>​	BranchForcer运行包含原始输入的程序，并记录执行的分支和系统调用。然后，使用相同的输入多次运行程序，并为每次新的执行翻转一个不同分支的目标。如果重新执行触发了新的与安全性相关的系统调用，我们将当前分支添加到候选列表中。对于每个候选分支，VariableRator再次运行程序，以记录执行的完整跟踪，包括分支序列、所有内存访问地址和进程内存布局。利用记录的轨迹对程序IR进行反向数据流分析。VariableRator检查内存布局以确定每个内存节点的位置，并计算内存写指令的数量以估计节点的生命周期</p>
 <h3 id="分支记录"><a href="#分支记录" class="headerlink" title="分支记录"></a>分支记录</h3><p>​	由于在执行的过程中可能会出现路径爆炸以及某些分支翻转了没有意义，因此只在固定路径上做分支翻转。每个分支只会做一次翻转。为了提高效率，使用多线程尽心探索。</p>
@@ -208,7 +208,7 @@ VIPER_SSGVDOA |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-06-30 16:23:43" itemprop="dateModified" datetime="2023-06-30T16:23:43+08:00">2023-06-30</time>
+    <time title="修改时间：2023-09-17 20:17:00" itemprop="dateModified" datetime="2023-09-17T20:17:00+08:00">2023-09-17</time>
   </span>
 </div>
 
@@ -263,7 +263,7 @@ VIPER_SSGVDOA |
     <div class="item left">
       
 
-  <a href="/2023/05/12/blind-rop/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipesrnqv3j20zk0m8ava.jpg" title="blind-rop">
+  <a href="/2023/05/12/blind-rop/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclwrdwyaj20zk0m8are.jpg" title="blind-rop">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>blind-rop</h3>
@@ -273,7 +273,7 @@ VIPER_SSGVDOA |
     <div class="item right">
       
 
-  <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfw2t96j20zk0m8x6p.jpg" title="BOPC_Data_Only_Attack">
+  <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipewkhf1zj20zk0m81kx.jpg" title="BOPC_Data_Only_Attack">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>BOPC_Data_Only_Attack</h3>
@@ -316,7 +316,7 @@ VIPER_SSGVDOA |
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">12</span>
+        <span class="count">13</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -406,34 +406,7 @@ VIPER_SSGVDOA |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer">AEG_reviwer</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
+    <span><a href="/2023/09/11/speedrunner-for-c/" title="SpeedRunner_for_C">SpeedRunner_for_C</a></span>
   </li>
 
       
@@ -451,7 +424,16 @@ VIPER_SSGVDOA |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
+    <span><a href="/2023/07/20/go-reverse/" title="go_reverse">go_reverse</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/05/bypass-aslr/" title="bypass-aslr">bypass-aslr</a></span>
   </li>
 
       
@@ -469,7 +451,7 @@ VIPER_SSGVDOA |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
+    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
   </li>
 
       
@@ -478,7 +460,7 @@ VIPER_SSGVDOA |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a></span>
+    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
   </li>
 
       
@@ -487,7 +469,25 @@ VIPER_SSGVDOA |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/14/clash-build/" title="clash_build">clash_build</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer">AEG_reviwer</a></span>
   </li>
 
   </ul>

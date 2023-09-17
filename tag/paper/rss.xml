@@ -19,6 +19,7 @@
         <category>kernel pwn</category>
         <category>binary</category>
         <category>personal</category>
+        <category>C</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</guid>
             <title>Sec_paper_list</title>
@@ -301,12 +302,12 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;/VIPER-SSGVDOA.assets/image-20230628155213365.png&#34; alt=&#34;image-20230628155213365&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016500.png&#34; alt=&#34;image-20230628155213365&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;dynamic backward data-flow&lt;/strong&gt;：检查每个变量被覆盖利用的可能性&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Corruptibility Assessment&lt;/strong&gt; ： 使用数据流来评估每一个分支变量被内存错误污染的可能性。同时使用动态数据流分析，在过程中根据变量的存储位置和内存的声明周期对内存进行定性，分别视为容易利用和难利用三种等级。全局变量相对局部变量更容易被利用，生命周期越长，被修改次数越多，能被利用的概率越高。依此能够筛选出被破坏概率更高的关键变量。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;整体流程&#34;&gt;&lt;a href=&#34;#整体流程&#34; class=&#34;headerlink&#34; title=&#34;整体流程&#34;&gt;&lt;/a&gt;整体流程&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;/VIPER-SSGVDOA.assets/image-20230628205325968.png&#34; alt=&#34;image-20230628205325968&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;整体流程&#34;&gt;&lt;a href=&#34;#整体流程&#34; class=&#34;headerlink&#34; title=&#34;整体流程&#34;&gt;&lt;/a&gt;整体流程&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016755.png&#34; alt=&#34;image-20230628205325968&#34;&gt;&lt;/p&gt;
 &lt;p&gt;VIPER在对程序分析后，最终会报告当前程序中存在的各种危险的关键分支，系统调用及其保护变量。&lt;/p&gt;
 &lt;p&gt;​	BranchForcer运行包含原始输入的程序，并记录执行的分支和系统调用。然后，使用相同的输入多次运行程序，并为每次新的执行翻转一个不同分支的目标。如果重新执行触发了新的与安全性相关的系统调用，我们将当前分支添加到候选列表中。对于每个候选分支，VariableRator再次运行程序，以记录执行的完整跟踪，包括分支序列、所有内存访问地址和进程内存布局。利用记录的轨迹对程序IR进行反向数据流分析。VariableRator检查内存布局以确定每个内存节点的位置，并计算内存写指令的数量以估计节点的生命周期&lt;/p&gt;
 &lt;h3 id=&#34;分支记录&#34;&gt;&lt;a href=&#34;#分支记录&#34; class=&#34;headerlink&#34; title=&#34;分支记录&#34;&gt;&lt;/a&gt;分支记录&lt;/h3&gt;&lt;p&gt;​	由于在执行的过程中可能会出现路径爆炸以及某些分支翻转了没有意义，因此只在固定路径上做分支翻转。每个分支只会做一次翻转。为了提高效率，使用多线程尽心探索。&lt;/p&gt;

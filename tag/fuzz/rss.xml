@@ -19,6 +19,7 @@
         <category>kernel pwn</category>
         <category>binary</category>
         <category>personal</category>
+        <category>C</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/30/afl-fuzz-diy/</guid>
             <title>afl_fuzz_DIY</title>
