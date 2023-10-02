@@ -17,6 +17,7 @@
     <category term="binary" />
     <category term="personal" />
     <category term="C" />
+    <category term="dataflow" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/08/30/afl-fuzz-diy/</id>
         <title>afl_fuzz_DIY</title>

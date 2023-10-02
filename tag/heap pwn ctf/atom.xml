@@ -17,6 +17,7 @@
     <category term="binary" />
     <category term="personal" />
     <category term="C" />
+    <category term="dataflow" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/12/heap-exp-heap-management/</id>
         <title>HEAP-EXP-heap_management</title>

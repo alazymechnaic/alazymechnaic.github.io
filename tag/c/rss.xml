@@ -20,6 +20,7 @@
         <category>binary</category>
         <category>personal</category>
         <category>C</category>
+        <category>dataflow</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/11/speedrunner-for-c/</guid>
             <title>SpeedRunner_for_C</title>

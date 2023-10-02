@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhtuo6nj20zk0m8ttm.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
         </ul>
       </div>
     </header>
@@ -123,7 +123,55 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/11/speedrunner-for-c/" itemprop="url" title="SpeedRunner_for_C"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicis3attqj20zk0m8k7l.jpg"></a>
+    <a href="/2023/09/30/dataflowanalysis/" itemprop="url" title="DataFlowAnalysis"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-09-30 14:48:10">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-09-30T14:48:10+08:00">2023-09-30</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/09/30/dataflowanalysis/" itemprop="url" title="DataFlowAnalysis">DataFlowAnalysis</a></h3>
+    <div class="excerpt">
+        DataFlow Analysis
+数据流分析的作用
+简化执行代码:
+
+```c// 在下面代码x = a + b;x = 5 * 2;// 可以直接简化为x = 10;
+- **变量取值分析**
+
+- ```c
+a = 1;
+b = 2;
+c = 3;
+if (...) x = a + 5;
+else x = b + 4;
+c = x + 1;
+// 虽然程序复杂但是可以直接简化为c = 7
+c = 7;
+
+技术划分示例代码如下：
+1. k = 2;
+2. if (...) {
+3. a = k + 2;
+4. x = 5;
+5. } else {
+6. a = k * 2;
+7. x =...
+    </div>
+    <a href="/2023/09/30/dataflowanalysis/" itemprop="url" title="DataFlowAnalysis" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/09/11/speedrunner-for-c/" itemprop="url" title="SpeedRunner_for_C"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicit31ffoj20zk0m8naf.jpg"></a>
   </div>
   <div class="info">
     
@@ -165,7 +213,7 @@ int numbers[] = {1, 2, 3, 4,...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexbei4hj20zk0m8npd.jpg"></a>
+    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></a>
   </div>
   <div class="info">
     
@@ -201,7 +249,7 @@ intel pin#...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></a>
+    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipevuctzzj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -234,7 +282,7 @@ make
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclj9410cj20zk0m8h12.jpg"></a>
+    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipetlbztpj20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -267,7 +315,7 @@ afl_forkserver_t...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipeubcbajj20zk0m8h1h.jpg"></a>
+    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciszlczyj20zk0m816d.jpg"></a>
   </div>
   <div class="info">
     
@@ -296,7 +344,7 @@ S&amp;amp;P:...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></a>
+    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></a>
   </div>
   <div class="info">
     
@@ -329,7 +377,7 @@ primitive-crucial-behavior analysis...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipewkhf1zj20zk0m81kx.jpg"></a>
+    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -353,7 +401,7 @@ primitive-crucial-behavior analysis...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexw3o58j20zk0m8e81.jpg"></a>
+    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclfdu6exj20zk0m87hw.jpg"></a>
   </div>
   <div class="info">
     
@@ -381,7 +429,7 @@ Go语言特性
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxxcb6rj20zk0m8b29.jpg"></a>
+    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipew28b65j20zk0m8hdt.jpg"></a>
   </div>
   <div class="info">
     
@@ -410,7 +458,7 @@ https://www.bilibili.com/video/BV1t3411u7cp/?spm_id_from=333.337.search-card.all
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></a>
+    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
   </div>
   <div class="info">
     
@@ -444,7 +492,7 @@ sudo wget...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitcxhpij20zk0m8hdt.jpg"></a>
+    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicliierfjj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -470,32 +518,6 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 使用cat...
     </div>
     <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-07-04 17:09:42">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-07-04T17:09:42+08:00">2023-07-04</time>
-  </span>
-</div>
-
-    <h3><a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a></h3>
-    <div class="excerpt">
-        Block Oriented Programming: Automating Data-Only Attacks
-目的： 能够依照代码块组指出包含特定语义的结构。构造出了一种自己的语言SPL，生成SPL payload来组织成特定的语义。
-前提：...
-    </div>
-    <a href="/2023/07/04/bopc-data-only-attack/" itemprop="url" title="BOPC_Data_Only_Attack" class="btn">more...</a>
   </div>
 </article>
 
@@ -534,13 +556,13 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">21</span>
+        <span class="count">22</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">13</span>
+        <span class="count">14</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -628,7 +650,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
   </li>
 
       
@@ -637,7 +659,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
+    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
   </li>
 
       
@@ -646,7 +668,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/09/11/speedrunner-for-c/" title="SpeedRunner_for_C">SpeedRunner_for_C</a></span>
+    <span><a href="/2023/07/04/bopc-data-only-attack/" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a></span>
   </li>
 
       
@@ -655,7 +677,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/14/clash-build/" title="clash_build">clash_build</a></span>
+    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
   </li>
 
       
@@ -664,16 +686,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">Stack_based_overflow</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/22/sec-paper-list/" title="Sec_paper_list">Sec_paper_list</a></span>
+    <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
   </li>
 
       
@@ -691,7 +704,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
+    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
   </li>
 
       
@@ -700,7 +713,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/07/13/kernel-pwn/" title="kernel_pwn">kernel_pwn</a></span>
+    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
   </li>
 
       
@@ -709,7 +722,16 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
+    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">Stack_based_overflow</a></span>
   </li>
 
   </ul>

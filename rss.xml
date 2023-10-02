@@ -5,8 +5,8 @@
         <link>https://alazymechnaic.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Mon, 11 Sep 2023 19:24:57 +0800</pubDate>
-        <lastBuildDate>Mon, 11 Sep 2023 19:24:57 +0800</lastBuildDate>
+        <pubDate>Sat, 30 Sep 2023 14:48:10 +0800</pubDate>
+        <lastBuildDate>Sat, 30 Sep 2023 14:48:10 +0800</lastBuildDate>
         <category>paper</category>
         <category>HEAP PWN CTF</category>
         <category>pwn</category>
@@ -20,6 +20,127 @@
         <category>binary</category>
         <category>personal</category>
         <category>C</category>
+        <category>dataflow</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/</guid>
+            <title>DataFlowAnalysis</title>
+            <link>https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/</link>
+            <category>dataflow</category>
+            <pubDate>Sat, 30 Sep 2023 14:48:10 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;DataFlow-Analysis&#34;&gt;&lt;a href=&#34;#DataFlow-Analysis&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Analysis&#34;&gt;&lt;/a&gt;DataFlow Analysis&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;数据流分析的作用&#34;&gt;&lt;a href=&#34;#数据流分析的作用&#34; class=&#34;headerlink&#34; title=&#34;数据流分析的作用&#34;&gt;&lt;/a&gt;数据流分析的作用&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;简化执行代码&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;```c&lt;br&gt;// 在下面代码&lt;br&gt;x = a + b;&lt;br&gt;x = 5 * 2;&lt;br&gt;// 可以直接简化为&lt;br&gt;x = 10;&lt;pre class=&#34;line-numbers language-none&#34;&gt;&lt;code class=&#34;language-none&#34;&gt;
+- **变量取值分析**
+
+  - ```c
+    a = 1;
+    b = 2;
+    c = 3;
+    if (...) x = a + 5;
+    else x = b + 4;
+    c = x + 1;
+    // 虽然程序复杂但是可以直接简化为c = 7
+    c = 7;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;技术划分&#34;&gt;&lt;a href=&#34;#技术划分&#34; class=&#34;headerlink&#34; title=&#34;技术划分&#34;&gt;&lt;/a&gt;技术划分&lt;/h2&gt;&lt;p&gt;示例代码如下：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;   k &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;   &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;     a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; k &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;     x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;5.&lt;/span&gt;   &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;6.&lt;/span&gt;     a &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; k &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;7.&lt;/span&gt;     x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;8.&lt;/span&gt;   &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;9.&lt;/span&gt;   k &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; a&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;10.&lt;/span&gt;  &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;11.&lt;/span&gt;     b &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;12.&lt;/span&gt;     x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; a &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; k&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;13.&lt;/span&gt;     y &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; a &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; b&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;14.&lt;/span&gt;     k&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;15.&lt;/span&gt;  &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;16.&lt;/span&gt;  &lt;span class=&#34;token function&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;a&lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;Constant-Propagation&#34;&gt;&lt;a href=&#34;#Constant-Propagation&#34; class=&#34;headerlink&#34; title=&#34;Constant Propagation&#34;&gt;&lt;/a&gt;&lt;em&gt;Constant Propagation&lt;/em&gt;&lt;/h3&gt;&lt;p&gt;​	constant propagation本质是分析程序中某些变量的值的集合，表现为（变量，取值）的键值对&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png&#34; alt=&#34;image-20230930150627177&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;Live-Variable-Analysis&#34;&gt;&lt;a href=&#34;#Live-Variable-Analysis&#34; class=&#34;headerlink&#34; title=&#34;Live-Variable Analysis&#34;&gt;&lt;/a&gt;&lt;em&gt;Live-Variable Analysis&lt;/em&gt;&lt;/h3&gt;&lt;p&gt;​	该分析的目的是找到当前时刻中的哪些变量，在内容被覆盖之前可能会被使用，这类变量称为live-Variable。该分析方式属于backward may的分析方法，需要依赖后续代码来生成前面的变量使用情况。&lt;/p&gt;
+&lt;h2 id=&#34;Define-DataFlow-Problem&#34;&gt;&lt;a href=&#34;#Define-DataFlow-Problem&#34; class=&#34;headerlink&#34; title=&#34;Define DataFlow Problem&#34;&gt;&lt;/a&gt;Define DataFlow Problem&lt;/h2&gt;&lt;p&gt;​	在定义数据流问题之前需要先定义两个问题，第一个是&lt;strong&gt;前向传播&lt;/strong&gt;（例如，constant propagation）问题，第二个是&lt;strong&gt;后向传播&lt;/strong&gt;（例如，live-Variable分析）问题。常见的数据流分析中包含的往往是may和must问题，例如live分析的时候，只能说某个变量在某个节点的存活状态时may，但是在前向传播时某个变量的取值是must。&lt;/p&gt;
+&lt;h3 id=&#34;DataFlow-Problem&#34;&gt;&lt;a href=&#34;#DataFlow-Problem&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Problem&#34;&gt;&lt;/a&gt;DataFlow Problem&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;在程序开始执行时有哪些信息&lt;/li&gt;
+&lt;li&gt;当一个结点存在多于一个的入度边时，如何将两个入度的信息进行合并？&lt;/li&gt;
+&lt;li&gt;当每一个结点执行结束后，如何影响当前的数据流状态？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在数据流分析中的相关定义如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CFG&lt;/li&gt;
+&lt;li&gt;a domain D of “dataflow facts” ： 这里给出的定义中，DataFlow facts是指在constant propagation中出现的变量与其对应值的键值对集合，这里的domain就是该集合的幂集，相应的live-variable分析中的就是变量集合的幂集&lt;/li&gt;
+&lt;li&gt;a dataflow fact “init” ： 定义前向分析的起始位置或者后向分析的结束状态。这里两种分析的init状态都是空,因为在反向扫描时，从程序结束位置开始，此时的所有变量都寄了。&lt;/li&gt;
+&lt;li&gt;an operator ⌈⌉ (used to combine incoming information from multiple predecessors)，该运算符在前向传播时用作交操作，在进行后向传播时用于并操作。只有当变量x在p1和p2之后都具有值v时，才能确定在节点n之前，变量x的值也是v。在”may”类型的数据流问题中，组合操作符⌈⌉通常是类似于并集的操作符，而在”must”类型的问题中，它通常是类似于交集的操作符。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$&lt;br&gt;fn(S) = (S - KILLn) ∪ GENn&lt;br&gt;$$&lt;/p&gt;
+&lt;p&gt;​	其中KILLn是在节点n处定义的变量集合，GENn是在节点n处使用的变量集合。对于不对任何变量进行赋值的节点，节点n之前的活跃变量是节点n之后的活跃变量加上在节点n处被使用的变量。对于对变量x进行赋值的节点，节点n之前的活跃变量是节点n之后的活跃变量中排除变量x后的部分，再加上在节点n处使用的变量（包括变量x，如果它在节点n处既被定义又被使用）。&lt;strong&gt;注意这里是一个反向分析的过程，n处声明的变量定义为kill是因为再向前扫描的话，变量肯定是不存在的。如果在结点n中被用到了，则表明在n之前肯定是活的。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;Solving-Dataflow-Problem&#34;&gt;&lt;a href=&#34;#Solving-Dataflow-Problem&#34; class=&#34;headerlink&#34; title=&#34;Solving Dataflow Problem&#34;&gt;&lt;/a&gt;Solving Dataflow Problem&lt;/h2&gt;&lt;p&gt;​	本文中提到的分析方法是针对某个基本块结点n的分析方法。但是为了保证每个节点&lt;/p&gt;
+&lt;h3 id=&#34;The-“Meet-Over-All-Paths”-Solution&#34;&gt;&lt;a href=&#34;#The-“Meet-Over-All-Paths”-Solution&#34; class=&#34;headerlink&#34; title=&#34;The “Meet Over All Paths” Solution&#34;&gt;&lt;/a&gt;The “Meet Over All Paths” Solution&lt;/h3&gt;&lt;p&gt;​	MOP的思想是尽可能多地结算到达节点n时的数据流情况，也就是要考虑到所有的路径，并取∩运算。然而这个结果也是“尽可能对”的结果。MOP方案考虑了所有到达结点n的路径上的数据流状况，但即使是这种分析方式也有可能是过于保守的，因为有些路径未必是实际可执行的，例如永真/永假式的存在，或者谓词之间不独立（一个表达式的正确与否与另一个表达式相关）。&lt;/p&gt;
+&lt;h3 id=&#34;MOP的问题&#34;&gt;&lt;a href=&#34;#MOP的问题&#34; class=&#34;headerlink&#34; title=&#34;MOP的问题&#34;&gt;&lt;/a&gt;MOP的问题&lt;/h3&gt;&lt;p&gt;​	MOP方式的本质是枚举尽可能多的路径来计算其上的数据流，然而对于一些循环（路径爆炸相关）的问题中，MOP方式是结束不了的。&lt;/p&gt;
+&lt;p&gt;​	&lt;em&gt;As we shall see, if those functions are &lt;em&gt;distributive&lt;/em&gt;, then the solution that we compute is identical to the MOP solution. If the functions are &lt;em&gt;monotonic&lt;/em&gt;, then the solution may not be identical to the MOP solution, but is a conservative approximation.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;​	这里贴一下原文吧，文中说如果这些函数满足分配律（distributive）的性质，那么我们计算得到的解将与MOP解相同。如果数据流函数是单调的（monotonic），那么计算得到的解可能与MOP解不完全相同，但是它是一种保守的近似。&lt;/p&gt;
+&lt;p&gt;​	文中给出的解决方法如下：&lt;/p&gt;
+&lt;p&gt;n.before：n执行之前的信息，&lt;br&gt;n.after：n执行之后的信息。&lt;/p&gt;
+&lt;p&gt;这些n.before和n.after是我们方程的变量，其定义如下（对于每个节点n有两个方程）：&lt;br&gt;        &lt;strong&gt;n.before = ∩(p1.after, p2.after, …)&lt;/strong&gt;&lt;br&gt;其中p1、p2等是n在CFG中的前驱节点（∩是此数据流问题的组合运算符）。&lt;br&gt;        &lt;strong&gt;n.after = fn(n.before)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;也就是在结点n之前的状态信息是路径p1到pn的数据流的交集。结点n之后的状态由n之前的状态计算得出。通过解这些方程，我们可以计算出每个节点的数据流信息，从而得到整个程序的数据流分析结果。&lt;/p&gt;
+&lt;p&gt;​	&lt;em&gt;In general, for a “must” problem the desired solution will be the largest one, while for a “may” problem the desired solution will be the smallest one.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;​	文中给出的例子如下：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022012864.png&#34; alt=&#34;image-20231002201252770&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​	连续传播的过程中使用的内容如下：&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;// constant propagation&lt;/span&gt;
+enter&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; empty set &lt;span class=&#34;token comment&#34;&gt;// 刚开始是没有任何数据赋值状态的&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; enter&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;after &lt;span class=&#34;token comment&#34;&gt;// 所有的before都是前一个的after&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 这里在经历x=2的赋值之后，x不在是任意值，而是2&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;after
+&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; c&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; is in &lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before then &lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; c&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 
+&lt;span class=&#34;token comment&#34;&gt;// 算法思想在↑体现，只考虑相邻基本块之间的关系，因此只能分类讨论&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; ⌈⌉&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;after&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;after &lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 存在两个前驱结点，所以取∩操作&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;before
+&lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;after
+&lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;before&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014784.png&#34; alt=&#34;image-20231002201421727&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这里的分析时must分析，因此要使用到solution 4，尽可能多的结果。&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;//  live-variable analysis&lt;/span&gt;
+&lt;span class=&#34;token comment&#34;&gt;// 这个从最后一行开始看比较好&lt;/span&gt;
+enter&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;before 
+&lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// x的声明位置因此要union上x&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;1.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before
+&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// y的声明位置，所以要减去y，同时是x的使用位置要union上x&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;2.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;before
+&lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;after
+&lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; exit&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;before ⌈⌉ &lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;before
+&lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;after &lt;span class=&#34;token keyword&#34;&gt;union&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 4之后不知道，但是由于4出现了y的使用，因此要将y并入&lt;/span&gt;
+&lt;span class=&#34;token number&#34;&gt;4.&lt;/span&gt;after &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.&lt;/span&gt;before 
+exit&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;before &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; empty&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;set  &lt;span class=&#34;token comment&#34;&gt;// 最终结束后都是empty set&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014760.png&#34; alt=&#34;image-20231002201431716&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这里的variable live是may模式，因此要采用的最好是least的结果。&lt;/p&gt;
+&lt;h3 id=&#34;数据流分析的格点模型&#34;&gt;&lt;a href=&#34;#数据流分析的格点模型&#34; class=&#34;headerlink&#34; title=&#34;数据流分析的格点模型&#34;&gt;&lt;/a&gt;数据流分析的格点模型&lt;/h3&gt;&lt;p&gt;MOP模型存在以下问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我们怎么知道方程的解存在?&lt;/li&gt;
+&lt;li&gt;如果有不止一个解，我们想要哪一个?&lt;/li&gt;
+&lt;li&gt;方程解与MOP解有什么关系?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;Partially-ordered-sets-偏序集&#34;&gt;&lt;a href=&#34;#Partially-ordered-sets-偏序集&#34; class=&#34;headerlink&#34; title=&#34;Partially ordered sets 偏序集&#34;&gt;&lt;/a&gt;Partially ordered sets 偏序集&lt;/h4&gt;&lt;p&gt;​	设R是集合A上的一个关系，如果R是自反的、反对称的和可传递的，则称R是集合A的偏序关系，简称偏序，记作“≤”。对于（a，b）∈R，就把它表示成a≤b。&lt;/p&gt;
+&lt;p&gt;​	若在集合A上给定一个偏序关系≤，则称集合A按偏序关系≤构成一个偏序集合，集合A和偏序R一起称为偏序集，记作（A，≤）（取自百度百科）&lt;/p&gt;
+&lt;p&gt;偏序关系存在以下性质：&lt;/p&gt;
+&lt;p&gt;（1）自反性：a≤a，∀a∈P；&lt;/p&gt;
+&lt;p&gt;（2）反对称性：∀a，b∈P，若a≤b且b≤a，则a=b；&lt;/p&gt;
+&lt;p&gt;（3）传递性：∀a，b，c∈P，若a≤b且b≤c，则a≤c；&lt;/p&gt;
+&lt;h2 id=&#34;参考文献&#34;&gt;&lt;a href=&#34;#参考文献&#34; class=&#34;headerlink&#34; title=&#34;参考文献&#34;&gt;&lt;/a&gt;参考文献&lt;/h2&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9wYWdlcy5jcy53aXNjLmVkdS9+aG9yd2l0ei9DUzcwNC1OT1RFUy8yLkRBVEFGTE9XLmh0bWw=&#34;&gt;https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/2.DATAFLOW.html&lt;/span&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/11/speedrunner-for-c/</guid>
             <title>SpeedRunner_for_C</title>

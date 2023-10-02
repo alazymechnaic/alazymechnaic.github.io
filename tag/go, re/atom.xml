@@ -17,6 +17,7 @@
     <category term="binary" />
     <category term="personal" />
     <category term="C" />
+    <category term="dataflow" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/20/go-reverse/</id>
         <title>go_reverse</title>
