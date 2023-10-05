@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;arm&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-10-03T06:28:56.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <category term="C" />
+    <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/10/03/arm-base/</id>
+        <title>Arm_Base</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/03/arm-base/"/>
+        <content type="html">&lt;h2 id=&#34;ARM&#34;&gt;&lt;a href=&#34;#ARM&#34; class=&#34;headerlink&#34; title=&#34;ARM&#34;&gt;&lt;/a&gt;ARM&lt;/h2&gt;&lt;p&gt;​	本文用于介绍arm指令集的基本架构，特性。&lt;/p&gt;
+</content>
+        <category term="arm" />
+        <updated>2023-10-03T06:28:56.000Z</updated>
+    </entry>
+</feed>

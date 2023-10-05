@@ -18,6 +18,9 @@
     <category term="personal" />
     <category term="C" />
     <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/</id>
         <title>DataFlowAnalysis</title>

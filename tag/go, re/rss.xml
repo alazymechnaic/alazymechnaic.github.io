@@ -21,6 +21,9 @@
         <category>personal</category>
         <category>C</category>
         <category>dataflow</category>
+        <category>Android</category>
+        <category>arm</category>
+        <category>Hook</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/20/go-reverse/</guid>
             <title>go_reverse</title>

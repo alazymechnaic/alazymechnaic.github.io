@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;android&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Mon, 02 Oct 2023 21:20:06 +0800</pubDate>
+        <lastBuildDate>Mon, 02 Oct 2023 21:20:06 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>HEAP PWN CTF</category>
+        <category>pwn</category>
+        <category>Linux</category>
+        <category>Paper</category>
+        <category>fuzz</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>personal</category>
+        <category>C</category>
+        <category>dataflow</category>
+        <category>Android</category>
+        <category>arm</category>
+        <category>Hook</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/02/androidhook/</guid>
+            <title>AndroidHook</title>
+            <link>https://alazymechnaic.github.io/2023/10/02/androidhook/</link>
+            <category>Android</category>
+            <pubDate>Mon, 02 Oct 2023 21:20:06 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;移动安全开发&#34;&gt;&lt;a href=&#34;#移动安全开发&#34; class=&#34;headerlink&#34; title=&#34;移动安全开发&#34;&gt;&lt;/a&gt;移动安全开发&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;定制化外挂的开发流程&#34;&gt;&lt;a href=&#34;#定制化外挂的开发流程&#34; class=&#34;headerlink&#34; title=&#34;定制化外挂的开发流程&#34;&gt;&lt;/a&gt;定制化外挂的开发流程&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;逆向分析游戏逻辑&lt;/li&gt;
+&lt;li&gt;验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。&lt;/li&gt;
+&lt;li&gt;注入游戏进程：获得root，使用ptrace方式注入游戏进程。&lt;/li&gt;
+&lt;li&gt;枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。&lt;ul&gt;
+&lt;li&gt;Hook游戏关键函数&lt;/li&gt;
+&lt;li&gt;游戏内存数据修改&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;实现外挂功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;Hook技术实现&#34;&gt;&lt;a href=&#34;#Hook技术实现&#34; class=&#34;headerlink&#34; title=&#34;Hook技术实现&#34;&gt;&lt;/a&gt;Hook技术实现&lt;/h2&gt;&lt;p&gt;​	hook的前提是已经注入到目标进程后。hook的目的是在关键函数的执行前，执行预先设置的钩子函数，从而达到监控函数调用、改变函数功能的目的。&lt;/p&gt;
+&lt;h3 id=&#34;hook分类&#34;&gt;&lt;a href=&#34;#hook分类&#34; class=&#34;headerlink&#34; title=&#34;hook分类&#34;&gt;&lt;/a&gt;hook分类&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;native hook: &lt;ul&gt;
+&lt;li&gt;基于汇编代码替换的hook技术：&lt;ul&gt;
+&lt;li&gt;异常hook&lt;/li&gt;
+&lt;li&gt;inline hook&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;函数地址替换：&lt;ul&gt;
+&lt;li&gt;导入表hook&lt;/li&gt;
+&lt;li&gt;虚表hook&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;inline-hook&#34;&gt;&lt;a href=&#34;#inline-hook&#34; class=&#34;headerlink&#34; title=&#34;inline hook&#34;&gt;&lt;/a&gt;inline hook&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310031445483.png&#34; alt=&#34;image-20231003144538379&#34;&gt;&lt;/p&gt;
+&lt;p&gt;使用inline hook的流程并不复杂，而是保持原先的指令替换原则，将某条指令替换为跳转指令，将其指向插入的底层桩函数，在其中保存上下文，并实现自定义的函数调用，最后还原上下文后并继续向下执行。这里注意，ARM架构下插入跳转指令时，由于指令长度限制，没有办法进行直接寻址，可以采用将地址保存在寄存器中，进行寄存器间接寻址的方式。&lt;/p&gt;
+&lt;h3 id=&#34;导入表hook&#34;&gt;&lt;a href=&#34;#导入表hook&#34; class=&#34;headerlink&#34; title=&#34;导入表hook&#34;&gt;&lt;/a&gt;导入表hook&lt;/h3&gt;&lt;h3 id=&#34;基于异常的hook&#34;&gt;&lt;a href=&#34;#基于异常的hook&#34; class=&#34;headerlink&#34; title=&#34;基于异常的hook&#34;&gt;&lt;/a&gt;基于异常的hook&lt;/h3&gt;&lt;p&gt;采用的方法是signal + 非法指令的方式，在想要hook的地方触发异常，并捕获。在异常处理函数中捕获上下文的异常信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首先对目标地址写入异常指令，同时注册异常处理函数来获取执行时机。&lt;/li&gt;
+&lt;li&gt;当目标地址触发异常时，需要恢复目标地址的异常指令，同时设置目标地址的下一条指令为异常指令&lt;/li&gt;
+&lt;li&gt;当目标地址的下一条指令触发异常时，需要将目标地址的正常指令篡改为异常指令，从而获取下次异常Hook的执行时机。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;遍历游戏模块&#34;&gt;&lt;a href=&#34;#遍历游戏模块&#34; class=&#34;headerlink&#34; title=&#34;遍历游戏模块&#34;&gt;&lt;/a&gt;遍历游戏模块&lt;/h2&gt;&lt;h3 id=&#34;基于maps、smaps实现的文件遍历模块&#34;&gt;&lt;a href=&#34;#基于maps、smaps实现的文件遍历模块&#34; class=&#34;headerlink&#34; title=&#34;基于maps、smaps实现的文件遍历模块&#34;&gt;&lt;/a&gt;基于maps、smaps实现的文件遍历模块&lt;/h3&gt;&lt;p&gt;​	进程的内存模块信息存放在proc文件系统下，以pid为目录名称的maps文件，其中存放了每个进程的内存布局，注意这里要有root权限。&lt;/p&gt;
+&lt;h3 id=&#34;基于map-files目录实现的模块遍历&#34;&gt;&lt;a href=&#34;#基于map-files目录实现的模块遍历&#34; class=&#34;headerlink&#34; title=&#34;基于map_files目录实现的模块遍历&#34;&gt;&lt;/a&gt;基于map_files目录实现的模块遍历&lt;/h3&gt;&lt;p&gt;​	在proc/pid/map_files文件夹中的软连接进行查看，&lt;/p&gt;
+&lt;h3 id=&#34;基于dl-iterate-phdr函数遍历模块&#34;&gt;&lt;a href=&#34;#基于dl-iterate-phdr函数遍历模块&#34; class=&#34;headerlink&#34; title=&#34;基于dl_iterate_phdr函数遍历模块&#34;&gt;&lt;/a&gt;基于dl_iterate_phdr函数遍历模块&lt;/h3&gt;&lt;p&gt;​	该函数能够列出进程中的共享模块，可以得到模块的路径和地址。&lt;/p&gt;
+&lt;h3 id=&#34;dladdr函数获取指定模块的基址&#34;&gt;&lt;a href=&#34;#dladdr函数获取指定模块的基址&#34; class=&#34;headerlink&#34; title=&#34;dladdr函数获取指定模块的基址&#34;&gt;&lt;/a&gt;dladdr函数获取指定模块的基址&lt;/h3&gt; ]]></description>
+        </item>
+    </channel>
+</rss>

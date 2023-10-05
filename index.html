@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
           <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicmnywqgpj20zk0m8dwx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipewr8iypj20zk0m8b29.jpg"></li>
         </ul>
       </div>
     </header>
@@ -123,7 +123,125 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/30/dataflowanalysis/" itemprop="url" title="DataFlowAnalysis"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"></a>
+    <a href="/2023/10/03/frida-hook/" itemprop="url" title="frida-hook"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-10-03 19:03:18">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-10-03T19:03:18+08:00">2023-10-03</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/10/03/frida-hook/" itemprop="url" title="frida-hook">frida-hook</a></h3>
+    <div class="excerpt">
+        Frida hook实战
+本文记录frida在Windows上的使用过程。代码出处位于参考链接中。
+安装安装Python的frida模块：
+pip install frida-tools
+pip install frida
+
+首先下载frida的server：https://github.com/frida/frida/releases/download/16.1.4/frida-server-16.1.4-android-x86_64.xz
+安装frida-server
+adb push frida-server /data/local/tmp/frida-server
+adb shell...
+    </div>
+    <a href="/2023/10/03/frida-hook/" itemprop="url" title="frida-hook" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/10/03/arm-base/" itemprop="url" title="Arm_Base"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-10-03 14:28:56">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-10-03T14:28:56+08:00">2023-10-03</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/10/03/arm-base/" itemprop="url" title="Arm_Base">Arm_Base</a></h3>
+    <div class="excerpt">
+        ARM​	本文用于介绍arm指令集的基本架构，特性。
+    </div>
+    <a href="/2023/10/03/arm-base/" itemprop="url" title="Arm_Base" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/10/02/androidhook/" itemprop="url" title="AndroidHook"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-10-02 21:20:06">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-10-02T21:20:06+08:00">2023-10-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/10/02/androidhook/" itemprop="url" title="AndroidHook">AndroidHook</a></h3>
+    <div class="excerpt">
+        移动安全开发
+定制化外挂的开发流程
+逆向分析游戏逻辑
+验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。
+注入游戏进程：获得root，使用ptrace方式注入游戏进程。
+枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。
+Hook游戏关键函数
+游戏内存数据修改
+
+实现外挂功能
+
+Hook技术实现​	hook的前提是已经注入到目标进程后。hook的目的是在关键函数的执行前，执行预先设置的钩子函数，从而达到监控函数调用、...
+    </div>
+    <a href="/2023/10/02/androidhook/" itemprop="url" title="AndroidHook" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/10/02/processinject/" itemprop="url" title="ProcessInject"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclxfdlttj20zk0m8npd.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-10-02 21:05:07">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-10-02T21:05:07+08:00">2023-10-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/10/02/processinject/" itemprop="url" title="ProcessInject">ProcessInject</a></h3>
+    <div class="excerpt">
+        PC 端注入移动端注入​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。
+Zygote 注入ptrace注入https://blog.csdn.net/hp910315/article/details/77335058
+long ptrace(enum __ptrace_request request, pid_t pid, void *addr, void...
+    </div>
+    <a href="/2023/10/02/processinject/" itemprop="url" title="ProcessInject" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/09/30/dataflowanalysis/" itemprop="url" title="DataFlowAnalysis"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></a>
   </div>
   <div class="info">
     
@@ -213,7 +331,7 @@ int numbers[] = {1, 2, 3, 4,...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></a>
+    <a href="/2023/09/05/useful-command/" itemprop="url" title="Useful_command"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclize41wj20zk0m87gk.jpg"></a>
   </div>
   <div class="info">
     
@@ -249,7 +367,7 @@ intel pin#...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipevuctzzj20zk0m84qp.jpg"></a>
+    <a href="/2023/09/03/libdft/" itemprop="url" title="libdft"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexe4oykj20zk0m87ji.jpg"></a>
   </div>
   <div class="info">
     
@@ -282,7 +400,7 @@ make
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipetlbztpj20zk0m84qp.jpg"></a>
+    <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclil3m4ej20zk0m8tn8.jpg"></a>
   </div>
   <div class="info">
     
@@ -298,15 +416,11 @@ make
     <h3><a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY">afl_fuzz_DIY</a></h3>
     <div class="excerpt">
         AFL ++
-​	本文介绍如何利用AFL Plus Plus实现自定义目标的模糊测试。
-Tutorials ： https://github.com/AFLplusplus/AFLplusplus/blob/stable/docs/tutorials.md
-AFL源码阅读// afl-fuzz.h: line 431
-// 该结构用于存储本次afl运行所需要的上下文内容
-typedef struct afl_state {
-/* Position of this state in the global states list */
-u32 _id;
-
-afl_forkserver_t...
+afl for binarydop@ubuntu:~$ AFL_QEMU_DEBUG_MAPS=1 afl-qemu-trace ./ciscn_2019_c_1
+400000-402000 r-xp 00000000 08:05 1617251 /home/dop/ciscn_2019_c_1
+402000-601000 ---p 00000000 00:00 0
+601000-602000 r--p 00001000 08:05 1617251 /home/dop/ciscn_2019_c_1
+602000-603000 rw-p 00002000 08:05 1617251...
     </div>
     <a href="/2023/08/30/afl-fuzz-diy/" itemprop="url" title="afl_fuzz_DIY" class="btn">more...</a>
   </div>
@@ -315,7 +429,7 @@ afl_forkserver_t...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giciszlczyj20zk0m816d.jpg"></a>
+    <a href="/2023/08/22/sec-paper-list/" itemprop="url" title="Sec_paper_list"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipexe4oykj20zk0m87ji.jpg"></a>
   </div>
   <div class="info">
     
@@ -344,7 +458,7 @@ S&amp;amp;P:...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></a>
+    <a href="/2023/08/21/aeg-reviwer/" itemprop="url" title="AEG_reviwer"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclx6phq6j20zk0m8e36.jpg"></a>
   </div>
   <div class="info">
     
@@ -377,7 +491,7 @@ primitive-crucial-behavior analysis...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></a>
+    <a href="/2023/08/03/android-framework/" itemprop="url" title="android_framework"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></a>
   </div>
   <div class="info">
     
@@ -398,129 +512,6 @@ primitive-crucial-behavior analysis...
   </div>
 </article>
 
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclfdu6exj20zk0m87hw.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-07-20 19:50:06">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-07-20T19:50:06+08:00">2023-07-20</time>
-  </span>
-</div>
-
-    <h3><a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse">go_reverse</a></h3>
-    <div class="excerpt">
-        GO reverse
-简介​	GO语言是谷歌开发的强类型静态静态语言，其编译出的汇编代码与 C/ C++语言存在极大的差异。本身Go在编译过程中将所有的库函数和第三方包都进行了静态的打包操作，还打包进去了自身的runtime和（Garbage Collection， 垃圾回收）模块部分代码，导致其编译后的二进制文件体积十分庞大，存在较大的分析难度。
-Go语言特性
-独有的数据表示方式： 例如String类型使用，（start_address，length）二元组进行表示，导致其在进行函数调用时，传入的内容由原本C中的字符串地址变为了两个参数。
-独有的栈管理机制：Go语言中的栈使用continue...
-    </div>
-    <a href="/2023/07/20/go-reverse/" itemprop="url" title="go_reverse" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gipew28b65j20zk0m8hdt.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-07-20 19:07:47">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-07-20T19:07:47+08:00">2023-07-20</time>
-  </span>
-</div>
-
-    <h3><a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic">Android_Basic</a></h3>
-    <div class="excerpt">
-        本文用于介绍安卓基础架构以及安卓安全的学习方法及路线
-采用课程与笔记相结合的方式
-移动安全课程
-看完这些课程就行，每天一节，方便以后找工作
-https://www.bilibili.com/video/BV1nb411f777/?spm_id_from=333.337.search-card.all.click
-https://www.bilibili.com/video/BV1t3411u7cp/?spm_id_from=333.337.search-card.all.click
-    </div>
-    <a href="/2023/07/20/android-basic/" itemprop="url" title="Android_Basic" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1giclip4jbpj20zk0m87cv.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-07-14 10:14:42">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-07-14T10:14:42+08:00">2023-07-14</time>
-  </span>
-</div>
-
-    <h3><a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build">clash_build</a></h3>
-    <div class="excerpt">
-        Clash Install
-# 下载clash
-wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz
-# 解压
-gunzip -d clash.gz
-sudo chmod +x clash
-sudo mkdir /opt/clash
-sudo mv clash /opt/clash
-cd /opt/clash
-# 下载配置文件
-sudo wget...
-    </div>
-    <a href="/2023/07/14/clash-build/" itemprop="url" title="clash_build" class="btn">more...</a>
-  </div>
-</article>
-
-        
-<article class="item">
-  <div class="cover">
-    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicliierfjj20zk0m8npd.jpg"></a>
-  </div>
-  <div class="info">
-    
-<div class="meta">
-  <span class="item" title="创建时间：2023-07-13 20:41:24">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
-    </span>
-    <time itemprop="dateCreated datePublished" datetime="2023-07-13T20:41:24+08:00">2023-07-13</time>
-  </span>
-</div>
-
-    <h3><a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn">kernel_pwn</a></h3>
-    <div class="excerpt">
-        Kernel PWN
-
-内核保护技术
-SMAP/SMEP:
-
-arm里面叫PXN(Privilege Execute Never)和PAN(Privileged Access Never)。
-SMAP(Supervisor Mode Access Prevention，管理模式访问保护): 禁止内核访问用户空间数据
-SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内核访问用户代码区域
-使用cat...
-    </div>
-    <a href="/2023/07/13/kernel-pwn/" itemprop="url" title="kernel_pwn" class="btn">more...</a>
-  </div>
-</article>
-
     </div>
 
   </div>
@@ -528,7 +519,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
   
   <nav class="pagination">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="ic i-angle-right" aria-label="下一页"></i></a>
     </div>
   </nav>
 
@@ -556,13 +547,13 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">22</span>
+        <span class="count">26</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">14</span>
+        <span class="count">17</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -650,43 +641,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/07/04/bopc-data-only-attack/" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
+    <span><a href="/2023/07/20/go-reverse/" title="go_reverse">go_reverse</a></span>
   </li>
 
       
@@ -704,7 +659,25 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
+    <span><a href="/2023/05/02/bypass-nx/" title="bypass-NX">bypass-NX</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/12/heap-exp-heap-management/" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></span>
   </li>
 
       
@@ -722,7 +695,7 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
+    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
   </li>
 
       
@@ -731,7 +704,25 @@ SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">Stack_based_overflow</a></span>
+    <span><a href="/2023/09/03/libdft/" title="libdft">libdft</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/20/android-basic/" title="Android_Basic">Android_Basic</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/13/kernel-pwn/" title="kernel_pwn">kernel_pwn</a></span>
   </li>
 
   </ul>

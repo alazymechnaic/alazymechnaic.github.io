@@ -18,6 +18,9 @@
     <category term="personal" />
     <category term="C" />
     <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/</id>
         <title>Stack_based_overflow</title>

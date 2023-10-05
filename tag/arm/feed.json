@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"arm\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2023/10/03/arm-base/",
+            "url": "https://alazymechnaic.github.io/2023/10/03/arm-base/",
+            "title": "Arm_Base",
+            "date_published": "2023-10-03T06:28:56.000Z",
+            "content_html": "<h2 id=\"ARM\"><a href=\"#ARM\" class=\"headerlink\" title=\"ARM\"></a>ARM</h2><p>​\t本文用于介绍arm指令集的基本架构，特性。</p>\n",
+            "tags": [
+                "arm"
+            ]
+        }
+    ]
+}
