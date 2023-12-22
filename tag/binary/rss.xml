@@ -24,6 +24,8 @@
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
+        <category>AWD</category>
+        <category>cipher</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/04/27/one-byte-overflow/</guid>
             <title>one_byte_overflow</title>

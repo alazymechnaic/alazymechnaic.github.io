@@ -24,6 +24,8 @@
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
+        <category>AWD</category>
+        <category>cipher</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/03/arm-base/</guid>
             <title>Arm_Base</title>
@@ -31,6 +33,81 @@
             <category>arm</category>
             <pubDate>Tue, 03 Oct 2023 14:28:56 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;ARM&#34;&gt;&lt;a href=&#34;#ARM&#34; class=&#34;headerlink&#34; title=&#34;ARM&#34;&gt;&lt;/a&gt;ARM&lt;/h2&gt;&lt;p&gt;​	本文用于介绍arm指令集的基本架构，特性。&lt;/p&gt;
+&lt;h3 id=&#34;寄存器用法&#34;&gt;&lt;a href=&#34;#寄存器用法&#34; class=&#34;headerlink&#34; title=&#34;寄存器用法&#34;&gt;&lt;/a&gt;寄存器用法&lt;/h3&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;通用寄存器（General-Purpose Registers）：
+
+r0~r3 主要用于子程序间传递参数
+
+r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量
+
+r12 用作子程序间scratch 寄存器，即 ip 寄存器
+
+r13 通常用做栈指针，即 sp
+
+r14 寄存器又被称为连接寄存器（lr），用于保存子程序以及中断的返回地址
+
+r15 用作程序计数器（pc），由于 ARM 采用了流水线机制，当正确读取了 PC 的值后，该值为当前指令地址加 8 个字节，即 PC 指向当前指令的下两条指令地址。
+
+CPSR和SPSR都是程序状态寄存器，其中SPSR是用来保存中断前的CPSR中的值，以便在中断返回之后恢复处理器程序状态&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;基本指令&#34;&gt;&lt;a href=&#34;#基本指令&#34; class=&#34;headerlink&#34; title=&#34;基本指令&#34;&gt;&lt;/a&gt;基本指令&lt;/h3&gt;&lt;h3 id=&#34;常用指令集&#34;&gt;&lt;a href=&#34;#常用指令集&#34; class=&#34;headerlink&#34; title=&#34;常用指令集&#34;&gt;&lt;/a&gt;常用指令集&lt;/h3&gt;&lt;p&gt;ARM中的立即数常用井号在前进行标注，#立即数&lt;/p&gt;
+&lt;h4 id=&#34;数据定义&#34;&gt;&lt;a href=&#34;#数据定义&#34; class=&#34;headerlink&#34; title=&#34;数据定义&#34;&gt;&lt;/a&gt;数据定义&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;DATA1 DCB 10,20,30,40 ;分配一片连续的字节存储单元并初始化
+DATA2 DCD 10,20,30,40 ;分配一片连续的字存储单元并初始化
+BUF SPACE 100 ;给BUF分配100字节的存储单元并初始化为0&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;局部符号&#34;&gt;&lt;a href=&#34;#局部符号&#34; class=&#34;headerlink&#34; title=&#34;局部符号&#34;&gt;&lt;/a&gt;局部符号&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;引用格式：%{F|B|A|T} N{routname}
+%: 引用符号，对一个局部标号产生引用。
+F：指示编译器只向前搜索。B：指示编译器只向后搜索
+A：指示编译器搜索宏的所有宏命令层。T：指示编译器搜索宏的当前层
+N：局部标号的名字。routename：局部标号的作用范围名称，使用ROUT定义&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;赋值操作&#34;&gt;&lt;a href=&#34;#赋值操作&#34; class=&#34;headerlink&#34; title=&#34;赋值操作&#34;&gt;&lt;/a&gt;赋值操作&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;a SETA 10 ;给算术变量a赋值为10
+a SETL 10 ;给逻辑变量a赋值为10
+a SETS “ss” ;给字符串变量a赋值为“ss”&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;加载操作&#34;&gt;&lt;a href=&#34;#加载操作&#34; class=&#34;headerlink&#34; title=&#34;加载操作&#34;&gt;&lt;/a&gt;加载操作&lt;/h3&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;LDR R1,[R0,#0x12] ;将R0+0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,#-0x12];将R0-0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0] ;将R0 地址处的数据读出，保存到R1 中(零偏移)
+
+(2)寄存器。寄存器中的数值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例值。指令举例如下：
+
+LDR R1,[R0,R2] ;将R0+R2 地址的数据计读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,-R2] ;将R0-R2 地址处的数据计读出，保存到R1中(R0 的值不变)
+
+(3)寄存器及移位常数。寄存器移位后的值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例如下：
+
+LDR R1,[R0,R2,LSL #2] ;将R0+R2*4地址处的数据读出，保存到R1中（R0，R2的值不变）
+
+LDR R1,[R0,-R2,LSL #2];将R0-R2*4地址处的数据计读出，保存到R1中(R0，R2的值不变)&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;STR指令以此类推&lt;/p&gt;
+&lt;h3 id=&#34;跳转指令&#34;&gt;&lt;a href=&#34;#跳转指令&#34; class=&#34;headerlink&#34; title=&#34;跳转指令&#34;&gt;&lt;/a&gt;跳转指令&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;强制跳转指令&lt;/strong&gt;：B 目标地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;line-numbers language-assemblu&#34; data-language=&#34;assemblu&#34;&gt;&lt;code class=&#34;language-assemblu&#34;&gt;B（Branch）：无条件分支指令，用于无条件跳转到目标地址。
+
+示例：B label，跳转到标签为 &#34;label&#34; 的位置。
+BL（Branch with Link）：带链接的分支指令，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中。
+
+示例：BL subroutine，跳转到子程序 &#34;subroutine&#34; 并保存返回地址。
+BX（Branch and Exchange）：分支并切换指令，用于根据寄存器的值跳转到不同的地址，并切换到新的执行状态。
+
+示例：BX Rn，根据寄存器 Rn 的值跳转到相应的地址。
+BLX（Branch with Link and Exchange）：带链接的分支并切换指令，结合了 BL 和 BX 的功能，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中，并切换到新的执行状态。
+
+示例：BLX Rn，根据寄存器 Rn 的值跳转到相应的地址，并保存返回地址。
+CMP/BGT/BLT/BGE/BLE（Compare and Branch）：比较和分支指令，用于将两个操作数进行比较，并根据比较结果条件跳转到相应的地址。
+
+示例：CMP Rn, Rm，比较寄存器 Rn 和 Rm 的值。
+BGT label，如果 Rn 大于 Rm，则跳转到标签为 &#34;label&#34; 的位置。
+CBZ/CMN（Compare and Branch Zero/Non-zero）：比较并根据零/非零跳转指令，用于比较寄存器的值，并根据比较结果是否为零进行条件跳转。
+
+示例：CBZ Rn, label，如果 Rn 的值为零，则跳转到标签为 &#34;label&#34; 的位置&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;函数调用过程&#34;&gt;&lt;a href=&#34;#函数调用过程&#34; class=&#34;headerlink&#34; title=&#34;函数调用过程&#34;&gt;&lt;/a&gt;函数调用过程&lt;/h3&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZyYW5rX3p5cC9hcnRpY2xlL2RldGFpbHMvODgyMDIzNDc=&#34;&gt;https://blog.csdn.net/frank_zyp/article/details/88202347&lt;/span&gt;&lt;/p&gt;
  ]]></description>
         </item>
     </channel>

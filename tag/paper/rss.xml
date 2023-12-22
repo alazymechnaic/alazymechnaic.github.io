@@ -5,8 +5,8 @@
         <link>https://alazymechnaic.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Tue, 22 Aug 2023 10:00:57 +0800</pubDate>
-        <lastBuildDate>Tue, 22 Aug 2023 10:00:57 +0800</lastBuildDate>
+        <pubDate>Sun, 03 Dec 2023 13:15:08 +0800</pubDate>
+        <lastBuildDate>Sun, 03 Dec 2023 13:15:08 +0800</lastBuildDate>
         <category>paper</category>
         <category>HEAP PWN CTF</category>
         <category>pwn</category>
@@ -24,6 +24,76 @@
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
+        <category>AWD</category>
+        <category>cipher</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/12/03/paper-tunter/</guid>
+            <title>paper_tunter</title>
+            <link>https://alazymechnaic.github.io/2023/12/03/paper-tunter/</link>
+            <category>paper</category>
+            <pubDate>Sun, 03 Dec 2023 13:15:08 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34;&gt;&lt;a href=&#34;#Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34; class=&#34;headerlink&#34; title=&#34;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&#34;&gt;&lt;/a&gt;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&#34;主要贡献点&#34;&gt;&lt;a href=&#34;#主要贡献点&#34; class=&#34;headerlink&#34; title=&#34;主要贡献点&#34;&gt;&lt;/a&gt;主要贡献点&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;基于污点分析的候选exploit状态探索策略&lt;/li&gt;
+&lt;li&gt;用户缓解搜索状态爆照的剪枝策略&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在14个CTF上，2个real world上测试&lt;/strong&gt;，在Revery上的测试比其更快但是并没有找全面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;关键思想&#34;&gt;&lt;a href=&#34;#关键思想&#34; class=&#34;headerlink&#34; title=&#34;关键思想&#34;&gt;&lt;/a&gt;关键思想&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一旦发生内存错误就会导致程序变为一个奇怪的状态机，发现exploit的本质是搜索这个状态机中的空间，&lt;strong&gt;但是搜索这该状态空间是十分耗时的&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;文章指出的问题&lt;ul&gt;
+&lt;li&gt;使用符号执行进行求解只能对小型的程序起作用，对于大一点的程序会直接路径爆炸（&lt;strong&gt;但是这个我们解决了，使用启发式的路径探索策略，有目标的进行探索和评估&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;对于fuzz的使用，Revery使用fuzz的方式进行可利用状态的探索，太耗时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;使用启发式的状态剪枝方法来防止状态爆炸，构造目标可利用状态的约束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;相似之处&#34;&gt;&lt;a href=&#34;#相似之处&#34; class=&#34;headerlink&#34; title=&#34;相似之处&#34;&gt;&lt;/a&gt;相似之处&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;都是使用污点分析标记受污染的内存，在传播的过程中找到受影响的sink（例如，memcpy参数，ret地址等），作为候选的状态&lt;/li&gt;
+&lt;li&gt;使用动静转换策略，找到程序漏洞的触发位置，将动态执行的状态转换为静态执行的状态，从静态位置开始进行污点分析，&lt;strong&gt;这一部分与我们的方法一致&lt;/strong&gt;，但是并没有完全的dump内存，而是模拟了一个相似的静态程序状态&lt;/li&gt;
+&lt;li&gt;数据流分析时的指针问题，因为rax可控，所以直接将rsi定义为可控，在下面的指令中mov [rsi],rbx就认为是个gadget，&lt;strong&gt;我们也是这么做的。。。，但是不同之处在于后续进行求解的过程中会在数据流分析中施加内存搜索策略&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203144731837.png&#34; alt=&#34;image-20231203144731837&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;主要的问题&#34;&gt;&lt;a href=&#34;#主要的问题&#34; class=&#34;headerlink&#34; title=&#34;主要的问题&#34;&gt;&lt;/a&gt;主要的问题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;所有的案例都是在CTF上进行实现，两个真实世界的案例，构造了一个Revery无法进行实现的案例的exp，且多数攻击都是通过改变控制流实现的，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;行文中更多的是像对Revery研究的补充，而并非是一篇独立的文章，并且在比较结果上并没有比Revery好多少&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章对漏洞的理解，将内存错误视为对程序原有状态机的改变，我们认为内存错误的本质是对合法数据流依赖关系的破坏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章中通过控制流劫持的方法进行攻击，我们使用的是满足控制流完整性的方式进行攻击，限制条件更多，&lt;strong&gt;后面的实验最好能找到原本没有，算法构造出的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;污点分析找路径时的爆炸问题并没有进行考虑，而我们使用启发式的路径排序策略，缓解了这一问题（他是用修剪不相关路径实现的？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;符号执行的路径修剪策略潦草&lt;/strong&gt;：其实就是在指定了路径后去求解，出现循环太多次的就剪掉，这一部分工程实现讲得有点多&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;调研量过少，涉及到的AEG部分内容理解不完善&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;我们的优势在于保证所有保护开启的情况下完成的攻击，该文章则是在保护全关的情况下进行利用&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;对于精准的内存地址，没有办法做到求解，page 9&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203150112918.png&#34; alt=&#34;image-20231203150112918&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;angr的求解问题，并不能做到精准的求解&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203150421157.png&#34; alt=&#34;image-20231203150421157&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/07/dfanalyzer/</guid>
+            <title>DfAnalyzer</title>
+            <link>https://alazymechnaic.github.io/2023/10/07/dfanalyzer/</link>
+            <category>paper</category>
+            <pubDate>Sat, 07 Oct 2023 09:32:51 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications&#34;&gt;&lt;a href=&#34;#DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications&#34; class=&#34;headerlink&#34; title=&#34;DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications&#34;&gt;&lt;/a&gt;DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications&lt;/h1&gt;&lt;hr&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</guid>
             <title>Sec_paper_list</title>

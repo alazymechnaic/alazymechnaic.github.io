@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"cipher\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2023/10/16/thresholdsignature/",
+            "url": "https://alazymechnaic.github.io/2023/10/16/thresholdsignature/",
+            "title": "thresholdsignature",
+            "date_published": "2023-10-16T12:27:04.000Z",
+            "content_html": "<h2 id=\"ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读\"><a href=\"#ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读\" class=\"headerlink\" title=\"ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读\"></a>ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读</h2><hr>\n<p>门限签名的目的是避免产生可信中心，只有超过t个用户才能在一起验证签名或者产生有效的计算过程。</p>\n",
+            "tags": [
+                "cipher"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;cipher&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-10-16T12:27:04.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <category term="C" />
+    <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/10/16/thresholdsignature/</id>
+        <title>thresholdsignature</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/16/thresholdsignature/"/>
+        <content type="html">&lt;h2 id=&#34;ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读&#34;&gt;&lt;a href=&#34;#ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读&#34; class=&#34;headerlink&#34; title=&#34;ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读&#34;&gt;&lt;/a&gt;ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;门限签名的目的是避免产生可信中心，只有超过t个用户才能在一起验证签名或者产生有效的计算过程。&lt;/p&gt;
+</content>
+        <category term="cipher" />
+        <updated>2023-10-16T12:27:04.000Z</updated>
+    </entry>
+</feed>

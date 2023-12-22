@@ -21,6 +21,8 @@
     <category term="Android" />
     <category term="arm" />
     <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/</id>
         <title>DataFlowAnalysis</title>

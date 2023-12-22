@@ -5,6 +5,26 @@
     "home_page_url": "https://alazymechnaic.github.io",
     "items": [
         {
+            "id": "https://alazymechnaic.github.io/2023/12/03/paper-tunter/",
+            "url": "https://alazymechnaic.github.io/2023/12/03/paper-tunter/",
+            "title": "paper_tunter",
+            "date_published": "2023-12-03T05:15:08.000Z",
+            "content_html": "<h2 id=\"Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration\"><a href=\"#Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration\" class=\"headerlink\" title=\"Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration\"></a>Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</h2><hr>\n<h3 id=\"主要贡献点\"><a href=\"#主要贡献点\" class=\"headerlink\" title=\"主要贡献点\"></a>主要贡献点</h3><ul>\n<li>基于污点分析的候选exploit状态探索策略</li>\n<li>用户缓解搜索状态爆照的剪枝策略</li>\n<li><strong>在14个CTF上，2个real world上测试</strong>，在Revery上的测试比其更快但是并没有找全面</li>\n</ul>\n<h3 id=\"关键思想\"><a href=\"#关键思想\" class=\"headerlink\" title=\"关键思想\"></a>关键思想</h3><ul>\n<li>一旦发生内存错误就会导致程序变为一个奇怪的状态机，发现exploit的本质是搜索这个状态机中的空间，<strong>但是搜索这该状态空间是十分耗时的</strong></li>\n<li>文章指出的问题<ul>\n<li>使用符号执行进行求解只能对小型的程序起作用，对于大一点的程序会直接路径爆炸（<strong>但是这个我们解决了，使用启发式的路径探索策略，有目标的进行探索和评估</strong></li>\n<li>对于fuzz的使用，Revery使用fuzz的方式进行可利用状态的探索，太耗时</li>\n</ul>\n</li>\n<li>使用启发式的状态剪枝方法来防止状态爆炸，构造目标可利用状态的约束</li>\n</ul>\n<h3 id=\"相似之处\"><a href=\"#相似之处\" class=\"headerlink\" title=\"相似之处\"></a>相似之处</h3><ul>\n<li>都是使用污点分析标记受污染的内存，在传播的过程中找到受影响的sink（例如，memcpy参数，ret地址等），作为候选的状态</li>\n<li>使用动静转换策略，找到程序漏洞的触发位置，将动态执行的状态转换为静态执行的状态，从静态位置开始进行污点分析，<strong>这一部分与我们的方法一致</strong>，但是并没有完全的dump内存，而是模拟了一个相似的静态程序状态</li>\n<li>数据流分析时的指针问题，因为rax可控，所以直接将rsi定义为可控，在下面的指令中mov [rsi],rbx就认为是个gadget，<strong>我们也是这么做的。。。，但是不同之处在于后续进行求解的过程中会在数据流分析中施加内存搜索策略</strong><ul>\n<li><img data-src=\"/paper-tunter.assets/image-20231203144731837.png\" alt=\"image-20231203144731837\"></li>\n</ul>\n</li>\n</ul>\n<h3 id=\"主要的问题\"><a href=\"#主要的问题\" class=\"headerlink\" title=\"主要的问题\"></a>主要的问题</h3><ul>\n<li><p>所有的案例都是在CTF上进行实现，两个真实世界的案例，构造了一个Revery无法进行实现的案例的exp，且多数攻击都是通过改变控制流实现的，</p>\n</li>\n<li><p>行文中更多的是像对Revery研究的补充，而并非是一篇独立的文章，并且在比较结果上并没有比Revery好多少</p>\n</li>\n<li><p>文章对漏洞的理解，将内存错误视为对程序原有状态机的改变，我们认为内存错误的本质是对合法数据流依赖关系的破坏</p>\n</li>\n<li><p>文章中通过控制流劫持的方法进行攻击，我们使用的是满足控制流完整性的方式进行攻击，限制条件更多，<strong>后面的实验最好能找到原本没有，算法构造出的</strong></p>\n</li>\n<li><p>污点分析找路径时的爆炸问题并没有进行考虑，而我们使用启发式的路径排序策略，缓解了这一问题（他是用修剪不相关路径实现的？</p>\n</li>\n<li><p><strong>符号执行的路径修剪策略潦草</strong>：其实就是在指定了路径后去求解，出现循环太多次的就剪掉，这一部分工程实现讲得有点多</p>\n</li>\n<li><p>调研量过少，涉及到的AEG部分内容理解不完善</p>\n</li>\n<li><p><strong>我们的优势在于保证所有保护开启的情况下完成的攻击，该文章则是在保护全关的情况下进行利用</strong></p>\n</li>\n<li><p>对于精准的内存地址，没有办法做到求解，page 9</p>\n<ul>\n<li><img data-src=\"/paper-tunter.assets/image-20231203150112918.png\" alt=\"image-20231203150112918\"></li>\n</ul>\n</li>\n<li><p>angr的求解问题，并不能做到精准的求解</p>\n<ul>\n<li><img data-src=\"/paper-tunter.assets/image-20231203150421157.png\" alt=\"image-20231203150421157\"></li>\n</ul>\n</li>\n</ul>\n",
+            "tags": [
+                "paper"
+            ]
+        },
+        {
+            "id": "https://alazymechnaic.github.io/2023/10/07/dfanalyzer/",
+            "url": "https://alazymechnaic.github.io/2023/10/07/dfanalyzer/",
+            "title": "DfAnalyzer",
+            "date_published": "2023-10-07T01:32:51.000Z",
+            "content_html": "<h1 id=\"DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications\"><a href=\"#DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications\" class=\"headerlink\" title=\"DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications\"></a>DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications</h1><hr>\n",
+            "tags": [
+                "paper"
+            ]
+        },
+        {
             "id": "https://alazymechnaic.github.io/2023/08/22/sec-paper-list/",
             "url": "https://alazymechnaic.github.io/2023/08/22/sec-paper-list/",
             "title": "Sec_paper_list",

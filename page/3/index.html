@@ -91,12 +91,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipev1x5e4j20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciryrr3rj20zk0m8nhk.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclffsa1cj20zk0m811l.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeun65urj20zk0m81ii.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexoj0moj20zk0m8kgu.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipexw3o58j20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevuctzzj20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
         </ul>
       </div>
     </header>
@@ -122,7 +122,151 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/27/one-byte-overflow/" itemprop="url" title="one_byte_overflow"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicitspjpbj20zk0m81ky.jpg"></a>
+    <a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicm0fdw5cj20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-12 19:47:55">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-12T19:47:55+08:00">2023-05-12</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management">HEAP-EXP-heap_management</a></h3>
+    <div class="excerpt">
+        堆利用
+​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。
+堆管理机制​	堆区域与栈区域在内存使用上存在不同：
+
+堆位于当前程序中较低的地址位置，栈位于当前程序中的较高内存空间位置
+堆在使用时从低地址内存向高地址内存增长，栈从高地址内存向低地址内存增长
+堆和栈都可以是每个线程所有独有的，堆依然存在线程堆的概念
+
+(上图中的共享库段中包含有不同权限的几个内存段，如下图所示，其中mapped区域是当前so文件代码段对应的heap段)
+
+内存管理
+32位下的text段是即时elf文件装入操作系统的起始位置0x8048000，也就是整个虚拟内存中用户可用的起始位置,最远的访问位...
+    </div>
+    <a href="/2023/05/12/heap-exp-heap-management/" itemprop="url" title="HEAP-EXP-heap_management" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1giclh5u05ej20zk0m87df.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-05 10:29:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-05T10:29:48+08:00">2023-05-05</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr">bypass-aslr</a></h3>
+    <div class="excerpt">
+        
+    </div>
+    <a href="/2023/05/05/bypass-aslr/" itemprop="url" title="bypass-aslr" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 18:21:39">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T18:21:39+08:00">2023-05-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec">CFI-Sec</a></h3>
+    <div class="excerpt">
+        Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms
+
+​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control...
+    </div>
+    <a href="/2023/05/02/cfi-sec/" itemprop="url" title="CFI-Sec" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gicljgocqbj20zk0m8e81.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 14:56:58">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T14:56:58+08:00">2023-05-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX">bypass-NX</a></h3>
+    <div class="excerpt">
+        Bypass NX（DEP）简介​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的SIGSEGV 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。
+绕过​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（如果在开启了NX的情况下如何进行单字节溢出的利用）。
+least...
+    </div>
+    <a href="/2023/05/02/bypass-nx/" itemprop="url" title="bypass-NX" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-02 14:30:16">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-02T14:30:16+08:00">2023-05-02</time>
+  </span>
+</div>
+
+    <h3><a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan">personal_plan</a></h3>
+    <div class="excerpt">
+        技术路线​	本文用于对当前的栈中的内容和未学习内容进行索引。https://github.com/CHYbeta/Software-Security-Learning
+二进制安全Windows
+SEH机制
+
+Linux
+One byte overflow
+
+安卓安全渗透实战后渗透
+
+CTF WP
+    </div>
+    <a href="/2023/05/02/personal-plan/" itemprop="url" title="personal_plan" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2023/04/27/one-byte-overflow/" itemprop="url" title="one_byte_overflow"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipesng5oej20zk0m87d4.jpg"></a>
   </div>
   <div class="info">
     
@@ -150,7 +294,7 @@ void...
         
 <article class="item">
   <div class="cover">
-    <a href="/2023/04/26/stack-based-overflow/" itemprop="url" title="Stack_based_overflow"><img data-src="https://tva4.sinaimg.cn/mw690/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></a>
+    <a href="/2023/04/26/stack-based-overflow/" itemprop="url" title="Stack_based_overflow"><img data-src="https://tva2.sinaimg.cn/mw690/6833939bly1gipevarprfj20zk0m8npd.jpg"></a>
   </div>
   <div class="info">
     
@@ -207,13 +351,13 @@ void...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">26</span>
+        <span class="count">31</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">17</span>
+        <span class="count">19</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -301,7 +445,7 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/26/stack-based-overflow/" title="Stack_based_overflow">Stack_based_overflow</a></span>
+    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
   </li>
 
       
@@ -310,25 +454,7 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer">AEG_reviwer</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/02/bypass-nx/" title="bypass-NX">bypass-NX</a></span>
+    <span><a href="/2023/10/02/androidhook/" title="AndroidHook">AndroidHook</a></span>
   </li>
 
       
@@ -346,6 +472,15 @@ void...
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/09/05/useful-command/" title="Useful_command">Useful_command</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/07/13/kernel-pwn/" title="kernel_pwn">kernel_pwn</a></span>
   </li>
 
@@ -355,7 +490,7 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
+    <span><a href="/2023/10/07/dfanalyzer/" title="DfAnalyzer">DfAnalyzer</a></span>
   </li>
 
       
@@ -364,7 +499,7 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/12/blind-rop/" title="blind-rop">blind-rop</a></span>
+    <span><a href="/2023/10/16/thresholdsignature/" title="thresholdsignature">thresholdsignature</a></span>
   </li>
 
       
@@ -373,7 +508,7 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/10/02/processinject/" title="ProcessInject">ProcessInject</a></span>
+    <span><a href="/2023/04/27/one-byte-overflow/" title="one_byte_overflow">one_byte_overflow</a></span>
   </li>
 
       
@@ -382,7 +517,16 @@ void...
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/09/11/speedrunner-for-c/" title="SpeedRunner_for_C">SpeedRunner_for_C</a></span>
+    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/09/30/dataflowanalysis/" title="DataFlowAnalysis">DataFlowAnalysis</a></span>
   </li>
 
   </ul>

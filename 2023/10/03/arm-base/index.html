@@ -104,12 +104,12 @@ Arm_Base |
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicli9lfebj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipet8c1a2j20zk0m8kct.jpg"></li>
-          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicit4jrvuj20zk0m8785.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipey84bjtj20zk0m8hdt.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipex2cdtbj20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciszlczyj20zk0m816d.jpg"></li>
         </ul>
       </div>
     </header>
@@ -154,6 +154,81 @@ Arm_Base |
     
 
     <h2 id="ARM"><a href="#ARM" class="headerlink" title="ARM"></a>ARM</h2><p>​	本文用于介绍arm指令集的基本架构，特性。</p>
+<h3 id="寄存器用法"><a href="#寄存器用法" class="headerlink" title="寄存器用法"></a>寄存器用法</h3><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">通用寄存器（General-Purpose Registers）：
+
+r0~r3 主要用于子程序间传递参数
+
+r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量
+
+r12 用作子程序间scratch 寄存器，即 ip 寄存器
+
+r13 通常用做栈指针，即 sp
+
+r14 寄存器又被称为连接寄存器（lr），用于保存子程序以及中断的返回地址
+
+r15 用作程序计数器（pc），由于 ARM 采用了流水线机制，当正确读取了 PC 的值后，该值为当前指令地址加 8 个字节，即 PC 指向当前指令的下两条指令地址。
+
+CPSR和SPSR都是程序状态寄存器，其中SPSR是用来保存中断前的CPSR中的值，以便在中断返回之后恢复处理器程序状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><h3 id="常用指令集"><a href="#常用指令集" class="headerlink" title="常用指令集"></a>常用指令集</h3><p>ARM中的立即数常用井号在前进行标注，#立即数</p>
+<h4 id="数据定义"><a href="#数据定义" class="headerlink" title="数据定义"></a>数据定义</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">DATA1 DCB 10,20,30,40 ;分配一片连续的字节存储单元并初始化
+DATA2 DCD 10,20,30,40 ;分配一片连续的字存储单元并初始化
+BUF SPACE 100 ;给BUF分配100字节的存储单元并初始化为0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="局部符号"><a href="#局部符号" class="headerlink" title="局部符号"></a>局部符号</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">引用格式：%{F|B|A|T} N{routname}
+%: 引用符号，对一个局部标号产生引用。
+F：指示编译器只向前搜索。B：指示编译器只向后搜索
+A：指示编译器搜索宏的所有宏命令层。T：指示编译器搜索宏的当前层
+N：局部标号的名字。routename：局部标号的作用范围名称，使用ROUT定义<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="赋值操作"><a href="#赋值操作" class="headerlink" title="赋值操作"></a>赋值操作</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">a SETA 10 ;给算术变量a赋值为10
+a SETL 10 ;给逻辑变量a赋值为10
+a SETS “ss” ;给字符串变量a赋值为“ss”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="加载操作"><a href="#加载操作" class="headerlink" title="加载操作"></a>加载操作</h3><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">LDR R1,[R0,#0x12] ;将R0+0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,#-0x12];将R0-0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0] ;将R0 地址处的数据读出，保存到R1 中(零偏移)
+
+(2)寄存器。寄存器中的数值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例值。指令举例如下：
+
+LDR R1,[R0,R2] ;将R0+R2 地址的数据计读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,-R2] ;将R0-R2 地址处的数据计读出，保存到R1中(R0 的值不变)
+
+(3)寄存器及移位常数。寄存器移位后的值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例如下：
+
+LDR R1,[R0,R2,LSL #2] ;将R0+R2*4地址处的数据读出，保存到R1中（R0，R2的值不变）
+
+LDR R1,[R0,-R2,LSL #2];将R0-R2*4地址处的数据计读出，保存到R1中(R0，R2的值不变)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>STR指令以此类推</p>
+<h3 id="跳转指令"><a href="#跳转指令" class="headerlink" title="跳转指令"></a>跳转指令</h3><ul>
+<li><strong>强制跳转指令</strong>：B 目标地址</li>
+</ul>
+<pre class="line-numbers language-assemblu" data-language="assemblu"><code class="language-assemblu">B（Branch）：无条件分支指令，用于无条件跳转到目标地址。
+
+示例：B label，跳转到标签为 "label" 的位置。
+BL（Branch with Link）：带链接的分支指令，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中。
+
+示例：BL subroutine，跳转到子程序 "subroutine" 并保存返回地址。
+BX（Branch and Exchange）：分支并切换指令，用于根据寄存器的值跳转到不同的地址，并切换到新的执行状态。
+
+示例：BX Rn，根据寄存器 Rn 的值跳转到相应的地址。
+BLX（Branch with Link and Exchange）：带链接的分支并切换指令，结合了 BL 和 BX 的功能，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中，并切换到新的执行状态。
+
+示例：BLX Rn，根据寄存器 Rn 的值跳转到相应的地址，并保存返回地址。
+CMP/BGT/BLT/BGE/BLE（Compare and Branch）：比较和分支指令，用于将两个操作数进行比较，并根据比较结果条件跳转到相应的地址。
+
+示例：CMP Rn, Rm，比较寄存器 Rn 和 Rm 的值。
+BGT label，如果 Rn 大于 Rm，则跳转到标签为 "label" 的位置。
+CBZ/CMN（Compare and Branch Zero/Non-zero）：比较并根据零/非零跳转指令，用于比较寄存器的值，并根据比较结果是否为零进行条件跳转。
+
+示例：CBZ Rn, label，如果 Rn 的值为零，则跳转到标签为 "label" 的位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="函数调用过程"><a href="#函数调用过程" class="headerlink" title="函数调用过程"></a>函数调用过程</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZyYW5rX3p5cC9hcnRpY2xlL2RldGFpbHMvODgyMDIzNDc=">https://blog.csdn.net/frank_zyp/article/details/88202347</span></p>
 
       <div class="tags">
           <a href="/tags/arm/" rel="tag"><i class="ic i-tag"></i> arm</a>
@@ -168,7 +243,7 @@ Arm_Base |
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-10-03 14:30:03" itemprop="dateModified" datetime="2023-10-03T14:30:03+08:00">2023-10-03</time>
+    <time title="修改时间：2023-10-23 23:22:30" itemprop="dateModified" datetime="2023-10-23T23:22:30+08:00">2023-10-23</time>
   </span>
 </div>
 
@@ -223,7 +298,7 @@ Arm_Base |
     <div class="item left">
       
 
-  <a href="/2023/10/02/androidhook/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitspjpbj20zk0m81ky.jpg" title="AndroidHook">
+  <a href="/2023/10/02/androidhook/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicivghyooj20zk0m8dir.jpg" title="AndroidHook">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>AndroidHook</h3>
@@ -233,7 +308,7 @@ Arm_Base |
     <div class="item right">
       
 
-  <a href="/2023/10/03/frida-hook/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevo9j1jj20zk0m8e81.jpg" title="frida-hook">
+  <a href="/2023/10/03/frida-hook/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva2.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph47e9vtj20zk0m8x6l.jpg" title="frida-hook">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>frida-hook</h3>
@@ -255,7 +330,7 @@ Arm_Base |
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARM"><span class="toc-number">1.</span> <span class="toc-text">ARM</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARM"><span class="toc-number">1.</span> <span class="toc-text">ARM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">寄存器用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">基本指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="toc-number">1.3.</span> <span class="toc-text">常用指令集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">数据定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E7%AC%A6%E5%8F%B7"><span class="toc-number">1.3.2.</span> <span class="toc-text">局部符号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.3.</span> <span class="toc-text">赋值操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">加载操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC%E6%8C%87%E4%BB%A4"><span class="toc-number">1.5.</span> <span class="toc-text">跳转指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">1.6.</span> <span class="toc-text">函数调用过程</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -270,13 +345,13 @@ Arm_Base |
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">26</span>
+        <span class="count">31</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">17</span>
+        <span class="count">19</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -366,16 +441,7 @@ Arm_Base |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/09/11/speedrunner-for-c/" title="SpeedRunner_for_C">SpeedRunner_for_C</a></span>
+    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
   </li>
 
       
@@ -393,7 +459,34 @@ Arm_Base |
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/02/cfi-sec/" title="CFI-Sec">CFI-Sec</a></span>
+    <span><a href="/2023/08/21/aeg-reviwer/" title="AEG_reviwer">AEG_reviwer</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/07/04/bopc-data-only-attack/" title="BOPC_Data_Only_Attack">BOPC_Data_Only_Attack</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/10/07/dfanalyzer/" title="DfAnalyzer">DfAnalyzer</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/12/03/paper-tunter/" title="paper_tunter">paper_tunter</a></span>
   </li>
 
       
@@ -411,43 +504,25 @@ Arm_Base |
 <div class="breadcrumb">
 </div>
 
+    <span><a href="/2023/06/27/viper-ssgvdoa/" title="VIPER_SSGVDOA">VIPER_SSGVDOA</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/08/03/android-framework/" title="android_framework">android_framework</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
     <span><a href="/2023/05/02/personal-plan/" title="personal_plan">personal_plan</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/10/02/processinject/" title="ProcessInject">ProcessInject</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/07/14/clash-build/" title="clash_build">clash_build</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/05/05/bypass-aslr/" title="bypass-aslr">bypass-aslr</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-</div>
-
-    <span><a href="/2023/08/30/afl-fuzz-diy/" title="afl_fuzz_DIY">afl_fuzz_DIY</a></span>
   </li>
 
   </ul>

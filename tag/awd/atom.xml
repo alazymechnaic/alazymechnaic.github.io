@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;awd&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-10-18T13:21:55.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <category term="C" />
+    <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/10/18/awd-plus/</id>
+        <title>AWD_plus</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/18/awd-plus/"/>
+        <content type="html">&lt;h2 id=&#34;技能树&#34;&gt;&lt;a href=&#34;#技能树&#34; class=&#34;headerlink&#34; title=&#34;技能树&#34;&gt;&lt;/a&gt;技能树&lt;/h2&gt;&lt;h3 id=&#34;防御准备&#34;&gt;&lt;a href=&#34;#防御准备&#34; class=&#34;headerlink&#34; title=&#34;防御准备&#34;&gt;&lt;/a&gt;防御准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;PHP,JSP,Python网站会搭建，代码能看懂，安全函数，过滤函数会用&lt;/li&gt;
+&lt;li&gt;常见的漏洞exp模式了解清楚，知道过滤方式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;攻击准备&#34;&gt;&lt;a href=&#34;#攻击准备&#34; class=&#34;headerlink&#34; title=&#34;攻击准备&#34;&gt;&lt;/a&gt;攻击准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;抓取流量的脚本，截取服务器的exp&lt;/li&gt;
+&lt;li&gt;那岂不是自己看到源码就可以进行攻击了？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;渗透准备&#34;&gt;&lt;a href=&#34;#渗透准备&#34; class=&#34;headerlink&#34; title=&#34;渗透准备&#34;&gt;&lt;/a&gt;渗透准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;常见工具的使用&lt;/li&gt;
+&lt;li&gt;常见渗透思路&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="AWD" />
+        <updated>2023-10-18T13:21:55.000Z</updated>
+    </entry>
+</feed>

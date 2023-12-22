@@ -5,8 +5,8 @@
         <link>https://alazymechnaic.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Tue, 03 Oct 2023 19:03:18 +0800</pubDate>
-        <lastBuildDate>Tue, 03 Oct 2023 19:03:18 +0800</lastBuildDate>
+        <pubDate>Sun, 03 Dec 2023 13:15:08 +0800</pubDate>
+        <lastBuildDate>Sun, 03 Dec 2023 13:15:08 +0800</lastBuildDate>
         <category>paper</category>
         <category>HEAP PWN CTF</category>
         <category>pwn</category>
@@ -24,6 +24,122 @@
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
+        <category>AWD</category>
+        <category>cipher</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/12/03/paper-tunter/</guid>
+            <title>paper_tunter</title>
+            <link>https://alazymechnaic.github.io/2023/12/03/paper-tunter/</link>
+            <category>paper</category>
+            <pubDate>Sun, 03 Dec 2023 13:15:08 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34;&gt;&lt;a href=&#34;#Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34; class=&#34;headerlink&#34; title=&#34;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&#34;&gt;&lt;/a&gt;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&#34;主要贡献点&#34;&gt;&lt;a href=&#34;#主要贡献点&#34; class=&#34;headerlink&#34; title=&#34;主要贡献点&#34;&gt;&lt;/a&gt;主要贡献点&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;基于污点分析的候选exploit状态探索策略&lt;/li&gt;
+&lt;li&gt;用户缓解搜索状态爆照的剪枝策略&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在14个CTF上，2个real world上测试&lt;/strong&gt;，在Revery上的测试比其更快但是并没有找全面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;关键思想&#34;&gt;&lt;a href=&#34;#关键思想&#34; class=&#34;headerlink&#34; title=&#34;关键思想&#34;&gt;&lt;/a&gt;关键思想&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一旦发生内存错误就会导致程序变为一个奇怪的状态机，发现exploit的本质是搜索这个状态机中的空间，&lt;strong&gt;但是搜索这该状态空间是十分耗时的&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;文章指出的问题&lt;ul&gt;
+&lt;li&gt;使用符号执行进行求解只能对小型的程序起作用，对于大一点的程序会直接路径爆炸（&lt;strong&gt;但是这个我们解决了，使用启发式的路径探索策略，有目标的进行探索和评估&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;对于fuzz的使用，Revery使用fuzz的方式进行可利用状态的探索，太耗时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;使用启发式的状态剪枝方法来防止状态爆炸，构造目标可利用状态的约束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;相似之处&#34;&gt;&lt;a href=&#34;#相似之处&#34; class=&#34;headerlink&#34; title=&#34;相似之处&#34;&gt;&lt;/a&gt;相似之处&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;都是使用污点分析标记受污染的内存，在传播的过程中找到受影响的sink（例如，memcpy参数，ret地址等），作为候选的状态&lt;/li&gt;
+&lt;li&gt;使用动静转换策略，找到程序漏洞的触发位置，将动态执行的状态转换为静态执行的状态，从静态位置开始进行污点分析，&lt;strong&gt;这一部分与我们的方法一致&lt;/strong&gt;，但是并没有完全的dump内存，而是模拟了一个相似的静态程序状态&lt;/li&gt;
+&lt;li&gt;数据流分析时的指针问题，因为rax可控，所以直接将rsi定义为可控，在下面的指令中mov [rsi],rbx就认为是个gadget，&lt;strong&gt;我们也是这么做的。。。，但是不同之处在于后续进行求解的过程中会在数据流分析中施加内存搜索策略&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203144731837.png&#34; alt=&#34;image-20231203144731837&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;主要的问题&#34;&gt;&lt;a href=&#34;#主要的问题&#34; class=&#34;headerlink&#34; title=&#34;主要的问题&#34;&gt;&lt;/a&gt;主要的问题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;所有的案例都是在CTF上进行实现，两个真实世界的案例，构造了一个Revery无法进行实现的案例的exp，且多数攻击都是通过改变控制流实现的，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;行文中更多的是像对Revery研究的补充，而并非是一篇独立的文章，并且在比较结果上并没有比Revery好多少&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章对漏洞的理解，将内存错误视为对程序原有状态机的改变，我们认为内存错误的本质是对合法数据流依赖关系的破坏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章中通过控制流劫持的方法进行攻击，我们使用的是满足控制流完整性的方式进行攻击，限制条件更多，&lt;strong&gt;后面的实验最好能找到原本没有，算法构造出的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;污点分析找路径时的爆炸问题并没有进行考虑，而我们使用启发式的路径排序策略，缓解了这一问题（他是用修剪不相关路径实现的？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;符号执行的路径修剪策略潦草&lt;/strong&gt;：其实就是在指定了路径后去求解，出现循环太多次的就剪掉，这一部分工程实现讲得有点多&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;调研量过少，涉及到的AEG部分内容理解不完善&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;我们的优势在于保证所有保护开启的情况下完成的攻击，该文章则是在保护全关的情况下进行利用&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;对于精准的内存地址，没有办法做到求解，page 9&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203150112918.png&#34; alt=&#34;image-20231203150112918&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;angr的求解问题，并不能做到精准的求解&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img data-src=&#34;/paper-tunter.assets/image-20231203150421157.png&#34; alt=&#34;image-20231203150421157&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/18/awd-plus/</guid>
+            <title>AWD_plus</title>
+            <link>https://alazymechnaic.github.io/2023/10/18/awd-plus/</link>
+            <category>AWD</category>
+            <pubDate>Wed, 18 Oct 2023 21:21:55 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;技能树&#34;&gt;&lt;a href=&#34;#技能树&#34; class=&#34;headerlink&#34; title=&#34;技能树&#34;&gt;&lt;/a&gt;技能树&lt;/h2&gt;&lt;h3 id=&#34;防御准备&#34;&gt;&lt;a href=&#34;#防御准备&#34; class=&#34;headerlink&#34; title=&#34;防御准备&#34;&gt;&lt;/a&gt;防御准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;PHP,JSP,Python网站会搭建，代码能看懂，安全函数，过滤函数会用&lt;/li&gt;
+&lt;li&gt;常见的漏洞exp模式了解清楚，知道过滤方式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;攻击准备&#34;&gt;&lt;a href=&#34;#攻击准备&#34; class=&#34;headerlink&#34; title=&#34;攻击准备&#34;&gt;&lt;/a&gt;攻击准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;抓取流量的脚本，截取服务器的exp&lt;/li&gt;
+&lt;li&gt;那岂不是自己看到源码就可以进行攻击了？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;渗透准备&#34;&gt;&lt;a href=&#34;#渗透准备&#34; class=&#34;headerlink&#34; title=&#34;渗透准备&#34;&gt;&lt;/a&gt;渗透准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;常见工具的使用&lt;/li&gt;
+&lt;li&gt;常见渗透思路&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/17/cipher/</guid>
+            <title>cipher</title>
+            <link>https://alazymechnaic.github.io/2023/10/17/cipher/</link>
+            <pubDate>Tue, 17 Oct 2023 15:58:44 +0800</pubDate>
+            <description><![CDATA[ &lt;h3 id=&#34;双线性对的概念&#34;&gt;&lt;a href=&#34;#双线性对的概念&#34; class=&#34;headerlink&#34; title=&#34;双线性对的概念&#34;&gt;&lt;/a&gt;双线性对的概念&lt;/h3&gt;&lt;p&gt;​	&lt;strong&gt;群&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310171559441.png&#34; alt=&#34;image-20231017155853356&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​	关于群的&lt;strong&gt;阶数&lt;/strong&gt;，其实就是群的个数：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310171601969.png&#34; alt=&#34;image-20231017160100932&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​	&lt;strong&gt;生成元&lt;/strong&gt;：生成元能够不断对自己做群中所定义的运算最终生成群中的任意一个元素。&lt;/p&gt;
+&lt;p&gt;​	&lt;strong&gt;线性空间&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310171610549.png&#34; alt=&#34;image-20231017161030484&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​	&lt;strong&gt;双线性函数&lt;/strong&gt;的定义：&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310171608972.png&#34; alt=&#34;image-20231017160834934&#34;&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/16/thresholdsignature/</guid>
+            <title>thresholdsignature</title>
+            <link>https://alazymechnaic.github.io/2023/10/16/thresholdsignature/</link>
+            <category>cipher</category>
+            <pubDate>Mon, 16 Oct 2023 20:27:04 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读&#34;&gt;&lt;a href=&#34;#ProvablySecureThresholdSignatureSchemesWithoutRandom-Oracles-论文阅读&#34; class=&#34;headerlink&#34; title=&#34;ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读&#34;&gt;&lt;/a&gt;ProvablySecureThresholdSignatureSchemesWithoutRandom Oracles  论文阅读&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;门限签名的目的是避免产生可信中心，只有超过t个用户才能在一起验证签名或者产生有效的计算过程。&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/07/dfanalyzer/</guid>
+            <title>DfAnalyzer</title>
+            <link>https://alazymechnaic.github.io/2023/10/07/dfanalyzer/</link>
+            <category>paper</category>
+            <pubDate>Sat, 07 Oct 2023 09:32:51 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications&#34;&gt;&lt;a href=&#34;#DfAnalyzer-Runtime-dataflow-analysis-tool-for-Computational-Science-and-Engineering-applications&#34; class=&#34;headerlink&#34; title=&#34;DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications&#34;&gt;&lt;/a&gt;DfAnalyzer: Runtime dataflow analysis tool for Computational Science and Engineering applications&lt;/h1&gt;&lt;hr&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/03/frida-hook/</guid>
             <title>frida-hook</title>
@@ -394,6 +510,40 @@ Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&
     &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 
+&lt;h3 id=&#34;重写Tosat&#34;&gt;&lt;a href=&#34;#重写Tosat&#34; class=&#34;headerlink&#34; title=&#34;重写Tosat&#34;&gt;&lt;/a&gt;重写Tosat&lt;/h3&gt;&lt;p&gt;​	参考这个例子能看到，js可以完全重写Android java层的代码。&lt;/p&gt;
+&lt;pre class=&#34;line-numbers language-javascript&#34; data-language=&#34;javascript&#34;&gt;&lt;code class=&#34;language-javascript&#34;&gt;Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;perform&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;token comment&#34;&gt;// hook类: MainActivity&lt;/span&gt;
+  &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; MainActivity &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;com.yashu.aaaaaaaaaaaaaaaaaaaaaa.MainActivity&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token comment&#34;&gt;// hook方法: MainActivity.onCreate&lt;/span&gt;
+  MainActivity&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;onCreate&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function-variable function&#34;&gt;implementation&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;savedInstanceState&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+    console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;enter onCreate&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;token comment&#34;&gt;// 不打断程序, 该执行的还要执行&lt;/span&gt;
+    &lt;span class=&#34;token comment&#34;&gt;// 执行this.onCreate, 且传参&lt;/span&gt;
+    &lt;span class=&#34;token keyword&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;onCreate&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;savedInstanceState&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+
+  &lt;span class=&#34;token comment&#34;&gt;// 获得Toast组件&lt;/span&gt;
+  &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; Toast &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;android.widget.Toast&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; makeText &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; Toast&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;makeText&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; String &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;java.lang.String&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token comment&#34;&gt;// 函数重载, 设置参数类型&lt;/span&gt;
+  makeText&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;overload&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;android.content.Context&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;java.lang.CharSequence&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;int&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function-variable function&#34;&gt;implementation&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;token parameter&#34;&gt;context&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;
+    content&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;
+    time&lt;/span&gt;
+  &lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
+    console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;修改toast内容&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;token comment&#34;&gt;// 设置字符串重复次数&lt;/span&gt;
+    &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; content &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;牙叔教程 超级棒棒\n&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;repeat&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;token comment&#34;&gt;// 实例化字符串&lt;/span&gt;
+    &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; hookContent &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; String&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;$&lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;content&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;token comment&#34;&gt;// 可以hook, 但是不能打断原先的程序, 原来该做什么, 还要继续做下去&lt;/span&gt;
+    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;makeText&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;context&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; hookContent&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; time&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;token punctuation&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
 &lt;h3 id=&#34;访问类属性&#34;&gt;&lt;a href=&#34;#访问类属性&#34; class=&#34;headerlink&#34; title=&#34;访问类属性&#34;&gt;&lt;/a&gt;访问类属性&lt;/h3&gt;&lt;pre class=&#34;line-numbers language-javascript&#34; data-language=&#34;javascript&#34;&gt;&lt;code class=&#34;language-javascript&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;// 类的属性可通过 .属性名.value 访问。如果有函数与属性名相同，则需要使用下划线方式 ._属性名.value 访问。&lt;/span&gt;
 Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;perform&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; clazz &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;com.zyc.fridademo.MainActivity&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;
@@ -432,6 +582,8 @@ Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&
 
 &lt;h2 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#参考链接&#34; class=&#34;headerlink&#34; title=&#34;参考链接&#34;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p5YzM1NDUvYXJ0aWNsZS9kZXRhaWxzLzExNDYyOTcxOA==&#34;&gt;https://blog.csdn.net/zyc3545/article/details/114629718&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3p5YzM1NDUvYXJ0aWNsZS9kZXRhaWxzLzExNDA4MDIyMD9vcHNfcmVxdWVzdF9taXNjPSUyNTdCJTI1MjJyZXF1ZXN0JTI1NUZpZCUyNTIyJTI1M0ElMjUyMjE2OTY0Mjg1MjMxNjgwMDIyNjU3NjUxMiUyNTIyJTI1MkMlMjUyMnNjbSUyNTIyJTI1M0ElMjUyMjIwMTQwNzEzLjEzMDEwMjMzNC5wYyUyNTVGYmxvZy4lMjUyMiUyNTdEJnJlcXVlc3RfaWQ9MTY5NjQyODUyMzE2ODAwMjI2NTc2NTEyJmJpel9pZD0wJnV0bV9tZWRpdW09ZGlzdHJpYnV0ZS5wY19zZWFyY2hfcmVzdWx0Lm5vbmUtdGFzay1ibG9nLTJ+YmxvZ35maXJzdF9yYW5rX2VjcG1fdjF+cmFua192MzFfZWNwbS0yLTExNDA4MDIyMC1udWxsLW51bGwubm9uZWNhc2UmdXRtX3Rlcm09ZnJpZGEmc3BtPTEwMTguMjIyNi4zMDAxLjQ0NTA=&#34;&gt;https://blog.csdn.net/zyc3545/article/details/114080220?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522169642852316800226576512%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&amp;amp;request_id=169642852316800226576512&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-2-114080220-null-null.nonecase&amp;amp;utm_term=frida&amp;amp;spm=1018.2226.3001.4450&lt;/span&gt;	&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8yNDc1Y2I0NTMyYzg=&#34;&gt;https://www.jianshu.com/p/2475cb4532c8&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3ExOTIxMDk4MDI3L2FydGljbGUvZGV0YWlscy8xMjcwNjIyMjk=&#34;&gt;https://blog.csdn.net/q1921098027/article/details/127062229&lt;/span&gt;&lt;/p&gt;
  ]]></description>
         </item>
         <item>
@@ -441,6 +593,81 @@ Java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&
             <category>arm</category>
             <pubDate>Tue, 03 Oct 2023 14:28:56 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;ARM&#34;&gt;&lt;a href=&#34;#ARM&#34; class=&#34;headerlink&#34; title=&#34;ARM&#34;&gt;&lt;/a&gt;ARM&lt;/h2&gt;&lt;p&gt;​	本文用于介绍arm指令集的基本架构，特性。&lt;/p&gt;
+&lt;h3 id=&#34;寄存器用法&#34;&gt;&lt;a href=&#34;#寄存器用法&#34; class=&#34;headerlink&#34; title=&#34;寄存器用法&#34;&gt;&lt;/a&gt;寄存器用法&lt;/h3&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;通用寄存器（General-Purpose Registers）：
+
+r0~r3 主要用于子程序间传递参数
+
+r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量
+
+r12 用作子程序间scratch 寄存器，即 ip 寄存器
+
+r13 通常用做栈指针，即 sp
+
+r14 寄存器又被称为连接寄存器（lr），用于保存子程序以及中断的返回地址
+
+r15 用作程序计数器（pc），由于 ARM 采用了流水线机制，当正确读取了 PC 的值后，该值为当前指令地址加 8 个字节，即 PC 指向当前指令的下两条指令地址。
+
+CPSR和SPSR都是程序状态寄存器，其中SPSR是用来保存中断前的CPSR中的值，以便在中断返回之后恢复处理器程序状态&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+
+
+&lt;h3 id=&#34;基本指令&#34;&gt;&lt;a href=&#34;#基本指令&#34; class=&#34;headerlink&#34; title=&#34;基本指令&#34;&gt;&lt;/a&gt;基本指令&lt;/h3&gt;&lt;h3 id=&#34;常用指令集&#34;&gt;&lt;a href=&#34;#常用指令集&#34; class=&#34;headerlink&#34; title=&#34;常用指令集&#34;&gt;&lt;/a&gt;常用指令集&lt;/h3&gt;&lt;p&gt;ARM中的立即数常用井号在前进行标注，#立即数&lt;/p&gt;
+&lt;h4 id=&#34;数据定义&#34;&gt;&lt;a href=&#34;#数据定义&#34; class=&#34;headerlink&#34; title=&#34;数据定义&#34;&gt;&lt;/a&gt;数据定义&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;DATA1 DCB 10,20,30,40 ;分配一片连续的字节存储单元并初始化
+DATA2 DCD 10,20,30,40 ;分配一片连续的字存储单元并初始化
+BUF SPACE 100 ;给BUF分配100字节的存储单元并初始化为0&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;局部符号&#34;&gt;&lt;a href=&#34;#局部符号&#34; class=&#34;headerlink&#34; title=&#34;局部符号&#34;&gt;&lt;/a&gt;局部符号&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;引用格式：%{F|B|A|T} N{routname}
+%: 引用符号，对一个局部标号产生引用。
+F：指示编译器只向前搜索。B：指示编译器只向后搜索
+A：指示编译器搜索宏的所有宏命令层。T：指示编译器搜索宏的当前层
+N：局部标号的名字。routename：局部标号的作用范围名称，使用ROUT定义&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;赋值操作&#34;&gt;&lt;a href=&#34;#赋值操作&#34; class=&#34;headerlink&#34; title=&#34;赋值操作&#34;&gt;&lt;/a&gt;赋值操作&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;a SETA 10 ;给算术变量a赋值为10
+a SETL 10 ;给逻辑变量a赋值为10
+a SETS “ss” ;给字符串变量a赋值为“ss”&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;加载操作&#34;&gt;&lt;a href=&#34;#加载操作&#34; class=&#34;headerlink&#34; title=&#34;加载操作&#34;&gt;&lt;/a&gt;加载操作&lt;/h3&gt;&lt;pre class=&#34;line-numbers language-assembly&#34; data-language=&#34;assembly&#34;&gt;&lt;code class=&#34;language-assembly&#34;&gt;LDR R1,[R0,#0x12] ;将R0+0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,#-0x12];将R0-0x12 地址处的数据读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0] ;将R0 地址处的数据读出，保存到R1 中(零偏移)
+
+(2)寄存器。寄存器中的数值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例值。指令举例如下：
+
+LDR R1,[R0,R2] ;将R0+R2 地址的数据计读出，保存到R1中(R0 的值不变)
+
+LDR R1,[R0,-R2] ;将R0-R2 地址处的数据计读出，保存到R1中(R0 的值不变)
+
+(3)寄存器及移位常数。寄存器移位后的值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例如下：
+
+LDR R1,[R0,R2,LSL #2] ;将R0+R2*4地址处的数据读出，保存到R1中（R0，R2的值不变）
+
+LDR R1,[R0,-R2,LSL #2];将R0-R2*4地址处的数据计读出，保存到R1中(R0，R2的值不变)&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;STR指令以此类推&lt;/p&gt;
+&lt;h3 id=&#34;跳转指令&#34;&gt;&lt;a href=&#34;#跳转指令&#34; class=&#34;headerlink&#34; title=&#34;跳转指令&#34;&gt;&lt;/a&gt;跳转指令&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;强制跳转指令&lt;/strong&gt;：B 目标地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;line-numbers language-assemblu&#34; data-language=&#34;assemblu&#34;&gt;&lt;code class=&#34;language-assemblu&#34;&gt;B（Branch）：无条件分支指令，用于无条件跳转到目标地址。
+
+示例：B label，跳转到标签为 &#34;label&#34; 的位置。
+BL（Branch with Link）：带链接的分支指令，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中。
+
+示例：BL subroutine，跳转到子程序 &#34;subroutine&#34; 并保存返回地址。
+BX（Branch and Exchange）：分支并切换指令，用于根据寄存器的值跳转到不同的地址，并切换到新的执行状态。
+
+示例：BX Rn，根据寄存器 Rn 的值跳转到相应的地址。
+BLX（Branch with Link and Exchange）：带链接的分支并切换指令，结合了 BL 和 BX 的功能，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中，并切换到新的执行状态。
+
+示例：BLX Rn，根据寄存器 Rn 的值跳转到相应的地址，并保存返回地址。
+CMP/BGT/BLT/BGE/BLE（Compare and Branch）：比较和分支指令，用于将两个操作数进行比较，并根据比较结果条件跳转到相应的地址。
+
+示例：CMP Rn, Rm，比较寄存器 Rn 和 Rm 的值。
+BGT label，如果 Rn 大于 Rm，则跳转到标签为 &#34;label&#34; 的位置。
+CBZ/CMN（Compare and Branch Zero/Non-zero）：比较并根据零/非零跳转指令，用于比较寄存器的值，并根据比较结果是否为零进行条件跳转。
+
+示例：CBZ Rn, label，如果 Rn 的值为零，则跳转到标签为 &#34;label&#34; 的位置&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;函数调用过程&#34;&gt;&lt;a href=&#34;#函数调用过程&#34; class=&#34;headerlink&#34; title=&#34;函数调用过程&#34;&gt;&lt;/a&gt;函数调用过程&lt;/h3&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZyYW5rX3p5cC9hcnRpY2xlL2RldGFpbHMvODgyMDIzNDc=&#34;&gt;https://blog.csdn.net/frank_zyp/article/details/88202347&lt;/span&gt;&lt;/p&gt;
  ]]></description>
         </item>
         <item>
@@ -576,11 +803,12 @@ This program built &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; x8
 - **X86_64编译**：
 
   - ```sh
-    $NDK_x86_64_GCC $HO_x86_64 -static ./main.c -o main_x86_64&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+    $NDK_x86_64_GCC $HO_x86_64 -static ./main.c -o main_x86_64 
+    # 这里要加上static参数，否则程序会报错：error: Android 5.0 and later only support position-independent executables (-fPIE).&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这里的编译选项和一般gcc差异不大，但要注意运行的目标安卓机器是x86还是arm。将编译好的程序使用adb push到目标机器上，后续可以进行愉快的注入编程了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;编程实现ptrace注入&#34;&gt;&lt;a href=&#34;#编程实现ptrace注入&#34; class=&#34;headerlink&#34; title=&#34;编程实现ptrace注入&#34;&gt;&lt;/a&gt;编程实现ptrace注入&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Attach模式&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;​	一般的attach模式的注入较为容易，找到pid和要修改的内存地址，直接修改即可，ptrace提供了强大的API。&lt;/p&gt;
 &lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token macro property&#34;&gt;&lt;span class=&#34;token directive-hash&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;token directive keyword&#34;&gt;include&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
@@ -1480,6 +1708,11 @@ $ &lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;安卓程序的代码加载顺序&#34;&gt;&lt;a href=&#34;#安卓程序的代码加载顺序&#34; class=&#34;headerlink&#34; title=&#34;安卓程序的代码加载顺序&#34;&gt;&lt;/a&gt;安卓程序的代码加载顺序&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20231122223143885.png&#34; alt=&#34;image-20231122223143885&#34;&gt;&lt;/p&gt;
+&lt;p&gt;java层在使用native层函数时，首先要使用system.loadLibrary函数，最终调用dlopen去加载文件&lt;/p&gt;
+&lt;p&gt;在加载成功后首先会加载.init函数和在.init_array列表中的函数，然后再进行程序主要逻辑的执行，这些函数中包含了对程序中的解密，解压缩等操作，应该重点关注。后面就是正常的start和main&lt;/p&gt;
+&lt;p&gt;JNI_Onload对jni进行初始化，让native层执行java层的代码&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20231122223818379.png&#34; alt=&#34;image-20231122223818379&#34;&gt;&lt;/p&gt;
  ]]></description>
         </item>
         <item>

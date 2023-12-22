@@ -21,6 +21,8 @@
     <category term="Android" />
     <category term="arm" />
     <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/08/30/afl-fuzz-diy/</id>
         <title>afl_fuzz_DIY</title>
