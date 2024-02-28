@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">VIPER_SSGVDOA</h2>
+            <div class="post-meta">
+                <span class="post-time">2023-06-27</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VIPER-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks"><span class="toc-text">VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%86%E5%88%AB%E5%9B%B0%E9%9A%BE"><span class="toc-text">识别困难</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E7%9A%84%E5%89%8D%E6%8F%90"><span class="toc-text">攻击的前提</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88"><span class="toc-text">技术方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#challenge"><span class="toc-text">challenge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#approaches"><span class="toc-text">approaches</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-text">整体流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E8%AE%B0%E5%BD%95"><span class="toc-text">分支记录</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h2 id="VIPER-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks"><a href="#VIPER-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks" class="headerlink" title="VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks"></a>VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks</h2><hr>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><ul>
+<li>文章的主要目的是检查那些影响数据流，促使程序运行至关键系统调用的关键变量。VIPER能够自动化地查找实现对系统调用保护分支和变量的自动和可扩展检测</li>
+<li>两个关键定义：Syscall-Guard Variables，syscallguard变量决定是否调用与安全相关的系统调用 ，因此它们的值对程序安全性有直接影响。这意味着它们应该被视为关键数据。同样也衍生出，syscall-Guard branch，用于决定是否会执行当前的系统调用。</li>
+<li>一个关键方法： 文章提出了分支强制（branch force），它有意地翻转执行过程中的每个条件分支，并检查是否调用了新的与安全相关的syscalls。如果是，则进行数据流分析以估计通过常见内存错误翻转这些分支的可行性。</li>
+<li>基本逻辑：程序想要通过数据流攻击实现一定的攻击语义，必须要依赖于一定的系统调用实现。然而系统调用在处理不受信任的输入前一定会存在一定的检查操作。</li>
+</ul>
+<h3 id="识别困难"><a href="#识别困难" class="headerlink" title="识别困难"></a>识别困难</h3><p>​	关键变量可能会以任何数据类型，任何存储位置存在。这会导致传统的分析方式失效。况且对于大型程序，进行变量的推断是十分困难的。</p>
+<h3 id="攻击的前提"><a href="#攻击的前提" class="headerlink" title="攻击的前提"></a>攻击的前提</h3><ul>
+<li>不管程序是什么，大多数纯数据攻击都依赖于与安全相关的系统 调用(简称系统调用)来实现最终目标。（其实就是最终的攻击语义一定要依赖于系统调用的存在）</li>
+<li>关键的系统调用函数前一定会存在一些分支检查</li>
+</ul>
+<h3 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h3><ul>
+<li>使用相同的输入进入程序，找到分支，进行强制跳转。如果强制跳转之后触发了程序的bug，那么该分支就作为候选分支</li>
+<li>在一次执行中翻转分支条件，找到新的分支条件生成新的路径，查找新的系统调用</li>
+</ul>
+<h3 id="challenge"><a href="#challenge" class="headerlink" title="challenge"></a>challenge</h3><ul>
+<li>修剪掉无用的分支，并且评估单个变量的影响是十分有挑战性的。符号执行能够找到从程序入口到关键系统调用的路径，但是并不能给出，当前路径上的哪些分支是更重要的，因此只能对所有的分支都做分析</li>
+<li>找到一种高效的分析方法很困难，使用间接函数调用的程序太多了，使用静态分析十分不切实际</li>
+</ul>
+<h3 id="approaches"><a href="#approaches" class="headerlink" title="approaches"></a>approaches</h3><ul>
+<li><strong>branch force</strong>：收集候选的分支变量<ul>
+<li>思想：假设当前分支时关键保护分支，那么该分支向后执行仅仅只能有其中一个分支触发当前程序中的系统调用，如果两个都能触发，那这个分支肯定不是关键保护分支。如果都不能触发，则该分支对于当前程序的安全性并不重要。</li>
+<li>执行流程：<ul>
+<li>以相同的输入I执行程序，将遇到的每一个分支进行强制翻转（并不改变输入），并且</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016500.png" alt="image-20230628155213365"></p>
+<ul>
+<li><strong>dynamic backward data-flow</strong>：检查每个变量被覆盖利用的可能性</li>
+<li><strong>Corruptibility Assessment</strong> ： 使用数据流来评估每一个分支变量被内存错误污染的可能性。同时使用动态数据流分析，在过程中根据变量的存储位置和内存的声明周期对内存进行定性，分别视为容易利用和难利用三种等级。全局变量相对局部变量更容易被利用，生命周期越长，被修改次数越多，能被利用的概率越高。依此能够筛选出被破坏概率更高的关键变量。</li>
+</ul>
+<h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016755.png" alt="image-20230628205325968"></p>
+<p>VIPER在对程序分析后，最终会报告当前程序中存在的各种危险的关键分支，系统调用及其保护变量。</p>
+<p>​	BranchForcer运行包含原始输入的程序，并记录执行的分支和系统调用。然后，使用相同的输入多次运行程序，并为每次新的执行翻转一个不同分支的目标。如果重新执行触发了新的与安全性相关的系统调用，我们将当前分支添加到候选列表中。对于每个候选分支，VariableRator再次运行程序，以记录执行的完整跟踪，包括分支序列、所有内存访问地址和进程内存布局。利用记录的轨迹对程序IR进行反向数据流分析。VariableRator检查内存布局以确定每个内存节点的位置，并计算内存写指令的数量以估计节点的生命周期</p>
+<h3 id="分支记录"><a href="#分支记录" class="headerlink" title="分支记录"></a>分支记录</h3><p>​	由于在执行的过程中可能会出现路径爆炸以及某些分支翻转了没有意义，因此只在固定路径上做分支翻转。每个分支只会做一次翻转。为了提高效率，使用多线程尽心探索。</p>
+<p>​	每次使用相同的输入和不同的分支翻转执行程序，如果遇到新的系统调用就将当前路径做为候选路径进行存储，然后进行完整的分支执行分析，利用数据流进行后向切片，确定所有与分支保护状态相关的指令。利用值集分析来找到控制变量中所有可能的值。</p>
+<p>​	</p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/paper/" title="paper">paper</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2023/07/04/bopc-data-only-attack/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">BOPC_Data_Only_Attack</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/05/12/blind-rop/">
+                <span class="nav-default">blind-rop</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

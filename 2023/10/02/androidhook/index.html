@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">AndroidHook</h2>
+            <div class="post-meta">
+                <span class="post-time">2023-10-02</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91"><span class="toc-text">移动安全开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E5%8C%96%E5%A4%96%E6%8C%82%E7%9A%84%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-text">定制化外挂的开发流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hook%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0"><span class="toc-text">Hook技术实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hook%E5%88%86%E7%B1%BB"><span class="toc-text">hook分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inline-hook"><span class="toc-text">inline hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8hook"><span class="toc-text">导入表hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%BC%82%E5%B8%B8%E7%9A%84hook"><span class="toc-text">基于异常的hook</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E6%B8%B8%E6%88%8F%E6%A8%A1%E5%9D%97"><span class="toc-text">遍历游戏模块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Emaps%E3%80%81smaps%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%96%87%E4%BB%B6%E9%81%8D%E5%8E%86%E6%A8%A1%E5%9D%97"><span class="toc-text">基于maps、smaps实现的文件遍历模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Emap-files%E7%9B%AE%E5%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E9%81%8D%E5%8E%86"><span class="toc-text">基于map_files目录实现的模块遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Edl-iterate-phdr%E5%87%BD%E6%95%B0%E9%81%8D%E5%8E%86%E6%A8%A1%E5%9D%97"><span class="toc-text">基于dl_iterate_phdr函数遍历模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dladdr%E5%87%BD%E6%95%B0%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9F%BA%E5%9D%80"><span class="toc-text">dladdr函数获取指定模块的基址</span></a></li></ol></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h1 id="移动安全开发"><a href="#移动安全开发" class="headerlink" title="移动安全开发"></a>移动安全开发</h1><hr>
+<h2 id="定制化外挂的开发流程"><a href="#定制化外挂的开发流程" class="headerlink" title="定制化外挂的开发流程"></a>定制化外挂的开发流程</h2><ul>
+<li>逆向分析游戏逻辑</li>
+<li>验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。</li>
+<li>注入游戏进程：获得root，使用ptrace方式注入游戏进程。</li>
+<li>枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。<ul>
+<li>Hook游戏关键函数</li>
+<li>游戏内存数据修改</li>
+</ul>
+</li>
+<li>实现外挂功能</li>
+</ul>
+<h2 id="Hook技术实现"><a href="#Hook技术实现" class="headerlink" title="Hook技术实现"></a>Hook技术实现</h2><p>​	hook的前提是已经注入到目标进程后。hook的目的是在关键函数的执行前，执行预先设置的钩子函数，从而达到监控函数调用、改变函数功能的目的。</p>
+<h3 id="hook分类"><a href="#hook分类" class="headerlink" title="hook分类"></a>hook分类</h3><ul>
+<li>native hook: <ul>
+<li>基于汇编代码替换的hook技术：<ul>
+<li>异常hook</li>
+<li>inline hook</li>
+</ul>
+</li>
+<li>函数地址替换：<ul>
+<li>导入表hook</li>
+<li>虚表hook</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="inline-hook"><a href="#inline-hook" class="headerlink" title="inline hook"></a>inline hook</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310031445483.png" alt="image-20231003144538379"></p>
+<p>使用inline hook的流程并不复杂，而是保持原先的指令替换原则，将某条指令替换为跳转指令，将其指向插入的底层桩函数，在其中保存上下文，并实现自定义的函数调用，最后还原上下文后并继续向下执行。这里注意，ARM架构下插入跳转指令时，由于指令长度限制，没有办法进行直接寻址，可以采用将地址保存在寄存器中，进行寄存器间接寻址的方式。</p>
+<h3 id="导入表hook"><a href="#导入表hook" class="headerlink" title="导入表hook"></a>导入表hook</h3><h3 id="基于异常的hook"><a href="#基于异常的hook" class="headerlink" title="基于异常的hook"></a>基于异常的hook</h3><p>采用的方法是signal + 非法指令的方式，在想要hook的地方触发异常，并捕获。在异常处理函数中捕获上下文的异常信息。</p>
+<ul>
+<li>首先对目标地址写入异常指令，同时注册异常处理函数来获取执行时机。</li>
+<li>当目标地址触发异常时，需要恢复目标地址的异常指令，同时设置目标地址的下一条指令为异常指令</li>
+<li>当目标地址的下一条指令触发异常时，需要将目标地址的正常指令篡改为异常指令，从而获取下次异常Hook的执行时机。</li>
+</ul>
+<h2 id="遍历游戏模块"><a href="#遍历游戏模块" class="headerlink" title="遍历游戏模块"></a>遍历游戏模块</h2><h3 id="基于maps、smaps实现的文件遍历模块"><a href="#基于maps、smaps实现的文件遍历模块" class="headerlink" title="基于maps、smaps实现的文件遍历模块"></a>基于maps、smaps实现的文件遍历模块</h3><p>​	进程的内存模块信息存放在proc文件系统下，以pid为目录名称的maps文件，其中存放了每个进程的内存布局，注意这里要有root权限。</p>
+<h3 id="基于map-files目录实现的模块遍历"><a href="#基于map-files目录实现的模块遍历" class="headerlink" title="基于map_files目录实现的模块遍历"></a>基于map_files目录实现的模块遍历</h3><p>​	在proc/pid/map_files文件夹中的软连接进行查看，</p>
+<h3 id="基于dl-iterate-phdr函数遍历模块"><a href="#基于dl-iterate-phdr函数遍历模块" class="headerlink" title="基于dl_iterate_phdr函数遍历模块"></a>基于dl_iterate_phdr函数遍历模块</h3><p>​	该函数能够列出进程中的共享模块，可以得到模块的路径和地址。</p>
+<h3 id="dladdr函数获取指定模块的基址"><a href="#dladdr函数获取指定模块的基址" class="headerlink" title="dladdr函数获取指定模块的基址"></a>dladdr函数获取指定模块的基址</h3>
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/Android/" title="Android">Android</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2023/10/03/arm-base/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Arm_Base</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/10/02/processinject/">
+                <span class="nav-default">ProcessInject</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

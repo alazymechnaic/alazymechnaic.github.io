@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">go_reverse</h2>
+            <div class="post-meta">
+                <span class="post-time">2023-07-20</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GO-reverse"><span class="toc-text">GO  reverse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Go%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="toc-text">Go语言特性</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h2 id="GO-reverse"><a href="#GO-reverse" class="headerlink" title="GO  reverse"></a>GO  reverse</h2><hr>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>​	GO语言是谷歌开发的强类型静态静态语言，其编译出的汇编代码与 C/ C++语言存在极大的差异。本身Go在编译过程中将所有的库函数和第三方包都进行了静态的打包操作，还打包进去了自身的runtime和（Garbage Collection， 垃圾回收）模块部分代码，导致其编译后的二进制文件体积十分庞大，存在较大的分析难度。</p>
+<h3 id="Go语言特性"><a href="#Go语言特性" class="headerlink" title="Go语言特性"></a>Go语言特性</h3><ul>
+<li><strong>独有的数据表示方式</strong>： 例如String类型使用，（start_address，length）二元组进行表示，导致其在进行函数调用时，传入的内容由原本C中的字符串地址变为了两个参数。</li>
+<li><strong>独有的栈管理机制</strong>：Go语言中的栈使用continue stack机制，每个runtime在初始状态下分配一个较小的区域当做栈，每次运行时如果栈不够用了就再申请一个更大的栈，将旧栈中的内容复制进去。</li>
+<li><strong>全静态链接</strong>：程序中并不按照函数名对库函数进行动态使用，而是进行全静态链接，在没有调试信息和符号表的情况下调试难度很大</li>
+<li><strong>独有的函数调用机制</strong>：Go语言函数中的callee的栈空间由caller来进行管理，caller在进入callee之前预先将栈中把参数留出，同时还要给返回值留出栈空间</li>
+</ul>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYW5xdWFua2UuY29tL21lbWJlci5odG1sP21lbWJlcklkPTEyMjA3OQ==">https://www.anquanke.com/member.html?memberId=122079</span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3M/X19iaXo9TWpNNU5UYzJNRFl4TXc9PSZtaWQ9MjQ1ODM4NzExNiZpZHg9MSZzbj1jNjY4ZGFlYTMwYmM5ZGNlOGQ3OWQzMTZlOTM5OTNlNCZjaGtzbT1iMThmMzIyNjg2ZjhiYjMwZTgxYjc0NjQ0NmYwOGRjZDM4MWE1ODhiNWMwYzZiODQyMDA3Y2M4MjJhODc1YmQ1ZWQxNGMyZDc0ZDZhJnNjZW5lPTI3">https://mp.weixin.qq.com/s?__biz=MjM5NTc2MDYxMw==&amp;mid=2458387116&amp;idx=1&amp;sn=c668daea30bc9dce8d79d316e93993e4&amp;chksm=b18f322686f8bb30e81b746446f08dcd381a588b5c0c6b842007cc822a875bd5ed14c2d74d6a&amp;scene=27</span></p>
+<p><span class="exturl" data-url="aHR0cDovL2xlYW5vdGUuY29tL2Jsb2cvcG9zdC81YzY0YmIyYmFiNjQ0MTUxNjcwMDBmNDg=">http://leanote.com/blog/post/5c64bb2bab64415167000f48</span></p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/go-RE/" title="go, RE">go, RE</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2023/08/03/android-framework/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">android_framework</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/07/20/android-basic/">
+                <span class="nav-default">Android_Basic</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

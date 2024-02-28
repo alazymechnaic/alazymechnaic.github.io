@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">kernel_pwn</h2>
+            <div class="post-meta">
+                <span class="post-time">2023-07-13</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-PWN"><span class="toc-text">Kernel PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4%E6%8A%80%E6%9C%AF"><span class="toc-text">内核保护技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kernel-Address-Space-Layout-Randomisation%EF%BC%9A"><span class="toc-text">Kernel Address Space Layout Randomisation：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85qemu%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AALinux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E8%AF%95%E4%B8%80%E4%B8%8B"><span class="toc-text">安装qemu启动一个Linux内核调试试一下</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h2 id="Kernel-PWN"><a href="#Kernel-PWN" class="headerlink" title="Kernel PWN"></a>Kernel PWN</h2><hr>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png" alt="image-20230713204349079"></p>
+<h3 id="内核保护技术"><a href="#内核保护技术" class="headerlink" title="内核保护技术"></a>内核保护技术</h3><ul>
+<li><p><strong>SMAP/SMEP</strong>: </p>
+<ul>
+<li><em>arm里面叫PXN(Privilege Execute Never)和PAN(Privileged Access Never)。</em><ul>
+<li>SMAP(Supervisor Mode Access Prevention，管理模式访问保护): 禁止内核访问用户空间数据</li>
+<li>SMEP(Supervisor Mode Execution Prevention，管理模式执行保护): 禁止内核访问用户代码区域</li>
+<li>使用cat /proc/cpuinfo指令查看当前程序中存在的SMAP/SMEP功能是否支持，<strong>win8之后开始支持SMEP，并且在RC4中设置适当的位来表示应该强制执行SMEP，可以通过ROP或者jmp到一个RWX的内核地址来绕过</strong>。linux内核从3.0开始支持SMEP，3.7开始支持SMAP。</li>
+</ul>
+</li>
+<li>ret2User: 在没有SMAP/SMEP保护的情况下将内核指针重定向到用户空间进行漏洞利用</li>
+<li>ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zYzY2MmI2MTYzYTc=">https://www.jianshu.com/p/3c662b6163a7</span></li>
+</ul>
+</li>
+<li><p><strong>stack protector</strong>:  在编译内核时选择<em>CONFIG_CC_STACKPROTECTOR</em>选项开启该保护，功能类似canary</p>
+</li>
+<li><p><strong>Kernel Address Display Restrict</strong> ：限制内核地址显示，当攻击者试图开发通用性更强的漏洞利用程序时，他们通常需要知道内核结构的位置。 通过将内核地址视为敏感信息，常规本地用户无法看到那些地址。 从Ubuntu 11.04开始，/ proc / sys / kernel / kptr_restrict设置为“ 1”，以阻止报告已知的内核地址泄漏。 此外，只有root用户才能读取各种文件和目录：/boot/vmlinuz<em>、/boot/System.map</em>、/sys/kernel/debug/、/proc/slabinfo</p>
+</li>
+<li><h3 id="Kernel-Address-Space-Layout-Randomisation："><a href="#Kernel-Address-Space-Layout-Randomisation：" class="headerlink" title="Kernel Address Space Layout Randomisation："></a>Kernel Address Space Layout Randomisation：</h3><ul>
+<li>内存地址随机化，类似一般程序中的地址随机化，只不过是发生在内核</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">commit_creds</span><span class="token punctuation">(</span><span class="token function">prepare_kernel_cred</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds</span>
+<span class="token comment">// commit_creds 用于将当前结构体设置为当前程序的凭证</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="安装qemu启动一个Linux内核调试试一下"><a href="#安装qemu启动一个Linux内核调试试一下" class="headerlink" title="安装qemu启动一个Linux内核调试试一下"></a>安装qemu启动一个Linux内核调试试一下</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjYyNDI1Lmh0bQ==">https://bbs.kanxue.com/thread-262425.htm</span></p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/kernel-pwn/" title="kernel pwn">kernel pwn</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2023/07/14/clash-build/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">clash_build</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/07/04/bopc-data-only-attack/">
+                <span class="nav-default">BOPC_Data_Only_Attack</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

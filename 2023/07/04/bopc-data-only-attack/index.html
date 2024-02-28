@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">BOPC_Data_Only_Attack</h2>
+            <div class="post-meta">
+                <span class="post-time">2023-07-04</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Block-Oriented-Programming-Automating-Data-Only-Attacks"><span class="toc-text">Block Oriented Programming: Automating Data-Only Attacks</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h2 id="Block-Oriented-Programming-Automating-Data-Only-Attacks"><a href="#Block-Oriented-Programming-Automating-Data-Only-Attacks" class="headerlink" title="Block Oriented Programming: Automating Data-Only Attacks"></a>Block Oriented Programming: Automating Data-Only Attacks</h2><hr>
+<p>目的： 能够依照代码块组指出包含特定语义的结构。构造出了一种自己的语言SPL，生成SPL payload来组织成特定的语义。</p>
+<p>前提： 一个任意内存写原语（能够向任意位置中写入任意值），一个任意内存读原语（可选），以及执行完上述两个原语后自然到达的位置。（其实本质上来讲改文章的贡献在于如何充分利用给一个AWP(任意内存写原语)</p>
+<p>流程：</p>
+<ul>
+<li>BOPC提供了一个面向exploit编程的语言SPL，使分析人员能够定义一个独立于目标问题和底层架构的exploit</li>
+<li>在目标程序中搜索相应的功能块作为基本块</li>
+<li>搜索Dispatcher块用于将各个功能块链接在一起</li>
+<li>依照AWP构造出相应的BOP链的payload</li>
+</ul>
+<p>关键技术：</p>
+<p><strong>Block Oriented Programming</strong>：</p>
+<ul>
+<li>BOP链由表示一条SPL语义的BOP gadget和链接这些BOP gadget的DIspatcher组成</li>
+<li>将每个基本块抽象为块约束摘要便于与SPL语言的一一对应。但是由于进入该块的时候上下文的不同，每一个块可能会表现出不同的功能（这里怎么进行抽象的？</li>
+<li>构造BOP链本身是NP难的问题</li>
+</ul>
+<p><strong>Block Constraint Summaries</strong>：  </p>
+<p>​	将程序的输入映射到程序执行路径是NP难的问题，<strong>使用启发式的方法帮助查找路径中所有可能的路径</strong>。</p>
+<ul>
+<li><p>对单个块做符号执行，收集约束，做出输入与输出之间的映射关系。</p>
+</li>
+<li><p>要查找块和SPL语句之间的匹配，块必须执行该SPL语句所需的所有操作。</p>
+</li>
+<li><p>BOPC依照语义计算一组候选功能块和相应的分发器，但是很可能选出的几个gadget之间并不存在合法的路径，或者符合CFI的路径</p>
+</li>
+<li><p>BOP gadget依照选取的块不同，其本身也是不稳定的，前面的gadget很可能会改变后面gadget的性质，同时不断增加gadget也会增加当前路径的约束</p>
+</li>
+</ul>
+<p><strong>解决方案</strong>：BOPC使用当前程序的BOP块的接近度用于评分排序，以及delta图来组织BOP gadget序列</p>
+<ul>
+<li><strong>BOP块接近度</strong>：</li>
+<li><strong>delta图</strong>：用于表示当前搜寻分发器block的状态。<ul>
+<li>存储每一个功能块到下一个候选块之前的最短路径</li>
+<li>任意拼接两个块之间的路径本身是一个NP难的问题</li>
+<li>功能块之间的选择依据是，更短的路径可能会导致更合适的约束</li>
+<li>delta图中记录了每一个功能块，功能块的边是两个功能块之间转移需要经过的block数量.（但是在计算两个block之间的路径时，静态CFG上是可以有多个重点，但在实际执行时只会有一个终点。其实就是对控制流进行枚举的过程，你怎么知道实际路径是哪些的</li>
+<li>文章提出的路径算法是迪杰斯特拉算法的递归版本，并且避免了所有的破坏块。<ul>
+<li>迪杰斯特拉算法：不断加入新的结点作为中间跳转结点，计算出最短距离</li>
+<li>算法逻辑：初始分析时将相邻的边的开销设置为1。当其遇到call指令时，就进行递归地计算，找到每个功能块之间的最短路径</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>BOP gadget缝合：<ul>
+<li>从每一个BOPgadget开始不断向后进行符号执行读入新的BOP功能块，直到最后一个块。</li>
+</ul>
+</li>
+</ul>
+<p>在进行组织的过程中需要在BOP gadget间拼接不会影响当前程序执行流的基本块。使用delta 图来搜索当前所有的调度块。</p>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/paper/" title="paper">paper</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2023/07/13/kernel-pwn/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">kernel_pwn</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/06/27/viper-ssgvdoa/">
+                <span class="nav-default">VIPER_SSGVDOA</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

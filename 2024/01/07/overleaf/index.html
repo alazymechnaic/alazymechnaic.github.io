@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>alazymachine</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">overleaf</h2>
+            <div class="post-meta">
+                <span class="post-time">2024-01-07</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Overleaf"><span class="toc-text">Overleaf</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC"><span class="toc-text">表格</span></a></li></ol></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h1 id="Overleaf"><a href="#Overleaf" class="headerlink" title="Overleaf"></a>Overleaf</h1><hr>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>插入表格并且让其占据两栏</p>
+<pre><code class="latex">\usepackage{stfloats}
+\begin{table*}[ht]
+    % 插入长度为5pt的垂直空间（也可以是负数，缩进）
+    \vspace{5pt}
+    \centering
+    % 表名 前面为中文名/后面为英文名
+    \caption{Total Number Display Table}
+    % label标签，用以引用本表时。例：autoref{num}
+    \label{num}
+    % 设置表格单元格的列宽
+    \setlength{\tabcolsep}{6mm}{
+    % 表示 三线表 有4列
+    \begin{tabular}{cccc}
+    % toprule表示三线表的顶部线
+        \toprule
+        Program &amp; CVE &amp; Primitive Location  &amp; Number of Tainted instructions \\
+        % midrule 表示 三线表的 中部线
+        \midrule
+        % 合并三行1列，用空格代替，也可以用\multirow{}[]{}{}来表示
+        \textbf{Gstreamer}  &amp; b  &amp; 10   &amp; b \\
+        \textbf{ }    &amp; 1   &amp; 1   &amp; 1   \\
+        \textbf{ }    &amp; 1    &amp; 1   &amp; 1   \\
+   
+        \textbf{latex2rtf}  &amp; 1     &amp; 2  &amp; 1  \\
+        \textbf{ }    &amp; 1       &amp; 3  &amp; 1  \\
+        \textbf{ }    &amp; 1       &amp; 1  &amp; 1   \\  
+        \textbf{ }    &amp; 1       &amp; 1  &amp; 1   \\ 
+    
+        \textbf{nginx}  &amp; 1     &amp; 30   &amp; 1   \\  
+        \textbf{ }    &amp; 1   &amp; 50   &amp; 1  \\
+        \textbf{ }    &amp; 1     &amp; 100  &amp; 1 \\
+        \textbf{ }    &amp; 1     &amp; 80   &amp; 1  \\
+        \textbf{ }    &amp; 1     &amp; 40   &amp; 1  \\
+        
+        \textbf{ALL}       &amp; dd      &amp; dd     &amp; ddd \\
+        % bottomrule表示 三线表 的底部线
+        \bottomrule 
+    \end{tabular}}
+\end{table*}
+</code></pre>
+
+        </div>
+        
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/writing/" title="writing">writing</a>
+            
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2024/02/28/golang/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Golang</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2023/12/26/latex-overleaf/">
+                <span class="nav-default">latex-overleaf</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2024
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
