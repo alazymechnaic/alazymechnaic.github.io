@@ -27,7 +27,7 @@
         <category>pwn</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</guid>
-            <title>HEAP-EXP-heap_management</title>
+            <title>堆利用管理</title>
             <link>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</link>
             <category>HEAP PWN CTF</category>
             <pubDate>Fri, 12 May 2023 19:47:55 +0800</pubDate>

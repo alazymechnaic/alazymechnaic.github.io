@@ -27,7 +27,7 @@
         <category>pwn</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/04/26/zhan-yi-chu-lou-dong-li-yong/</guid>
-            <title>Stack_based_overflow</title>
+            <title>栈溢出漏洞利用</title>
             <link>https://alazymechnaic.github.io/2023/04/26/zhan-yi-chu-lou-dong-li-yong/</link>
             <category>pwn</category>
             <pubDate>Wed, 26 Apr 2023 11:17:43 +0800</pubDate>

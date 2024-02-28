@@ -24,7 +24,7 @@
     <category term="pwn" />
     <entry>
         <id>https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/</id>
-        <title>Golang</title>
+        <title>Golang基础</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/"/>
         <content type="html">&lt;h1 id=&#34;Go-语言安全实战&#34;&gt;&lt;a href=&#34;#Go-语言安全实战&#34; class=&#34;headerlink&#34; title=&#34;Go 语言安全实战&#34;&gt;&lt;/a&gt;Go 语言安全实战&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;Go语言编程&#34;&gt;&lt;a href=&#34;#Go语言编程&#34; class=&#34;headerlink&#34; title=&#34;Go语言编程&#34;&gt;&lt;/a&gt;Go语言编程&lt;/h2&gt;&lt;h3 id=&#34;基础语法&#34;&gt;&lt;a href=&#34;#基础语法&#34; class=&#34;headerlink&#34; title=&#34;基础语法&#34;&gt;&lt;/a&gt;基础语法&lt;/h3&gt;&lt;p&gt;go语言本身是编译型语言，具备高效、简洁、并发能力强的特点，因此常常被用于云计算、网络服务。Go语言在执行的过程中，将Go代码转化为中间表示，并将程序的中间表示转化为目标平台的机器码。&lt;/p&gt;

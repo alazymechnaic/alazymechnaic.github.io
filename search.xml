@@ -17,7 +17,7 @@
     
     
     <entry>
-      <title>Golang</title>
+      <title>Golang基础</title>
       <link href="/2024/01/28/golang-ji-chu/"/>
       <url>/2024/01/28/golang-ji-chu/</url>
       
@@ -36,7 +36,7 @@
     
     
     <entry>
-      <title>overleaf</title>
+      <title>overleaf使用技巧</title>
       <link href="/2024/01/07/overleaf-shi-yong-ji-qiao/"/>
       <url>/2024/01/07/overleaf-shi-yong-ji-qiao/</url>
       
@@ -55,7 +55,26 @@
     
     
     <entry>
-      <title>cipher</title>
+      <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>
+      <link href="/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/"/>
+      <url>/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration"><a href="#Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration" class="headerlink" title="Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration"></a>Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</h2><hr><h3 id="主要贡献点"><a href="#主要贡献点" class="headerlink" title="主要贡献点"></a>主要贡献点</h3><ul><li>基于污点分析的候选exploit状态探索策略</li><li>用户缓解搜索状态爆照的剪枝策略</li><li><strong>在14个CTF上，2个real world上测试</strong>，在Revery上的测试比其更快但是并没有找全面</li></ul><h3 id="关键思想"><a href="#关键思想" class="headerlink" title="关键思想"></a>关键思想</h3><ul><li>一旦发生内存错误就会导致程序变为一个奇怪的状态机，发现exploit的本质是搜索这个状态机中的空间，<strong>但是搜索这该状态空间是十分耗时的</strong></li><li>文章指出的问题<ul><li>使用符号执行进行求解只能对小型的程序起作用，对于大一点的程序会直接路径爆炸（<strong>但是这个我们解决了，使用启发式的路径探索策略，有目标的进行探索和评估</strong></li><li>对于fuzz的使用，Revery使用fuzz的方式进行可利用状态的探索，太耗时</li></ul></li><li>使用启发式的状态剪枝方法来防止状态爆炸，构造目标可利用状态的约束</li></ul><h3 id="相似之处"><a href="#相似之处" class="headerlink" title="相似之处"></a>相似之处</h3><ul><li>都是使用污点分析标记受污染的内存，在传播的过程中找到受影响的sink（例如，memcpy参数，ret地址等），作为候选的状态</li><li>使用动静转换策略，找到程序漏洞的触发位置，将动态执行的状态转换为静态执行的状态，从静态位置开始进行污点分析，<strong>这一部分与我们的方法一致</strong>，但是并没有完全的dump内存，而是模拟了一个相似的静态程序状态</li><li>数据流分析时的指针问题，因为rax可控，所以直接将rsi定义为可控，在下面的指令中mov [rsi],rbx就认为是个gadget，<strong>我们也是这么做的。。。，但是不同之处在于后续进行求解的过程中会在数据流分析中施加内存搜索策略</strong><ul><li><img src="/paper-tunter.assets/image-20231203144731837.png" alt="image-20231203144731837"></li></ul></li></ul><h3 id="主要的问题"><a href="#主要的问题" class="headerlink" title="主要的问题"></a>主要的问题</h3><ul><li><p>所有的案例都是在CTF上进行实现，两个真实世界的案例，构造了一个Revery无法进行实现的案例的exp，且多数攻击都是通过改变控制流实现的，</p></li><li><p>行文中更多的是像对Revery研究的补充，而并非是一篇独立的文章，并且在比较结果上并没有比Revery好多少</p></li><li><p>文章对漏洞的理解，将内存错误视为对程序原有状态机的改变，我们认为内存错误的本质是对合法数据流依赖关系的破坏</p></li><li><p>文章中通过控制流劫持的方法进行攻击，我们使用的是满足控制流完整性的方式进行攻击，限制条件更多，<strong>后面的实验最好能找到原本没有，算法构造出的</strong></p></li><li><p>污点分析找路径时的爆炸问题并没有进行考虑，而我们使用启发式的路径排序策略，缓解了这一问题（他是用修剪不相关路径实现的？</p></li><li><p><strong>符号执行的路径修剪策略潦草</strong>：其实就是在指定了路径后去求解，出现循环太多次的就剪掉，这一部分工程实现讲得有点多</p></li><li><p>调研量过少，涉及到的AEG部分内容理解不完善</p></li><li><p><strong>我们的优势在于保证所有保护开启的情况下完成的攻击，该文章则是在保护全关的情况下进行利用</strong></p></li><li><p>对于精准的内存地址，没有办法做到求解，page 9</p><ul><li><img src="/paper-tunter.assets/image-20231203150112918.png" alt="image-20231203150112918"></li></ul></li><li><p>angr的求解问题，并不能做到精准的求解</p><ul><li><img src="/paper-tunter.assets/image-20231203150421157.png" alt="image-20231203150421157"></li></ul></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> paper </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>密码学基础</title>
       <link href="/2023/10/17/mi-ma-xue-ji-chu/"/>
       <url>/2023/10/17/mi-ma-xue-ji-chu/</url>
       
@@ -106,7 +125,7 @@
     
     
     <entry>
-      <title>AndroidHook</title>
+      <title>安卓hook</title>
       <link href="/2023/10/02/an-zhuo-hook/"/>
       <url>/2023/10/02/an-zhuo-hook/</url>
       
@@ -125,7 +144,7 @@
     
     
     <entry>
-      <title>ProcessInject</title>
+      <title>进程注入</title>
       <link href="/2023/10/02/jin-cheng-zhu-ru/"/>
       <url>/2023/10/02/jin-cheng-zhu-ru/</url>
       
@@ -138,7 +157,7 @@
     
     
     <entry>
-      <title>DataFlowAnalysis</title>
+      <title>数据流分析</title>
       <link href="/2023/09/30/shu-ju-liu-fen-xi/"/>
       <url>/2023/09/30/shu-ju-liu-fen-xi/</url>
       
@@ -157,7 +176,7 @@
     
     
     <entry>
-      <title>SpeedRunner_for_C</title>
+      <title>C语言复健</title>
       <link href="/2023/09/11/c-yu-yan-fu-jian/"/>
       <url>/2023/09/11/c-yu-yan-fu-jian/</url>
       
@@ -176,7 +195,7 @@
     
     
     <entry>
-      <title>Useful_command</title>
+      <title>Bash常用指令</title>
       <link href="/2023/09/05/bash-chang-yong-zhi-ling/"/>
       <url>/2023/09/05/bash-chang-yong-zhi-ling/</url>
       
@@ -208,7 +227,7 @@
     
     
     <entry>
-      <title>afl_fuzz_DIY</title>
+      <title>AFL入门</title>
       <link href="/2023/08/30/afl-ru-men/"/>
       <url>/2023/08/30/afl-ru-men/</url>
       
@@ -265,7 +284,7 @@
     
     
     <entry>
-      <title>go_reverse</title>
+      <title>go语言-reverse</title>
       <link href="/2023/07/20/go-yu-yan-reverse/"/>
       <url>/2023/07/20/go-yu-yan-reverse/</url>
       
@@ -284,7 +303,7 @@
     
     
     <entry>
-      <title>Android_Basic</title>
+      <title>安卓基础</title>
       <link href="/2023/07/20/an-zhuo-ji-chu/"/>
       <url>/2023/07/20/an-zhuo-ji-chu/</url>
       
@@ -335,7 +354,7 @@
     
     
     <entry>
-      <title>BOPC_Data_Only_Attack</title>
+      <title>论文阅读笔记：BOPC-Data-Only-Attack</title>
       <link href="/2023/07/04/lun-wen-yue-du-bi-ji-bopc-data-only-attack/"/>
       <url>/2023/07/04/lun-wen-yue-du-bi-ji-bopc-data-only-attack/</url>
       
@@ -354,7 +373,7 @@
     
     
     <entry>
-      <title>VIPER_SSGVDOA</title>
+      <title>论文阅读笔记：VIPER-SSGVDOA</title>
       <link href="/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/"/>
       <url>/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/</url>
       
@@ -373,7 +392,7 @@
     
     
     <entry>
-      <title>HEAP-EXP-heap_management</title>
+      <title>堆利用管理</title>
       <link href="/2023/05/12/dui-li-yong-guan-li/"/>
       <url>/2023/05/12/dui-li-yong-guan-li/</url>
       
@@ -456,7 +475,7 @@
     
     
     <entry>
-      <title>Stack_based_overflow</title>
+      <title>栈溢出漏洞利用</title>
       <link href="/2023/04/26/zhan-yi-chu-lou-dong-li-yong/"/>
       <url>/2023/04/26/zhan-yi-chu-lou-dong-li-yong/</url>
       

@@ -31,7 +31,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/</id>
-        <title>Golang</title>
+        <title>Golang基础</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/"/>
         <content type="html">&lt;h1 id=&#34;Go-语言安全实战&#34;&gt;&lt;a href=&#34;#Go-语言安全实战&#34; class=&#34;headerlink&#34; title=&#34;Go 语言安全实战&#34;&gt;&lt;/a&gt;Go 语言安全实战&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;Go语言编程&#34;&gt;&lt;a href=&#34;#Go语言编程&#34; class=&#34;headerlink&#34; title=&#34;Go语言编程&#34;&gt;&lt;/a&gt;Go语言编程&lt;/h2&gt;&lt;h3 id=&#34;基础语法&#34;&gt;&lt;a href=&#34;#基础语法&#34; class=&#34;headerlink&#34; title=&#34;基础语法&#34;&gt;&lt;/a&gt;基础语法&lt;/h3&gt;&lt;p&gt;go语言本身是编译型语言，具备高效、简洁、并发能力强的特点，因此常常被用于云计算、网络服务。Go语言在执行的过程中，将Go代码转化为中间表示，并将程序的中间表示转化为目标平台的机器码。&lt;/p&gt;
@@ -83,7 +83,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2024/01/07/overleaf-shi-yong-ji-qiao/</id>
-        <title>overleaf</title>
+        <title>overleaf使用技巧</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2024/01/07/overleaf-shi-yong-ji-qiao/"/>
         <content type="html">&lt;h1 id=&#34;Overleaf&#34;&gt;&lt;a href=&#34;#Overleaf&#34; class=&#34;headerlink&#34; title=&#34;Overleaf&#34;&gt;&lt;/a&gt;Overleaf&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;表格&#34;&gt;&lt;a href=&#34;#表格&#34; class=&#34;headerlink&#34; title=&#34;表格&#34;&gt;&lt;/a&gt;表格&lt;/h2&gt;&lt;p&gt;插入表格并且让其占据两栏&lt;/p&gt;
@@ -94,8 +94,67 @@
         <updated>2024-01-07T07:52:13.000Z</updated>
     </entry>
     <entry>
+        <id>https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</id>
+        <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/"/>
+        <content type="html">&lt;h2 id=&#34;Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34;&gt;&lt;a href=&#34;#Tunter-Assessing-Exploitability-of-Vulnerabilities-with-Taint-Guided-Exploitable-States-Exploration&#34; class=&#34;headerlink&#34; title=&#34;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&#34;&gt;&lt;/a&gt;Tunter: Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&#34;主要贡献点&#34;&gt;&lt;a href=&#34;#主要贡献点&#34; class=&#34;headerlink&#34; title=&#34;主要贡献点&#34;&gt;&lt;/a&gt;主要贡献点&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;基于污点分析的候选exploit状态探索策略&lt;/li&gt;
+&lt;li&gt;用户缓解搜索状态爆照的剪枝策略&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;在14个CTF上，2个real world上测试&lt;/strong&gt;，在Revery上的测试比其更快但是并没有找全面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;关键思想&#34;&gt;&lt;a href=&#34;#关键思想&#34; class=&#34;headerlink&#34; title=&#34;关键思想&#34;&gt;&lt;/a&gt;关键思想&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一旦发生内存错误就会导致程序变为一个奇怪的状态机，发现exploit的本质是搜索这个状态机中的空间，&lt;strong&gt;但是搜索这该状态空间是十分耗时的&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;文章指出的问题&lt;ul&gt;
+&lt;li&gt;使用符号执行进行求解只能对小型的程序起作用，对于大一点的程序会直接路径爆炸（&lt;strong&gt;但是这个我们解决了，使用启发式的路径探索策略，有目标的进行探索和评估&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;对于fuzz的使用，Revery使用fuzz的方式进行可利用状态的探索，太耗时&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;使用启发式的状态剪枝方法来防止状态爆炸，构造目标可利用状态的约束&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;相似之处&#34;&gt;&lt;a href=&#34;#相似之处&#34; class=&#34;headerlink&#34; title=&#34;相似之处&#34;&gt;&lt;/a&gt;相似之处&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;都是使用污点分析标记受污染的内存，在传播的过程中找到受影响的sink（例如，memcpy参数，ret地址等），作为候选的状态&lt;/li&gt;
+&lt;li&gt;使用动静转换策略，找到程序漏洞的触发位置，将动态执行的状态转换为静态执行的状态，从静态位置开始进行污点分析，&lt;strong&gt;这一部分与我们的方法一致&lt;/strong&gt;，但是并没有完全的dump内存，而是模拟了一个相似的静态程序状态&lt;/li&gt;
+&lt;li&gt;数据流分析时的指针问题，因为rax可控，所以直接将rsi定义为可控，在下面的指令中mov [rsi],rbx就认为是个gadget，&lt;strong&gt;我们也是这么做的。。。，但是不同之处在于后续进行求解的过程中会在数据流分析中施加内存搜索策略&lt;/strong&gt;&lt;ul&gt;
+&lt;li&gt;&lt;img src=&#34;/paper-tunter.assets/image-20231203144731837.png&#34; alt=&#34;image-20231203144731837&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;主要的问题&#34;&gt;&lt;a href=&#34;#主要的问题&#34; class=&#34;headerlink&#34; title=&#34;主要的问题&#34;&gt;&lt;/a&gt;主要的问题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;所有的案例都是在CTF上进行实现，两个真实世界的案例，构造了一个Revery无法进行实现的案例的exp，且多数攻击都是通过改变控制流实现的，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;行文中更多的是像对Revery研究的补充，而并非是一篇独立的文章，并且在比较结果上并没有比Revery好多少&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章对漏洞的理解，将内存错误视为对程序原有状态机的改变，我们认为内存错误的本质是对合法数据流依赖关系的破坏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文章中通过控制流劫持的方法进行攻击，我们使用的是满足控制流完整性的方式进行攻击，限制条件更多，&lt;strong&gt;后面的实验最好能找到原本没有，算法构造出的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;污点分析找路径时的爆炸问题并没有进行考虑，而我们使用启发式的路径排序策略，缓解了这一问题（他是用修剪不相关路径实现的？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;符号执行的路径修剪策略潦草&lt;/strong&gt;：其实就是在指定了路径后去求解，出现循环太多次的就剪掉，这一部分工程实现讲得有点多&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;调研量过少，涉及到的AEG部分内容理解不完善&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;我们的优势在于保证所有保护开启的情况下完成的攻击，该文章则是在保护全关的情况下进行利用&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;对于精准的内存地址，没有办法做到求解，page 9&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img src=&#34;/paper-tunter.assets/image-20231203150112918.png&#34; alt=&#34;image-20231203150112918&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;angr的求解问题，并不能做到精准的求解&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img src=&#34;/paper-tunter.assets/image-20231203150421157.png&#34; alt=&#34;image-20231203150421157&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="paper" />
+        <updated>2023-12-03T05:15:08.000Z</updated>
+    </entry>
+    <entry>
         <id>https://alazymechnaic.github.io/2023/10/17/mi-ma-xue-ji-chu/</id>
-        <title>cipher</title>
+        <title>密码学基础</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/17/mi-ma-xue-ji-chu/"/>
         <content type="html">&lt;h3 id=&#34;双线性对的概念&#34;&gt;&lt;a href=&#34;#双线性对的概念&#34; class=&#34;headerlink&#34; title=&#34;双线性对的概念&#34;&gt;&lt;/a&gt;双线性对的概念&lt;/h3&gt;&lt;p&gt;​	&lt;strong&gt;群&lt;/strong&gt;：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310171559441.png&#34; alt=&#34;image-20231017155853356&#34;&gt;&lt;/p&gt;
@@ -238,7 +297,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/10/02/an-zhuo-hook/</id>
-        <title>AndroidHook</title>
+        <title>安卓hook</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/02/an-zhuo-hook/"/>
         <content type="html">&lt;h1 id=&#34;移动安全开发&#34;&gt;&lt;a href=&#34;#移动安全开发&#34; class=&#34;headerlink&#34; title=&#34;移动安全开发&#34;&gt;&lt;/a&gt;移动安全开发&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;定制化外挂的开发流程&#34;&gt;&lt;a href=&#34;#定制化外挂的开发流程&#34; class=&#34;headerlink&#34; title=&#34;定制化外挂的开发流程&#34;&gt;&lt;/a&gt;定制化外挂的开发流程&lt;/h2&gt;&lt;ul&gt;
@@ -285,7 +344,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/10/02/jin-cheng-zhu-ru/</id>
-        <title>ProcessInject</title>
+        <title>进程注入</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/02/jin-cheng-zhu-ru/"/>
         <content type="html">&lt;h2 id=&#34;PC-端注入&#34;&gt;&lt;a href=&#34;#PC-端注入&#34; class=&#34;headerlink&#34; title=&#34;PC 端注入&#34;&gt;&lt;/a&gt;PC 端注入&lt;/h2&gt;&lt;h2 id=&#34;移动端注入&#34;&gt;&lt;a href=&#34;#移动端注入&#34; class=&#34;headerlink&#34; title=&#34;移动端注入&#34;&gt;&lt;/a&gt;移动端注入&lt;/h2&gt;&lt;p&gt;​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。&lt;/p&gt;
 &lt;h3 id=&#34;Zygote-注入&#34;&gt;&lt;a href=&#34;#Zygote-注入&#34; class=&#34;headerlink&#34; title=&#34;Zygote 注入&#34;&gt;&lt;/a&gt;Zygote 注入&lt;/h3&gt;&lt;h3 id=&#34;ptrace注入&#34;&gt;&lt;a href=&#34;#ptrace注入&#34; class=&#34;headerlink&#34; title=&#34;ptrace注入&#34;&gt;&lt;/a&gt;ptrace注入&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/hp910315/article/details/77335058&#34;&gt;https://blog.csdn.net/hp910315/article/details/77335058&lt;/a&gt;&lt;/p&gt;
@@ -364,7 +423,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/</id>
-        <title>DataFlowAnalysis</title>
+        <title>数据流分析</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/"/>
         <content type="html">&lt;h1 id=&#34;DataFlow-Analysis&#34;&gt;&lt;a href=&#34;#DataFlow-Analysis&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Analysis&#34;&gt;&lt;/a&gt;DataFlow Analysis&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;数据流分析的作用&#34;&gt;&lt;a href=&#34;#数据流分析的作用&#34; class=&#34;headerlink&#34; title=&#34;数据流分析的作用&#34;&gt;&lt;/a&gt;数据流分析的作用&lt;/h2&gt;&lt;ul&gt;
@@ -437,7 +496,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/11/c-yu-yan-fu-jian/</id>
-        <title>SpeedRunner_for_C</title>
+        <title>C语言复健</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/11/c-yu-yan-fu-jian/"/>
         <content type="html">&lt;h2 id=&#34;SpeedRunner-for-C&#34;&gt;&lt;a href=&#34;#SpeedRunner-for-C&#34; class=&#34;headerlink&#34; title=&#34;SpeedRunner_for_C&#34;&gt;&lt;/a&gt;SpeedRunner_for_C&lt;/h2&gt;&lt;hr&gt;
 &lt;p&gt;​	本文用于帮助常年不使用C语言的程序员进行复健。&lt;/p&gt;
@@ -495,7 +554,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/05/bash-chang-yong-zhi-ling/</id>
-        <title>Useful_command</title>
+        <title>Bash常用指令</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/05/bash-chang-yong-zhi-ling/"/>
         <content type="html">&lt;h2 id=&#34;tar&#34;&gt;&lt;a href=&#34;#tar&#34; class=&#34;headerlink&#34; title=&#34;tar&#34;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 打包操作&lt;/span&gt;&lt;br&gt;tar -cvf archive.tar file1 file2 ...&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 解包操作&lt;/span&gt;&lt;br&gt;tar -xvf archive.tar&lt;br&gt;tar -xvf archive.tar -C target_directory&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
@@ -519,7 +578,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/08/30/afl-ru-men/</id>
-        <title>afl_fuzz_DIY</title>
+        <title>AFL入门</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/30/afl-ru-men/"/>
         <content type="html">&lt;h1 id=&#34;AFL&#34;&gt;&lt;a href=&#34;#AFL&#34; class=&#34;headerlink&#34; title=&#34;AFL ++&#34;&gt;&lt;/a&gt;AFL ++&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;afl-for-binary&#34;&gt;&lt;a href=&#34;#afl-for-binary&#34; class=&#34;headerlink&#34; title=&#34;afl for binary&#34;&gt;&lt;/a&gt;afl for binary&lt;/h2&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;dop@ubuntu:~$ AFL_QEMU_DEBUG_MAPS=1 afl-qemu-trace ./ciscn_2019_c_1&lt;br&gt;400000-402000 r-xp 00000000 08:05 1617251                                /home/dop/ciscn_2019_c_1&lt;br&gt;402000-601000 ---p 00000000 00:00 0&lt;br&gt;601000-602000 r--p 00001000 08:05 1617251                                /home/dop/ciscn_2019_c_1&lt;br&gt;602000-603000 rw-p 00002000 08:05 1617251                                /home/dop/ciscn_2019_c_1&lt;br&gt;4000000000-4000001000 ---p 00000000 00:00 0&lt;br&gt;4000001000-4000801000 rw-p 00000000 00:00 0                              [stack]&lt;br&gt;4000801000-4000802000 r--p 00000000 08:05 1968235                        /usr/lib/x86_64-linux-gnu/ld-2.31.so&lt;br&gt;4000802000-4000825000 r-xp 00001000 08:05 1968235                        /usr/lib/x86_64-linux-gnu/ld-2.31.so&lt;br&gt;4000825000-400082d000 r--p 00024000 08:05 1968235                        /usr/lib/x86_64-linux-gnu/ld-2.31.so&lt;br&gt;400082d000-400082e000 ---p 00000000 00:00 0&lt;br&gt;400082e000-400082f000 r--p 0002c000 08:05 1968235                        /usr/lib/x86_64-linux-gnu/ld-2.31.so&lt;br&gt;400082f000-4000830000 rw-p 0002d000 08:05 1968235                        /usr/lib/x86_64-linux-gnu/ld-2.31.so&lt;br&gt;4000830000-4000833000 rw-p 00000000 00:00 0&lt;br&gt;4000847000-4000869000 r--p 00000000 08:05 1968239                        /usr/lib/x86_64-linux-gnu/libc-2.31.so&lt;br&gt;4000869000-40009e1000 r-xp 00022000 08:05 1968239                        /usr/lib/x86_64-linux-gnu/libc-2.31.so&lt;br&gt;40009e1000-4000a2f000 r--p 0019a000 08:05 1968239                        /usr/lib/x86_64-linux-gnu/libc-2.31.so&lt;br&gt;4000a2f000-4000a33000 r--p 001e7000 08:05 1968239                        /usr/lib/x86_64-linux-gnu/libc-2.31.so&lt;br&gt;4000a33000-4000a35000 rw-p 001eb000 08:05 1968239                        /usr/lib/x86_64-linux-gnu/libc-2.31.so&lt;br&gt;4000a35000-4000a3b000 rw-p 00000000 00:00 0&lt;br&gt;ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]&lt;br&gt;EEEEEEE                            hh      iii&lt;br&gt;EE      mm mm mmmm    aa aa   cccc hh          nn nnn    eee&lt;br&gt;EEEEE   mmm  mm  mm  aa aaa cc     hhhhhh  iii nnn  nn ee   e&lt;br&gt;EE      mmm  mm  mm aa  aaa cc     hh   hh iii nn   nn eeeee&lt;br&gt;EEEEEEE mmm  mm  mm  aaa aa  ccccc hh   hh iii nn   nn  eeeee&lt;br&gt;====================================================================&lt;br&gt;Welcome to this Encryption machine&lt;br&gt;&lt;br&gt;====================================================================&lt;br&gt;1.Encrypt&lt;br&gt;2.Decrypt&lt;br&gt;3.Exit&lt;br&gt;Input your choice!&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -743,7 +802,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/20/go-yu-yan-reverse/</id>
-        <title>go_reverse</title>
+        <title>go语言-reverse</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/20/go-yu-yan-reverse/"/>
         <content type="html">&lt;h2 id=&#34;GO-reverse&#34;&gt;&lt;a href=&#34;#GO-reverse&#34; class=&#34;headerlink&#34; title=&#34;GO  reverse&#34;&gt;&lt;/a&gt;GO  reverse&lt;/h2&gt;&lt;hr&gt;
 &lt;h3 id=&#34;简介&#34;&gt;&lt;a href=&#34;#简介&#34; class=&#34;headerlink&#34; title=&#34;简介&#34;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;​	GO语言是谷歌开发的强类型静态静态语言，其编译出的汇编代码与 C/ C++语言存在极大的差异。本身Go在编译过程中将所有的库函数和第三方包都进行了静态的打包操作，还打包进去了自身的runtime和（Garbage Collection， 垃圾回收）模块部分代码，导致其编译后的二进制文件体积十分庞大，存在较大的分析难度。&lt;/p&gt;
@@ -762,7 +821,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/20/an-zhuo-ji-chu/</id>
-        <title>Android_Basic</title>
+        <title>安卓基础</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/20/an-zhuo-ji-chu/"/>
         <content type="html">&lt;h2 id=&#34;本文用于介绍安卓基础架构以及安卓安全的学习方法及路线&#34;&gt;&lt;a href=&#34;#本文用于介绍安卓基础架构以及安卓安全的学习方法及路线&#34; class=&#34;headerlink&#34; title=&#34;本文用于介绍安卓基础架构以及安卓安全的学习方法及路线&#34;&gt;&lt;/a&gt;本文用于介绍安卓基础架构以及安卓安全的学习方法及路线&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;采用课程与笔记相结合的方式&lt;/li&gt;
@@ -835,7 +894,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/04/lun-wen-yue-du-bi-ji-bopc-data-only-attack/</id>
-        <title>BOPC_Data_Only_Attack</title>
+        <title>论文阅读笔记：BOPC-Data-Only-Attack</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/04/lun-wen-yue-du-bi-ji-bopc-data-only-attack/"/>
         <content type="html">&lt;h2 id=&#34;Block-Oriented-Programming-Automating-Data-Only-Attacks&#34;&gt;&lt;a href=&#34;#Block-Oriented-Programming-Automating-Data-Only-Attacks&#34; class=&#34;headerlink&#34; title=&#34;Block Oriented Programming: Automating Data-Only Attacks&#34;&gt;&lt;/a&gt;Block Oriented Programming: Automating Data-Only Attacks&lt;/h2&gt;&lt;hr&gt;
 &lt;p&gt;目的： 能够依照代码块组指出包含特定语义的结构。构造出了一种自己的语言SPL，生成SPL payload来组织成特定的语义。&lt;/p&gt;
@@ -893,7 +952,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/</id>
-        <title>VIPER_SSGVDOA</title>
+        <title>论文阅读笔记：VIPER-SSGVDOA</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/"/>
         <content type="html">&lt;h2 id=&#34;VIPER-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks&#34;&gt;&lt;a href=&#34;#VIPER-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks&#34; class=&#34;headerlink&#34; title=&#34;VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks&#34;&gt;&lt;/a&gt;VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks&lt;/h2&gt;&lt;hr&gt;
 &lt;h3 id=&#34;摘要&#34;&gt;&lt;a href=&#34;#摘要&#34; class=&#34;headerlink&#34; title=&#34;摘要&#34;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;ul&gt;
@@ -942,7 +1001,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</id>
-        <title>HEAP-EXP-heap_management</title>
+        <title>堆利用管理</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/"/>
         <content type="html">&lt;h1 id=&#34;堆利用&#34;&gt;&lt;a href=&#34;#堆利用&#34; class=&#34;headerlink&#34; title=&#34;堆利用&#34;&gt;&lt;/a&gt;堆利用&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。&lt;/p&gt;
@@ -1275,7 +1334,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/04/26/zhan-yi-chu-lou-dong-li-yong/</id>
-        <title>Stack_based_overflow</title>
+        <title>栈溢出漏洞利用</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/04/26/zhan-yi-chu-lou-dong-li-yong/"/>
         <content type="html">&lt;p&gt;随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在&lt;strong&gt;栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。&lt;/strong&gt;所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序列，我们可以修改某些地址的内容，方便控制程序的执行流程。&lt;/p&gt;
 &lt;p&gt;之所以称之为 ROP，是因为核心在于利用了指令集中的 ret 指令，改变了指令流的执行顺序。ROP 攻击一般得满足如下条件&lt;/p&gt;

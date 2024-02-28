@@ -24,7 +24,7 @@
     <category term="pwn" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</id>
-        <title>HEAP-EXP-heap_management</title>
+        <title>堆利用管理</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/"/>
         <content type="html">&lt;h1 id=&#34;堆利用&#34;&gt;&lt;a href=&#34;#堆利用&#34; class=&#34;headerlink&#34; title=&#34;堆利用&#34;&gt;&lt;/a&gt;堆利用&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。&lt;/p&gt;
