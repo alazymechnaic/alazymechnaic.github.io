@@ -15,20 +15,17 @@
     <category term="go, RE" />
     <category term="kernel pwn" />
     <category term="binary" />
-    <category term="personal" />
     <category term="C" />
     <category term="dataflow" />
     <category term="Android" />
     <category term="arm" />
     <category term="Hook" />
-    <category term="AWD" />
-    <category term="cipher" />
     <category term="go" />
     <category term="writing" />
     <entry>
-        <id>https://alazymechnaic.github.io/2023/10/02/androidhook/</id>
+        <id>https://alazymechnaic.github.io/2023/10/02/an-zhuo-hook/</id>
         <title>AndroidHook</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/02/androidhook/"/>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/02/an-zhuo-hook/"/>
         <content type="html">&lt;h1 id=&#34;移动安全开发&#34;&gt;&lt;a href=&#34;#移动安全开发&#34; class=&#34;headerlink&#34; title=&#34;移动安全开发&#34;&gt;&lt;/a&gt;移动安全开发&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;定制化外挂的开发流程&#34;&gt;&lt;a href=&#34;#定制化外挂的开发流程&#34; class=&#34;headerlink&#34; title=&#34;定制化外挂的开发流程&#34;&gt;&lt;/a&gt;定制化外挂的开发流程&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;逆向分析游戏逻辑&lt;/li&gt;
@@ -57,7 +54,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;inline-hook&#34;&gt;&lt;a href=&#34;#inline-hook&#34; class=&#34;headerlink&#34; title=&#34;inline hook&#34;&gt;&lt;/a&gt;inline hook&lt;/h3&gt;&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310031445483.png&#34; alt=&#34;image-20231003144538379&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;inline-hook&#34;&gt;&lt;a href=&#34;#inline-hook&#34; class=&#34;headerlink&#34; title=&#34;inline hook&#34;&gt;&lt;/a&gt;inline hook&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310031445483.png&#34; alt=&#34;image-20231003144538379&#34;&gt;&lt;/p&gt;
 &lt;p&gt;使用inline hook的流程并不复杂，而是保持原先的指令替换原则，将某条指令替换为跳转指令，将其指向插入的底层桩函数，在其中保存上下文，并实现自定义的函数调用，最后还原上下文后并继续向下执行。这里注意，ARM架构下插入跳转指令时，由于指令长度限制，没有办法进行直接寻址，可以采用将地址保存在寄存器中，进行寄存器间接寻址的方式。&lt;/p&gt;
 &lt;h3 id=&#34;导入表hook&#34;&gt;&lt;a href=&#34;#导入表hook&#34; class=&#34;headerlink&#34; title=&#34;导入表hook&#34;&gt;&lt;/a&gt;导入表hook&lt;/h3&gt;&lt;h3 id=&#34;基于异常的hook&#34;&gt;&lt;a href=&#34;#基于异常的hook&#34; class=&#34;headerlink&#34; title=&#34;基于异常的hook&#34;&gt;&lt;/a&gt;基于异常的hook&lt;/h3&gt;&lt;p&gt;采用的方法是signal + 非法指令的方式，在想要hook的地方触发异常，并捕获。在异常处理函数中捕获上下文的异常信息。&lt;/p&gt;
 &lt;ul&gt;

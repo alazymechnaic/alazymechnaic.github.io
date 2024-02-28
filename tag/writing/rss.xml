@@ -18,64 +18,23 @@
         <category>go, RE</category>
         <category>kernel pwn</category>
         <category>binary</category>
-        <category>personal</category>
         <category>C</category>
         <category>dataflow</category>
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
-        <category>AWD</category>
-        <category>cipher</category>
         <category>go</category>
         <category>writing</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2024/01/07/overleaf/</guid>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/01/07/overleaf-shi-yong-ji-qiao/</guid>
             <title>overleaf</title>
-            <link>https://alazymechnaic.github.io/2024/01/07/overleaf/</link>
+            <link>https://alazymechnaic.github.io/2024/01/07/overleaf-shi-yong-ji-qiao/</link>
             <category>writing</category>
             <pubDate>Sun, 07 Jan 2024 15:52:13 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;Overleaf&#34;&gt;&lt;a href=&#34;#Overleaf&#34; class=&#34;headerlink&#34; title=&#34;Overleaf&#34;&gt;&lt;/a&gt;Overleaf&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;表格&#34;&gt;&lt;a href=&#34;#表格&#34; class=&#34;headerlink&#34; title=&#34;表格&#34;&gt;&lt;/a&gt;表格&lt;/h2&gt;&lt;p&gt;插入表格并且让其占据两栏&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;latex&#34;&gt;\usepackage{stfloats}
-\begin{table*}[ht]
-    % 插入长度为5pt的垂直空间（也可以是负数，缩进）
-    \vspace{5pt}
-    \centering
-    % 表名 前面为中文名/后面为英文名
-    \caption{Total Number Display Table}
-    % label标签，用以引用本表时。例：autoref{num}
-    \label{num}
-    % 设置表格单元格的列宽
-    \setlength{\tabcolsep}{6mm}{
-    % 表示 三线表 有4列
-    \begin{tabular}{cccc}
-    % toprule表示三线表的顶部线
-        \toprule
-        Program &amp;amp; CVE &amp;amp; Primitive Location  &amp;amp; Number of Tainted instructions \\
-        % midrule 表示 三线表的 中部线
-        \midrule
-        % 合并三行1列，用空格代替，也可以用\multirow{}[]{}{}来表示
-        \textbf{Gstreamer}  &amp;amp; b  &amp;amp; 10   &amp;amp; b \\
-        \textbf{ }    &amp;amp; 1   &amp;amp; 1   &amp;amp; 1   \\
-        \textbf{ }    &amp;amp; 1    &amp;amp; 1   &amp;amp; 1   \\
-   
-        \textbf{latex2rtf}  &amp;amp; 1     &amp;amp; 2  &amp;amp; 1  \\
-        \textbf{ }    &amp;amp; 1       &amp;amp; 3  &amp;amp; 1  \\
-        \textbf{ }    &amp;amp; 1       &amp;amp; 1  &amp;amp; 1   \\  
-        \textbf{ }    &amp;amp; 1       &amp;amp; 1  &amp;amp; 1   \\ 
-    
-        \textbf{nginx}  &amp;amp; 1     &amp;amp; 30   &amp;amp; 1   \\  
-        \textbf{ }    &amp;amp; 1   &amp;amp; 50   &amp;amp; 1  \\
-        \textbf{ }    &amp;amp; 1     &amp;amp; 100  &amp;amp; 1 \\
-        \textbf{ }    &amp;amp; 1     &amp;amp; 80   &amp;amp; 1  \\
-        \textbf{ }    &amp;amp; 1     &amp;amp; 40   &amp;amp; 1  \\
-        
-        \textbf{ALL}       &amp;amp; dd      &amp;amp; dd     &amp;amp; ddd \\
-        % bottomrule表示 三线表 的底部线
-        \bottomrule 
-    \end{tabular}}
-\end{table*}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;figure class=&#34;highlight latex&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs latex&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;\usepackage&lt;/span&gt;{stfloats}&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;\begin&lt;/span&gt;{table*}[ht]&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% 插入长度为5pt的垂直空间（也可以是负数，缩进）&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\vspace&lt;/span&gt;{5pt}&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\centering&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% 表名 前面为中文名/后面为英文名&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\caption&lt;/span&gt;{Total Number Display Table}&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% label标签，用以引用本表时。例：autoref{num}&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\label&lt;/span&gt;{num}&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% 设置表格单元格的列宽&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\setlength&lt;/span&gt;{&lt;span class=&#34;hljs-keyword&#34;&gt;\tabcolsep&lt;/span&gt;}{6mm}{&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% 表示 三线表 有4列&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\begin&lt;/span&gt;{tabular}{cccc}&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;% toprule表示三线表的顶部线&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\toprule&lt;/span&gt;&lt;br&gt;        Program &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; CVE &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; Primitive Location  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; Number of Tainted instructions &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-comment&#34;&gt;% midrule 表示 三线表的 中部线&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\midrule&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-comment&#34;&gt;% 合并三行1列，用空格代替，也可以用\multirow{}[]{}{}来表示&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{Gstreamer}  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; b  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 10   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; b &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;   &lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{latex2rtf}  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 2  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1       &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 3  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1       &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;  &lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1       &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt; &lt;br&gt;    &lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{nginx}  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 30   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;  &lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 50   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 100  &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1 &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 80   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ }    &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 40   &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; 1  &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\textbf&lt;/span&gt;{ALL}       &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; dd      &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; dd     &lt;span class=&#34;hljs-built_in&#34;&gt;&amp;amp;&lt;/span&gt; ddd &lt;span class=&#34;hljs-keyword&#34;&gt;\\&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-comment&#34;&gt;% bottomrule表示 三线表 的底部线&lt;/span&gt;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;\bottomrule&lt;/span&gt; &lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;\end&lt;/span&gt;{tabular}}&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;\end&lt;/span&gt;{table*}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
  ]]></description>
         </item>
     </channel>

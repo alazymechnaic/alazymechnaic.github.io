@@ -18,20 +18,17 @@
         <category>go, RE</category>
         <category>kernel pwn</category>
         <category>binary</category>
-        <category>personal</category>
         <category>C</category>
         <category>dataflow</category>
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
-        <category>AWD</category>
-        <category>cipher</category>
         <category>go</category>
         <category>writing</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/20/go-reverse/</guid>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/20/go-yu-yan-reverse/</guid>
             <title>go_reverse</title>
-            <link>https://alazymechnaic.github.io/2023/07/20/go-reverse/</link>
+            <link>https://alazymechnaic.github.io/2023/07/20/go-yu-yan-reverse/</link>
             <category>go, RE</category>
             <pubDate>Thu, 20 Jul 2023 19:50:06 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;GO-reverse&#34;&gt;&lt;a href=&#34;#GO-reverse&#34; class=&#34;headerlink&#34; title=&#34;GO  reverse&#34;&gt;&lt;/a&gt;GO  reverse&lt;/h2&gt;&lt;hr&gt;
@@ -42,9 +39,9 @@
 &lt;li&gt;&lt;strong&gt;全静态链接&lt;/strong&gt;：程序中并不按照函数名对库函数进行动态使用，而是进行全静态链接，在没有调试信息和符号表的情况下调试难度很大&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;独有的函数调用机制&lt;/strong&gt;：Go语言函数中的callee的栈空间由caller来进行管理，caller在进入callee之前预先将栈中把参数留出，同时还要给返回值留出栈空间&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuYW5xdWFua2UuY29tL21lbWJlci5odG1sP21lbWJlcklkPTEyMjA3OQ==&#34;&gt;https://www.anquanke.com/member.html?memberId=122079&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3M/X19iaXo9TWpNNU5UYzJNRFl4TXc9PSZtaWQ9MjQ1ODM4NzExNiZpZHg9MSZzbj1jNjY4ZGFlYTMwYmM5ZGNlOGQ3OWQzMTZlOTM5OTNlNCZjaGtzbT1iMThmMzIyNjg2ZjhiYjMwZTgxYjc0NjQ0NmYwOGRjZDM4MWE1ODhiNWMwYzZiODQyMDA3Y2M4MjJhODc1YmQ1ZWQxNGMyZDc0ZDZhJnNjZW5lPTI3&#34;&gt;https://mp.weixin.qq.com/s?__biz=MjM5NTc2MDYxMw==&amp;amp;mid=2458387116&amp;amp;idx=1&amp;amp;sn=c668daea30bc9dce8d79d316e93993e4&amp;amp;chksm=b18f322686f8bb30e81b746446f08dcd381a588b5c0c6b842007cc822a875bd5ed14c2d74d6a&amp;amp;scene=27&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL2xlYW5vdGUuY29tL2Jsb2cvcG9zdC81YzY0YmIyYmFiNjQ0MTUxNjcwMDBmNDg=&#34;&gt;http://leanote.com/blog/post/5c64bb2bab64415167000f48&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.anquanke.com/member.html?memberId=122079&#34;&gt;https://www.anquanke.com/member.html?memberId=122079&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MjM5NTc2MDYxMw==&amp;amp;mid=2458387116&amp;amp;idx=1&amp;amp;sn=c668daea30bc9dce8d79d316e93993e4&amp;amp;chksm=b18f322686f8bb30e81b746446f08dcd381a588b5c0c6b842007cc822a875bd5ed14c2d74d6a&amp;amp;scene=27&#34;&gt;https://mp.weixin.qq.com/s?__biz=MjM5NTc2MDYxMw==&amp;amp;mid=2458387116&amp;amp;idx=1&amp;amp;sn=c668daea30bc9dce8d79d316e93993e4&amp;amp;chksm=b18f322686f8bb30e81b746446f08dcd381a588b5c0c6b842007cc822a875bd5ed14c2d74d6a&amp;amp;scene=27&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://leanote.com/blog/post/5c64bb2bab64415167000f48&#34;&gt;http://leanote.com/blog/post/5c64bb2bab64415167000f48&lt;/a&gt;&lt;/p&gt;
  ]]></description>
         </item>
     </channel>

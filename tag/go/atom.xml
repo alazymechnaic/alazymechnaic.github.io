@@ -3,7 +3,7 @@
     <id>https://alazymechnaic.github.io</id>
     <title>alazymachine • Posts by &#34;go&#34; tag</title>
     <link href="https://alazymechnaic.github.io" />
-    <updated>2024-02-28T01:33:23.000Z</updated>
+    <updated>2024-01-28T01:33:23.000Z</updated>
     <category term="paper" />
     <category term="HEAP PWN CTF" />
     <category term="pwn" />
@@ -15,34 +15,27 @@
     <category term="go, RE" />
     <category term="kernel pwn" />
     <category term="binary" />
-    <category term="personal" />
     <category term="C" />
     <category term="dataflow" />
     <category term="Android" />
     <category term="arm" />
     <category term="Hook" />
-    <category term="AWD" />
-    <category term="cipher" />
     <category term="go" />
     <category term="writing" />
     <entry>
-        <id>https://alazymechnaic.github.io/2024/02/28/golang/</id>
+        <id>https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/</id>
         <title>Golang</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2024/02/28/golang/"/>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/01/28/golang-ji-chu/"/>
         <content type="html">&lt;h1 id=&#34;Go-语言安全实战&#34;&gt;&lt;a href=&#34;#Go-语言安全实战&#34; class=&#34;headerlink&#34; title=&#34;Go 语言安全实战&#34;&gt;&lt;/a&gt;Go 语言安全实战&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;Go语言编程&#34;&gt;&lt;a href=&#34;#Go语言编程&#34; class=&#34;headerlink&#34; title=&#34;Go语言编程&#34;&gt;&lt;/a&gt;Go语言编程&lt;/h2&gt;&lt;h3 id=&#34;基础语法&#34;&gt;&lt;a href=&#34;#基础语法&#34; class=&#34;headerlink&#34; title=&#34;基础语法&#34;&gt;&lt;/a&gt;基础语法&lt;/h3&gt;&lt;p&gt;go语言本身是编译型语言，具备高效、简洁、并发能力强的特点，因此常常被用于云计算、网络服务。Go语言在执行的过程中，将Go代码转化为中间表示，并将程序的中间表示转化为目标平台的机器码。&lt;/p&gt;
-&lt;h4 id=&#34;hello-world&#34;&gt;&lt;a href=&#34;#hello-world&#34; class=&#34;headerlink&#34; title=&#34;hello world&#34;&gt;&lt;/a&gt;hello world&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
-import &#34;fmt&#34;
-func main() {
-    fmt.Printf(&#34;Congratulations! Go has successfully been installed on your system\n&#34;)
-}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;hello-world&#34;&gt;&lt;a href=&#34;#hello-world&#34; class=&#34;headerlink&#34; title=&#34;hello world&#34;&gt;&lt;/a&gt;hello world&lt;/h4&gt;&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;package&lt;/span&gt; main&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;fmt&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    fmt.Printf(&lt;span class=&#34;hljs-string&#34;&gt;&#34;Congratulations! Go has successfully been installed on your system\n&#34;&lt;/span&gt;)&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;p&gt;运行代码&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt; go run hello.go 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs bash&#34;&gt;go run hello.go &lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;p&gt;拆分过程后进行代码的运行&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt; go build -x hello.go  # 拆分过程实现，会产生一个名称为hello的二进制文件
-&lt;/code&gt;&lt;/pre&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs bash&#34;&gt;go build -x hello.go  &lt;span class=&#34;hljs-comment&#34;&gt;# 拆分过程实现，会产生一个名称为hello的二进制文件&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;p&gt;通过gdb调试二进制文件能够看到go产生的中间语言。go语言在运行的过程中通过go的runtime与内核进行通信，runtime完成包括内存的分配等操作。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202402281041471.png&#34; alt=&#34;image-20240228104124390&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Go程序首次进入的函数是runtime.rt0_amd64，通过runtime.rt0_go函数调用main函数，并完成数据变量的初始化，CPU核心数量的获取以及全局变量m0、g0的设置。而后m0开启第一个线程。Go语言的runtime中存在优秀的线程管理机制，&lt;/p&gt;
@@ -60,72 +53,17 @@ func main() {
 &lt;li&gt;后面的为什么还要有一个main？&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;package main用于指定程序首先寻找的文件，func main则用于指定首次执行的函数，如果存在init函数，则先执行init函数。&lt;/p&gt;
-&lt;h4 id=&#34;变量声明&#34;&gt;&lt;a href=&#34;#变量声明&#34; class=&#34;headerlink&#34; title=&#34;变量声明&#34;&gt;&lt;/a&gt;变量声明&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;var age int;
-age = 2
-//
-var age = 2
-//
-age := 2
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;变量声明&#34;&gt;&lt;a href=&#34;#变量声明&#34; class=&#34;headerlink&#34; title=&#34;变量声明&#34;&gt;&lt;/a&gt;变量声明&lt;/h4&gt;&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt; age &lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;;&lt;br&gt;age = &lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt; age = &lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//&lt;/span&gt;&lt;br&gt;age := &lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;p&gt;以上三种做法都可以实现对变量的声明。&lt;/p&gt;
-&lt;h4 id=&#34;指针操作&#34;&gt;&lt;a href=&#34;#指针操作&#34; class=&#34;headerlink&#34; title=&#34;指针操作&#34;&gt;&lt;/a&gt;指针操作&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
-import &#34;fmt&#34;
-func change(v *int) {
-    *v = 40
-}
-func main() {
-    a := 50 // 声明变量 a
-    b := &amp;amp;a // 产生一个指向a的指针b
-    change(b) // 修改b指向内容的数据
-    fmt.Println(a) // 40
-}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;指针操作&#34;&gt;&lt;a href=&#34;#指针操作&#34; class=&#34;headerlink&#34; title=&#34;指针操作&#34;&gt;&lt;/a&gt;指针操作&lt;/h4&gt;&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;package&lt;/span&gt; main&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;fmt&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;change&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(v *&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    *v = &lt;span class=&#34;hljs-number&#34;&gt;40&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    a := &lt;span class=&#34;hljs-number&#34;&gt;50&lt;/span&gt; &lt;span class=&#34;hljs-comment&#34;&gt;// 声明变量 a&lt;/span&gt;&lt;br&gt;    b := &amp;amp;a &lt;span class=&#34;hljs-comment&#34;&gt;// 产生一个指向a的指针b&lt;/span&gt;&lt;br&gt;    change(b) &lt;span class=&#34;hljs-comment&#34;&gt;// 修改b指向内容的数据&lt;/span&gt;&lt;br&gt;    fmt.Println(a) &lt;span class=&#34;hljs-comment&#34;&gt;// 40&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
 &lt;p&gt;在go语言中的指针操作与C语言类似，可以通过:=符号完成对变量的简单声明一个指针类型的变量。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;package&lt;/span&gt; main&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;fmt&#34;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;change&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(v *&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    *v = &lt;span class=&#34;hljs-number&#34;&gt;40&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;	&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt;(&lt;br&gt;	a = [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;{&lt;span class=&#34;hljs-number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;30&lt;/span&gt;}&lt;br&gt;	ptr [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]*&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;&lt;br&gt;	)&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;for&lt;/span&gt; i := &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;; i&amp;lt;&lt;span class=&#34;hljs-built_in&#34;&gt;len&lt;/span&gt;(a); i ++{&lt;br&gt;	ptr[i] = &amp;amp;a[i]&lt;br&gt;	fmt.Printf(&lt;span class=&#34;hljs-string&#34;&gt;&#34;%d 0x%x\n&#34;&lt;/span&gt;,i+&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;, ptr[i])&lt;br&gt;}&lt;br&gt;fmt.Println(ptr[&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;]+&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;) &lt;span class=&#34;hljs-comment&#34;&gt;// 报错：invalid operation: ptr[0] + 1 (mismatched types *int and int)&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-import &#34;fmt&#34;
-
-func change(v *int) {
-    *v = 40
-}
-func main() {
-    var(
-    a = [3]int{10,20,30}
-    ptr [3]*int
-    )
-
-for i := 0; i&amp;lt;len(a); i ++{
-    ptr[i] = &amp;amp;a[i]
-    fmt.Printf(&#34;%d 0x%x\n&#34;,i+1, ptr[i])
-}
-fmt.Println(ptr[0]+1) // 报错：invalid operation: ptr[0] + 1 (mismatched types *int and int)
-}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;在上述过程中能够看到，Go语言只能对程序中的int*类型的变量做解引用操作，且与C语言不同，指针本身并不能像数值一样直接运算。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;package&lt;/span&gt; main&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;fmt&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// import &#34;unsafe&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;change&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(v *&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    *v = &lt;span class=&#34;hljs-number&#34;&gt;40&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;	&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt;(&lt;br&gt;	a = [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;{&lt;span class=&#34;hljs-number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;30&lt;/span&gt;}&lt;br&gt;	ptr [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]*&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;&lt;br&gt;	)&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;for&lt;/span&gt; i := &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;; i&amp;lt;&lt;span class=&#34;hljs-built_in&#34;&gt;len&lt;/span&gt;(a); i ++{&lt;br&gt;	ptr[i] = &amp;amp;a[i]&lt;br&gt;	fmt.Printf(&lt;span class=&#34;hljs-string&#34;&gt;&#34;%d 0x%x\n&#34;&lt;/span&gt;,i+&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;, ptr[i])&lt;br&gt;}&lt;br&gt;fmt.Println(*ptr[&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;])&lt;br&gt;intVal := &lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;(&lt;span class=&#34;hljs-type&#34;&gt;uintptr&lt;/span&gt;(unsafe.Pointer(ptr[&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;])))&lt;br&gt;intVal += &lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;&lt;br&gt;ptr2 := (*&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)(unsafe.Pointer(&lt;span class=&#34;hljs-type&#34;&gt;uintptr&lt;/span&gt;(intVal)))&lt;br&gt;fmt.Println(*(ptr2)) &lt;span class=&#34;hljs-comment&#34;&gt;// 报错 unsafe&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-import &#34;fmt&#34;
-// import &#34;unsafe&#34;
-func change(v *int) {
-    *v = 40
-}
-func main() {
-    var(
-    a = [3]int{10,20,30}
-    ptr [3]*int
-    )
-
-for i := 0; i&amp;lt;len(a); i ++{
-    ptr[i] = &amp;amp;a[i]
-    fmt.Printf(&#34;%d 0x%x\n&#34;,i+1, ptr[i])
-}
-fmt.Println(*ptr[0])
-intVal := int(uintptr(unsafe.Pointer(ptr[0])))
-intVal += 8
-ptr2 := (*int)(unsafe.Pointer(uintptr(intVal)))
-fmt.Println(*(ptr2)) // 报错 unsafe
-}
-&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;由于Go语言的特性，直接读取给定地址的内容是不允许的，因为Go语言具有内存安全性和类型安全性的限制。Go语言的内存访问是受限制的，不能直接操纵指针或进行低级别的内存操作。直接将数字转化为指针是不安全的，因此编译都不会通过。&lt;/p&gt;
 &lt;h3 id=&#34;似乎可以利用的点&#34;&gt;&lt;a href=&#34;#似乎可以利用的点&#34; class=&#34;headerlink&#34; title=&#34;似乎可以利用的点&#34;&gt;&lt;/a&gt;似乎可以利用的点&lt;/h3&gt;&lt;p&gt;Go语言中如果将代码写在同一行是没问题的，但是需要使用分号隔开。在进行模本注入的过程中可以考虑使用该方法。	&lt;/p&gt;
 &lt;h2 id=&#34;Go语言的安全问题&#34;&gt;&lt;a href=&#34;#Go语言的安全问题&#34; class=&#34;headerlink&#34; title=&#34;Go语言的安全问题&#34;&gt;&lt;/a&gt;Go语言的安全问题&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://tyskill.github.io/posts/gossti/&#34;&gt;https://tyskill.github.io/posts/gossti/&lt;/a&gt;&lt;/p&gt;
@@ -134,6 +72,6 @@ fmt.Println(*(ptr2)) // 报错 unsafe
 &lt;h3 id=&#34;模板注入&#34;&gt;&lt;a href=&#34;#模板注入&#34; class=&#34;headerlink&#34; title=&#34;模板注入&#34;&gt;&lt;/a&gt;模板注入&lt;/h3&gt;&lt;h3 id=&#34;XSS&#34;&gt;&lt;a href=&#34;#XSS&#34; class=&#34;headerlink&#34; title=&#34;XSS&#34;&gt;&lt;/a&gt;XSS&lt;/h3&gt;&lt;h3 id=&#34;命令执行&#34;&gt;&lt;a href=&#34;#命令执行&#34; class=&#34;headerlink&#34; title=&#34;命令执行&#34;&gt;&lt;/a&gt;命令执行&lt;/h3&gt;&lt;h3 id=&#34;任意文件读取&#34;&gt;&lt;a href=&#34;#任意文件读取&#34; class=&#34;headerlink&#34; title=&#34;任意文件读取&#34;&gt;&lt;/a&gt;任意文件读取&lt;/h3&gt;&lt;h2 id=&#34;Go语言漏洞&#34;&gt;&lt;a href=&#34;#Go语言漏洞&#34; class=&#34;headerlink&#34; title=&#34;Go语言漏洞&#34;&gt;&lt;/a&gt;Go语言漏洞&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://pkg.go.dev/vuln/list&#34;&gt;https://pkg.go.dev/vuln/list&lt;/a&gt;&lt;/p&gt;
 </content>
         <category term="go" />
-        <updated>2024-02-28T01:33:23.000Z</updated>
+        <updated>2024-01-28T01:33:23.000Z</updated>
     </entry>
 </feed>

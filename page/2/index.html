@@ -226,168 +226,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/10/03/arm-base/" target="_self">
-          Arm_Base
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/03/arm-base/" target="_self">
-        <div>
-          ARM​	本文用于介绍arm指令集的基本架构，特性。 寄存器用法通用寄存器（General-Purpose Registers）：  r0~r3 主要用于子程序间传递参数  r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量  r12 用作子程序间scratch 寄存器，即 ip 寄存器  r13 通常用做栈指针，即 sp  r14 寄存器又被称
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-03 14:28" pubdate>
-              2023-10-03
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/arm/">#arm</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/10/02/androidhook/" target="_self">
-          AndroidHook
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/androidhook/" target="_self">
-        <div>
-          移动安全开发 定制化外挂的开发流程 逆向分析游戏逻辑 验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。 注入游戏进程：获得root，使用ptrace方式注入游戏进程。 枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-02 21:20" pubdate>
-              2023-10-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Android/">#Android</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/10/02/processinject/" target="_self">
-          ProcessInject
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/processinject/" target="_self">
-        <div>
-          PC 端注入移动端注入​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。 Zygote 注入ptrace注入https://blog.csdn.net/hp910315/article/details/77335058 long ptrace(enum __ptrace_req
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-10-02 21:05" pubdate>
-              2023-10-02
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/09/30/dataflowanalysis/" target="_self">
-          DataFlowAnalysis
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/30/dataflowanalysis/" target="_self">
-        <div>
-          DataFlow Analysis 数据流分析的作用 简化执行代码:  ```c// 在下面代码x = a + b;x = 5 * 2;// 可以直接简化为x = 10; - **变量取值分析**    - ```c     a = 1;     b = 2;     c = 3;     if (...) x = a + 5;     else x = b + 4;     c = x + 1;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-09-30 14:48" pubdate>
-              2023-09-30
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/dataflow/">#dataflow</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/09/11/speedrunner-for-c/" target="_self">
+        <a href="/2023/09/11/c-yu-yan-fu-jian/" target="_self">
           SpeedRunner_for_C
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/speedrunner-for-c/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/c-yu-yan-fu-jian/" target="_self">
         <div>
-          SpeedRunner_for_C ​	本文用于帮助常年不使用C语言的程序员进行复健。  图片来源：https://mp.weixin.qq.com/s/aSiVNXJ0rKBWLy_MlzOMWA 直接上例子，哪里不会读哪里 #include &lt;stdio.h&gt;  // 定义结构体 struct Person {     char name[20];     int age; };
+          SpeedRunner_for_C ​	本文用于帮助常年不使用C语言的程序员进行复健。  图片来源：https://mp.weixin.qq.com/s/aSiVNXJ0rKBWLy_MlzOMWA 直接上例子，哪里不会读哪里 12345678910111213141516171819202122232425262728293031323334353637383940414243444546#in
         </div>
       </a>
 
@@ -419,15 +266,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/09/05/useful-command/" target="_self">
+        <a href="/2023/09/05/bash-chang-yong-zhi-ling/" target="_self">
           Useful_command
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/05/useful-command/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/05/bash-chang-yong-zhi-ling/" target="_self">
         <div>
-          tar# 打包操作 tar -cvf archive.tar file1 file2 ...  # -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录  # 解包操作 tar -xvf archive.tar tar -xvf arch
+          tar12345678# 打包操作tar -cvf archive.tar file1 file2 ...# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录# 解包操作tar -xvf archive.tartar -xvf arc
         </div>
       </a>
 
@@ -467,7 +314,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/09/03/libdft/" target="_self">
         <div>
-          libdft64https://github.com/AngoraFuzzer/libdft64 安装踩坑# 设置pin 进入libdft64中执行 ./install_pin.sh # 手动执行 Please set: export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux # 编译安装 make  使用踩坑# 官方给出的使
+          libdft64https://github.com/AngoraFuzzer/libdft64 安装踩坑1234567# 设置pin进入libdft64中执行 ./install_pin.sh# 手动执行Please set:export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux# 编译安装make
         </div>
       </a>
 
@@ -492,15 +339,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/08/30/afl-fuzz-diy/" target="_self">
+        <a href="/2023/08/30/afl-ru-men/" target="_self">
           afl_fuzz_DIY
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/30/afl-fuzz-diy/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/30/afl-ru-men/" target="_self">
         <div>
-          AFL ++ afl for binarydop@ubuntu:~$ AFL_QEMU_DEBUG_MAPS=1 afl-qemu-trace ./ciscn_2019_c_1 400000-402000 r-xp 00000000 08:05 1617251                                /home/dop/ciscn_2019_c_1 402000-601000
+          AFL ++ afl for binary12345678910111213141516171819202122232425262728293031323334dop@ubuntu:~$ AFL_QEMU_DEBUG_MAPS=1 afl-qemu-trace ./ciscn_2019_c_1400000-402000 r-xp 00000000 08:05 1617251
         </div>
       </a>
 
@@ -566,11 +413,164 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/21/aeg-reviwer/" target="_self">
+          AEG_reviwer
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/21/aeg-reviwer/" target="_self">
+        <div>
+          Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs 文章贡献：  提出了primitive-crucialbehaviors analysis  ，该方法用于在符号执行过程中查找关键执行结构 利用模糊测试和符号执行设计了一套攻击原语确定方法 设计DEPA方法用于检测堆溢出相关原
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-21 14:40" pubdate>
+              2023-08-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/paper/">#paper</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/20/go-yu-yan-reverse/" target="_self">
+          go_reverse
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/20/go-yu-yan-reverse/" target="_self">
+        <div>
+          GO  reverse 简介​	GO语言是谷歌开发的强类型静态静态语言，其编译出的汇编代码与 C/ C++语言存在极大的差异。本身Go在编译过程中将所有的库函数和第三方包都进行了静态的打包操作，还打包进去了自身的runtime和（Garbage Collection， 垃圾回收）模块部分代码，导致其编译后的二进制文件体积十分庞大，存在较大的分析难度。 Go语言特性 独有的数据表示方式： 例如Str
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-20 19:50" pubdate>
+              2023-07-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go-RE/">#go, RE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/20/an-zhuo-ji-chu/" target="_self">
+          Android_Basic
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/20/an-zhuo-ji-chu/" target="_self">
+        <div>
+          本文用于介绍安卓基础架构以及安卓安全的学习方法及路线 采用课程与笔记相结合的方式 移动安全课程 看完这些课程就行，每天一节，方便以后找工作 https://www.bilibili.com/video/BV1nb411f777/?spm_id_from=333.337.search-card.all.click https://www.bilibili.com/video/BV1t3411u7cp
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-20 19:07" pubdate>
+              2023-07-20
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/14/clash-build/" target="_self">
+          clash_build
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/14/clash-build/" target="_self">
+        <div>
+          Clash Install # 下载clash wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz # 解压 gunzip -d clash.gz sudo chmod +x clash sudo mkdir /opt/clash sud
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-14 10:14" pubdate>
+              2023-07-14
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/clash/">#clash</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

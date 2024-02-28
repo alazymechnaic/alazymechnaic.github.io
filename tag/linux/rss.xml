@@ -18,40 +18,24 @@
         <category>go, RE</category>
         <category>kernel pwn</category>
         <category>binary</category>
-        <category>personal</category>
         <category>C</category>
         <category>dataflow</category>
         <category>Android</category>
         <category>arm</category>
         <category>Hook</category>
-        <category>AWD</category>
-        <category>cipher</category>
         <category>go</category>
         <category>writing</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/05/useful-command/</guid>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/05/bash-chang-yong-zhi-ling/</guid>
             <title>Useful_command</title>
-            <link>https://alazymechnaic.github.io/2023/09/05/useful-command/</link>
+            <link>https://alazymechnaic.github.io/2023/09/05/bash-chang-yong-zhi-ling/</link>
             <category>Linux</category>
             <pubDate>Tue, 05 Sep 2023 15:15:02 +0800</pubDate>
-            <description><![CDATA[ &lt;h2 id=&#34;tar&#34;&gt;&lt;a href=&#34;#tar&#34; class=&#34;headerlink&#34; title=&#34;tar&#34;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 打包操作&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-cvf&lt;/span&gt; archive.tar file1 file2 &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;.
+            <description><![CDATA[ &lt;h2 id=&#34;tar&#34;&gt;&lt;a href=&#34;#tar&#34; class=&#34;headerlink&#34; title=&#34;tar&#34;&gt;&lt;/a&gt;tar&lt;/h2&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 打包操作&lt;/span&gt;&lt;br&gt;tar -cvf archive.tar file1 file2 ...&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 解包操作&lt;/span&gt;&lt;br&gt;tar -xvf archive.tar&lt;br&gt;tar -xvf archive.tar -C target_directory&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;span class=&#34;token comment&#34;&gt;# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录&lt;/span&gt;
+&lt;h2 id=&#34;du&#34;&gt;&lt;a href=&#34;#du&#34; class=&#34;headerlink&#34; title=&#34;du&#34;&gt;&lt;/a&gt;du&lt;/h2&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 查看文件大小用量&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;du&lt;/span&gt; -sh ./target_file&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;span class=&#34;token comment&#34;&gt;# 解包操作&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-xvf&lt;/span&gt; archive.tar
-&lt;span class=&#34;token function&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-xvf&lt;/span&gt; archive.tar &lt;span class=&#34;token parameter variable&#34;&gt;-C&lt;/span&gt; target_directory&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;du&#34;&gt;&lt;a href=&#34;#du&#34; class=&#34;headerlink&#34; title=&#34;du&#34;&gt;&lt;/a&gt;du&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 查看文件大小用量&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;du&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-sh&lt;/span&gt; ./target_file&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;intel-pin&#34;&gt;&lt;a href=&#34;#intel-pin&#34; class=&#34;headerlink&#34; title=&#34;intel pin&#34;&gt;&lt;/a&gt;intel pin&lt;/h2&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 编译可供32位可执行文件使用的pintool&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;make&lt;/span&gt; obj-ia32/inscount0.so &lt;span class=&#34;token assign-left variable&#34;&gt;TARGET&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;ia32
-&lt;span class=&#34;token comment&#34;&gt;# 编译可供64位可执行文件使用的pintool&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;make&lt;/span&gt; obj-intel64/inscount0.so &lt;span class=&#34;token assign-left variable&#34;&gt;TARGET&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;intel64
-&lt;span class=&#34;token comment&#34;&gt;# 对目标程序进行插装&lt;/span&gt;
-&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/pin &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; obj-intel64/inscount0.so &lt;span class=&#34;token parameter variable&#34;&gt;-o&lt;/span&gt; inscount0.log -- /bin/ls&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;intel-pin&#34;&gt;&lt;a href=&#34;#intel-pin&#34; class=&#34;headerlink&#34; title=&#34;intel pin&#34;&gt;&lt;/a&gt;intel pin&lt;/h2&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 编译可供32位可执行文件使用的pintool&lt;/span&gt;&lt;br&gt;make obj-ia32/inscount0.so TARGET=ia32&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 编译可供64位可执行文件使用的pintool&lt;/span&gt;&lt;br&gt;make obj-intel64/inscount0.so TARGET=intel64&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 对目标程序进行插装&lt;/span&gt;&lt;br&gt;../../../pin -t obj-intel64/inscount0.so -o inscount0.log -- /bin/ls&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
  ]]></description>
         </item>
