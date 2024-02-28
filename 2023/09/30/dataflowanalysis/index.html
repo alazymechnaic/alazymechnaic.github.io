@@ -1,102 +1,287 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>alazymachine</title>
-    
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="alazymachine">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="DataFlow Analysis 数据流分析的作用 简化执行代码:  &#96;&#96;&#96;c&#x2F;&#x2F; 在下面代码x &#x3D; a + b;x &#x3D; 5 * 2;&#x2F;&#x2F; 可以直接简化为x &#x3D; 10; - **变量取值分析**    - &#96;&#96;&#96;c     a &#x3D; 1;     b &#x3D; 2;     c &#x3D; 3;     if (...) x &#x3D; a + 5;     else x &#x3D; b + 4;     c &#x3D; x + 1;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DataFlowAnalysis">
+<meta property="og:url" content="https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/index.html">
+<meta property="og:site_name" content="alazymachine">
+<meta property="og:description" content="DataFlow Analysis 数据流分析的作用 简化执行代码:  &#96;&#96;&#96;c&#x2F;&#x2F; 在下面代码x &#x3D; a + b;x &#x3D; 5 * 2;&#x2F;&#x2F; 可以直接简化为x &#x3D; 10; - **变量取值分析**    - &#96;&#96;&#96;c     a &#x3D; 1;     b &#x3D; 2;     c &#x3D; 3;     if (...) x &#x3D; a + 5;     else x &#x3D; b + 4;     c &#x3D; x + 1;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022012864.png">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014784.png">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014760.png">
+<meta property="article:published_time" content="2023-09-30T06:48:10.000Z">
+<meta property="article:modified_time" content="2023-10-02T12:53:59.387Z">
+<meta property="article:author" content="alazymachine">
+<meta property="article:tag" content="dataflow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png">
+  
+  
+  
+  <title>DataFlowAnalysis - alazymachine</title>
 
-    
-<link rel="stylesheet" href="/css/gitment.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alazymechnaic.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
+
+
 <body>
-<header class="header">
-    <div class="header-inner">
-        <div class="header-title">
+  
 
-        </div>
-        <nav class="header-nav">
-            
-            <a href="/" class="header-nav-link" >
-                首页
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
             </a>
-            
-
-            
-            <a href="/archives" class="header-nav-link">
-                归档
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
             </a>
-            
-
-            
-            <a href="/tags" class="header-nav-link">
-                标签
-            </a>
-            
-
-            
-        </nav>
+          </li>
+        
+      </ul>
     </div>
-</header>
-<header class="mobile-header">
-    <div class="mobile-nav">
-        <div class="mobile-nav-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="mobile-nav-title">
-            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DataFlowAnalysis"></span>
+          
         </div>
 
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-30 14:48" pubdate>
+          2023年9月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
     </div>
-    <nav class="mobile-menu">
-        <ul class="mobile-menu-list">
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-home"></i>
-                <a href="/" class="mobile-nav-link">首页</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-archive"></i>
-                <a href="/archives" class="mobile-nav-link">归档</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-tag"></i>
-                <a href="/tags" class="mobile-nav-link">标签</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-about"></i>
-                <a href="/about/" class="mobile-nav-link">关于</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<div class="main">
-    <div class="content-inner">
-        <div class="posts">
-    <article class="post-whole">
-        <div class="post-title">
-            <h2 class="title">DataFlowAnalysis</h2>
-            <div class="post-meta">
-                <span class="post-time">2023-09-30</span>
-                
-                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
-            </div>
-        </div>
-        <div class="post-toc" id="post-toc">
-    <strong class="post-toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DataFlow-Analysis"><span class="toc-text">DataFlow Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%88%86%E6%9E%90%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">数据流分析的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E5%88%92%E5%88%86"><span class="toc-text">技术划分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Constant-Propagation"><span class="toc-text">Constant Propagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Live-Variable-Analysis"><span class="toc-text">Live-Variable Analysis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Define-DataFlow-Problem"><span class="toc-text">Define DataFlow Problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DataFlow-Problem"><span class="toc-text">DataFlow Problem</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solving-Dataflow-Problem"><span class="toc-text">Solving Dataflow Problem</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-%E2%80%9CMeet-Over-All-Paths%E2%80%9D-Solution"><span class="toc-text">The “Meet Over All Paths” Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MOP%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">MOP的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%88%86%E6%9E%90%E7%9A%84%E6%A0%BC%E7%82%B9%E6%A8%A1%E5%9E%8B"><span class="toc-text">数据流分析的格点模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Partially-ordered-sets-%E5%81%8F%E5%BA%8F%E9%9B%86"><span class="toc-text">Partially ordered sets 偏序集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></li></ol>
-    <div class="back-to-top" id="back-to-top">
-        <a href="javascript:void(0);">回到顶部</a>
-    </div>
+  </div>
 </div>
-        <div class="post-content">
-            <h1 id="DataFlow-Analysis"><a href="#DataFlow-Analysis" class="headerlink" title="DataFlow Analysis"></a>DataFlow Analysis</h1><hr>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DataFlowAnalysis</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="DataFlow-Analysis"><a href="#DataFlow-Analysis" class="headerlink" title="DataFlow Analysis"></a>DataFlow Analysis</h1><hr>
 <h2 id="数据流分析的作用"><a href="#数据流分析的作用" class="headerlink" title="数据流分析的作用"></a>数据流分析的作用</h2><ul>
 <li><p><strong>简化执行代码</strong>:</p>
 <ul>
@@ -136,7 +321,7 @@
 
 
 <h3 id="Constant-Propagation"><a href="#Constant-Propagation" class="headerlink" title="Constant Propagation"></a><em>Constant Propagation</em></h3><p>​	constant propagation本质是分析程序中某些变量的值的集合，表现为（变量，取值）的键值对</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png" alt="image-20230930150627177"></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png" srcset="/img/loading.gif" lazyload alt="image-20230930150627177"></p>
 <h3 id="Live-Variable-Analysis"><a href="#Live-Variable-Analysis" class="headerlink" title="Live-Variable Analysis"></a><em>Live-Variable Analysis</em></h3><p>​	该分析的目的是找到当前时刻中的哪些变量，在内容被覆盖之前可能会被使用，这类变量称为live-Variable。该分析方式属于backward may的分析方法，需要依赖后续代码来生成前面的变量使用情况。</p>
 <h2 id="Define-DataFlow-Problem"><a href="#Define-DataFlow-Problem" class="headerlink" title="Define DataFlow Problem"></a>Define DataFlow Problem</h2><p>​	在定义数据流问题之前需要先定义两个问题，第一个是<strong>前向传播</strong>（例如，constant propagation）问题，第二个是<strong>后向传播</strong>（例如，live-Variable分析）问题。常见的数据流分析中包含的往往是may和must问题，例如live分析的时候，只能说某个变量在某个节点的存活状态时may，但是在前向传播时某个变量的取值是must。</p>
 <h3 id="DataFlow-Problem"><a href="#DataFlow-Problem" class="headerlink" title="DataFlow Problem"></a>DataFlow Problem</h3><ul>
@@ -164,7 +349,7 @@
 <p>也就是在结点n之前的状态信息是路径p1到pn的数据流的交集。结点n之后的状态由n之前的状态计算得出。通过解这些方程，我们可以计算出每个节点的数据流信息，从而得到整个程序的数据流分析结果。</p>
 <p>​	<em>In general, for a “must” problem the desired solution will be the largest one, while for a “may” problem the desired solution will be the smallest one.</em></p>
 <p>​	文中给出的例子如下：</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022012864.png" alt="image-20231002201252770"></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022012864.png" srcset="/img/loading.gif" lazyload alt="image-20231002201252770"></p>
 <p>​	连续传播的过程中使用的内容如下：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// constant propagation</span>
 enter<span class="token punctuation">.</span>after <span class="token operator">=</span> empty set <span class="token comment">// 刚开始是没有任何数据赋值状态的</span>
@@ -178,7 +363,7 @@ enter<span class="token punctuation">.</span>after <span class="token operator">
 <span class="token number">4.</span>before <span class="token operator">=</span> <span class="token number">3.</span>after
 <span class="token number">4.</span>after <span class="token operator">=</span> <span class="token number">4.</span>before<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014784.png" alt="image-20231002201421727"></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014784.png" srcset="/img/loading.gif" lazyload alt="image-20231002201421727"></p>
 <p>这里的分析时must分析，因此要使用到solution 4，尽可能多的结果。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//  live-variable analysis</span>
 <span class="token comment">// 这个从最后一行开始看比较好</span>
@@ -193,7 +378,7 @@ enter<span class="token punctuation">.</span>after <span class="token operator">
 <span class="token number">4.</span>after <span class="token operator">=</span> <span class="token number">3.</span>before 
 exit<span class="token punctuation">.</span>before <span class="token operator">=</span> empty<span class="token operator">-</span>set  <span class="token comment">// 最终结束后都是empty set</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014760.png" alt="image-20231002201431716"></p>
+<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014760.png" srcset="/img/loading.gif" lazyload alt="image-20231002201431716"></p>
 <p>这里的variable live是may模式，因此要采用的最好是least的结果。</p>
 <h3 id="数据流分析的格点模型"><a href="#数据流分析的格点模型" class="headerlink" title="数据流分析的格点模型"></a>数据流分析的格点模型</h3><p>MOP模型存在以下问题：</p>
 <ul>
@@ -209,68 +394,351 @@ exit<span class="token punctuation">.</span>before <span class="token operator">
 <p>（3）传递性：∀a，b，c∈P，若a≤b且b≤c，则a≤c；</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><span class="exturl" data-url="aHR0cHM6Ly9wYWdlcy5jcy53aXNjLmVkdS9+aG9yd2l0ei9DUzcwNC1OT1RFUy8yLkRBVEFGTE9XLmh0bWw=">https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/2.DATAFLOW.html</span></p>
 
-        </div>
-        
-        <div class="post-tag">
+                
+              </div>
             
-            <a class="tag" href="/tags/dataflow/" title="dataflow">dataflow</a>
-            
-        </div>
-        
-    </article>
-</div>
-<div class="paginator">
-    
-        
-            <a class="prev" href="/2023/10/02/processinject/">
-                <i class="iconfont icon-prev"></i>
-                <span class="nav-default">ProcessInject</span>
-                <span class="nav-mobile">上一篇</span>
-            </a>
-        
-        
-            <a class="next" href="/2023/09/11/speedrunner-for-c/">
-                <span class="nav-default">SpeedRunner_for_C</span>
-                <span class="nav-mobile">下一篇</span>
-                <i class="iconfont icon-next"></i>
-            </a>
-        
-    
-</div>
-<div id="comment-container"></div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/dataflow/">#dataflow</a>
+      
     </div>
+  
 </div>
-<footer class="footer-social">
-    
 
-    
 
-    
+              
+  
 
-    <div class="footer-copyright">
-        <p class="time-line">
-            &copy;
-            
-            
-            2024
-            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
-            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
-        </p>
-        <p class="theme-info">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
-            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
-        </p>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DataFlowAnalysis</div>
+      <div>https://alazymechnaic.github.io/2023/09/30/dataflowanalysis/</div>
     </div>
-</footer>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>alazymachine</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
 
-<script src="/js/index.js"></script>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/02/processinject/" title="ProcessInject">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ProcessInject</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/11/speedrunner-for-c/" title="SpeedRunner_for_C">
+                        <span class="hidden-mobile">SpeedRunner_for_C</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
 <script>
-    
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
 
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
 </script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
 </html>

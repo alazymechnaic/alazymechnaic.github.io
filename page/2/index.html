@@ -1,1254 +1,695 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>alazymachine</title>
-    
-<link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="alazymachine">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="alazymachine">
+<meta property="og:url" content="https://alazymechnaic.github.io/page/2/index.html">
+<meta property="og:site_name" content="alazymachine">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="alazymachine">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>alazymachine</title>
 
-    
-<link rel="stylesheet" href="/css/gitment.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alazymechnaic.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
 <meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
+
+
 <body>
-<header class="header">
-    <div class="header-inner">
-        <div class="header-title">
-
-        </div>
-        <nav class="header-nav">
-            
-            <a href="/" class="header-nav-link" >
-                首页
-            </a>
-            
-
-            
-            <a href="/archives" class="header-nav-link">
-                归档
-            </a>
-            
-
-            
-            <a href="/tags" class="header-nav-link">
-                标签
-            </a>
-            
-
-            
-        </nav>
-    </div>
-</header>
-<header class="mobile-header">
-    <div class="mobile-nav">
-        <div class="mobile-nav-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="mobile-nav-title">
-            <a href="/" class="mobile-nav-title-link">alazymachine's Blog</a>
-        </div>
-
-    </div>
-    <nav class="mobile-menu">
-        <ul class="mobile-menu-list">
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-home"></i>
-                <a href="/" class="mobile-nav-link">首页</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-archive"></i>
-                <a href="/archives" class="mobile-nav-link">归档</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-tag"></i>
-                <a href="/tags" class="mobile-nav-link">标签</a>
-            </li>
-            <li class="mobile-menu-item">
-                <i class="iconfont icon-about"></i>
-                <a href="/about/" class="mobile-nav-link">关于</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<div class="main">
-    <div class="content-inner">
-        <div class="posts">
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/10/03/arm-base/">Arm_Base</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-10-03</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="ARM"><a href="#ARM" class="headerlink" title="ARM"></a>ARM</h2><p>​	本文用于介绍arm指令集的基本架构，特性。</p>
-<h3 id="寄存器用法"><a href="#寄存器用法" class="headerlink" title="寄存器用法"></a>寄存器用法</h3><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">通用寄存器（General-Purpose Registers）：
-
-r0~r3 主要用于子程序间传递参数
-
-r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量
-
-r12 用作子程序间scratch 寄存器，即 ip 寄存器
-
-r13 通常用做栈指针，即 sp
-
-r14 寄存器又被称为连接寄存器（lr），用于保存子程序以及中断的返回地址
-
-r15 用作程序计数器（pc），由于 ARM 采用了流水线机制，当正确读取了 PC 的值后，该值为当前指令地址加 8 个字节，即 PC 指向当前指令的下两条指令地址。
-
-CPSR和SPSR都是程序状态寄存器，其中SPSR是用来保存中断前的CPSR中的值，以便在中断返回之后恢复处理器程序状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h3><h3 id="常用指令集"><a href="#常用指令集" class="headerlink" title="常用指令集"></a>常用指令集</h3><p>ARM中的立即数常用井号在前进行标注，#立即数</p>
-<h4 id="数据定义"><a href="#数据定义" class="headerlink" title="数据定义"></a>数据定义</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">DATA1 DCB 10,20,30,40 ;分配一片连续的字节存储单元并初始化
-DATA2 DCD 10,20,30,40 ;分配一片连续的字存储单元并初始化
-BUF SPACE 100 ;给BUF分配100字节的存储单元并初始化为0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="局部符号"><a href="#局部符号" class="headerlink" title="局部符号"></a>局部符号</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">引用格式：%{F|B|A|T} N{routname}
-%: 引用符号，对一个局部标号产生引用。
-F：指示编译器只向前搜索。B：指示编译器只向后搜索
-A：指示编译器搜索宏的所有宏命令层。T：指示编译器搜索宏的当前层
-N：局部标号的名字。routename：局部标号的作用范围名称，使用ROUT定义<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="赋值操作"><a href="#赋值操作" class="headerlink" title="赋值操作"></a>赋值操作</h4><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">a SETA 10 ;给算术变量a赋值为10
-a SETL 10 ;给逻辑变量a赋值为10
-a SETS “ss” ;给字符串变量a赋值为“ss”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="加载操作"><a href="#加载操作" class="headerlink" title="加载操作"></a>加载操作</h3><pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">LDR R1,[R0,#0x12] ;将R0+0x12 地址处的数据读出，保存到R1中(R0 的值不变)
-
-LDR R1,[R0,#-0x12];将R0-0x12 地址处的数据读出，保存到R1中(R0 的值不变)
-
-LDR R1,[R0] ;将R0 地址处的数据读出，保存到R1 中(零偏移)
-
-(2)寄存器。寄存器中的数值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例值。指令举例如下：
-
-LDR R1,[R0,R2] ;将R0+R2 地址的数据计读出，保存到R1中(R0 的值不变)
-
-LDR R1,[R0,-R2] ;将R0-R2 地址处的数据计读出，保存到R1中(R0 的值不变)
-
-(3)寄存器及移位常数。寄存器移位后的值可以加到基址寄存器，也可以从基址寄存器中减去这个数值。指令举例如下：
-
-LDR R1,[R0,R2,LSL #2] ;将R0+R2*4地址处的数据读出，保存到R1中（R0，R2的值不变）
-
-LDR R1,[R0,-R2,LSL #2];将R0-R2*4地址处的数据计读出，保存到R1中(R0，R2的值不变)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>STR指令以此类推</p>
-<h3 id="跳转指令"><a href="#跳转指令" class="headerlink" title="跳转指令"></a>跳转指令</h3><ul>
-<li><strong>强制跳转指令</strong>：B 目标地址</li>
-</ul>
-<pre class="line-numbers language-assemblu" data-language="assemblu"><code class="language-assemblu">B（Branch）：无条件分支指令，用于无条件跳转到目标地址。
-
-示例：B label，跳转到标签为 "label" 的位置。
-BL（Branch with Link）：带链接的分支指令，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中。
-
-示例：BL subroutine，跳转到子程序 "subroutine" 并保存返回地址。
-BX（Branch and Exchange）：分支并切换指令，用于根据寄存器的值跳转到不同的地址，并切换到新的执行状态。
-
-示例：BX Rn，根据寄存器 Rn 的值跳转到相应的地址。
-BLX（Branch with Link and Exchange）：带链接的分支并切换指令，结合了 BL 和 BX 的功能，用于跳转到目标地址，并将返回地址保存在链接寄存器（LR）中，并切换到新的执行状态。
-
-示例：BLX Rn，根据寄存器 Rn 的值跳转到相应的地址，并保存返回地址。
-CMP/BGT/BLT/BGE/BLE（Compare and Branch）：比较和分支指令，用于将两个操作数进行比较，并根据比较结果条件跳转到相应的地址。
-
-示例：CMP Rn, Rm，比较寄存器 Rn 和 Rm 的值。
-BGT label，如果 Rn 大于 Rm，则跳转到标签为 "label" 的位置。
-CBZ/CMN（Compare and Branch Zero/Non-zero）：比较并根据零/非零跳转指令，用于比较寄存器的值，并根据比较结果是否为零进行条件跳转。
-
-示例：CBZ Rn, label，如果 Rn 的值为零，则跳转到标签为 "label" 的位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="函数调用过程"><a href="#函数调用过程" class="headerlink" title="函数调用过程"></a>函数调用过程</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZyYW5rX3p5cC9hcnRpY2xlL2RldGFpbHMvODgyMDIzNDc=">https://blog.csdn.net/frank_zyp/article/details/88202347</span></p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/10/02/androidhook/">AndroidHook</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-10-02</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="移动安全开发"><a href="#移动安全开发" class="headerlink" title="移动安全开发"></a>移动安全开发</h1><hr>
-<h2 id="定制化外挂的开发流程"><a href="#定制化外挂的开发流程" class="headerlink" title="定制化外挂的开发流程"></a>定制化外挂的开发流程</h2><ul>
-<li>逆向分析游戏逻辑</li>
-<li>验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。</li>
-<li>注入游戏进程：获得root，使用ptrace方式注入游戏进程。</li>
-<li>枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。<ul>
-<li>Hook游戏关键函数</li>
-<li>游戏内存数据修改</li>
-</ul>
-</li>
-<li>实现外挂功能</li>
-</ul>
-<h2 id="Hook技术实现"><a href="#Hook技术实现" class="headerlink" title="Hook技术实现"></a>Hook技术实现</h2><p>​	hook的前提是已经注入到目标进程后。hook的目的是在关键函数的执行前，执行预先设置的钩子函数，从而达到监控函数调用、改变函数功能的目的。</p>
-<h3 id="hook分类"><a href="#hook分类" class="headerlink" title="hook分类"></a>hook分类</h3><ul>
-<li>native hook: <ul>
-<li>基于汇编代码替换的hook技术：<ul>
-<li>异常hook</li>
-<li>inline hook</li>
-</ul>
-</li>
-<li>函数地址替换：<ul>
-<li>导入表hook</li>
-<li>虚表hook</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="inline-hook"><a href="#inline-hook" class="headerlink" title="inline hook"></a>inline hook</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310031445483.png" alt="image-20231003144538379"></p>
-<p>使用inline hook的流程并不复杂，而是保持原先的指令替换原则，将某条指令替换为跳转指令，将其指向插入的底层桩函数，在其中保存上下文，并实现自定义的函数调用，最后还原上下文后并继续向下执行。这里注意，ARM架构下插入跳转指令时，由于指令长度限制，没有办法进行直接寻址，可以采用将地址保存在寄存器中，进行寄存器间接寻址的方式。</p>
-<h3 id="导入表hook"><a href="#导入表hook" class="headerlink" title="导入表hook"></a>导入表hook</h3><h3 id="基于异常的hook"><a href="#基于异常的hook" class="headerlink" title="基于异常的hook"></a>基于异常的hook</h3><p>采用的方法是signal + 非法指令的方式，在想要hook的地方触发异常，并捕获。在异常处理函数中捕获上下文的异常信息。</p>
-<ul>
-<li>首先对目标地址写入异常指令，同时注册异常处理函数来获取执行时机。</li>
-<li>当目标地址触发异常时，需要恢复目标地址的异常指令，同时设置目标地址的下一条指令为异常指令</li>
-<li>当目标地址的下一条指令触发异常时，需要将目标地址的正常指令篡改为异常指令，从而获取下次异常Hook的执行时机。</li>
-</ul>
-<h2 id="遍历游戏模块"><a href="#遍历游戏模块" class="headerlink" title="遍历游戏模块"></a>遍历游戏模块</h2><h3 id="基于maps、smaps实现的文件遍历模块"><a href="#基于maps、smaps实现的文件遍历模块" class="headerlink" title="基于maps、smaps实现的文件遍历模块"></a>基于maps、smaps实现的文件遍历模块</h3><p>​	进程的内存模块信息存放在proc文件系统下，以pid为目录名称的maps文件，其中存放了每个进程的内存布局，注意这里要有root权限。</p>
-<h3 id="基于map-files目录实现的模块遍历"><a href="#基于map-files目录实现的模块遍历" class="headerlink" title="基于map_files目录实现的模块遍历"></a>基于map_files目录实现的模块遍历</h3><p>​	在proc/pid/map_files文件夹中的软连接进行查看，</p>
-<h3 id="基于dl-iterate-phdr函数遍历模块"><a href="#基于dl-iterate-phdr函数遍历模块" class="headerlink" title="基于dl_iterate_phdr函数遍历模块"></a>基于dl_iterate_phdr函数遍历模块</h3><p>​	该函数能够列出进程中的共享模块，可以得到模块的路径和地址。</p>
-<h3 id="dladdr函数获取指定模块的基址"><a href="#dladdr函数获取指定模块的基址" class="headerlink" title="dladdr函数获取指定模块的基址"></a>dladdr函数获取指定模块的基址</h3>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/10/02/processinject/">ProcessInject</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-10-02</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="PC-端注入"><a href="#PC-端注入" class="headerlink" title="PC 端注入"></a>PC 端注入</h2><h2 id="移动端注入"><a href="#移动端注入" class="headerlink" title="移动端注入"></a>移动端注入</h2><p>​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。</p>
-<h3 id="Zygote-注入"><a href="#Zygote-注入" class="headerlink" title="Zygote 注入"></a>Zygote 注入</h3><h3 id="ptrace注入"><a href="#ptrace注入" class="headerlink" title="ptrace注入"></a>ptrace注入</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hwOTEwMzE1L2FydGljbGUvZGV0YWlscy83NzMzNTA1OA==">https://blog.csdn.net/hp910315/article/details/77335058</span></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">long</span> <span class="token function">ptrace</span><span class="token punctuation">(</span><span class="token keyword">enum</span> <span class="token class-name">__ptrace_request</span> request<span class="token punctuation">,</span> <span class="token class-name">pid_t</span> pid<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>addr<span class="token punctuation">,</span> <span class="token keyword">void</span> <span class="token operator">*</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>​	其中request参数是本次ptrace要进行的操作，pid则是本次要附加的进程id，addr与data按照操作不同取不同的含义。request常见的选项如下：</p>
-<pre class="line-numbers language-none"><code class="language-none">PTRACE_ATTACH，表示附加到指定远程进程;
-PTRACE_DETACH，表示从指定远程进程分离
-PTRACE_GETREGS，表示读取远程进程当前寄存器环境
-PTRACE_SETREGS，表示设置远程进程的寄存器环境
-PTRACE_CONT，表示使远程进程继续运行
-PTRACE_PEEKTEXT，从远程进程指定内存地址读取一个word大小的数据
-PTRACE_POKETEXT，往远程进程指定内存地址写入一个word大小的数据<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<ul>
-<li>利用ptrace函数将shellcode注入远程进程的内存空间中，然后通过执行shellcode加载远程进程so模块。</li>
-<li>通过直接远程调用dlopen， dlsym， dlclose等函数加载被注入的so模块并执行指定代码</li>
-</ul>
-<h4 id="注入流程"><a href="#注入流程" class="headerlink" title="注入流程"></a>注入流程</h4><ol>
-<li>通过利用ptrace进行附加到要注入的进程；父进程可用waitpid来判断子进程是否中断。</li>
-<li>保存寄存环境；</li>
-<li>远程调用mmap函数分配内存空间；</li>
-<li>向远程进程内存空间写入加载模块名称和函数名称；</li>
-<li>远程调用dlopen函数打开注入模块；</li>
-<li>远程调用dlsym函数或需要调用的函数地址；</li>
-<li>远程调用被注入模块的函数；<ol>
-<li>前四个按顺序分别写入R0至R3，</li>
-<li>修改pc寄存器到要执行的函数地址，</li>
-<li>若为<strong>Thumb</strong>指令，则最低位要重新设置为0，并将CPSR寄存器的T标志位设置为1.若为ARM指令则CPSR的T标志位复位。</li>
-<li>设置远程进程的LR寄存器的值为0，远程进程的函数调用结束后，程序会跳转到LR寄存器存储的地址，但由于LR设置为0则会导致远程进程执行出错，此时会进入暂停状态，被Tracer接管，通过读取远程进程R0的寄存器可以获取远程函数调用的返回结果。</li>
-</ol>
-</li>
-<li>恢复寄存器环境；在detach之前恢复，保证程序原本的执行流程不崩溃。</li>
-<li>利用ptrace从远程进程剥离（detach）</li>
-</ol>
-<p>​	shellcode注入就是通过将dlopen/dlsym库函数的操作放在shellcode代码中，注入函数只是通过对远程APP进程进行内存空间申请，接着修改shellcode 代码中有关dlopen、dlsymdlclose等函数使用到的参数信息，然后将shellcode代码注入到远程APP进程申请的空间中，最后通过修改PC寄存器的方式来执行shellcode 的代码</p>
-<h3 id="ELF文件感染注入"><a href="#ELF文件感染注入" class="headerlink" title="ELF文件感染注入"></a>ELF文件感染注入</h3><p>​	在android平台Native层的可执行文件SO文件，它是属于ELF文件格式，通过修改ELF文件格式可以实现对so文件的注入。</p>
-<p>通过修改ELF二进制的可执行文件，并在ELF文件中添加自己的代码，使得可执行文件在运行时会先执行自定义添加的代码，最后在执行ELF文件的原始逻辑。</p>
-<p><strong>修改ELF文件的注入实现过程</strong></p>
-<p>​	1.修改.dynamic段，在DT_STRTAB指向的字符串表中添加 自定义的so模块名称。由于直接在原字符串表中添加一串数据，会将字符串表后的所有数据的文件偏移发生变化，所以通常会将字符串表移至文件末尾。</p>
-<p>​	2.通过修改Program Header Table中添加PT_LOAD表项，新添加的表项将保护so模块名称的字符串表数据映射到内存中。同时将Program Header Table移动到文件末尾；</p>
-<p>​	3.修改.dynamic段的数组数据，修改DT_STRTAB,DT_STRSZ使其指向新字符串表，然后在dynamic arry的结尾加上DT_NEEDED表项，并指向自定义的so模块名称；</p>
-<p>​	4.修改ELF HEADER结构中 Program Header Table的位置信息，并指向新的Program Header Table。</p>
-<h3 id="移动端注入实战"><a href="#移动端注入实战" class="headerlink" title="移动端注入实战"></a>移动端注入实战</h3><h4 id="Android-NDK注入环境配置"><a href="#Android-NDK注入环境配置" class="headerlink" title="Android NDK注入环境配置"></a>Android NDK注入环境配置</h4><p>​	这里介绍在在Android环境下运行ELF文件所需要配置的NDK操作，关于frida hook的部分请参考另一篇博客<a href="">frida-hook</a>。本文将环境配置在Ubuntu 20.04环境之上。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载NDK配置文件，这里需要科学上网一下</span>
-<span class="token function">wget</span> https://dl.google.com/android/repository/android-ndk-r17-beta2-linux-x86_64.zip
-<span class="token comment"># 解压</span>
-<span class="token function">unzip</span> android-ndk-r17-beta2-linux-x86_64.zip
-<span class="token comment"># 转移目录</span>
-<span class="token function">sudo</span> <span class="token function">mv</span> android-ndk-r17-beta2 /usr/local/
-<span class="token comment"># 编辑环境配置，没有图形化界面就使用gedit</span>
-<span class="token function">sudo</span> gedit /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>在profile中添加以下内容</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">export NDK=/usr/local/android-ndk-r17-beta2
-export PATH=$PATH:$NDK
-export NDK_ARM_GCC=/usr/local/android-ndk-r17-beta2/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc
-export HO_ARM="--sysroot=/usr/local/android-ndk-r17-beta2/platforms/android-21/arch-arm -isystem /usr/local/android-ndk-r17-beta2/sysroot/usr/include  -isystem /usr/local/android-ndk-r17-beta2/sysroot/usr/include/arm-linux-androideabi"
-export NDK_x86_64_GCC=/usr/local/android-ndk-r17-beta2/toolchains/x86_64-4.9/prebuilt/linux-x86_64/bin/x86_64-linux-android-gcc
-export HO_x86_64="--sysroot=/usr/local/android-ndk-r17-beta2/platforms/android-21/arch-x86_64 -isystem /usr/local/android-ndk-r17-beta2/sysroot/usr/include  -isystem /usr/local/android-ndk-r17-beta2/sysroot/usr/include/x86_64-linux-android"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>使用指令验证下，有如下显示说明配置成功：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">source</span> /etc/profile
-$ ndk-build <span class="token parameter variable">-v</span>
-GNU Make <span class="token number">3.81</span>
-Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2006</span>  Free Software Foundation, Inc.
-This is <span class="token function">free</span> software<span class="token punctuation">;</span> see the <span class="token builtin class-name">source</span> <span class="token keyword">for</span> copying conditions.
-There is NO warranty<span class="token punctuation">;</span> not even <span class="token keyword">for</span> MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.
-
-This program built <span class="token keyword">for</span> x86_64-pc-linux-gnu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这里自己定义了编译工具和编译环境：</p>
-<ul>
-<li><p><strong>ARM*编译</strong>：</p>
-<ul>
-<li>```sh<br>$NDK_ARM_GCC $HO_ARM -pie ./main.c -o main<br>$NDK_ARM_GCC $HO_ARM -shared -fPIC test.c -o libTest.so # 动态链接库编译<pre class="line-numbers language-none"><code class="language-none">
-- **X86_64编译**：
-
-  - ```sh
-    $NDK_x86_64_GCC $HO_x86_64 -static ./main.c -o main_x86_64 
-    # 这里要加上static参数，否则程序会报错：error: Android 5.0 and later only support position-independent executables (-fPIE).<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-<p>这里的编译选项和一般gcc差异不大，但要注意运行的目标安卓机器是x86还是arm。将编译好的程序使用adb push到目标机器上，后续可以进行愉快的注入编程了。</p>
-</li>
-</ul>
-<h4 id="编程实现ptrace注入"><a href="#编程实现ptrace注入" class="headerlink" title="编程实现ptrace注入"></a>编程实现ptrace注入</h4><p><strong>Attach模式</strong></p>
-<p>​	一般的attach模式的注入较为容易，找到pid和要修改的内存地址，直接修改即可，ptrace提供了强大的API。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;sys/ptrace.h&gt;</span></span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Ptrace\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token number">2994</span><span class="token punctuation">;</span>	
-	<span class="token keyword">long</span> val <span class="token operator">=</span> <span class="token number">1633771873</span><span class="token punctuation">;</span>
-	<span class="token keyword">long</span> base_so_addr <span class="token operator">=</span> <span class="token number">0xd7d83000</span><span class="token punctuation">;</span>
-	<span class="token keyword">long</span> string_addr <span class="token operator">=</span> <span class="token number">0x028334</span><span class="token punctuation">;</span>
-	<span class="token keyword">long</span> address <span class="token operator">=</span> base_so_addr <span class="token operator">+</span> string_addr<span class="token punctuation">;</span>
-	<span class="token keyword">long</span> ret <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_ATTACH<span class="token punctuation">,</span>pid<span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"PTRACE_ATTACH:%d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-	<span class="token comment">// 查找相应的数据</span>
-	ret <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_PEEKDATA<span class="token punctuation">,</span>pid<span class="token punctuation">,</span>address<span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"PTRACE_PEEKDATA:%x\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// 修改数据</span>
-	ret <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_POKEDATA<span class="token punctuation">,</span>pid<span class="token punctuation">,</span>address<span class="token punctuation">,</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sub  PTRACE_PEEKDATA:%x\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// 再次查看</span>
-	ret <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_PEEKDATA<span class="token punctuation">,</span>pid<span class="token punctuation">,</span>address<span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"PTRACE_PEEKDATA:%x\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// detach pid</span>
-	ret <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_DETACH<span class="token punctuation">,</span>pid<span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"PTRACE_DETACH:%d\n"</span><span class="token punctuation">,</span>ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>spawn模式</strong></p>
-<p>​	有些程序的某些函数功能在启动之初就已经执行完毕，再使用attach一定来不及了。spawn模式的原理是ptrace到zygote进程，然后跟踪zygote进程的fork系统调用，如果fork出来的新进程是指定包名的app，那么detach掉zygote进程，进而跟踪目标app进程的系统调用。</p>
-<p>​	64位下有两个zygote，zygote64和zygote。64位应用的父进程是zygote64，它的pgid也是zygote64的pid；32位应用的父进程是zygote，它的pgid却是zygote64的pid。</p>
-<p>启动流程：</p>
-<pre class="line-numbers language-none"><code class="language-none">idle进程 -&gt; init进程 -&gt; zygote进程 -&gt; system_server进程 →App进程<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>启动zygote</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/ptrace.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/wait.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/user.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;linux/ptrace.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;dirent.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;fcntl.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;getopt.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BUF_SIZE</span> <span class="token expression"><span class="token number">1024</span></span></span>
-<span class="token keyword">void</span> <span class="token function">getNameByPid</span><span class="token punctuation">(</span><span class="token class-name">pid_t</span> pid<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>task_name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">char</span> proc_pid_path<span class="token punctuation">[</span>BUF_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">char</span> buf<span class="token punctuation">[</span>BUF_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token function">sprintf</span><span class="token punctuation">(</span>proc_pid_path<span class="token punctuation">,</span> <span class="token string">"/proc/%d/status"</span><span class="token punctuation">,</span> pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    FILE<span class="token operator">*</span> fp <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span>proc_pid_path<span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token constant">NULL</span> <span class="token operator">!=</span> fp<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token function">fgets</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> BUF_SIZE<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> fp<span class="token punctuation">)</span><span class="token operator">==</span> <span class="token constant">NULL</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">sscanf</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> <span class="token string">"%*s %s"</span><span class="token punctuation">,</span> task_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-	<span class="token keyword">int</span>         status<span class="token punctuation">;</span>
-	<span class="token keyword">int</span>         success <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-	<span class="token class-name">pid_t</span>       wait_pid<span class="token punctuation">;</span> 
-	<span class="token class-name">pid_t</span>       target_pid <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token keyword">long</span> zygote_pid <span class="token operator">=</span> <span class="token number">1398</span><span class="token punctuation">;</span> <span class="token comment">// zygote进程的pid</span>
-	<span class="token keyword">char</span>  appname<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"com.example.x86demo"</span><span class="token punctuation">;</span> <span class="token comment">// app的包名称</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Ptrace Zygote\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_ATTACH<span class="token punctuation">,</span>zygote_pid<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">if</span><span class="token punctuation">(</span>res <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"res: %d\n"</span><span class="token punctuation">,</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hook zygote error\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token punctuation">}</span>
-	<span class="token function">waitpid</span><span class="token punctuation">(</span>zygote_pid<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token comment">// 拦截zygote的fork操作</span>
-	res <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_SETOPTIONS<span class="token punctuation">,</span> zygote_pid<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>PTRACE_O_TRACEFORK<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"ptrace zygote PTRACE_O_TRACEFORK res: %d\n"</span><span class="token punctuation">,</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">if</span> <span class="token punctuation">(</span>res <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"FATAL ERROR: ptrace(PTRACE_SETOPTIONS, ...)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-	<span class="token comment">// 恢复zygote的运行</span>
-	<span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_CONT<span class="token punctuation">,</span> zygote_pid<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"zygote continue \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">// fork后子进程的pid</span>
-            wait_pid <span class="token operator">=</span> <span class="token function">waitpid</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>status<span class="token punctuation">,</span> __WALL <span class="token operator">|</span> WUNTRACED<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>status<span class="token operator">&gt;&gt;</span><span class="token number">8</span> <span class="token operator">==</span> <span class="token punctuation">(</span>SIGTRAP <span class="token operator">|</span> <span class="token punctuation">(</span>PTRACE_EVENT_FORK<span class="token operator">&lt;&lt;</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"fork出子进程 status&gt;&gt;8 == (SIGTRAP | (PTRACE_EVENT_FORK&lt;&lt;8)) %d\n"</span><span class="token punctuation">,</span>wait_pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>wait_pid<span class="token operator">==</span>zygote_pid<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment">//如果发出信号进程的进程号跟pid一致，则说明它是被跟踪程序的父进程，否则是被跟踪程序的子进程</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">WIFSTOPPED</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"zygote continue \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_CONT<span class="token punctuation">,</span>wait_pid<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-            <span class="token comment">// 判断fork后的程序是不是我们指定的应用</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>wait_pid <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> wait_pid<span class="token operator">!=</span>zygote_pid<span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-                <span class="token function">getNameByPid</span><span class="token punctuation">(</span>wait_pid<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"wait_pid: %d,name: %s\n"</span><span class="token punctuation">,</span>wait_pid<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">strstr</span><span class="token punctuation">(</span>appname<span class="token punctuation">,</span> name<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"匹配到appname: %s\n"</span><span class="token punctuation">,</span>appname<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token comment">// detach from zygote</span>
-                    <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_DETACH<span class="token punctuation">,</span> zygote_pid<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span>SIGCONT<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Detach from zygote\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token comment">// now perform on new process</span>
-                    target_pid <span class="token operator">=</span> wait_pid<span class="token punctuation">;</span>
-                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"appname: %s pid: %d\n"</span><span class="token punctuation">,</span>appname<span class="token punctuation">,</span>target_pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    success <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                    <span class="token comment">// 拦截目标进程的clone和exit,clone重要 exit调试用</span>
-                    res <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_SETOPTIONS<span class="token punctuation">,</span> target_pid<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>PTRACE_O_TRACECLONE<span class="token operator">|</span>PTRACE_O_TRACEEXIT<span class="token operator">|</span>PTRACE_O_TRACEVFORK<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"ptrace PTRACE_O_TRACECLONE|PTRACE_O_TRACEEXIT res: %d\n"</span><span class="token punctuation">,</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token keyword">if</span> <span class="token punctuation">(</span>res <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"FATAL ERROR: ptrace(PTRACE_SETOPTIONS, ...)\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-                    <span class="token punctuation">}</span>
-                    <span class="token keyword">break</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                    <span class="token comment">// 不是的话就continue</span>
-                    <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_SYSCALL<span class="token punctuation">,</span> wait_pid<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cueGp4MTAwLmNuL25ld3MvNTEwMzU0Lmh0bWw/YWN0aW9uPW9uQ2xpY2s=">https://www.xjx100.cn/news/510354.html?action=onClick</span></p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/09/30/dataflowanalysis/">DataFlowAnalysis</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-09-30</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="DataFlow-Analysis"><a href="#DataFlow-Analysis" class="headerlink" title="DataFlow Analysis"></a>DataFlow Analysis</h1><hr>
-<h2 id="数据流分析的作用"><a href="#数据流分析的作用" class="headerlink" title="数据流分析的作用"></a>数据流分析的作用</h2><ul>
-<li><p><strong>简化执行代码</strong>:</p>
-<ul>
-<li>```c<br>// 在下面代码<br>x = a + b;<br>x = 5 * 2;<br>// 可以直接简化为<br>x = 10;<pre class="line-numbers language-none"><code class="language-none">
-- **变量取值分析**
-
-  - ```c
-    a = 1;
-    b = 2;
-    c = 3;
-    if (...) x = a + 5;
-    else x = b + 4;
-    c = x + 1;
-    // 虽然程序复杂但是可以直接简化为c = 7
-    c = 7;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-</ul>
-</li>
-</ul>
-<h2 id="技术划分"><a href="#技术划分" class="headerlink" title="技术划分"></a>技术划分</h2><p>示例代码如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token number">1.</span>   k <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token number">2.</span>   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span class="token number">3.</span>     a <span class="token operator">=</span> k <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token number">4.</span>     x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-<span class="token number">5.</span>   <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-<span class="token number">6.</span>     a <span class="token operator">=</span> k <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token number">7.</span>     x <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
-<span class="token number">8.</span>   <span class="token punctuation">}</span>
-<span class="token number">9.</span>   k <span class="token operator">=</span> a<span class="token punctuation">;</span>
-<span class="token number">10.</span>  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span class="token number">11.</span>     b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-<span class="token number">12.</span>     x <span class="token operator">=</span> a <span class="token operator">+</span> k<span class="token punctuation">;</span>
-<span class="token number">13.</span>     y <span class="token operator">=</span> a <span class="token operator">*</span> b<span class="token punctuation">;</span>
-<span class="token number">14.</span>     k<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token number">15.</span>  <span class="token punctuation">}</span>
-<span class="token number">16.</span>  <span class="token function">print</span><span class="token punctuation">(</span>a<span class="token operator">+</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="Constant-Propagation"><a href="#Constant-Propagation" class="headerlink" title="Constant Propagation"></a><em>Constant Propagation</em></h3><p>​	constant propagation本质是分析程序中某些变量的值的集合，表现为（变量，取值）的键值对</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309301506330.png" alt="image-20230930150627177"></p>
-<h3 id="Live-Variable-Analysis"><a href="#Live-Variable-Analysis" class="headerlink" title="Live-Variable Analysis"></a><em>Live-Variable Analysis</em></h3><p>​	该分析的目的是找到当前时刻中的哪些变量，在内容被覆盖之前可能会被使用，这类变量称为live-Variable。该分析方式属于backward may的分析方法，需要依赖后续代码来生成前面的变量使用情况。</p>
-<h2 id="Define-DataFlow-Problem"><a href="#Define-DataFlow-Problem" class="headerlink" title="Define DataFlow Problem"></a>Define DataFlow Problem</h2><p>​	在定义数据流问题之前需要先定义两个问题，第一个是<strong>前向传播</strong>（例如，constant propagation）问题，第二个是<strong>后向传播</strong>（例如，live-Variable分析）问题。常见的数据流分析中包含的往往是may和must问题，例如live分析的时候，只能说某个变量在某个节点的存活状态时may，但是在前向传播时某个变量的取值是must。</p>
-<h3 id="DataFlow-Problem"><a href="#DataFlow-Problem" class="headerlink" title="DataFlow Problem"></a>DataFlow Problem</h3><ul>
-<li>在程序开始执行时有哪些信息</li>
-<li>当一个结点存在多于一个的入度边时，如何将两个入度的信息进行合并？</li>
-<li>当每一个结点执行结束后，如何影响当前的数据流状态？</li>
-</ul>
-<p>在数据流分析中的相关定义如下：</p>
-<ul>
-<li>CFG</li>
-<li>a domain D of “dataflow facts” ： 这里给出的定义中，DataFlow facts是指在constant propagation中出现的变量与其对应值的键值对集合，这里的domain就是该集合的幂集，相应的live-variable分析中的就是变量集合的幂集</li>
-<li>a dataflow fact “init” ： 定义前向分析的起始位置或者后向分析的结束状态。这里两种分析的init状态都是空,因为在反向扫描时，从程序结束位置开始，此时的所有变量都寄了。</li>
-<li>an operator ⌈⌉ (used to combine incoming information from multiple predecessors)，该运算符在前向传播时用作交操作，在进行后向传播时用于并操作。只有当变量x在p1和p2之后都具有值v时，才能确定在节点n之前，变量x的值也是v。在”may”类型的数据流问题中，组合操作符⌈⌉通常是类似于并集的操作符，而在”must”类型的问题中，它通常是类似于交集的操作符。</li>
-</ul>
-<p>$$<br>fn(S) = (S - KILLn) ∪ GENn<br>$$</p>
-<p>​	其中KILLn是在节点n处定义的变量集合，GENn是在节点n处使用的变量集合。对于不对任何变量进行赋值的节点，节点n之前的活跃变量是节点n之后的活跃变量加上在节点n处被使用的变量。对于对变量x进行赋值的节点，节点n之前的活跃变量是节点n之后的活跃变量中排除变量x后的部分，再加上在节点n处使用的变量（包括变量x，如果它在节点n处既被定义又被使用）。<strong>注意这里是一个反向分析的过程，n处声明的变量定义为kill是因为再向前扫描的话，变量肯定是不存在的。如果在结点n中被用到了，则表明在n之前肯定是活的。</strong></p>
-<h2 id="Solving-Dataflow-Problem"><a href="#Solving-Dataflow-Problem" class="headerlink" title="Solving Dataflow Problem"></a>Solving Dataflow Problem</h2><p>​	本文中提到的分析方法是针对某个基本块结点n的分析方法。但是为了保证每个节点</p>
-<h3 id="The-“Meet-Over-All-Paths”-Solution"><a href="#The-“Meet-Over-All-Paths”-Solution" class="headerlink" title="The “Meet Over All Paths” Solution"></a>The “Meet Over All Paths” Solution</h3><p>​	MOP的思想是尽可能多地结算到达节点n时的数据流情况，也就是要考虑到所有的路径，并取∩运算。然而这个结果也是“尽可能对”的结果。MOP方案考虑了所有到达结点n的路径上的数据流状况，但即使是这种分析方式也有可能是过于保守的，因为有些路径未必是实际可执行的，例如永真/永假式的存在，或者谓词之间不独立（一个表达式的正确与否与另一个表达式相关）。</p>
-<h3 id="MOP的问题"><a href="#MOP的问题" class="headerlink" title="MOP的问题"></a>MOP的问题</h3><p>​	MOP方式的本质是枚举尽可能多的路径来计算其上的数据流，然而对于一些循环（路径爆炸相关）的问题中，MOP方式是结束不了的。</p>
-<p>​	<em>As we shall see, if those functions are <em>distributive</em>, then the solution that we compute is identical to the MOP solution. If the functions are <em>monotonic</em>, then the solution may not be identical to the MOP solution, but is a conservative approximation.</em></p>
-<p>​	这里贴一下原文吧，文中说如果这些函数满足分配律（distributive）的性质，那么我们计算得到的解将与MOP解相同。如果数据流函数是单调的（monotonic），那么计算得到的解可能与MOP解不完全相同，但是它是一种保守的近似。</p>
-<p>​	文中给出的解决方法如下：</p>
-<p>n.before：n执行之前的信息，<br>n.after：n执行之后的信息。</p>
-<p>这些n.before和n.after是我们方程的变量，其定义如下（对于每个节点n有两个方程）：<br>        <strong>n.before = ∩(p1.after, p2.after, …)</strong><br>其中p1、p2等是n在CFG中的前驱节点（∩是此数据流问题的组合运算符）。<br>        <strong>n.after = fn(n.before)</strong></p>
-<p>也就是在结点n之前的状态信息是路径p1到pn的数据流的交集。结点n之后的状态由n之前的状态计算得出。通过解这些方程，我们可以计算出每个节点的数据流信息，从而得到整个程序的数据流分析结果。</p>
-<p>​	<em>In general, for a “must” problem the desired solution will be the largest one, while for a “may” problem the desired solution will be the smallest one.</em></p>
-<p>​	文中给出的例子如下：</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022012864.png" alt="image-20231002201252770"></p>
-<p>​	连续传播的过程中使用的内容如下：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// constant propagation</span>
-enter<span class="token punctuation">.</span>after <span class="token operator">=</span> empty set <span class="token comment">// 刚开始是没有任何数据赋值状态的</span>
-<span class="token number">1.</span>before <span class="token operator">=</span> enter<span class="token punctuation">.</span>after <span class="token comment">// 所有的before都是前一个的after</span>
-<span class="token number">1.</span>after <span class="token operator">=</span> <span class="token number">1.</span>before <span class="token operator">-</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">union</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token comment">// 这里在经历x=2的赋值之后，x不在是任意值，而是2</span>
-<span class="token number">2.</span>before <span class="token operator">=</span> <span class="token number">1.</span>after
-<span class="token number">2.</span>after <span class="token operator">=</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> c<span class="token punctuation">)</span> is in <span class="token number">2.</span>before then <span class="token number">2.</span>before <span class="token operator">-</span> <span class="token punctuation">(</span>y<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">union</span> <span class="token punctuation">(</span>y<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">else</span> <span class="token number">2.</span>before <span class="token operator">-</span> <span class="token punctuation">(</span>y<span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">)</span> 
-<span class="token comment">// 算法思想在↑体现，只考虑相邻基本块之间的关系，因此只能分类讨论</span>
-<span class="token number">3.</span>before <span class="token operator">=</span> ⌈⌉<span class="token punctuation">(</span><span class="token number">2.</span>after<span class="token punctuation">,</span> <span class="token number">4.</span>after <span class="token punctuation">)</span> <span class="token comment">// 存在两个前驱结点，所以取∩操作</span>
-<span class="token number">3.</span>after <span class="token operator">=</span> <span class="token number">3.</span>before
-<span class="token number">4.</span>before <span class="token operator">=</span> <span class="token number">3.</span>after
-<span class="token number">4.</span>after <span class="token operator">=</span> <span class="token number">4.</span>before<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014784.png" alt="image-20231002201421727"></p>
-<p>这里的分析时must分析，因此要使用到solution 4，尽可能多的结果。</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//  live-variable analysis</span>
-<span class="token comment">// 这个从最后一行开始看比较好</span>
-enter<span class="token punctuation">.</span>after <span class="token operator">=</span> <span class="token number">1.</span>before 
-<span class="token number">1.</span>before <span class="token operator">=</span> <span class="token number">1.</span>after <span class="token operator">-</span> <span class="token punctuation">{</span>x<span class="token punctuation">}</span> <span class="token comment">// x的声明位置因此要union上x</span>
-<span class="token number">1.</span>after <span class="token operator">=</span> <span class="token number">2.</span>before
-<span class="token number">2.</span>before <span class="token operator">=</span> <span class="token number">2.</span>after <span class="token operator">-</span> <span class="token punctuation">{</span>y<span class="token punctuation">}</span> <span class="token keyword">union</span> <span class="token punctuation">{</span>x<span class="token punctuation">}</span> <span class="token comment">// y的声明位置，所以要减去y，同时是x的使用位置要union上x</span>
-<span class="token number">2.</span>after <span class="token operator">=</span> <span class="token number">3.</span>before
-<span class="token number">3.</span>before <span class="token operator">=</span> <span class="token number">3.</span>after
-<span class="token number">3.</span>after <span class="token operator">=</span> exit<span class="token punctuation">.</span>before ⌈⌉ <span class="token number">4.</span>before
-<span class="token number">4.</span>before <span class="token operator">=</span> <span class="token number">4.</span>after <span class="token keyword">union</span> <span class="token punctuation">{</span>y<span class="token punctuation">}</span> <span class="token comment">// 4之后不知道，但是由于4出现了y的使用，因此要将y并入</span>
-<span class="token number">4.</span>after <span class="token operator">=</span> <span class="token number">3.</span>before 
-exit<span class="token punctuation">.</span>before <span class="token operator">=</span> empty<span class="token operator">-</span>set  <span class="token comment">// 最终结束后都是empty set</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202310022014760.png" alt="image-20231002201431716"></p>
-<p>这里的variable live是may模式，因此要采用的最好是least的结果。</p>
-<h3 id="数据流分析的格点模型"><a href="#数据流分析的格点模型" class="headerlink" title="数据流分析的格点模型"></a>数据流分析的格点模型</h3><p>MOP模型存在以下问题：</p>
-<ul>
-<li>我们怎么知道方程的解存在?</li>
-<li>如果有不止一个解，我们想要哪一个?</li>
-<li>方程解与MOP解有什么关系?</li>
-</ul>
-<h4 id="Partially-ordered-sets-偏序集"><a href="#Partially-ordered-sets-偏序集" class="headerlink" title="Partially ordered sets 偏序集"></a>Partially ordered sets 偏序集</h4><p>​	设R是集合A上的一个关系，如果R是自反的、反对称的和可传递的，则称R是集合A的偏序关系，简称偏序，记作“≤”。对于（a，b）∈R，就把它表示成a≤b。</p>
-<p>​	若在集合A上给定一个偏序关系≤，则称集合A按偏序关系≤构成一个偏序集合，集合A和偏序R一起称为偏序集，记作（A，≤）（取自百度百科）</p>
-<p>偏序关系存在以下性质：</p>
-<p>（1）自反性：a≤a，∀a∈P；</p>
-<p>（2）反对称性：∀a，b∈P，若a≤b且b≤a，则a=b；</p>
-<p>（3）传递性：∀a，b，c∈P，若a≤b且b≤c，则a≤c；</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><span class="exturl" data-url="aHR0cHM6Ly9wYWdlcy5jcy53aXNjLmVkdS9+aG9yd2l0ei9DUzcwNC1OT1RFUy8yLkRBVEFGTE9XLmh0bWw=">https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/2.DATAFLOW.html</span></p>
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/09/11/speedrunner-for-c/">SpeedRunner_for_C</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-09-11</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="SpeedRunner-for-C"><a href="#SpeedRunner-for-C" class="headerlink" title="SpeedRunner_for_C"></a>SpeedRunner_for_C</h2><hr>
-<p>​	本文用于帮助常年不使用C语言的程序员进行复健。</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309111927899.png" alt="image-20230911192658774"></p>
-<p>图片来源：<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvYVNpVk5YSjByS0JXTHlfTWx6T01XQQ==">https://mp.weixin.qq.com/s/aSiVNXJ0rKBWLy_MlzOMWA</span></p>
-<p>直接上例子，哪里不会读哪里</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token comment">// 定义结构体</span>
-<span class="token keyword">struct</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
-    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token comment">// 函数声明</span>
-<span class="token keyword">void</span> <span class="token function">printPerson</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">Person</span><span class="token operator">*</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// 声明并初始化数组</span>
-    <span class="token keyword">int</span> numbers<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 数组遍历</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>numbers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> numbers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 声明并初始化指针</span>
-    <span class="token keyword">int</span><span class="token operator">*</span> ptr <span class="token operator">=</span> numbers<span class="token punctuation">;</span>
-
-    <span class="token comment">// 使用指针访问数组元素</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>numbers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> <span class="token operator">*</span><span class="token punctuation">(</span>ptr <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 定义结构体变量</span>
-    <span class="token keyword">struct</span> <span class="token class-name">Person</span> person1<span class="token punctuation">;</span>
-    <span class="token function">strcpy</span><span class="token punctuation">(</span>person1<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    person1<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 调用函数打印结构体内容</span>
-    <span class="token function">printPerson</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>person1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// 函数定义</span>
-<span class="token keyword">void</span> <span class="token function">printPerson</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">Person</span><span class="token operator">*</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Name: %s\n"</span><span class="token punctuation">,</span> p<span class="token operator">-&gt;</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Age: %d\n"</span><span class="token punctuation">,</span> p<span class="token operator">-&gt;</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="值传递方式"><a href="#值传递方式" class="headerlink" title="值传递方式"></a>值传递方式</h2><p>​	在C语言中，指针可以通过值传递或引用传递的方式进行函数参数的传递。下面给出了两种指针传参的示例代码：</p>
-<ol>
-<li><p>值传递方式：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword">void</span> <span class="token function">changeValue</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    num <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">// 修改局部变量的值</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Before: %d\n"</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-    <span class="token function">changeValue</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 值传递</span>
-    
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"After: %d\n"</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// num的值未改变</span>
-    
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>​	在这个示例中，<code>changeValue</code>函数通过值传递方式接收一个<code>int</code>类型的参数<code>num</code>。在函数内部，对<code>num</code>进行修改，但这只会影响到函数内部的局部变量，不会改变<code>main</code>函数中的<code>num</code>的值。因此，输出结果为<code>Before: 5</code>和<code>After: 5</code>。</p>
-</li>
-<li><p>引用传递方式：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword">void</span> <span class="token function">changeValue</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> ptr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment">// 修改指针所指向的变量的值</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> num <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Before: %d\n"</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-    <span class="token function">changeValue</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 引用传递</span>
-    
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"After: %d\n"</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// num的值已被修改</span>
-    
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>​	在这个示例中，<code>changeValue</code>函数通过引用传递方式接收一个指向<code>int</code>类型的指针<code>ptr</code>。在函数内部，通过解引用操作<code>*ptr</code>修改了指针所指向的变量的值，因为传递的是指针的地址。这样就可以在函数内部修改<code>main</code>函数中的<code>num</code>的值。输出结果为<code>Before: 5</code>和<code>After: 10</code>。</p>
-</li>
-</ol>
-<p>​	通过这两个示例，可以看到值传递方式只是传递了变量的副本，函数对副本的修改不会影响原始变量。而引用传递方式通过传递指针的地址，可以直接修改原始变量的值。在实际应用中，可以根据需要选择合适的传参方式。</p>
-<p>​	<strong>上述内容有一个易错点，就是int*p作为changeValue的参数，指的是传入的ptr是一个地址类型，而调用使用&amp;恰好是取出一个地址进行操作。在做类型定义和类型使用时对于指针的用法是不一样的。</strong></p>
-<ol start="3">
-<li>双重指针的传递方式</li>
-</ol>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token operator">*</span> ptr<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// 这里定义传入的指针是指向指针地址的类型</span>
-    <span class="token keyword">int</span> value <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> 
-    <span class="token operator">*</span>ptr <span class="token operator">=</span> <span class="token operator">&amp;</span>value<span class="token punctuation">;</span> <span class="token comment">// 将指针指向局部变量value的地址</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span><span class="token operator">*</span> p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 将p的地址传递给函数</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Value: %d\n"</span><span class="token punctuation">,</span> <span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 解引用p获取值</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Invalid pointer\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h2 id="Union类型的使用"><a href="#Union类型的使用" class="headerlink" title="Union类型的使用"></a>Union类型的使用</h2><p>​	在C语言中，联合（Union）是一种特殊的数据结构，<strong>它允许在相同的内存位置存储不同的数据类型。只能同时存储联合中所定义的一个成员的值，如果多个成员的内存大小不相同，则按照尺寸最大的那个变量申请内存</strong>。下面是一个具体的例子，展示了如何使用联合：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-
-<span class="token comment">// 定义联合</span>
-<span class="token keyword">union</span> Data <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> intValue<span class="token punctuation">;</span>
-    <span class="token keyword">float</span> floatValue<span class="token punctuation">;</span>
-    <span class="token keyword">char</span> stringValue<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">union</span> Data data<span class="token punctuation">;</span>
   
-    <span class="token comment">// 设置整数值</span>
-    data<span class="token punctuation">.</span>intValue <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Integer value: %d\n"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>intValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-    <span class="token comment">// 设置浮点数值</span>
-    data<span class="token punctuation">.</span>floatValue <span class="token operator">=</span> <span class="token number">3.14</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Float value: %.2f\n"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>floatValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-    <span class="token comment">// 设置字符串值</span>
-    <span class="token function">strcpy</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span>stringValue<span class="token punctuation">,</span> <span class="token string">"Hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"String value: %s\n"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>stringValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-    <span class="token comment">// 访问共用体的值</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"After setting string value, Integer value: %d\n"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>intValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"After setting string value, Float value: %.2f\n"</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>floatValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>​	在这个例子中，我们定义了一个联合<code>Data</code>，包含三个成员：<code>intValue</code>（整数类型）、<code>floatValue</code>（浮点数类型）和<code>stringValue</code>（字符串类型）。</p>
-<p>​	在<code>main</code>函数中，我们声明了一个<code>data</code>联合变量。我们可以通过给联合的不同成员赋值来存储不同类型的数据。在示例中，我们首先设置<code>intValue</code>为10，然后打印出整数值。接下来，我们将<code>floatValue</code>设置为3.14，并打印出浮点数值。最后，我们使用<code>strcpy</code>函数将字符串”Hello”复制到<code>stringValue</code>成员中，并打印出字符串值。</p>
-<p>​	需要注意的是，联合只能同时存储一个成员的值，因此在设置一个成员的值后，其他成员的值将被覆盖。在示例的最后，我们访问整数值和浮点数值，并发现在设置字符串值后，这两个值被改变了。</p>
-<p>​	联合在某些情况下可以用于节省内存空间，因为它们共享相同的内存位置。但是要注意使用联合时要小心，确保正确地访问和解释存储在联合中的数据。</p>
-<h2 id="二维数组的使用"><a href="#二维数组的使用" class="headerlink" title="二维数组的使用"></a>二维数组的使用</h2><p>在C语言中，可以使用多种方法创建二维数组。下面是两种常见的创建二维数组的方法：</p>
-<p><strong>方法一：使用静态初始化创建二维数组</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// 创建一个2行3列的二维数组</span>
-    <span class="token keyword">int</span> matrix<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
-        <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span>   <span class="token comment">// 第一行的元素</span>
-        <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span>    <span class="token comment">// 第二行的元素</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 访问二维数组的元素</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Element at matrix[0][0]: %d\n"</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出：1</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Element at matrix[1][2]: %d\n"</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出：6</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>在这个例子中，我们使用静态初始化的方式创建了一个2行3列的二维数组<code>matrix</code>。通过在花括号内提供初始值来初始化二维数组的每个元素。</p>
-<p><strong>方法二：使用动态内存分配创建二维数组</strong></p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h&gt;</span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// 创建一个2行3列的二维数组</span>
-    <span class="token keyword">int</span> rows <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> cols <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">int</span><span class="token operator">*</span><span class="token operator">*</span> matrix <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>rows <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 这里定义指向int*的指针类型</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span>cols <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 指向int类型的指针</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment">// 给二维数组赋值</span>
-    matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-    matrix<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
-    matrix<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    matrix<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 访问二维数组的元素</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Element at matrix[0][0]: %d\n"</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出：1</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Element at matrix[1][2]: %d\n"</span><span class="token punctuation">,</span> matrix<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 输出：6</span>
-
-    <span class="token comment">// 释放动态分配的内存</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span>matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">free</span><span class="token punctuation">(</span>matrix<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>​	在这个例子中，我们使用动态内存分配的方式创建了一个2行3列的二维数组<code>matrix</code>。首先，我们使用<code>malloc</code>函数分配了一个指向指针的指针<code>matrix</code>，作为二维数组的行。然后，通过循环为每一行分配内存空间。</p>
-<p>​	接下来，我们可以像普通的二维数组一样，使用索引操作符<code>[]</code>来访问和赋值二维数组的元素。</p>
-<p>​	在最后，我们需要记得释放动态分配的内存，以避免内存泄漏。首先，我们使用循环释放每一行的内存，然后再释放指向指针的指针<code>matrix</code>的内存。</p>
-<p>​	这两种方法分别适用于不同的情况。静态初始化适用于已知大小且不会改变的二维数组，而动态内存分配适用于在程序运行时需要根据具体需求创建大小可变的二维数组。</p>
-<h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309111959759.png" alt="image-20230911195937691"></p>
-<p>图片来源：<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvZHVDbnlNNTNkb0V0Xy1PUFhLMW1EUQ==">https://mp.weixin.qq.com/s/duCnyM53doEt_-OPXK1mDQ</span></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">char greeting[] = "Hello";<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-                
-            </div>
-        </article>
+  <header>
     
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/09/05/useful-command/">Useful_command</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-09-05</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 打包操作</span>
-<span class="token function">tar</span> <span class="token parameter variable">-cvf</span> archive.tar file1 file2 <span class="token punctuation">..</span>.
 
-<span class="token comment"># -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录</span>
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
 
-<span class="token comment"># 解包操作</span>
-<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> archive.tar
-<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> archive.tar <span class="token parameter variable">-C</span> target_directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-<h2 id="du"><a href="#du" class="headerlink" title="du"></a>du</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看文件大小用量</span>
-<span class="token function">du</span> <span class="token parameter variable">-sh</span> ./target_file<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="intel-pin"><a href="#intel-pin" class="headerlink" title="intel pin"></a>intel pin</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编译可供32位可执行文件使用的pintool</span>
-<span class="token function">make</span> obj-ia32/inscount0.so <span class="token assign-left variable">TARGET</span><span class="token operator">=</span>ia32
-<span class="token comment"># 编译可供64位可执行文件使用的pintool</span>
-<span class="token function">make</span> obj-intel64/inscount0.so <span class="token assign-left variable">TARGET</span><span class="token operator">=</span>intel64
-<span class="token comment"># 对目标程序进行插装</span>
-<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/<span class="token punctuation">..</span>/pin <span class="token parameter variable">-t</span> obj-intel64/inscount0.so <span class="token parameter variable">-o</span> inscount0.log -- /bin/ls<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/09/03/libdft/">libdft</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-09-03</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="libdft64"><a href="#libdft64" class="headerlink" title="libdft64"></a>libdft64</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FuZ29yYUZ1enplci9saWJkZnQ2NA==">https://github.com/AngoraFuzzer/libdft64</span></p>
-<h3 id="安装踩坑"><a href="#安装踩坑" class="headerlink" title="安装踩坑"></a>安装踩坑</h3><pre class="line-numbers language-none"><code class="language-none"># 设置pin
-进入libdft64中执行 ./install_pin.sh
-# 手动执行
-Please set:
-export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux
-# 编译安装
-make<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="使用踩坑"><a href="#使用踩坑" class="headerlink" title="使用踩坑"></a>使用踩坑</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 官方给出的使用方法如下</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/08/30/afl-fuzz-diy/">afl_fuzz_DIY</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-08-30</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h1 id="AFL"><a href="#AFL" class="headerlink" title="AFL ++"></a>AFL ++</h1><hr>
-<h2 id="afl-for-binary"><a href="#afl-for-binary" class="headerlink" title="afl for binary"></a>afl for binary</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dop@ubuntu:~$ <span class="token assign-left variable">AFL_QEMU_DEBUG_MAPS</span><span class="token operator">=</span><span class="token number">1</span> afl-qemu-trace ./ciscn_2019_c_1
-<span class="token number">400000</span>-402000 r-xp 00000000 08:05 <span class="token number">1617251</span>                                /home/dop/ciscn_2019_c_1
-<span class="token number">402000</span>-601000 ---p 00000000 00:00 <span class="token number">0</span>
-<span class="token number">601000</span>-602000 r--p 00001000 08:05 <span class="token number">1617251</span>                                /home/dop/ciscn_2019_c_1
-<span class="token number">602000</span>-603000 rw-p 00002000 08:05 <span class="token number">1617251</span>                                /home/dop/ciscn_2019_c_1
-<span class="token number">4000000000</span>-4000001000 ---p 00000000 00:00 <span class="token number">0</span>
-<span class="token number">4000001000</span>-4000801000 rw-p 00000000 00:00 <span class="token number">0</span>                              <span class="token punctuation">[</span>stack<span class="token punctuation">]</span>
-<span class="token number">4000801000</span>-4000802000 r--p 00000000 08:05 <span class="token number">1968235</span>                        /usr/lib/x86_64-linux-gnu/ld-2.31.so
-<span class="token number">4000802000</span>-4000825000 r-xp 00001000 08:05 <span class="token number">1968235</span>                        /usr/lib/x86_64-linux-gnu/ld-2.31.so
-<span class="token number">4000825000</span>-400082d000 r--p 00024000 08:05 <span class="token number">1968235</span>                        /usr/lib/x86_64-linux-gnu/ld-2.31.so
-400082d000-400082e000 ---p 00000000 00:00 <span class="token number">0</span>
-400082e000-400082f000 r--p 0002c000 08:05 <span class="token number">1968235</span>                        /usr/lib/x86_64-linux-gnu/ld-2.31.so
-400082f000-4000830000 rw-p 0002d000 08:05 <span class="token number">1968235</span>                        /usr/lib/x86_64-linux-gnu/ld-2.31.so
-<span class="token number">4000830000</span>-4000833000 rw-p 00000000 00:00 <span class="token number">0</span>
-<span class="token number">4000847000</span>-4000869000 r--p 00000000 08:05 <span class="token number">1968239</span>                        /usr/lib/x86_64-linux-gnu/libc-2.31.so
-<span class="token number">4000869000</span>-40009e1000 r-xp 00022000 08:05 <span class="token number">1968239</span>                        /usr/lib/x86_64-linux-gnu/libc-2.31.so
-40009e1000-4000a2f000 r--p 0019a000 08:05 <span class="token number">1968239</span>                        /usr/lib/x86_64-linux-gnu/libc-2.31.so
-4000a2f000-4000a33000 r--p 001e7000 08:05 <span class="token number">1968239</span>                        /usr/lib/x86_64-linux-gnu/libc-2.31.so
-4000a33000-4000a35000 rw-p 001eb000 08:05 <span class="token number">1968239</span>                        /usr/lib/x86_64-linux-gnu/libc-2.31.so
-4000a35000-4000a3b000 rw-p 00000000 00:00 <span class="token number">0</span>
-ffffffffff600000-ffffffffff601000 <span class="token parameter variable">--xp</span> 00000000 00:00 <span class="token number">0</span>                  <span class="token punctuation">[</span>vsyscall<span class="token punctuation">]</span>
-EEEEEEE                            hh      iii
-EE      mm mm mmmm    aa aa   cccc hh          nn nnn    eee
-EEEEE   mmm  mm  mm  aa aaa cc     hhhhhh  iii nnn  nn ee   e
-EE      mmm  mm  mm aa  aaa cc     hh   hh iii nn   nn eeeee
-EEEEEEE mmm  mm  mm  aaa aa  ccccc hh   hh iii nn   nn  eeeee
-<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
-Welcome to this Encryption machine
-
-<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span>
-<span class="token number">1</span>.Encrypt
-<span class="token number">2</span>.Decrypt
-<span class="token number">3</span>.Exit
-Input your choice<span class="token operator">!</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172015669.png" alt="image-20230901091314691"></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">AFL_QEMU_PERSISTENT_ADDR</span><span class="token operator">=</span>0x400B28
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">AFL_QEMU_PERSISTENT_GPR</span><span class="token operator">=</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="无源码测试"><a href="#无源码测试" class="headerlink" title="无源码测试"></a>无源码测试</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 无源码测试基于qemu实现，首先配置qemu</span>
-$ <span class="token builtin class-name">cd</span> qemu_mode
-$ ./build_qemu_support.sh
-<span class="token comment"># 设置原始输入和输出</span>
-$ <span class="token function">mkdir</span> fuzz_in
-$ <span class="token builtin class-name">echo</span> <span class="token string">"hello"</span> <span class="token operator">&gt;</span> fuzz_in/testcase
-$ gcc test.c <span class="token parameter variable">-o</span> <span class="token builtin class-name">test</span>
-$ afl-fuzz <span class="token parameter variable">-i</span> fuzz_in <span class="token parameter variable">-o</span> fuzz_out <span class="token parameter variable">-Q</span> ./test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172015117.png" alt="image-20230901102144519"></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 输出结果</span>
-└── default
-    ├── cmdline
-    ├── crashes
-    │   ├── id:000000,sig:11,src:000000+000030,time:3961,execs:13145,op:splice,rep:4
-    │   ├── id:000001,sig:04,src:000000+000030,time:3961,execs:13146,op:splice,rep:5
-    │   ├── id:000002,sig:04,src:000000+000026,time:3985,execs:13213,op:splice,rep:8
-    │   ├── id:000003,sig:11,src:000043+000009,time:4075,execs:13502,op:splice,rep:16
-    │   ├── id:000004,sig:11,src:000035+000023,time:4240,execs:14064,op:splice,rep:16
-    │   ├── id:000005,sig:11,src:000025+000037,time:4319,execs:14316,op:splice,rep:6
-    │   └── README.txt
-    ├── fuzz_bitmap
-    ├── fuzzer_setup
-    ├── fuzzer_stats
-    ├── hangs
-    ├── plot_data
-    └── queue
-        ├── id:000000,time:0,execs:0,orig:testcase
-        ├── id:000001,src:000000,time:4,execs:12,op:havoc,rep:2,+cov
-        ├── id:000002,src:000000,time:6,execs:20,op:havoc,rep:1
-        ├── id:000003,src:000000,time:9,execs:28,op:havoc,rep:1
-        ├── id:000004,src:000000,time:12,execs:37,op:havoc,rep:1
-<span class="token comment"># </span>
-crashes：存放去重后触发crash的数据
-
-fuzz_bitmap：记录代码覆盖率
-
-fuzzer_stats：fuzz状态
-
-hangs：存放去重后触发挂起的数据
-
-plot_data：绘图数据
-
-queue：有效的样本集合
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>如果需要对so文件进行测试，需要将相应的动态链接库目录加入到环境变量中</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">QEMU_LD_PREFIX</span><span class="token operator">=</span><span class="token variable">$LD_LIBRARY_PATH</span><span class="token builtin class-name">:</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">LD_LIBRARY_PATH</span><span class="token operator">=</span><span class="token variable">$LD_LIBRARY_PATH</span>
-<span class="token comment"># 两个都试试吧</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="自定义fuzz策略"><a href="#自定义fuzz策略" class="headerlink" title="自定义fuzz策略"></a>自定义fuzz策略</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYW5xdWFua2UuY29tL3Bvc3QvaWQvMjU0MzYz">https://www.anquanke.com/post/id/254363</span></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FGTHBsdXNwbHVzL0FGTHBsdXNwbHVzL2Jsb2IvZGV2L2RvY3MvY3VzdG9tX211dGF0b3JzLm1kJUUzJTgwJTgx">https://github.com/AFLplusplus/AFLplusplus/blob/dev/docs/custom_mutators.md、</span></p>
-<h3 id="官方自定义文档"><a href="#官方自定义文档" class="headerlink" title="官方自定义文档"></a>官方自定义文档</h3><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FGTHBsdXNwbHVzL0FGTHBsdXNwbHVzL2Jsb2IvZGV2L2RvY3MvY3VzdG9tX211dGF0b3JzLm1kIzItYXBpcw==">https://github.com/AFLplusplus/AFLplusplus/blob/dev/docs/custom_mutators.md#2-apis</span></p>
-<h3 id="安装libprotobuf"><a href="#安装libprotobuf" class="headerlink" title="安装libprotobuf"></a>安装libprotobuf</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 提示cmake 版本太低 https://www.cnblogs.com/jsdy/p/12689470.html#_label0</span>
-升级cmake 
-$ <span class="token function">wget</span> http://www.cmake.org/files/v3.25/cmake-3.25.2.tar.gz
-./bootstrap
-<span class="token function">make</span>
-<span class="token function">make</span> <span class="token function">install</span>
-<span class="token comment"># 出找不到openssl </span>
-Could NOT <span class="token function">find</span> OpenSSL, try to <span class="token builtin class-name">set</span> the path to OpenSSL root folder <span class="token keyword">in</span> the system variable OPENSSL_ROOT_DIR <span class="token punctuation">(</span>missing: OPENSSL_LIBRARIES OPENSSL_INCLUDE_DIR<span class="token punctuation">)</span> 
-$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> libssl-dev
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>安装libxml4</p>
-<p>autogen.sh </p>
-<p>报错：<br>configure.ac:1087: error: possibly undefined macro: m4_ifdef<br>      If this token and others are legitimate, please use m4_pattern_allow.<br>      See the Autoconf documentation.</p>
-<p>解决方案：sudo cp /usr/share/aclocal/*.m4 /usr/local/share/aclocal/<br><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20veTQyNDc0NjQvcC8xNDM4ODMzNC5odG1s">https://www.cnblogs.com/y4247464/p/14388334.html</span></p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309081527504.png">	</p>
-<p>本文介绍如何利用AFL Plus Plus实现自定义目标的模糊测试。</p>
-<p>Tutorials ： <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FGTHBsdXNwbHVzL0FGTHBsdXNwbHVzL2Jsb2Ivc3RhYmxlL2RvY3MvdHV0b3JpYWxzLm1k">https://github.com/AFLplusplus/AFLplusplus/blob/stable/docs/tutorials.md</span></p>
-<h2 id="AFL源码阅读"><a href="#AFL源码阅读" class="headerlink" title="AFL源码阅读"></a>AFL源码阅读</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// afl-fuzz.h: line 431</span>
-<span class="token comment">// 该结构用于存储本次afl运行所需要的上下文内容</span>
-<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">afl_state</span> <span class="token punctuation">{</span>
-<span class="token comment">/* Position of this state in the global states list */</span>
-  u32 _id<span class="token punctuation">;</span>
-
-  <span class="token class-name">afl_forkserver_t</span> fsrv<span class="token punctuation">;</span>
-  <span class="token class-name">sharedmem_t</span>      shm<span class="token punctuation">;</span>
-  <span class="token class-name">sharedmem_t</span>     <span class="token operator">*</span>shm_fuzz<span class="token punctuation">;</span>
-  <span class="token class-name">afl_env_vars_t</span>   afl_env<span class="token punctuation">;</span>	
-  <span class="token comment">//...</span>
-<span class="token punctuation">}</span> <span class="token class-name">afl_state_t</span><span class="token punctuation">;</span>
-
-<span class="token comment">// afl-fuzz-init.c 该函数的目的是使用原始输入执行程序</span>
-<span class="token keyword">void</span> <span class="token function">perform_dry_run</span><span class="token punctuation">(</span><span class="token class-name">afl_state_t</span> <span class="token operator">*</span>afl<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-
-<span class="token comment">// afl-forkserver.c </span>
-<span class="token comment">// 该函数用于进行子程序的执行</span>
-<span class="token class-name">fsrv_run_result_t</span> <span class="token keyword">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>hot<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token function">afl_fsrv_run_target</span><span class="token punctuation">(</span><span class="token class-name">afl_forkserver_t</span> <span class="token operator">*</span>fsrv<span class="token punctuation">,</span> u32 timeout<span class="token punctuation">,</span>
-                    <span class="token keyword">volatile</span> u8 <span class="token operator">*</span>stop_soon_p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2023/08/22/sec-paper-list/">Sec_paper_list</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2023-08-22</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h2 id="安全相关论文及博客汇总"><a href="#安全相关论文及博客汇总" class="headerlink" title="安全相关论文及博客汇总"></a>安全相关论文及博客汇总</h2><hr>
-<h3 id="安全会议"><a href="#安全会议" class="headerlink" title="安全会议"></a>安全会议</h3><ul>
-<li><strong>NDSS</strong>：  <span class="exturl" data-url="aHR0cHM6Ly93d3cubmRzcy1zeW1wb3NpdW0ub3JnL25kc3MyMDIzL2FjY2VwdGVkLXBhcGVycy8=">https://www.ndss-symposium.org/ndss2023/accepted-papers/</span></li>
-<li><strong>ACM CCS</strong>： <span class="exturl" data-url="aHR0cHM6Ly93d3cuc2lnc2FjLm9yZy9jY3MvQ0NTMjAyMy8=">https://www.sigsac.org/ccs/CCS2023/</span></li>
-<li><strong>USENIX</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9jb25mZXJlbmNlL3VzZW5peHNlY3VyaXR5MjMv">https://www.usenix.org/conference/usenixsecurity23/</span></li>
-<li><strong>S&amp;P</strong>: <span class="exturl" data-url="aHR0cHM6Ly93d3cuaWVlZS1zZWN1cml0eS5vcmcvVEMvU1AyMDIzL3Byb2dyYW0tcGFwZXJzLmh0bWw=">https://www.ieee-security.org/TC/SP2023/program-papers.html</span></li>
-</ul>
-<h3 id="更新活跃的安全媒体"><a href="#更新活跃的安全媒体" class="headerlink" title="更新活跃的安全媒体"></a>更新活跃的安全媒体</h3><ul>
-<li><strong>先知社区</strong>：<span class="exturl" data-url="aHR0cHM6Ly94ei5hbGl5dW4uY29tLw==">https://xz.aliyun.com/</span></li>
-<li><strong>安全客</strong>：<span class="exturl" data-url="aHR0cHM6Ly93d3cuYW5xdWFua2UuY29tLw==">https://www.anquanke.com/</span></li>
-<li><strong>360 核心安全技术博客</strong>：<span class="exturl" data-url="aHR0cHM6Ly9ibG9ncy4zNjAubmV0Lw==">https://blogs.360.net/</span></li>
-</ul>
-<h3 id="技术博客"><a href="#技术博客" class="headerlink" title="技术博客"></a>技术博客</h3><ul>
-<li><strong>知道创宇</strong>：<span class="exturl" data-url="aHR0cHM6Ly9wYXBlci5zZWVidWcub3JnLw==">https://paper.seebug.org/</span></li>
-<li><strong>棱角社区</strong>：<span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS55d2hhY2suY29tL2ZvcnVtLTU5LTEuaHRtbA==">https://forum.ywhack.com/forum-59-1.html</span></li>
-<li><strong>奇安信攻防社区</strong>：<span class="exturl" data-url="aHR0cHM6Ly9mb3J1bS5idXRpYW4ubmV0L2NvbW11bml0eS9hbGwvbmV3ZXN0">https://forum.butian.net/community/all/newest</span></li>
-</ul>
-<p><strong>Personal Blog</strong></p>
-<ul>
-<li>游戏安全：<span class="exturl" data-url="aHR0cHM6Ly93d3cucGVyZmFyZS5uZXQv">https://www.perfare.net/</span></li>
-<li>逆向工程：<span class="exturl" data-url="aHR0cHM6Ly90aW55aGFjay5jb20v">https://tinyhack.com/</span></li>
-<li>漏洞分析：<span class="exturl" data-url="aHR0cHM6Ly9ndG9hZC5naXRodWIuaW8v">https://gtoad.github.io/</span></li>
-</ul>
-<hr>
-<h2 id="usenix"><a href="#usenix" class="headerlink" title="usenix"></a>usenix</h2><h3 id="Viper-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks"><a href="#Viper-Spotting-Syscall-Guard-Variables-for-Data-Only-Attacks" class="headerlink" title="Viper: Spotting Syscall-Guard Variables for Data-Only Attacks"></a>Viper: Spotting Syscall-Guard Variables for Data-Only Attacks</h3><p>由于控制流保护技术得到广泛应用，攻击者很难修改控制数据，如函数指针，以劫持程序的控制流。相反，仅针对数据的攻击会破坏安全关键的非控制数据（关键数据），并且可以绕过所有的控制流保护措施，实施严重的攻击。以前的研究已经探索了各种方法来帮助构建或防止仅针对数据的攻击。然而，目前还没有解决方案能够自动检测程序特定的关键数据。</p>
-<p>在本文中，我们确定了一个重要的关键数据类别，即系统调用保护变量（syscall-guard variables），并提出了一组解决方案，以可扩展的方式自动检测此类变量。系统调用保护变量决定是否调用与安全相关的系统调用（syscalls），修改它们将允许攻击者向操作系统请求额外的特权。我们提出了分支强制（branch force）的方法，在执行过程中有意地翻转每个条件分支，并检查是否调用了新的与安全相关的系统调用。如果是这样，我们通过常见的内存错误进行数据流分析，估计翻转这些分支的可行性。我们构建了一个名为VIPER的工具来实现我们的想法。VIPER成功地从13个程序中检测到了34个以前未知的系统调用保护变量。我们对sqlite和v8进行了四种新的仅针对数据的攻击，可以执行任意命令或删除任意文件。VIPER在大多数程序中在五分钟内完成分析，显示了其用于发现系统调用保护变量的实用性。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvdXNlbml4c2VjdXJpdHkyMy15ZS5wZGY=">usenixsecurity23-ye.pdf</span></p>
-<h3 id="Not-All-Data-are-Created-Equal-Data-and-Pointer-Prioritization-for-Scalable-Protection-Against-Data-Oriented-Attacks"><a href="#Not-All-Data-are-Created-Equal-Data-and-Pointer-Prioritization-for-Scalable-Protection-Against-Data-Oriented-Attacks" class="headerlink" title="Not All Data are Created Equal: Data and Pointer Prioritization for Scalable Protection Against Data-Oriented Attacks"></a><strong>Not All Data are Created Equal: Data and Pointer Prioritization for Scalable Protection Against Data-Oriented Attacks</strong></h3><p>数据导向的攻击在大多数操作系统中对最先进的防御措施变得越来越现实和有效。这些攻击操纵内存中的数据对象（数据和指针），而不改变程序的控制流。用于保护数据和指针的软件和硬件防御措施由于对所有数据对象的过度插装而遭受性能瓶颈的困扰。在这项工作中，我们提出了一种基于规则启发的数据和指针优先级（Data and Pointer Prioritization，DPP）框架，用于自动识别应用程序中的敏感内存对象，并仅保护那些敏感数据，利用现有的防御措施。我们使用Linux Flaw Project数据集、Juliet测试套件和五个用于演示数据导向攻击的真实世界程序来评估我们框架的正确性。我们的实验结果表明，DPP可以通过优先处理仅占总数据对象数量3-4%的对象来识别我们测试应用程序中的易受攻击的数据对象。我们对SPEC CPU2017整数基准套件的评估结果显示，启用了DPP的AddressSanitizer（ASan）在保护所有优先级数据对象的同时，可以将性能（吞吐量）提高1.6倍，并将运行时开销减少70%，相比默认的ASan。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly95YW9ncm91cC5jcy52dC5lZHUvZHBwLXVzZW5peC0yMy5wZGY=">dpp-usenix-23.pdf (vt.edu)</span></p>
-<h3 id="sAFer-Efficient-and-Error-Tolerant-Binary-Instrumentation"><a href="#sAFer-Efficient-and-Error-Tolerant-Binary-Instrumentation" class="headerlink" title="sAFer: Efficient and Error-Tolerant Binary Instrumentation"></a><strong>sAFer: Efficient and Error-Tolerant Binary Instrumentation</strong></h3><p>最近在二进制插桩方面的进展主要集中在性能方面。通过静态转换代码以避免额外的运行时操作，诸如Egalito和RetroWrite等系统实现了接近零的开销。这些静态转换的安全性依赖于几个假设：(a)无错误和完整的反汇编，(b)独占使用位置无关代码，(c)代码指针识别既没有误报也没有漏报。这些假设的违反可能导致插桩程序崩溃，甚至更糟糕的是，出现延迟故障导致数据损坏或安全受损。许多早期的二进制插桩技术（如DynamoRio、Pin和BinCFI）最小化了这些假设，但代价是更高的开销，尤其是对于间接调用密集（例如C++）的应用程序。因此，一个开放的研究问题是是否可以将早期的安全性优点与最近的性能优点相结合。我们以肯定的回答这个问题，提出了一种新的插桩技术，它(a)容忍使用位置相关代码和常见的反汇编和静态分析错误，(b)在运行时检测假设违规，以防止出现未定义行为。我们的方法提供了一种优雅关闭或恢复的故障崩溃机制。我们在不牺牲性能的情况下实现了安全的插桩，开销约为2%左右。</p>
-<p><span class="exturl" data-url="aHR0cDovL3NlY2xhYi5jcy5zdW55c2IuZWR1L3NlY2xhYi9wdWJzL3NhZmVyLnBkZg==">safer.pdf (sunysb.edu)</span></p>
-<h3 id="Reassembly-is-Hard-A-Reflection-on-Challenges-and-Strategies"><a href="#Reassembly-is-Hard-A-Reflection-on-Challenges-and-Strategies" class="headerlink" title="Reassembly is Hard: A Reflection on Challenges and Strategies"></a><strong>Reassembly is Hard: A Reflection on Challenges and Strategies</strong></h3><p>​	重组（Reassembly）是静态二进制重写的一个分支，如今已成为研究的焦点。然而，尽管它被广泛使用并引起了研究的兴趣，但目前还没有对重组技术和挑战进行系统的调查。在本文中，我们正式定义了当前现有的重组器中出现的不同类型的错误，并提出了一个名为REASSESSOR的自动化工具来发现这些错误。我们试图通过我们的工具和我们创建的大规模基准测试来展示当前领域面临的挑战以及如何解决这些挑战。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjNzdW1tZXJfNDM5LWtpbV9oeXVuZ3Nlb2stcHJlcHViLnBkZg==">sec23summer_439-kim_hyungseok-prepub.pdf (usenix.org)</span></p>
-<h3 id="FloatZone-Accelerating-Memory-Error-Detection-using-the-Floating-Point-Unit"><a href="#FloatZone-Accelerating-Memory-Error-Detection-using-the-Floating-Point-Unit" class="headerlink" title="FloatZone: Accelerating Memory Error Detection using the Floating Point Unit"></a><strong>FloatZone: Accelerating Memory Error Detection using the Floating Point Unit</strong></h3><p>​	内存消毒器（Memory sanitizers）是检测空间和时间内存错误（如缓冲区溢出和使用释放后内存）的强大工具。模糊测试器和软件测试人员通常依赖这些工具来发现错误的存在。然而，消毒器会产生显著的运行时开销。例如，最广泛使用的消毒器——地址消毒器（Address Sanitizer，ASan）会导致2倍的减速。这种开销的主要来源是消毒器检查，其中至少涉及内存查找、比较和条件分支指令。将这些检查应用于确认程序中内存访问的有效性会大大减慢执行速度。</p>
-<p>​	我们引入了FloatZone，一种基于编译器的消毒器，使用轻量级检查利用浮点单元（FPU）来检测C/C++程序中的空间和时间内存错误。我们展示了通过单个浮点加法触发下溢异常来实现“查找、比较和分支”的综合效果，以检测内存违规访问。这种新颖的检测方法通过避免传统比较的缺点大大提高了性能：它防止了分支预测错误，通过卸载到FPU实现更高的指令级并行性，并且由于没有阴影内存，降低了缓存失效率。</p>
-<p>我们的评估结果显示，FloatZone在SPEC CPU2006和CPU2017上只产生37%的运行时开销。此外，与现有技术相比，我们测量到的模糊测试吞吐量平均增加了2.87倍。最后，我们确认FloatZone在Juliet测试套件和一系列OSS-Fuzz错误上提供了与ASan相媲美的检测能力。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvdXNlbml4c2VjdXJpdHkyMy1nb3J0ZXIucGRm">usenixsecurity23-gorter.pdf</span></p>
-<h3 id="PUMM-Preventing-Use-After-Free-Using-Execution-Unit-Partitioning"><a href="#PUMM-Preventing-Use-After-Free-Using-Execution-Unit-Partitioning" class="headerlink" title="PUMM:Preventing Use-After-Free Using Execution Unit Partitioning"></a><strong>PUMM:Preventing Use-After-Free Using Execution Unit Partitioning</strong></h3><p>​	关键软件通常使用内存不安全的编程语言编写，容易受到使用释放后内存和双重释放错误的威胁。这导致了对内存分配器的提案，通过策略性地延迟内存重新分配的时间，使这类错误无法被利用。然而，现有的解决方案存在运行时和内存开销高的问题。为了寻求更好的解决方案，我们提出通过对程序进行分析来识别与处理各个任务相关的代码单元。基于这样的直觉，在运行时，不应该或者几乎不应该在不同任务之间传递数据，因此，释放的内存重新分配被延迟到当前执行单元完成之后，仅仅足够长的时间来防止使用释放后内存的利用。</p>
-<p>​	为了证明我们设计的有效性，我们在Linux上实现了一个名为PUMM的原型系统，它包括一个离线分析器和一个在线强制执行器，通过透明地封装标准库来保护C/C++二进制文件。在我们的评估中，我们对26个程序中的40个真实世界漏洞和3,000个合成漏洞进行了测试，包括像Chakra JavaScript引擎这样的复杂多线程案例。PUMM成功地阻止了所有真实世界的攻击，并仅允许了4个合成攻击，同时将内存开销降低了52.0%并且平均运行时开销仅为2.04%。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjNzdW1tZXJfMTcteWFnZW1hbm4tcHJlcHViLnBkZg==">sec23summer_17-yagemann-prepub.pdf (usenix.org)</span></p>
-<h3 id="Trojan-Source-Invisible-Vulnerabilities"><a href="#Trojan-Source-Invisible-Vulnerabilities" class="headerlink" title="Trojan Source: Invisible Vulnerabilities"></a><strong>Trojan Source: Invisible Vulnerabilities</strong></h3><p>​	我们提出了一种新型攻击，即对源代码进行恶意编码，使其在编译器和人眼看来有所不同。这种攻击利用文本编码标准（如 Unicode）中的微妙之处产生源代码，其标记的逻辑编码顺序与显示顺序不同，从而导致人类代码审查员无法直接感知的漏洞。我们称之为 “源代码木马 “攻击，它对第一方软件和整个行业的供应链破坏都构成了直接威胁。我们介绍了 C、C++、C#、JavaScript、Java、Rust、Go、Python SQL、Bash、Assembly 和 Solidity 中的源代码木马攻击实例。我们提出了明确的编译器级防御措施，并介绍了可在编译器升级时部署到编辑器、资源库和构建流水线中的其他缓解控制措施，以阻止这种攻击。我们记录了针对这些漏洞的全行业协同披露；由于这些漏洞影响了大多数编译器、编辑器和软件源，因此我们通过这次演习了解了不同公司、开源社区和其他利益相关者如何应对漏洞披露。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvdXNlbml4c2VjdXJpdHkyMy1ib3VjaGVyLnBkZg==">usenixsecurity23-boucher.pdf</span></p>
-<h3 id="Arbiter-Bridging-the-Static-and-Dynamic-Divide-in-Vulnerability-Discovery-on-Binary-Programs"><a href="#Arbiter-Bridging-the-Static-and-Dynamic-Divide-in-Vulnerability-Discovery-on-Binary-Programs" class="headerlink" title="Arbiter: Bridging the Static and Dynamic Divide in Vulnerability Discovery on Binary Programs"></a><strong>Arbiter: Bridging the Static and Dynamic Divide in Vulnerability Discovery on Binary Programs</strong></h3><p>尽管目前最先进的二进制程序分析方法在发现漏洞方面非常有效，但其准确性和可扩展性之间的固有权衡限制了这些方法的发展。在本文中，我们确定了一系列可帮助静态和动态漏洞检测技术的漏洞属性，提高了前者的精确性和后者的可扩展性。通过精心整合静态和动态技术，我们在真实世界的程序中大规模地检测出了表现出这些特性的漏洞。</p>
-<p>我们实施了我们的技术，在分析二进制代码方面取得了一些进展，并创建了一个名为 ARBITER 的原型。我们通过对四类常见漏洞的大规模评估，证明了我们方法的有效性： CWE-131（缓冲区大小计算错误）、CWE-252（未检查的返回值）、CWE-134（未控制的格式字符串）和 CWE-337（伪随机数生成器中的可预测种子）。我们在 Ubuntu 软件仓库中超过 76516 个 x86-64 二进制文件上评估了我们的方法，发现了新的漏洞，包括一个在编译过程中插入程序的漏洞。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjItdmFkYXlhdGgucGRm">sec22-vadayath.pdf (usenix.org)</span></p>
-<h3 id="Fine-Grained-Dataflow-Tracking-with-Proximal-Gradients"><a href="#Fine-Grained-Dataflow-Tracking-with-Proximal-Gradients" class="headerlink" title="Fine Grained Dataflow Tracking with Proximal Gradients"></a><strong>Fine Grained Dataflow Tracking with Proximal Gradients</strong></h3><p>​	使用动态污点分析（DTA）进行数据流跟踪是系统安全领域的一种重要方法，有很多应用，包括漏洞分析、引导模糊和侧信道信息泄漏检测。然而，DTA 从根本上受到污点标签布尔性质的限制，无法提供有关检测到的数据流重要性的信息，导致在复杂的真实世界程序中出现假阳性/阴性。</p>
-<p>​	我们引入了近端梯度分析（PGA），这是一种基于理论的新方法，可以跟踪更准确、更精细的数据流信息。PGA 使用近似梯度（一种对无差异函数梯度的概括）来对程序中的无差异操作进行精确梯度组合。在程序上组合梯度消除了 DTA 中出现的许多数据流传播错误，并提供了有关每个测量数据流如何影响程序的更丰富信息。</p>
-<p>​	我们在 7 个实际程序上将 PGA 原型实现与三种最先进的 DTA 实现进行了比较。结果表明，与污点跟踪（平均 20%）相比，PGA 可以将数据流跟踪的 F1 精确度提高 33%，而不会带来任何显著的开销（平均 &lt; 5%）。我们发现了 22 个漏洞（20 个经开发人员确认）和 2 个侧信道泄漏，并在测试程序中的 19 个现有 CVE 中识别出了可利用的数据流，从而进一步证明了 PGA 的有效性。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtcnlhbi5wZGY=">sec21-ryan.pdf (usenix.org)</span></p>
-<h3 id="maze-Towards-Automated-Heap-Feng-Shui"><a href="#maze-Towards-Automated-Heap-Feng-Shui" class="headerlink" title="maze: Towards Automated Heap Feng Shui"></a><strong>maze: Towards Automated Heap Feng Shui</strong></h3><p>​	大量内存损坏漏洞，例如堆溢出和释放后使用（UAF），只能通过堆风水等技术在特定堆布局中利用。为了给自动生成漏洞利用程序（AEG）铺平道路，需要对堆布局进行自动操作。</p>
-<p>​	在本文中，我们提出了一种新型解决方案 MAZE，用于操作概念验证 (POC) 样本的堆布局。它首先识别堆布局基元（即输入片段或代码片段），供用户操作堆。然后，它应用一种新颖的 “挖掘与填充 “算法（Dig &amp; Fill algorithm），该算法将问题建模为线性二叉方程（Linear Diophantine Equation）并进行确定性求解，从而推断出能够生成目标堆布局的基元操作序列。</p>
-<p>​	我们在分析引擎 S2E 的基础上实现了 MAZE 的原型，并在 PHP、Python 和 Perl 解释器、一组 CTF（夺旗）程序以及大型微基准测试中对其进行了评估。结果表明，MAZE 可以为超过 90% 的程序生成预期的堆布局。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtd2FuZy15YW4ucGRm">sec21-wang-yan.pdf (usenix.org)</span></p>
-<h3 id="SELECTIVETAINT-Efficient-Data-Flow-Tracking-With-Static-Binary-Rewriting"><a href="#SELECTIVETAINT-Efficient-Data-Flow-Tracking-With-Static-Binary-Rewriting" class="headerlink" title="SELECTIVETAINT: Efficient Data Flow Tracking With Static Binary Rewriting"></a>SELECTIVETAINT: Efficient Data Flow Tracking With Static Binary Rewriting</h3><p>污点分析已被广泛应用于许多安全应用中，如漏洞检测、信息流跟踪、恶意软件分析和协议逆向工程。最先进的污点分析工具通常建立在动态二进制仪表之上，对每一条可能的指令进行检测，并依赖运行时信息来判断特定指令是否涉及污点，因此通常会产生很高的性能开销。本文介绍了针对二进制可执行文件的高效选择性污点分析框架 SelectiveTaint。其主要思想是利用静态二进制重写代替动态二进制工具，选择性地对涉及污点分析的指令进行工具化。在高层次上，SelectiveTaint 会静态扫描二进制代码中感兴趣的污点源，利用值集分析保守地确定指令操作数是否需要污点分析，然后选择性地对感兴趣的指令进行污点分析。我们实现了 SelectiveTaint，并用一组二进制程序对其进行了评估，其中包括 16 个 coreutils（侧重于文件 I/O）和 5 个网络守护程序（侧重于网络 I/O），如 nginx 网络服务器。评估结果表明，与最先进的动态污点分析框架相比，SelectiveTaint 静态检测的二进制程序性能更优越（例如，比 libdft 快 1.7 倍）。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtY2hlbi1zYW5jaHVhbi5wZGY=">sec21-chen-sanchuan.pdf (usenix.org)</span></p>
-<h3 id="MBA-Blast-Unveiling-and-Simplifying-Mixed-Boolean-Arithmetic-Obfuscation"><a href="#MBA-Blast-Unveiling-and-Simplifying-Mixed-Boolean-Arithmetic-Obfuscation" class="headerlink" title="MBA-Blast: Unveiling and Simplifying Mixed Boolean-Arithmetic Obfuscation"></a><strong>MBA-Blast: Unveiling and Simplifying Mixed Boolean-Arithmetic Obfuscation</strong></h3><p>​	混合布尔算术 (MBA) 混淆是一种执行从简单表达式到难以理解和分析的表示的语义保留转换的方法。 更具体地说，这种混淆技术由算术运算（例如 ADD 和 IMUL）和布尔运算（例如 AND、OR 和 NOT）的混合使用组成。 经过 MBA 混淆的二进制代码可以有效地隐藏静态和动态逆向工程中的秘密数据/算法，包括利用 SMT 求解器的高级分析。 不幸的是，针对 MBA 的反混淆研究仍处于起步阶段：最先进的解决方案（例如模式匹配、位爆破和程序合成）要么遭受严重的性能损失，要么是为特定的 MBA 模式设计的，要么生成太多的代码。 在实践中会导致错误的简化。</p>
-<p>​	在本文中，我们首先揭秘 MBA 混淆的底层机制。 我们的深入研究揭示了 1 位变量和 n 位变量之间 MBA 转换的隐藏双向特征。 我们利用这一特性并提出了一种可行的解决方案，通过 MBA 混淆来有效地反混淆代码。 我们的主要见解是 MBA 转换在 1 位和 n 位变量上的行为方式相同。 我们提供了数学证明来保证这一发现的正确性。 我们进一步开发了一种新技术，通过 1 位空间的算术缩减将 MBA 表达式简化为正常的简单形式。 我们将这个想法实现为一个名为 MBA-Blast 的开源原型，并在包含约 10,000 个 MBA 表达式的综合数据集上对其进行了评估。 我们还在现实世界的二进制代码反混淆场景中测试了我们的方法，这表明 MBA-Blast 可以帮助人类分析师充分利用 SMT 求解器的优势。 与现有工作相比，MBA-Blast 是最通用、最高效的 MBA 反混淆技术； 它具有坚实的理论基础，并且成功率最高，而开销可以忽略不计。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtbGl1LWJpbmJpbi5wZGY=">sec21-liu-binbin.pdf (usenix.org)</span></p>
-<h3 id="VScape-Assessing-and-Escaping-Virtual-Call-Protections"><a href="#VScape-Assessing-and-Escaping-Virtual-Call-Protections" class="headerlink" title="VScape: Assessing and Escaping Virtual Call Protections"></a><strong>VScape: Assessing and Escaping Virtual Call Protections</strong></h3><p>​	许多控制流完整性（CFI）解决方案已被提出，用于保护间接控制传递（ICT），包括C++虚函数调用。评估这些防御方案的安全性保证是重要但困难的。在实践中，对于一个（强）防御方案，通常需要大量的手工工作来评估在给定特定（弱）漏洞时是否可以被绕过。现有的自动化利用生成解决方案，用于评估漏洞的可利用性，尚未解决这个问题。</p>
-<p>​	在本文中，我们指出了一系列不破坏C++ ABI（应用程序二进制接口）的虚函数保护方案容易受到先进的COOPLUS攻击的威胁，即使给定的漏洞很弱。然后，我们提出了一个名为VScape的解决方案，用于评估虚函数保护方案对这种攻击的有效性。我们开发了VScape的原型，并利用它评估了11个CFI解决方案和14个包含Firefox和PyQt在内的C++应用程序的已知漏洞。结果表明，现实世界的应用程序存在大量可利用的虚函数调用，并且VScape可以用于生成可绕过已部署防御方案的工作利用程序，通过利用弱漏洞实现绕过。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtY2hlbi1rYWl4aWFuZy5wZGY=">sec21-chen-kaixiang.pdf (usenix.org)</span></p>
-<h3 id="Precise-and-Scalable-Detection-of-Use-after-Compacting-Garbage-Collection-Bugs"><a href="#Precise-and-Scalable-Detection-of-Use-after-Compacting-Garbage-Collection-Bugs" class="headerlink" title="Precise and Scalable Detection of Use-after-Compacting-Garbage-Collection Bugs"></a><strong>Precise and Scalable Detection of Use-after-Compacting-Garbage-Collection Bugs</strong></h3><p>​	压缩垃圾收集(compact-gc)是一种通过重新安排活动对象和使用地址表更新其引用来提高内存利用率和减少内存碎片的方法。如果在compact-gc之后使用了未在地址表中注册的对象引用，则可能存在严重的use-after-free错误，因为活动对象可能会移动，但在compact-gc之后不会更新引用。我们将此称为use-after-compact-gc (use-after-cgc)错误。以前的工具已经尝试使用特定于目标的启发式方法静态地检测这些错误。然而，由于它们的路径不敏感分析和不精确的目标特异性启发式，它们有很高的假阳性和假阴性。</p>
-<p>​	在本文中，我们提出了一个精确的、可扩展的静态分析器CGSan，用于查找use-after-cgc错误。CGSan通过过程内静态符号污染分析检测cgc后使用的候选错误，并通过约束不足的定向符号执行检查它们的可行性。为了减轻过程内分析的不完整性，我们采用了基于类型的污染策略。对于可扩展性，我们建议使用定向过程间控制流图，它通过排除与检查可行性无关的路径来减少搜索空间，以及定向调度，它优先考虑路径以快速检查可行性。我们在Google V8和Mozilla SpiderMonkey上评估了CGSan，我们发现了13个独特的使用后cgc错误，只有2个假阳性，而之前的两个工具遗漏了10个错误，总共有34个假阳性.</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtaGFuLWh5dW5nc2Vvay5wZGY=">sec21-han-hyungseok.pdf (usenix.org)</span></p>
-<h3 id="FlowDist-Multi-Staged-Refinement-Based-Dynamic-Information-Flow-Analysis-for-Distributed-Software-Systems"><a href="#FlowDist-Multi-Staged-Refinement-Based-Dynamic-Information-Flow-Analysis-for-Distributed-Software-Systems" class="headerlink" title="FlowDist: Multi-Staged Refinement-Based Dynamic Information Flow Analysis for Distributed Software Systems"></a><strong>FlowDist: Multi-Staged Refinement-Based Dynamic Information Flow Analysis for Distributed Software Systems</strong></h3><p>​	动态信息流分析(DIFA)支持各种安全应用，如恶意软件分析和漏洞发现。然而，由于适用性、可移植性和可伸缩性方面的障碍，传统的DIFA方法对分布式软件的效用有限。我们提出了FlowDist，这是一个通用分布式软件的DIFA，可以克服这些挑战。FlowDist工作在纯应用程序级别，避免了平台定制，因此实现了高可移植性。它从全局部分顺序执行事件中推断出隐式的进程间依赖关系，以解决分布式软件的适用性。最重要的是，它为应用程序级DIFA引入了一种基于多阶段细化的方案，在这种方案中，通过廉价的预分析产生的方法级结果减少了昂贵的数据流分析，从而在保持有效性的同时实现了高可伸缩性。我们在12个真实的分布式系统上对FlowDist与两种同类工具进行了评估，结果显示其在实际效率和可扩展性方面具有卓越的有效性。它发现了18个已知漏洞和24个新漏洞，其中17个已确认，2个已修复。我们还提出并评估了FlowDist的两种替代设计，包括设计理由和不同的主题住宿。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjEtZnUteGlhb3Fpbi5wZGY=">sec21-fu-xiaoqin.pdf (usenix.org)</span></p>
-<h3 id="Symbolic-execution-with-SymCC-Don’t-interpret-compile"><a href="#Symbolic-execution-with-SymCC-Don’t-interpret-compile" class="headerlink" title="Symbolic execution with SymCC: Don’t interpret, compile!"></a><strong>Symbolic execution with SymCC: Don’t interpret, compile!</strong></h3><p>​	实际符号执行的主要障碍是速度，特别是与模糊测试等接近本地速度的解决方案相比。我们提出了一种基于编译的符号执行方法，其性能优于最先进的实现数量级。我们介绍了SymCC，这是一个基于llvm的C和c++编译器，它将concolic执行构建到二进制文件中。它可以被软件开发人员用作clang和clang++的临时替代品，并且我们展示了如何轻松地添加对其他语言的支持。与KLEE相比，SymCC的速度快了三个数量级，平均快了12个数量级。它的性能也优于Qsym, Qsym是一个最近表现出比其他实现有很大性能改进的系统，最高可达两个数量级，平均为10倍。在真实的软件上使用它，我们发现我们的方法始终达到更高的覆盖率，并且我们在经过大量测试的OpenJPEG项目中发现了两个漏洞，这些漏洞已经被项目维护者确认并分配了CVE标识符。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjAtcG9lcGxhdS5wZGY=">sec20-poeplau.pdf (usenix.org)</span></p>
-<h3 id="Everything-Old-is-New-Again-Binary-Security-of-WebAssembly"><a href="#Everything-Old-is-New-Again-Binary-Security-of-WebAssembly" class="headerlink" title="Everything Old is New Again: Binary Security of WebAssembly"></a><strong>Everything Old is New Again: Binary Security of WebAssembly</strong></h3><p>​	WebAssembly是一种越来越流行的编译目标，通过严格分离代码和数据、强制类型和限制间接控制流，它被设计成在浏览器和其他平台上安全运行代码。尽管如此，内存不安全源语言中的漏洞可能会转化为WebAssembly二进制文件中的漏洞。在本文中，我们分析了WebAssembly二进制文件中的漏洞可被利用的程度，以及与本机代码的比较。我们发现许多经典的漏洞，由于常见的缓解措施，在原生二进制文件中不再被利用，在WebAssembly中完全暴露出来。此外，WebAssembly支持独特的攻击，例如覆盖假定的常量数据或使用堆栈溢出操作堆。我们提出了一组攻击原语，使攻击者能够(i)写入任意内存，(ii)覆盖敏感数据，以及(iii)通过转移控制流或操纵主机环境来触发意外行为。我们提供了一组易受攻击的概念验证应用程序以及完整的端到端漏洞，涵盖了三个WebAssembly平台。对编译到WebAssembly的实际二进制文件和SPEC CPU程序的经验风险评估表明，我们的攻击原语在实践中可能是可行的。总的来说，我们的发现显示WebAssembly中可能令人惊讶地缺乏二进制安全性。我们讨论了潜在的保护机制，以减轻由此产生的风险。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjAtbGVobWFubi5wZGY=">sec20-lehmann.pdf (usenix.org)</span></p>
-<h3 id="AURORA-Statistical-Crash-Analysis-for-Automated-Root-Cause-Explanation"><a href="#AURORA-Statistical-Crash-Analysis-for-Automated-Root-Cause-Explanation" class="headerlink" title="AURORA: Statistical Crash Analysis for Automated Root Cause Explanation"></a><strong>AURORA: Statistical Crash Analysis for Automated Root Cause Explanation</strong></h3><p>​	鉴于自动化软件测试技术的巨大成功，在实践中发现了大量的崩溃。确定崩溃的根本原因是一项耗时的工作，会导致发现崩溃和修复底层软件故障之间的不平衡。为了解决这个问题，已经提出了依赖于诸如反向执行和向后污染分析等技术的各种方法。然而，这些技术要么局限于特定的故障类型，要么向分析人员提供组装指令，但没有上下文信息或对潜在故障的解释。</p>
-<p>​	在本文中，我们提出了一种自动化分析方法，它不仅可以识别给定二进制可执行文件的崩溃输入的根本原因，还可以为分析人员提供有关崩溃输入特征的错误行为的上下文信息。从单个崩溃输入开始，我们生成一组不同的类似输入，这些输入要么使程序崩溃，要么诱发良性行为。然后，我们在执行每个找到的输入时跟踪程序的状态，并生成谓词，即捕获崩溃和非崩溃输入之间的行为差异的简单布尔表达式。对所有谓词的统计分析使我们能够确定确定根本原因的谓词，从而不仅揭示了根本原因的位置，而且还向分析人员提供了在该位置显示的崩溃行为的解释。我们在一个叫做AURORA的工具中实现了我们的方法，并对25个不同的软件故障进行了评估。我们的评估表明，AURORA甚至能够发现复杂bug的根本原因。例如，在开发人员修复和崩溃位置之间执行了数百万条指令的情况下，它成功了。与现有方法相比，AURORA还能够处理根本原因与崩溃之间没有数据依赖关系的错误，例如类型混淆错误。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjBmYWxsX2JsYXp5dGtvX3ByZXB1Yi5wZGY=">sec20fall_blazytko_prepub.pdf (usenix.org)</span></p>
-<h3 id="KOOBE-Towards-Facilitating-Exploit-Generation-of-Kernel-Out-Of-Bounds-Write-Vulnerabilities"><a href="#KOOBE-Towards-Facilitating-Exploit-Generation-of-Kernel-Out-Of-Bounds-Write-Vulnerabilities" class="headerlink" title="KOOBE: Towards Facilitating Exploit Generation of Kernel Out-Of-Bounds Write Vulnerabilities"></a><strong>KOOBE: Towards Facilitating Exploit Generation of Kernel Out-Of-Bounds Write Vulnerabilities</strong></h3><p>​	现代操作系统内核的整体性导致不断发现错误。 通常不清楚哪些错误值得修复，因为只有其中一部分可能严重到足以导致安全接管（即权限升级）。 因此，研究人员最近开始开发自动漏洞利用生成技术（针对 UAF bug）来协助 bug 分类过程。 在本文中，我们研究了 Linux 内核中的另一个顶级内存漏洞——堆中的越界（OOB）内存写入。 我们基于以下两个观察结果设计 KOOBE 来协助分析此类漏洞：(1) 令人惊讶的是，不同的 OOB 漏洞实例常常表现出广泛的功能。 (2) 内核漏洞利用本质上是多重交互的（即，漏洞利用涉及多个系统调用），这使得漏洞利用制作过程可以模块化。 具体来说，我们专注于提取 OOB 漏洞的功能，这将为后续的可利用性评估过程提供支持。 我们的系统构建在多个构建块上，包括用于发现隐藏功能的新型功能引导模糊解决方案，以及将功能组合在一起以进一步提高成功利用的可能性的方法。 在我们的评估中，我们通过详尽分析 17 个最新的 Linux 内核 OOB 漏洞（其中只有 5 个具有公开可用的漏洞）来证明 KOOBE 的适用性，其中 KOOBE 成功为其中 11 个漏洞生成了候选漏洞利用策略（包括 5 个没有公开的漏洞） 甚至分配了任何 CVE）。 随后，根据这些策略，我们能够为所有这些策略构建完全有效的漏洞利用。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjAtY2hlbi13ZWl0ZW5nLnBkZg==">sec20-chen-weiteng.pdf (usenix.org)</span></p>
-<h3 id="Automatic-Techniques-to-Systematically-Discover-New-Heap-Exploitation-Primitives"><a href="#Automatic-Techniques-to-Systematically-Discover-New-Heap-Exploitation-Primitives" class="headerlink" title="Automatic Techniques to Systematically Discover New Heap Exploitation Primitives"></a><strong>Automatic Techniques to Systematically Discover New Heap Exploitation Primitives</strong></h3><p>滥用堆分配器元数据的利用技术因其通用性（即独立于应用程序）和强大功能（即绕过现代缓解措施）而被广泛研究。然而，这些技术通常被认为是艺术，因此发现它们的方法仍然是临时的、手动的和针对特定分配器的。</p>
-<p>在本文中，我们提出了一种自动工具 ArcHeap，用于系统地发现尚未开发的堆利用原语，而不管它们的底层实现是什么。ArcHeap 的主要理念是让计算机自主探索空间，其概念类似于模糊测试，方法是指定一组现代堆分配器的常见设计和漏洞根源作为模型，并提供堆操作和攻击能力作为动作。在探索过程中，ArcHeap 会检查这些操作的组合是否有可能用于构建漏洞利用原语，如任意写入或重叠块。作为证明，ArcHeap 会生成工作 PoC，演示所发现的利用技术。</p>
-<p>我们用 ptmalloc2 和其他 10 个分配器对 ArcHeap 进行了评估，在 ptmalloc2 中发现了 5 种以前未知的利用技术，并针对 10 个分配器中的 7 个（包括注重安全的分配器 DieHarder）发现了几种利用技术。为了证明 ArcHeap 方法在其他领域的有效性，我们还研究了安全特性和利用原语是如何在不同版本的 ptmalloc2 中演变的。</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9zeXN0ZW0vZmlsZXMvc2VjMjAteXVuLnBkZg==">sec20-yun.pdf (usenix.org)</span></p>
-<h2 id="S-amp-P"><a href="#S-amp-P" class="headerlink" title="S&amp;P"></a>S&amp;P</h2><h3 id="Karonte-Detecting-Insecure-Multi-binary-Interactions-in-Embedded-Firmware"><a href="#Karonte-Detecting-Insecure-Multi-binary-Interactions-in-Embedded-Firmware" class="headerlink" title="Karonte: Detecting Insecure Multi-binary Interactions in Embedded Firmware"></a>Karonte: Detecting Insecure Multi-binary Interactions in Embedded Firmware</h3><ul>
-<li>基于污点分析的多二进制文件之间交互过程漏洞挖掘</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9OTE1Mjc5Ng==">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=9152796</span></li>
-</ul>
-<h3 id="SAVIOR-Towards-Bug-Driven-Hybrid-Testing"><a href="#SAVIOR-Towards-Bug-Driven-Hybrid-Testing" class="headerlink" title="SAVIOR: Towards Bug-Driven Hybrid Testing"></a>SAVIOR: Towards Bug-Driven Hybrid Testing</h3><ul>
-<li>传统的模糊测试加混合执行的方法会测试许多无意义的代码路径，SAVIOR能够推理出漏洞的可行性，筛选出更可行的程序执行路径。</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9OTE1MjY4Mg==">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=9152682</span></li>
-</ul>
-<h3 id="Goshawk-Hunting-Memory-Corruptions-via-Structure-Aware-and-Object-Centric-Memory-Operation-Synopsis"><a href="#Goshawk-Hunting-Memory-Corruptions-via-Structure-Aware-and-Object-Centric-Memory-Operation-Synopsis" class="headerlink" title="Goshawk: Hunting Memory Corruptions via Structure-Aware and Object-Centric Memory Operation Synopsis"></a>Goshawk: Hunting Memory Corruptions via Structure-Aware and Object-Centric Memory Operation Synopsis</h3><ul>
-<li><p>使用自然语言处理和数据流分析等技术来对内存管理函数进行抽象，从而有效地检测定制化内存管理机制造成的内存破坏缺陷</p>
-</li>
-<li><p><span class="exturl" data-url="aHR0cDovL2N5YmVyc2VjLnVzdGMuZWR1LmNuLzIwMjIvMDYwNi9jMjM4NDdhNTU3NDY3L3BhZ2UuaHRt">http://cybersec.ustc.edu.cn/2022/0606/c23847a557467/page.htm</span></p>
-</li>
-<li><p><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9OTgzMzYxMw==">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=9833613</span></p>
-</li>
-</ul>
-<h3 id="SELECTFuzz：Efficient-Directed-Fuzzing-with-Selective-Path-Exploration"><a href="#SELECTFuzz：Efficient-Directed-Fuzzing-with-Selective-Path-Exploration" class="headerlink" title="SELECTFuzz：Efficient Directed Fuzzing with Selective Path Exploration"></a>SELECTFuzz：Efficient Directed Fuzzing with Selective Path Exploration</h3><ul>
-<li>能够将目标程序中的相关代码与不相关代码区分开来，这些代码不会触发目标代码中的漏洞。selectfuzz可以选择性地探索相关的程序路径，以实现高效的崩溃再现和漏洞检测。它确定了两种类型的相关代码-路径发散型代码和数据依赖型代码，它们分别捕获与目标代码的控制数据依赖关系。</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9zZWNsYWIuY3NlLmN1aGsuZWR1LmhrL3BhcGVycy9zcDIzX3NlbGVjdGZ1enoucGRm">https://seclab.cse.cuhk.edu.hk/papers/sp23_selectfuzz.pdf</span></li>
-</ul>
-<h3 id="AEM-Facilitating-Cross-Version-Exploitability-Assessment-of-Linux-Kernel-Vulnerabilities"><a href="#AEM-Facilitating-Cross-Version-Exploitability-Assessment-of-Linux-Kernel-Vulnerabilities" class="headerlink" title="AEM: Facilitating Cross-Version Exploitability Assessment of Linux Kernel Vulnerabilities"></a>AEM: Facilitating Cross-Version Exploitability Assessment of Linux Kernel Vulnerabilities</h3><ul>
-<li>内核漏洞迁移</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLndvaGluLm1lL3Bvc3RzL3BhcGVyLWFlbS8=">https://blog.wohin.me/posts/paper-aem/</span></li>
-</ul>
-<h2 id="NDSS"><a href="#NDSS" class="headerlink" title="NDSS"></a>NDSS</h2><h3 id="Towards-Automatic-and-Precise-Heap-Layout-Manipulation-for-General-Purpose-Programs"><a href="#Towards-Automatic-and-Precise-Heap-Layout-Manipulation-for-General-Purpose-Programs" class="headerlink" title="Towards Automatic and Precise Heap Layout Manipulation for General-Purpose Programs"></a>Towards Automatic and Precise Heap Layout Manipulation for General-Purpose Programs</h3><ul>
-<li>一种创新的解决方案，用于自动和精确地操作通用程序的堆布局</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubmRzcy1zeW1wb3NpdW0ub3JnL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDIzLzAyL25kc3MyMDIzX3MyMzJfcGFwZXIucGRm">https://www.ndss-symposium.org/wp-content/uploads/2023/02/ndss2023_s232_paper.pdf</span></li>
-</ul>
-<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="LibAFL-A-Framework-to-Build-Modular-and-Reusable-Fuzzers"><a href="#LibAFL-A-Framework-to-Build-Modular-and-Reusable-Fuzzers" class="headerlink" title="LibAFL: A Framework to Build Modular and Reusable Fuzzers"></a>LibAFL: A Framework to Build Modular and Reusable Fuzzers</h3><ul>
-<li>集成了多种常用的fuzz方案来进行</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuczMuZXVyZWNvbS5mci9kb2NzL2NjczIyX2Zpb3JhbGRpLnBkZg==">https://www.s3.eurecom.fr/docs/ccs22_fioraldi.pdf</span></li>
-</ul>
-<h3 id="Evocatio-Conjuring-Bug-Capabilities-from-a-Single-PoC"><a href="#Evocatio-Conjuring-Bug-Capabilities-from-a-Single-PoC" class="headerlink" title="Evocatio: Conjuring Bug Capabilities from a Single PoC"></a>Evocatio: Conjuring Bug Capabilities from a Single PoC</h3><ul>
-<li>分析触发漏洞的原因，并自动生成触发漏洞的输入</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kbC5hY20ub3JnL2RvaS9wZGYvMTAuMTE0NS8zNTQ4NjA2LjM1NjA1NzU=">https://dl.acm.org/doi/pdf/10.1145/3548606.3560575</span></li>
-</ul>
-<h3 id="Binary-Control-Flow-Trimming"><a href="#Binary-Control-Flow-Trimming" class="headerlink" title="Binary Control-Flow Trimming"></a>Binary Control-Flow Trimming</h3><ul>
-<li>提出了修剪无关代码的方法</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kbC5hY20ub3JnL2RvaS9wZGYvMTAuMTE0NS8zMzE5NTM1LjMzNDU2NjU=">https://dl.acm.org/doi/pdf/10.1145/3319535.3345665</span></li>
-</ul>
-<h3 id="Gollum-Modular-and-Greybox-Exploit-Generation-for-Heap-Overflows-in-Interpreters"><a href="#Gollum-Modular-and-Greybox-Exploit-Generation-for-Heap-Overflows-in-Interpreters" class="headerlink" title="Gollum: Modular and Greybox Exploit Generation for Heap Overflows in Interpreters"></a>Gollum: Modular and Greybox Exploit Generation for Heap Overflows in Interpreters</h3><ul>
-<li>自动化堆溢出利用方法<ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY3Mub3guYWMudWsvdG9tLm1lbGhhbS9wdWIvSGVlbGFuLTIwMTktR01HLnBkZg==">https://www.cs.ox.ac.uk/tom.melham/pub/Heelan-2019-GMG.pdf</span></li>
-</ul>
-</li>
-</ul>
-<h3 id="Statically-Discovering-High-Order-Taint-Style-Vulnerabilities-in-OS-Kernels"><a href="#Statically-Discovering-High-Order-Taint-Style-Vulnerabilities-in-OS-Kernels" class="headerlink" title="Statically Discovering High-Order Taint Style Vulnerabilities in OS Kernels"></a>Statically Discovering High-Order Taint Style Vulnerabilities in OS Kernels</h3><ul>
-<li>采用基于摘要的新型高阶污点流构建方法来有效地枚举交叉输入污点流</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kbC5hY20ub3JnL2RvaS9wZGYvMTAuMTE0NS8zNDYwMTIwLjM0ODQ3OTg=">3460120.3484798 (acm.org)</span></li>
-</ul>
-<h3 id="Learning-to-Explore-Paths-for-Symbolic-Execution"><a href="#Learning-to-Explore-Paths-for-Symbolic-Execution" class="headerlink" title="Learning to Explore Paths for Symbolic Execution"></a>Learning to Explore Paths for Symbolic Execution</h3><ul>
-<li>Learch，能够有效地选择有希望的状态进行符号执行，以解决路径爆炸问题</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9maWxlcy5zcmkuaW5mLmV0aHouY2gvd2Vic2l0ZS9wYXBlcnMvY2NzMjEtbGVhcmNoLnBkZg==">ccs21-learch.pdf (ethz.ch)</span></li>
-</ul>
-<h3 id="Automated-Bug-Hunting-With-Data-Driven-Symbolic-Root-Cause-Analysis"><a href="#Automated-Bug-Hunting-With-Data-Driven-Symbolic-Root-Cause-Analysis" class="headerlink" title="Automated Bug Hunting With Data-Driven Symbolic Root Cause Analysis"></a>Automated Bug Hunting With Data-Driven Symbolic Root Cause Analysis</h3><ul>
-<li>基于执行轨迹的符号重构状态的漏洞挖掘方法，以更好地检测和分析用户程序及其导入库中的溢出、使用后释放、双重释放和格式化字符串漏洞的根本原因</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9kbC5hY20ub3JnL2RvaS9wZGYvMTAuMTE0NS8zNDYwMTIwLjM0ODUzNjM=">3460120.3485363 (acm.org)</span></li>
-</ul>
-<h2 id="Extra"><a href="#Extra" class="headerlink" title="Extra"></a>Extra</h2><h3 id="From-Release-to-Rebirth-Exploiting-Thanos-Objects-in-Linux-Kernel"><a href="#From-Release-to-Rebirth-Exploiting-Thanos-Objects-in-Linux-Kernel" class="headerlink" title="From Release to Rebirth: Exploiting Thanos Objects in Linux Kernel"></a>From Release to Rebirth: Exploiting Thanos Objects in Linux Kernel</h3><ul>
-<li>提出了一种多功能的利用策略，可以将弱利用原语转换为强利用原语</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9OTk3MDM3Ng==">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=9970376</span></li>
-</ul>
-<h3 id="Tetris-Automatic-UAF-Exploit-Generation-by-Manipulating-Layout-based-on-Reactivated-Paths"><a href="#Tetris-Automatic-UAF-Exploit-Generation-by-Manipulating-Layout-based-on-Reactivated-Paths" class="headerlink" title="Tetris: Automatic UAF Exploit Generation by Manipulating Layout based on Reactivated Paths"></a>Tetris: Automatic UAF Exploit Generation by Manipulating Layout based on Reactivated Paths</h3><ul>
-<li>一个自动生成用户空间 UAF 漏洞利用的系统，能够自动化构建需要的堆布局</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9MTAwNTMyNDI=">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=10053242</span></li>
-</ul>
-<h3 id="Detecting-Exploit-Primitives-Automatically-for-Heap-Vulnerabilities-on-Binary-Programs"><a href="#Detecting-Exploit-Primitives-Automatically-for-Heap-Vulnerabilities-on-Binary-Programs" class="headerlink" title="Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs"></a>Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs</h3><ul>
-<li>识别原语的新方法</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9MTAwNTMyNDI=">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=10053242</span></li>
-</ul>
-<hr>
-<p>- </p>
-
-                
-            </div>
-        </article>
-    
-</div>
-<div class="paginator">
-    
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-        <a class="prev" href="/">
-            <i class="iconfont icon-prev"></i>
-            上一页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Alazymachine"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/10/03/arm-base/" target="_self">
+          Arm_Base
         </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/03/arm-base/" target="_self">
+        <div>
+          ARM​	本文用于介绍arm指令集的基本架构，特性。 寄存器用法通用寄存器（General-Purpose Registers）：  r0~r3 主要用于子程序间传递参数  r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量  r12 用作子程序间scratch 寄存器，即 ip 寄存器  r13 通常用做栈指针，即 sp  r14 寄存器又被称
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-03 14:28" pubdate>
+              2023-10-03
+            </time>
+          </div>
         
         
-        <a class="next" href="/page/3/">
-            下一页
-            <i class="iconfont icon-next"></i>
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/arm/">#arm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/10/02/androidhook/" target="_self">
+          AndroidHook
         </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/androidhook/" target="_self">
+        <div>
+          移动安全开发 定制化外挂的开发流程 逆向分析游戏逻辑 验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。 注入游戏进程：获得root，使用ptrace方式注入游戏进程。 枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
         
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-02 21:20" pubdate>
+              2023-10-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Android/">#Android</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
     
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/10/02/processinject/" target="_self">
+          ProcessInject
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/processinject/" target="_self">
+        <div>
+          PC 端注入移动端注入​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。 Zygote 注入ptrace注入https://blog.csdn.net/hp910315/article/details/77335058 long ptrace(enum __ptrace_req
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-10-02 21:05" pubdate>
+              2023-10-02
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/30/dataflowanalysis/" target="_self">
+          DataFlowAnalysis
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/30/dataflowanalysis/" target="_self">
+        <div>
+          DataFlow Analysis 数据流分析的作用 简化执行代码:  ```c// 在下面代码x = a + b;x = 5 * 2;// 可以直接简化为x = 10; - **变量取值分析**    - ```c     a = 1;     b = 2;     c = 3;     if (...) x = a + 5;     else x = b + 4;     c = x + 1;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-30 14:48" pubdate>
+              2023-09-30
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/dataflow/">#dataflow</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/11/speedrunner-for-c/" target="_self">
+          SpeedRunner_for_C
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/speedrunner-for-c/" target="_self">
+        <div>
+          SpeedRunner_for_C ​	本文用于帮助常年不使用C语言的程序员进行复健。  图片来源：https://mp.weixin.qq.com/s/aSiVNXJ0rKBWLy_MlzOMWA 直接上例子，哪里不会读哪里 #include &lt;stdio.h&gt;  // 定义结构体 struct Person {     char name[20];     int age; };
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-11 19:24" pubdate>
+              2023-09-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">#C</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/05/useful-command/" target="_self">
+          Useful_command
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/05/useful-command/" target="_self">
+        <div>
+          tar# 打包操作 tar -cvf archive.tar file1 file2 ...  # -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录  # 解包操作 tar -xvf archive.tar tar -xvf arch
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-05 15:15" pubdate>
+              2023-09-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">#Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/03/libdft/" target="_self">
+          libdft
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/03/libdft/" target="_self">
+        <div>
+          libdft64https://github.com/AngoraFuzzer/libdft64 安装踩坑# 设置pin 进入libdft64中执行 ./install_pin.sh # 手动执行 Please set: export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux # 编译安装 make  使用踩坑# 官方给出的使
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-03 16:24" pubdate>
+              2023-09-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/30/afl-fuzz-diy/" target="_self">
+          afl_fuzz_DIY
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/30/afl-fuzz-diy/" target="_self">
+        <div>
+          AFL ++ afl for binarydop@ubuntu:~$ AFL_QEMU_DEBUG_MAPS=1 afl-qemu-trace ./ciscn_2019_c_1 400000-402000 r-xp 00000000 08:05 1617251                                /home/dop/ciscn_2019_c_1 402000-601000
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-30 16:38" pubdate>
+              2023-08-30
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/fuzz/">#fuzz</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/22/sec-paper-list/" target="_self">
+          Sec_paper_list
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/22/sec-paper-list/" target="_self">
+        <div>
+          安全相关论文及博客汇总 安全会议 NDSS：  https://www.ndss-symposium.org/ndss2023/accepted-papers/ ACM CCS： https://www.sigsac.org/ccs/CCS2023/ USENIX：https://www.usenix.org/conference/usenixsecurity23/ S&amp;P: https:
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-22 10:00" pubdate>
+              2023-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Paper/">#Paper</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
+  
+  
+  
+  
 </div>
-<footer class="footer-social">
-    
 
-    
+  </footer>
 
-    
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
-    <div class="footer-copyright">
-        <p class="time-line">
-            &copy;
-            
-            
-            2024
-            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
-            <a target="_blank" href="https://github.com/iJinxin">alazymachine</a>
-        </p>
-        <p class="theme-info">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
-            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
-        </p>
-    </div>
-</footer>
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script src="/js/index.js"></script>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-    
-
-</script>
 </html>
