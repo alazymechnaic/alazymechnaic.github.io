@@ -279,7 +279,7 @@
               <div class="markdown-body">
                 
                 <h2 id="Kernel-PWN"><a href="#Kernel-PWN" class="headerlink" title="Kernel PWN"></a>Kernel PWN</h2><hr>
-<p><img data-src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png" srcset="/img/loading.gif" lazyload alt="image-20230713204349079"></p>
+<p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png" srcset="/img/loading.gif" lazyload alt="image-20230713204349079"></p>
 <h3 id="内核保护技术"><a href="#内核保护技术" class="headerlink" title="内核保护技术"></a>内核保护技术</h3><ul>
 <li><p><strong>SMAP/SMEP</strong>: </p>
 <ul>
@@ -290,7 +290,7 @@
 </ul>
 </li>
 <li>ret2User: 在没有SMAP/SMEP保护的情况下将内核指针重定向到用户空间进行漏洞利用</li>
-<li>ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zYzY2MmI2MTYzYTc=">https://www.jianshu.com/p/3c662b6163a7</span></li>
+<li>ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3c662b6163a7">https://www.jianshu.com/p/3c662b6163a7</a></li>
 </ul>
 </li>
 <li><p><strong>stack protector</strong>:  在编译内核时选择<em>CONFIG_CC_STACKPROTECTOR</em>选项开启该保护，功能类似canary</p>
@@ -302,13 +302,11 @@
 </ul>
 </li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">commit_creds</span><span class="token punctuation">(</span><span class="token function">prepare_kernel_cred</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds</span>
-<span class="token comment">// commit_creds 用于将当前结构体设置为当前程序的凭证</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">commit_creds(prepare_kernel_cred(<span class="hljs-number">0</span>))<br><span class="hljs-comment">// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds</span><br><span class="hljs-comment">// commit_creds 用于将当前结构体设置为当前程序的凭证</span><br></code></pre></td></tr></tbody></table></figure>
 
 
 
-<h2 id="安装qemu启动一个Linux内核调试试一下"><a href="#安装qemu启动一个Linux内核调试试一下" class="headerlink" title="安装qemu启动一个Linux内核调试试一下"></a>安装qemu启动一个Linux内核调试试一下</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><span class="exturl" data-url="aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjYyNDI1Lmh0bQ==">https://bbs.kanxue.com/thread-262425.htm</span></p>
+<h2 id="安装qemu启动一个Linux内核调试试一下"><a href="#安装qemu启动一个Linux内核调试试一下" class="headerlink" title="安装qemu启动一个Linux内核调试试一下"></a>安装qemu启动一个Linux内核调试试一下</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-262425.htm">https://bbs.kanxue.com/thread-262425.htm</a></p>
 
                 
               </div>

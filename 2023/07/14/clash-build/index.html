@@ -16,12 +16,12 @@
   <meta name="author" content="alazymachine">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Clash Install # 下载clash wget -O clash.gz https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.13.0&#x2F;clash-linux-amd64-v1.13.0.gz # 解压 gunzip -d clash.gz sudo chmod +x clash sudo mkdir &#x2F;opt&#x2F;clash sud">
+    <meta name="description" content="Clash Install 1234567891011121314151617181920212223242526272829# 下载clashwget -O clash.gz https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.13.0&#x2F;clash-linux-amd64-v1.13.0.gz# 解压gunzip -d clash.gz">
 <meta property="og:type" content="article">
 <meta property="og:title" content="clash_build">
 <meta property="og:url" content="https://alazymechnaic.github.io/2023/07/14/clash-build/index.html">
 <meta property="og:site_name" content="alazymachine">
-<meta property="og:description" content="Clash Install # 下载clash wget -O clash.gz https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.13.0&#x2F;clash-linux-amd64-v1.13.0.gz # 解压 gunzip -d clash.gz sudo chmod +x clash sudo mkdir &#x2F;opt&#x2F;clash sud">
+<meta property="og:description" content="Clash Install 1234567891011121314151617181920212223242526272829# 下载clashwget -O clash.gz https:&#x2F;&#x2F;github.com&#x2F;Dreamacro&#x2F;clash&#x2F;releases&#x2F;download&#x2F;v1.13.0&#x2F;clash-linux-amd64-v1.13.0.gz# 解压gunzip -d clash.gz">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-14T02:14:42.000Z">
 <meta property="article:modified_time" content="2023-07-14T09:58:50.646Z">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          920 字
+          976 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          8 分钟
+          9 分钟
         
       </span>
     
@@ -277,44 +277,11 @@
               <div class="markdown-body">
                 
                 <h2 id="Clash-Install"><a href="#Clash-Install" class="headerlink" title="Clash Install"></a>Clash Install</h2><hr>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载clash</span>
-<span class="token function">wget</span> <span class="token parameter variable">-O</span> clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz
-<span class="token comment"># 解压</span>
-gunzip <span class="token parameter variable">-d</span> clash.gz
-<span class="token function">sudo</span> <span class="token function">chmod</span> +x clash
-<span class="token function">sudo</span> <span class="token function">mkdir</span> /opt/clash
-<span class="token function">sudo</span> <span class="token function">mv</span> clash /opt/clash
-<span class="token builtin class-name">cd</span> /opt/clash
-<span class="token comment"># 下载配置文件</span>
-<span class="token function">sudo</span> <span class="token function">wget</span> https://github.com/Dreamacro/maxmind-geoip/releases/download/20230612/Country.mmdb
-<span class="token comment"># config.yaml中存放的是</span>
-<span class="token comment"># 这里的配置文件需要clash的订阅文件，可以在客户端里找到</span>
-<span class="token function">mv</span> /home/harry/1688348600374.yml ./config.yaml 
-./clash <span class="token parameter variable">-f</span> config.yaml
-<span class="token comment"># 保证clash后台运行</span>
-<span class="token function">cp</span> Country.mmdb config.yaml ~/.config/clash
-<span class="token function">nohup</span> ./clash <span class="token parameter variable">-f</span> config.yaml <span class="token operator">&amp;</span>
-<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> clash
+<figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 下载clash</span><br>wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz<br><span class="hljs-comment"># 解压</span><br>gunzip -d clash.gz<br>sudo <span class="hljs-built_in">chmod</span> +x clash<br>sudo <span class="hljs-built_in">mkdir</span> /opt/clash<br>sudo <span class="hljs-built_in">mv</span> clash /opt/clash<br><span class="hljs-built_in">cd</span> /opt/clash<br><span class="hljs-comment"># 下载配置文件</span><br>sudo wget https://github.com/Dreamacro/maxmind-geoip/releases/download/20230612/Country.mmdb<br><span class="hljs-comment"># config.yaml中存放的是</span><br><span class="hljs-comment"># 这里的配置文件需要clash的订阅文件，可以在客户端里找到</span><br><span class="hljs-built_in">mv</span> /home/harry/1688348600374.yml ./config.yaml <br>./clash -f config.yaml<br><span class="hljs-comment"># 保证clash后台运行</span><br><span class="hljs-built_in">cp</span> Country.mmdb config.yaml ~/.config/clash<br><span class="hljs-built_in">nohup</span> ./clash -f config.yaml &amp;<br>ps -ef | grep clash<br><br><span class="hljs-comment"># 设置代理</span><br><span class="hljs-built_in">export</span> http_proxy=http://127.0.0.1:7890 <br><span class="hljs-built_in">export</span> https_proxy=http://127.0.0.1:7890<br><span class="hljs-comment"># 里面编辑上述内容</span><br>sudo vim ~/.bashrc<br><span class="hljs-built_in">source</span> ~/.bashrc<br><span class="hljs-comment"># 如果想取消就是用下面命令</span><br><span class="hljs-built_in">unset</span> http_proxy<br><span class="hljs-built_in">unset</span> https_proxy<br> <span class="hljs-built_in">export</span> PATH=$(<span class="hljs-built_in">pwd</span>)/depot_tools:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></tbody></table></figure>
 
-<span class="token comment"># 设置代理</span>
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">http_proxy</span><span class="token operator">=</span>http://127.0.0.1:7890 
-<span class="token builtin class-name">export</span> <span class="token assign-left variable">https_proxy</span><span class="token operator">=</span>http://127.0.0.1:7890
-<span class="token comment"># 里面编辑上述内容</span>
-<span class="token function">sudo</span> <span class="token function">vim</span> ~/.bashrc
-<span class="token builtin class-name">source</span> ~/.bashrc
-<span class="token comment"># 如果想取消就是用下面命令</span>
-<span class="token builtin class-name">unset</span> http_proxy
-<span class="token builtin class-name">unset</span> https_proxy
- <span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>/depot_tools:<span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><h4 id="重启后没有图形化界面"><a href="#重启后没有图形化界面" class="headerlink" title="重启后没有图形化界面"></a>重启后没有图形化界面</h4><figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 重新安装图形化界面</span><br>sudo apt-get update<br>sudo apt-get install --reinstall ubuntu-desktop<br><span class="hljs-comment"># 一般执行完上面一条就进去了</span><br>sudo apt-get install unity<br>sudo service lightdm resta<br></code></pre></td></tr></tbody></table></figure>
 
-<h3 id="BUG"><a href="#BUG" class="headerlink" title="BUG"></a>BUG</h3><h4 id="重启后没有图形化界面"><a href="#重启后没有图形化界面" class="headerlink" title="重启后没有图形化界面"></a>重启后没有图形化界面</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 重新安装图形化界面</span>
-<span class="token function">sudo</span> <span class="token function">apt-get</span> update
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">--reinstall</span> ubuntu-desktop
-<span class="token comment"># 一般执行完上面一条就进去了</span>
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> unity
-<span class="token function">sudo</span> <span class="token function">service</span> lightdm resta<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="建立python与python3之间的软连接"><a href="#建立python与python3之间的软连接" class="headerlink" title="建立python与python3之间的软连接"></a>建立python与python3之间的软连接</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> /usr/bin/python3 /usr/bin/python<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="建立python与python3之间的软连接"><a href="#建立python与python3之间的软连接" class="headerlink" title="建立python与python3之间的软连接"></a>建立python与python3之间的软连接</h4><figure class="highlight sh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">sudo <span class="hljs-built_in">ln</span> -s /usr/bin/python3 /usr/bin/python<br></code></pre></td></tr></tbody></table></figure>
 
 
                 

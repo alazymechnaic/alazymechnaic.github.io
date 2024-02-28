@@ -8,23 +8,23 @@
         <pubDate>Thu, 13 Jul 2023 20:41:24 +0800</pubDate>
         <lastBuildDate>Thu, 13 Jul 2023 20:41:24 +0800</lastBuildDate>
         <category>paper</category>
-        <category>HEAP PWN CTF</category>
-        <category>pwn</category>
-        <category>Linux</category>
-        <category>Paper</category>
         <category>fuzz</category>
+        <category>arm</category>
+        <category>Linux</category>
+        <category>C</category>
+        <category>go</category>
+        <category>Paper</category>
         <category>bypass</category>
         <category>clash</category>
+        <category>Hook</category>
         <category>go, RE</category>
         <category>kernel pwn</category>
         <category>binary</category>
-        <category>C</category>
-        <category>dataflow</category>
-        <category>Android</category>
-        <category>arm</category>
-        <category>Hook</category>
-        <category>go</category>
         <category>writing</category>
+        <category>HEAP PWN CTF</category>
+        <category>Android</category>
+        <category>dataflow</category>
+        <category>pwn</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/13/kernel-pwn/</guid>
             <title>kernel_pwn</title>
@@ -32,7 +32,7 @@
             <category>kernel pwn</category>
             <pubDate>Thu, 13 Jul 2023 20:41:24 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;Kernel-PWN&#34;&gt;&lt;a href=&#34;#Kernel-PWN&#34; class=&#34;headerlink&#34; title=&#34;Kernel PWN&#34;&gt;&lt;/a&gt;Kernel PWN&lt;/h2&gt;&lt;hr&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png&#34; alt=&#34;image-20230713204349079&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png&#34; alt=&#34;image-20230713204349079&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;内核保护技术&#34;&gt;&lt;a href=&#34;#内核保护技术&#34; class=&#34;headerlink&#34; title=&#34;内核保护技术&#34;&gt;&lt;/a&gt;内核保护技术&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;SMAP/SMEP&lt;/strong&gt;: &lt;/p&gt;
 &lt;ul&gt;
@@ -43,7 +43,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;ret2User: 在没有SMAP/SMEP保护的情况下将内核指针重定向到用户空间进行漏洞利用&lt;/li&gt;
-&lt;li&gt;ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC8zYzY2MmI2MTYzYTc=&#34;&gt;https://www.jianshu.com/p/3c662b6163a7&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;ret2dir:  physmap区域由内核管理并且由虚拟地址直接映射到物理地址。（也就时可以直接访问实际物理内存的内容）。在用户进行vmmap操作的时候，有很大概率能够将当前内存写入到该物理内存中，而内核又是可以直接访问该区域的，因此可以bypass SMAP/SMEP 参考文献： &lt;a href=&#34;https://www.jianshu.com/p/3c662b6163a7&#34;&gt;https://www.jianshu.com/p/3c662b6163a7&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;stack protector&lt;/strong&gt;:  在编译内核时选择&lt;em&gt;CONFIG_CC_STACKPROTECTOR&lt;/em&gt;选项开启该保护，功能类似canary&lt;/p&gt;
@@ -55,13 +55,11 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre class=&#34;line-numbers language-c&#34; data-language=&#34;c&#34;&gt;&lt;code class=&#34;language-c&#34;&gt;&lt;span class=&#34;token function&#34;&gt;commit_creds&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;prepare_kernel_cred&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;token comment&#34;&gt;// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds&lt;/span&gt;
-&lt;span class=&#34;token comment&#34;&gt;// commit_creds 用于将当前结构体设置为当前程序的凭证&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs c&#34;&gt;commit_creds(prepare_kernel_cred(&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;))&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// commit_creds 用于将当前结构体设置为当前程序的凭证&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
 
 
-&lt;h2 id=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;a href=&#34;#安装qemu启动一个Linux内核调试试一下&#34; class=&#34;headerlink&#34; title=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;/a&gt;安装qemu启动一个Linux内核调试试一下&lt;/h2&gt;&lt;h3 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#参考链接&#34; class=&#34;headerlink&#34; title=&#34;参考链接&#34;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;p&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9iYnMua2FueHVlLmNvbS90aHJlYWQtMjYyNDI1Lmh0bQ==&#34;&gt;https://bbs.kanxue.com/thread-262425.htm&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;a href=&#34;#安装qemu启动一个Linux内核调试试一下&#34; class=&#34;headerlink&#34; title=&#34;安装qemu启动一个Linux内核调试试一下&#34;&gt;&lt;/a&gt;安装qemu启动一个Linux内核调试试一下&lt;/h2&gt;&lt;h3 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#参考链接&#34; class=&#34;headerlink&#34; title=&#34;参考链接&#34;&gt;&lt;/a&gt;参考链接&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-262425.htm&#34;&gt;https://bbs.kanxue.com/thread-262425.htm&lt;/a&gt;&lt;/p&gt;
  ]]></description>
         </item>
     </channel>

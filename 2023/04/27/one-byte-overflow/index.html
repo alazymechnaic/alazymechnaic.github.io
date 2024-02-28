@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.4k 字
         
       </span>
     
@@ -276,31 +276,8 @@
             
               <div class="markdown-body">
                 
-                <h2 id="off-By-One-缓冲区溢出"><a href="#off-By-One-缓冲区溢出" class="headerlink" title="off-By-One 缓冲区溢出"></a>off-By-One 缓冲区溢出</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。<strong>缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等</strong>。主要参考：<span class="exturl" data-url="aHR0cHM6Ly9zcGxvaXRmdW4ud29yZHByZXNzLmNvbS8yMDE1LzA2LzA3L29mZi1ieS1vbmUtdnVsbmVyYWJpbGl0eS1zdGFjay1iYXNlZC0yLw==">https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/</span></p>
-<h3 id="单字节溢出案例"><a href="#单字节溢出案例" class="headerlink" title="单字节溢出案例"></a>单字节溢出案例</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;string.h&gt;</span></span>
-
-<span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">void</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
- <span class="token function">bar</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [1] */</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">void</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
- <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
- <span class="token function">strcpy</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [2] */</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
- <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strlen</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token number">256</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">/* [3] */</span>
-  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Attempted Buffer Overflow\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span>
- <span class="token function">foo</span><span class="token punctuation">(</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* [4] */</span>
- <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h2 id="off-By-One-缓冲区溢出"><a href="#off-By-One-缓冲区溢出" class="headerlink" title="off-By-One 缓冲区溢出"></a>off-By-One 缓冲区溢出</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。<strong>缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等</strong>。主要参考：<a target="_blank" rel="noopener" href="https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/">https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/</a></p>
+<h3 id="单字节溢出案例"><a href="#单字节溢出案例" class="headerlink" title="单字节溢出案例"></a>单字节溢出案例</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">(<span class="hljs-type">char</span>* arg)</span>;<br><span class="hljs-type">void</span> <span class="hljs-title function_">bar</span><span class="hljs-params">(<span class="hljs-type">char</span>* arg)</span>;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">(<span class="hljs-type">char</span>* arg)</span> {<br> bar(arg); <span class="hljs-comment">/* [1] */</span><br>}<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">bar</span><span class="hljs-params">(<span class="hljs-type">char</span>* arg)</span> {<br> <span class="hljs-type">char</span> buf[<span class="hljs-number">256</span>];<br> <span class="hljs-built_in">strcpy</span>(buf, arg); <span class="hljs-comment">/* [2] */</span><br>}<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span> {<br> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">strlen</span>(argv[<span class="hljs-number">1</span>])&gt;<span class="hljs-number">256</span>) { <span class="hljs-comment">/* [3] */</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Attempted Buffer Overflow\n"</span>);<br>  fflush(<span class="hljs-built_in">stdout</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br> }<br> foo(argv[<span class="hljs-number">1</span>]); <span class="hljs-comment">/* [4] */</span><br> <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>}<br></code></pre></td></tr></tbody></table></figure>
 
 <p>​	<strong>当目标缓冲区大小与写入长度相一致时，会出现单字节溢出</strong>，因为在strcpy的处理过程中，将传入的参数都视为视为是字符串，默认会在复制过后在末尾添加一个字节的0x00，因此会向buffer的第256个位置处写0x00。	</p>
 <p>​	该操作会向下一个位置中写入0x00，下一个位置有可能就是ebp的存储位置，其实也就是栈区基地址。但是只能更改一个字节，其实也就是ebp指针的最低字节，当前过程在退出的过程中，执行leave指令，会将被修改后的ebp写入到寄存器中。</p>
@@ -311,11 +288,7 @@
 <li><p><strong>栈基地址的低位本身就是0x00</strong>：</p>
 </li>
 <li><p><strong>程序本身存在16字节对齐的情况</strong>：其实默认情况下gcc编译器都会对程序进行16字节的对齐，因此在创建堆栈空间之前会将esp的最后四个位进行清零操作。（因为最后四位正好是表示16个字节</p>
-<pre class="line-numbers language-assembly" data-language="assembly"><code class="language-assembly">0x08048497 &lt;+0&gt;: push %ebp
-0x08048498 &lt;+1&gt;: mov %esp,%ebp
-0x0804849a &lt;+3&gt;: push %edi
-0x0804849b &lt;+4&gt;: and $0xfffffff0,%esp               //Stack space aligned to 16 byte boundary
-0x0804849e &lt;+7&gt;: sub $0x20,%esp   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">0x08048497 &lt;+0&gt;: push %ebp<br>0x08048498 &lt;+1&gt;: mov %esp,%ebp<br>0x0804849a &lt;+3&gt;: push %edi<br>0x0804849b &lt;+4&gt;: and $0xfffffff0,%esp               //Stack space aligned to 16 byte boundary<br>0x0804849e &lt;+7&gt;: sub $0x20,%esp   <br></code></pre></td></tr></tbody></table></figure></li>
 </ul>
 <p>关于栈迁移请参考该位置<a href="https://alazymechnaic.github.io/2023/05/02/bypass-nx/">https://alazymechnaic.github.io/2023/05/02/bypass-nx/</a></p>
 

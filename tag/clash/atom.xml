@@ -5,66 +5,33 @@
     <link href="https://alazymechnaic.github.io" />
     <updated>2023-07-14T02:14:42.000Z</updated>
     <category term="paper" />
-    <category term="HEAP PWN CTF" />
-    <category term="pwn" />
-    <category term="Linux" />
-    <category term="Paper" />
     <category term="fuzz" />
+    <category term="arm" />
+    <category term="Linux" />
+    <category term="C" />
+    <category term="go" />
+    <category term="Paper" />
     <category term="bypass" />
     <category term="clash" />
+    <category term="Hook" />
     <category term="go, RE" />
     <category term="kernel pwn" />
     <category term="binary" />
-    <category term="C" />
-    <category term="dataflow" />
-    <category term="Android" />
-    <category term="arm" />
-    <category term="Hook" />
-    <category term="go" />
     <category term="writing" />
+    <category term="HEAP PWN CTF" />
+    <category term="Android" />
+    <category term="dataflow" />
+    <category term="pwn" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/14/clash-build/</id>
         <title>clash_build</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/07/14/clash-build/"/>
         <content type="html">&lt;h2 id=&#34;Clash-Install&#34;&gt;&lt;a href=&#34;#Clash-Install&#34; class=&#34;headerlink&#34; title=&#34;Clash Install&#34;&gt;&lt;/a&gt;Clash Install&lt;/h2&gt;&lt;hr&gt;
-&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 下载clash&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;wget&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-O&lt;/span&gt; clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz
-&lt;span class=&#34;token comment&#34;&gt;# 解压&lt;/span&gt;
-gunzip &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; clash.gz
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;chmod&lt;/span&gt; +x clash
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;mkdir&lt;/span&gt; /opt/clash
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;mv&lt;/span&gt; clash /opt/clash
-&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; /opt/clash
-&lt;span class=&#34;token comment&#34;&gt;# 下载配置文件&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;wget&lt;/span&gt; https://github.com/Dreamacro/maxmind-geoip/releases/download/20230612/Country.mmdb
-&lt;span class=&#34;token comment&#34;&gt;# config.yaml中存放的是&lt;/span&gt;
-&lt;span class=&#34;token comment&#34;&gt;# 这里的配置文件需要clash的订阅文件，可以在客户端里找到&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;mv&lt;/span&gt; /home/harry/1688348600374.yml ./config.yaml 
-./clash &lt;span class=&#34;token parameter variable&#34;&gt;-f&lt;/span&gt; config.yaml
-&lt;span class=&#34;token comment&#34;&gt;# 保证clash后台运行&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;cp&lt;/span&gt; Country.mmdb config.yaml ~/.config/clash
-&lt;span class=&#34;token function&#34;&gt;nohup&lt;/span&gt; ./clash &lt;span class=&#34;token parameter variable&#34;&gt;-f&lt;/span&gt; config.yaml &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;ps&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-ef&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;grep&lt;/span&gt; clash
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 下载clash&lt;/span&gt;&lt;br&gt;wget -O clash.gz https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-amd64-v1.13.0.gz&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 解压&lt;/span&gt;&lt;br&gt;gunzip -d clash.gz&lt;br&gt;sudo &lt;span class=&#34;hljs-built_in&#34;&gt;chmod&lt;/span&gt; +x clash&lt;br&gt;sudo &lt;span class=&#34;hljs-built_in&#34;&gt;mkdir&lt;/span&gt; /opt/clash&lt;br&gt;sudo &lt;span class=&#34;hljs-built_in&#34;&gt;mv&lt;/span&gt; clash /opt/clash&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;cd&lt;/span&gt; /opt/clash&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 下载配置文件&lt;/span&gt;&lt;br&gt;sudo wget https://github.com/Dreamacro/maxmind-geoip/releases/download/20230612/Country.mmdb&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# config.yaml中存放的是&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 这里的配置文件需要clash的订阅文件，可以在客户端里找到&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;mv&lt;/span&gt; /home/harry/1688348600374.yml ./config.yaml &lt;br&gt;./clash -f config.yaml&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 保证clash后台运行&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;cp&lt;/span&gt; Country.mmdb config.yaml ~/.config/clash&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;nohup&lt;/span&gt; ./clash -f config.yaml &amp;amp;&lt;br&gt;ps -ef | grep clash&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 设置代理&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;export&lt;/span&gt; http_proxy=http://127.0.0.1:7890 &lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;export&lt;/span&gt; https_proxy=http://127.0.0.1:7890&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 里面编辑上述内容&lt;/span&gt;&lt;br&gt;sudo vim ~/.bashrc&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;source&lt;/span&gt; ~/.bashrc&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 如果想取消就是用下面命令&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;unset&lt;/span&gt; http_proxy&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;unset&lt;/span&gt; https_proxy&lt;br&gt; &lt;span class=&#34;hljs-built_in&#34;&gt;export&lt;/span&gt; PATH=$(&lt;span class=&#34;hljs-built_in&#34;&gt;pwd&lt;/span&gt;)/depot_tools:&lt;span class=&#34;hljs-variable&#34;&gt;$PATH&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;span class=&#34;token comment&#34;&gt;# 设置代理&lt;/span&gt;
-&lt;span class=&#34;token builtin class-name&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;token assign-left variable&#34;&gt;http_proxy&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;http://127.0.0.1:7890 
-&lt;span class=&#34;token builtin class-name&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;token assign-left variable&#34;&gt;https_proxy&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;http://127.0.0.1:7890
-&lt;span class=&#34;token comment&#34;&gt;# 里面编辑上述内容&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;vim&lt;/span&gt; ~/.bashrc
-&lt;span class=&#34;token builtin class-name&#34;&gt;source&lt;/span&gt; ~/.bashrc
-&lt;span class=&#34;token comment&#34;&gt;# 如果想取消就是用下面命令&lt;/span&gt;
-&lt;span class=&#34;token builtin class-name&#34;&gt;unset&lt;/span&gt; http_proxy
-&lt;span class=&#34;token builtin class-name&#34;&gt;unset&lt;/span&gt; https_proxy
- &lt;span class=&#34;token builtin class-name&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;PATH&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token variable&#34;&gt;&lt;span class=&#34;token variable&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;token variable&#34;&gt;)&lt;/span&gt;&lt;/span&gt;/depot_tools:&lt;span class=&#34;token environment constant&#34;&gt;$PATH&lt;/span&gt;&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;BUG&#34;&gt;&lt;a href=&#34;#BUG&#34; class=&#34;headerlink&#34; title=&#34;BUG&#34;&gt;&lt;/a&gt;BUG&lt;/h3&gt;&lt;h4 id=&#34;重启后没有图形化界面&#34;&gt;&lt;a href=&#34;#重启后没有图形化界面&#34; class=&#34;headerlink&#34; title=&#34;重启后没有图形化界面&#34;&gt;&lt;/a&gt;重启后没有图形化界面&lt;/h4&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 重新安装图形化界面&lt;/span&gt;&lt;br&gt;sudo apt-get update&lt;br&gt;sudo apt-get install --reinstall ubuntu-desktop&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 一般执行完上面一条就进去了&lt;/span&gt;&lt;br&gt;sudo apt-get install unity&lt;br&gt;sudo service lightdm resta&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;h3 id=&#34;BUG&#34;&gt;&lt;a href=&#34;#BUG&#34; class=&#34;headerlink&#34; title=&#34;BUG&#34;&gt;&lt;/a&gt;BUG&lt;/h3&gt;&lt;h4 id=&#34;重启后没有图形化界面&#34;&gt;&lt;a href=&#34;#重启后没有图形化界面&#34; class=&#34;headerlink&#34; title=&#34;重启后没有图形化界面&#34;&gt;&lt;/a&gt;重启后没有图形化界面&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token comment&#34;&gt;# 重新安装图形化界面&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt-get&lt;/span&gt; update
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt-get&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;--reinstall&lt;/span&gt; ubuntu-desktop
-&lt;span class=&#34;token comment&#34;&gt;# 一般执行完上面一条就进去了&lt;/span&gt;
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;apt-get&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; unity
-&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;service&lt;/span&gt; lightdm resta&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;建立python与python3之间的软连接&#34;&gt;&lt;a href=&#34;#建立python与python3之间的软连接&#34; class=&#34;headerlink&#34; title=&#34;建立python与python3之间的软连接&#34;&gt;&lt;/a&gt;建立python与python3之间的软连接&lt;/h4&gt;&lt;pre class=&#34;line-numbers language-bash&#34; data-language=&#34;bash&#34;&gt;&lt;code class=&#34;language-bash&#34;&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;ln&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-s&lt;/span&gt; /usr/bin/python3 /usr/bin/python&lt;span aria-hidden=&#34;true&#34; class=&#34;line-numbers-rows&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;建立python与python3之间的软连接&#34;&gt;&lt;a href=&#34;#建立python与python3之间的软连接&#34; class=&#34;headerlink&#34; title=&#34;建立python与python3之间的软连接&#34;&gt;&lt;/a&gt;建立python与python3之间的软连接&lt;/h4&gt;&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs sh&#34;&gt;sudo &lt;span class=&#34;hljs-built_in&#34;&gt;ln&lt;/span&gt; -s /usr/bin/python3 /usr/bin/python&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
 </content>
         <category term="clash" />
