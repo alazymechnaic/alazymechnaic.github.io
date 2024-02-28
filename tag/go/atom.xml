@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;go&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2024-02-28T01:33:23.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <category term="C" />
+    <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
+    <category term="go" />
+    <category term="writing" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/02/28/golang/</id>
+        <title>Golang</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/02/28/golang/"/>
+        <content type="html">&lt;h1 id=&#34;Go-语言安全实战&#34;&gt;&lt;a href=&#34;#Go-语言安全实战&#34; class=&#34;headerlink&#34; title=&#34;Go 语言安全实战&#34;&gt;&lt;/a&gt;Go 语言安全实战&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;Go语言编程&#34;&gt;&lt;a href=&#34;#Go语言编程&#34; class=&#34;headerlink&#34; title=&#34;Go语言编程&#34;&gt;&lt;/a&gt;Go语言编程&lt;/h2&gt;&lt;h3 id=&#34;基础语法&#34;&gt;&lt;a href=&#34;#基础语法&#34; class=&#34;headerlink&#34; title=&#34;基础语法&#34;&gt;&lt;/a&gt;基础语法&lt;/h3&gt;&lt;p&gt;go语言本身是编译型语言，具备高效、简洁、并发能力强的特点，因此常常被用于云计算、网络服务。Go语言在执行的过程中，将Go代码转化为中间表示，并将程序的中间表示转化为目标平台的机器码。&lt;/p&gt;
+&lt;h4 id=&#34;hello-world&#34;&gt;&lt;a href=&#34;#hello-world&#34; class=&#34;headerlink&#34; title=&#34;hello world&#34;&gt;&lt;/a&gt;hello world&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+import &#34;fmt&#34;
+func main() {
+    fmt.Printf(&#34;Congratulations! Go has successfully been installed on your system\n&#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;运行代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt; go run hello.go 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;拆分过程后进行代码的运行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt; go build -x hello.go  # 拆分过程实现，会产生一个名称为hello的二进制文件
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过gdb调试二进制文件能够看到go产生的中间语言。go语言在运行的过程中通过go的runtime与内核进行通信，runtime完成包括内存的分配等操作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202402281041471.png&#34; alt=&#34;image-20240228104124390&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Go程序首次进入的函数是runtime.rt0_amd64，通过runtime.rt0_go函数调用main函数，并完成数据变量的初始化，CPU核心数量的获取以及全局变量m0、g0的设置。而后m0开启第一个线程。Go语言的runtime中存在优秀的线程管理机制，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;G：goroutine，⼀个计算任务。由需要执⾏的代码和其上下⽂组成，上下⽂包括：当前代码位置，栈顶、栈底地址，状态等。（协程）&lt;/li&gt;
+&lt;li&gt;M：machine，系统线程，执⾏实体，想要在 CPU 上执⾏代码，必须有线程，与 C 语⾔中的线程相同，通过系统调⽤ clone 来创建。&lt;/li&gt;
+&lt;li&gt;P：processor，虚拟处理器，M 必须获得 P 才能执⾏代码，否则必须陷⼊休眠(后台监控线程除外)，你也可以将其理解为⼀种 token，有这个 token，才有在物理 CPU 核⼼上执⾏的权⼒。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_41000891/article/details/120463494&#34;&gt;https://blog.csdn.net/qq_41000891/article/details/120463494&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;go语言的包声明和引入包有什么区别？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;go语言中的每一程序都至少包含一个名为main的包。并且package main必须在文件的第一个非注释行出现，表示该文件是程序的主函数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;后面的为什么还要有一个main？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;package main用于指定程序首先寻找的文件，func main则用于指定首次执行的函数，如果存在init函数，则先执行init函数。&lt;/p&gt;
+&lt;h4 id=&#34;变量声明&#34;&gt;&lt;a href=&#34;#变量声明&#34; class=&#34;headerlink&#34; title=&#34;变量声明&#34;&gt;&lt;/a&gt;变量声明&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;var age int;
+age = 2
+//
+var age = 2
+//
+age := 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上三种做法都可以实现对变量的声明。&lt;/p&gt;
+&lt;h4 id=&#34;指针操作&#34;&gt;&lt;a href=&#34;#指针操作&#34; class=&#34;headerlink&#34; title=&#34;指针操作&#34;&gt;&lt;/a&gt;指针操作&lt;/h4&gt;&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+import &#34;fmt&#34;
+func change(v *int) {
+    *v = 40
+}
+func main() {
+    a := 50 // 声明变量 a
+    b := &amp;amp;a // 产生一个指向a的指针b
+    change(b) // 修改b指向内容的数据
+    fmt.Println(a) // 40
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在go语言中的指针操作与C语言类似，可以通过:=符号完成对变量的简单声明一个指针类型的变量。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+
+import &#34;fmt&#34;
+
+func change(v *int) {
+    *v = 40
+}
+func main() {
+    var(
+    a = [3]int{10,20,30}
+    ptr [3]*int
+    )
+
+for i := 0; i&amp;lt;len(a); i ++{
+    ptr[i] = &amp;amp;a[i]
+    fmt.Printf(&#34;%d 0x%x\n&#34;,i+1, ptr[i])
+}
+fmt.Println(ptr[0]+1) // 报错：invalid operation: ptr[0] + 1 (mismatched types *int and int)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在上述过程中能够看到，Go语言只能对程序中的int*类型的变量做解引用操作，且与C语言不同，指针本身并不能像数值一样直接运算。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;go&#34;&gt;package main
+
+import &#34;fmt&#34;
+// import &#34;unsafe&#34;
+func change(v *int) {
+    *v = 40
+}
+func main() {
+    var(
+    a = [3]int{10,20,30}
+    ptr [3]*int
+    )
+
+for i := 0; i&amp;lt;len(a); i ++{
+    ptr[i] = &amp;amp;a[i]
+    fmt.Printf(&#34;%d 0x%x\n&#34;,i+1, ptr[i])
+}
+fmt.Println(*ptr[0])
+intVal := int(uintptr(unsafe.Pointer(ptr[0])))
+intVal += 8
+ptr2 := (*int)(unsafe.Pointer(uintptr(intVal)))
+fmt.Println(*(ptr2)) // 报错 unsafe
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;由于Go语言的特性，直接读取给定地址的内容是不允许的，因为Go语言具有内存安全性和类型安全性的限制。Go语言的内存访问是受限制的，不能直接操纵指针或进行低级别的内存操作。直接将数字转化为指针是不安全的，因此编译都不会通过。&lt;/p&gt;
+&lt;h3 id=&#34;似乎可以利用的点&#34;&gt;&lt;a href=&#34;#似乎可以利用的点&#34; class=&#34;headerlink&#34; title=&#34;似乎可以利用的点&#34;&gt;&lt;/a&gt;似乎可以利用的点&lt;/h3&gt;&lt;p&gt;Go语言中如果将代码写在同一行是没问题的，但是需要使用分号隔开。在进行模本注入的过程中可以考虑使用该方法。	&lt;/p&gt;
+&lt;h2 id=&#34;Go语言的安全问题&#34;&gt;&lt;a href=&#34;#Go语言的安全问题&#34; class=&#34;headerlink&#34; title=&#34;Go语言的安全问题&#34;&gt;&lt;/a&gt;Go语言的安全问题&lt;/h2&gt;&lt;h3 id=&#34;模板注入&#34;&gt;&lt;a href=&#34;#模板注入&#34; class=&#34;headerlink&#34; title=&#34;模板注入&#34;&gt;&lt;/a&gt;模板注入&lt;/h3&gt;&lt;h3 id=&#34;XSS&#34;&gt;&lt;a href=&#34;#XSS&#34; class=&#34;headerlink&#34; title=&#34;XSS&#34;&gt;&lt;/a&gt;XSS&lt;/h3&gt;&lt;h3 id=&#34;命令执行&#34;&gt;&lt;a href=&#34;#命令执行&#34; class=&#34;headerlink&#34; title=&#34;命令执行&#34;&gt;&lt;/a&gt;命令执行&lt;/h3&gt;&lt;h3 id=&#34;任意文件读取&#34;&gt;&lt;a href=&#34;#任意文件读取&#34; class=&#34;headerlink&#34; title=&#34;任意文件读取&#34;&gt;&lt;/a&gt;任意文件读取&lt;/h3&gt;&lt;h2 id=&#34;Go语言漏洞&#34;&gt;&lt;a href=&#34;#Go语言漏洞&#34; class=&#34;headerlink&#34; title=&#34;Go语言漏洞&#34;&gt;&lt;/a&gt;Go语言漏洞&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://pkg.go.dev/vuln/list&#34;&gt;https://pkg.go.dev/vuln/list&lt;/a&gt;&lt;/p&gt;
+</content>
+        <category term="go" />
+        <updated>2024-02-28T01:33:23.000Z</updated>
+    </entry>
+</feed>

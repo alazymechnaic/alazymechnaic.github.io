@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"writing\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2024/01/07/overleaf/",
+            "url": "https://alazymechnaic.github.io/2024/01/07/overleaf/",
+            "title": "overleaf",
+            "date_published": "2024-01-07T07:52:13.000Z",
+            "content_html": "<h1 id=\"Overleaf\"><a href=\"#Overleaf\" class=\"headerlink\" title=\"Overleaf\"></a>Overleaf</h1><hr>\n<h2 id=\"表格\"><a href=\"#表格\" class=\"headerlink\" title=\"表格\"></a>表格</h2><p>插入表格并且让其占据两栏</p>\n<pre><code class=\"latex\">\\usepackage{stfloats}\n\\begin{table*}[ht]\n    % 插入长度为5pt的垂直空间（也可以是负数，缩进）\n    \\vspace{5pt}\n    \\centering\n    % 表名 前面为中文名/后面为英文名\n    \\caption{Total Number Display Table}\n    % label标签，用以引用本表时。例：autoref{num}\n    \\label{num}\n    % 设置表格单元格的列宽\n    \\setlength{\\tabcolsep}{6mm}{\n    % 表示 三线表 有4列\n    \\begin{tabular}{cccc}\n    % toprule表示三线表的顶部线\n        \\toprule\n        Program &amp; CVE &amp; Primitive Location  &amp; Number of Tainted instructions \\\\\n        % midrule 表示 三线表的 中部线\n        \\midrule\n        % 合并三行1列，用空格代替，也可以用\\multirow{}[]{}{}来表示\n        \\textbf{Gstreamer}  &amp; b  &amp; 10   &amp; b \\\\\n        \\textbf{ }    &amp; 1   &amp; 1   &amp; 1   \\\\\n        \\textbf{ }    &amp; 1    &amp; 1   &amp; 1   \\\\\n   \n        \\textbf{latex2rtf}  &amp; 1     &amp; 2  &amp; 1  \\\\\n        \\textbf{ }    &amp; 1       &amp; 3  &amp; 1  \\\\\n        \\textbf{ }    &amp; 1       &amp; 1  &amp; 1   \\\\  \n        \\textbf{ }    &amp; 1       &amp; 1  &amp; 1   \\\\ \n    \n        \\textbf{nginx}  &amp; 1     &amp; 30   &amp; 1   \\\\  \n        \\textbf{ }    &amp; 1   &amp; 50   &amp; 1  \\\\\n        \\textbf{ }    &amp; 1     &amp; 100  &amp; 1 \\\\\n        \\textbf{ }    &amp; 1     &amp; 80   &amp; 1  \\\\\n        \\textbf{ }    &amp; 1     &amp; 40   &amp; 1  \\\\\n        \n        \\textbf{ALL}       &amp; dd      &amp; dd     &amp; ddd \\\\\n        % bottomrule表示 三线表 的底部线\n        \\bottomrule \n    \\end{tabular}}\n\\end{table*}\n</code></pre>\n",
+            "tags": [
+                "writing"
+            ]
+        }
+    ]
+}

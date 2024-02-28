@@ -26,6 +26,8 @@
         <category>Hook</category>
         <category>AWD</category>
         <category>cipher</category>
+        <category>go</category>
+        <category>writing</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/04/26/stack-based-overflow/</guid>
             <title>Stack_based_overflow</title>

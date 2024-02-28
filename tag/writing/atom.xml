@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;writing&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2024-01-07T07:52:13.000Z</updated>
+    <category term="paper" />
+    <category term="HEAP PWN CTF" />
+    <category term="pwn" />
+    <category term="Linux" />
+    <category term="Paper" />
+    <category term="fuzz" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="personal" />
+    <category term="C" />
+    <category term="dataflow" />
+    <category term="Android" />
+    <category term="arm" />
+    <category term="Hook" />
+    <category term="AWD" />
+    <category term="cipher" />
+    <category term="go" />
+    <category term="writing" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/01/07/overleaf/</id>
+        <title>overleaf</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/01/07/overleaf/"/>
+        <content type="html">&lt;h1 id=&#34;Overleaf&#34;&gt;&lt;a href=&#34;#Overleaf&#34; class=&#34;headerlink&#34; title=&#34;Overleaf&#34;&gt;&lt;/a&gt;Overleaf&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;表格&#34;&gt;&lt;a href=&#34;#表格&#34; class=&#34;headerlink&#34; title=&#34;表格&#34;&gt;&lt;/a&gt;表格&lt;/h2&gt;&lt;p&gt;插入表格并且让其占据两栏&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;latex&#34;&gt;\usepackage{stfloats}
+\begin{table*}[ht]
+    % 插入长度为5pt的垂直空间（也可以是负数，缩进）
+    \vspace{5pt}
+    \centering
+    % 表名 前面为中文名/后面为英文名
+    \caption{Total Number Display Table}
+    % label标签，用以引用本表时。例：autoref{num}
+    \label{num}
+    % 设置表格单元格的列宽
+    \setlength{\tabcolsep}{6mm}{
+    % 表示 三线表 有4列
+    \begin{tabular}{cccc}
+    % toprule表示三线表的顶部线
+        \toprule
+        Program &amp;amp; CVE &amp;amp; Primitive Location  &amp;amp; Number of Tainted instructions \\
+        % midrule 表示 三线表的 中部线
+        \midrule
+        % 合并三行1列，用空格代替，也可以用\multirow{}[]{}{}来表示
+        \textbf{Gstreamer}  &amp;amp; b  &amp;amp; 10   &amp;amp; b \\
+        \textbf{ }    &amp;amp; 1   &amp;amp; 1   &amp;amp; 1   \\
+        \textbf{ }    &amp;amp; 1    &amp;amp; 1   &amp;amp; 1   \\
+   
+        \textbf{latex2rtf}  &amp;amp; 1     &amp;amp; 2  &amp;amp; 1  \\
+        \textbf{ }    &amp;amp; 1       &amp;amp; 3  &amp;amp; 1  \\
+        \textbf{ }    &amp;amp; 1       &amp;amp; 1  &amp;amp; 1   \\  
+        \textbf{ }    &amp;amp; 1       &amp;amp; 1  &amp;amp; 1   \\ 
+    
+        \textbf{nginx}  &amp;amp; 1     &amp;amp; 30   &amp;amp; 1   \\  
+        \textbf{ }    &amp;amp; 1   &amp;amp; 50   &amp;amp; 1  \\
+        \textbf{ }    &amp;amp; 1     &amp;amp; 100  &amp;amp; 1 \\
+        \textbf{ }    &amp;amp; 1     &amp;amp; 80   &amp;amp; 1  \\
+        \textbf{ }    &amp;amp; 1     &amp;amp; 40   &amp;amp; 1  \\
+        
+        \textbf{ALL}       &amp;amp; dd      &amp;amp; dd     &amp;amp; ddd \\
+        % bottomrule表示 三线表 的底部线
+        \bottomrule 
+    \end{tabular}}
+\end{table*}
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+        <category term="writing" />
+        <updated>2024-01-07T07:52:13.000Z</updated>
+    </entry>
+</feed>

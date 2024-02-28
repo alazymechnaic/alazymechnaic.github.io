@@ -23,6 +23,8 @@
     <category term="Hook" />
     <category term="AWD" />
     <category term="cipher" />
+    <category term="go" />
+    <category term="writing" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/13/kernel-pwn/</id>
         <title>kernel_pwn</title>

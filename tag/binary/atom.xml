@@ -23,6 +23,8 @@
     <category term="Hook" />
     <category term="AWD" />
     <category term="cipher" />
+    <category term="go" />
+    <category term="writing" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/04/27/one-byte-overflow/</id>
         <title>one_byte_overflow</title>
