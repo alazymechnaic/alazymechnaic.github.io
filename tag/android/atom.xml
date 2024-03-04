@@ -22,6 +22,7 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/10/02/an-zhuo-hook/</id>
         <title>安卓hook</title>

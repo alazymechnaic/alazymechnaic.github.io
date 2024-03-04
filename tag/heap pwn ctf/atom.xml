@@ -22,10 +22,11 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
-        <id>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</id>
-        <title>堆利用管理</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/"/>
+        <id>https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/</id>
+        <title>堆溢出利用</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/"/>
         <content type="html">&lt;h1 id=&#34;堆利用&#34;&gt;&lt;a href=&#34;#堆利用&#34; class=&#34;headerlink&#34; title=&#34;堆利用&#34;&gt;&lt;/a&gt;堆利用&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。&lt;/p&gt;
 &lt;h2 id=&#34;堆管理机制&#34;&gt;&lt;a href=&#34;#堆管理机制&#34; class=&#34;headerlink&#34; title=&#34;堆管理机制&#34;&gt;&lt;/a&gt;堆管理机制&lt;/h2&gt;&lt;p&gt;​	堆区域与栈区域在内存使用上存在不同：&lt;/p&gt;

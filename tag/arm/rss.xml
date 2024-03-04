@@ -25,10 +25,11 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/03/arm-base/</guid>
-            <title>Arm_Base</title>
-            <link>https://alazymechnaic.github.io/2023/10/03/arm-base/</link>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/03/arm-zhi-ling-ji-chu/</guid>
+            <title>ARM指令基础</title>
+            <link>https://alazymechnaic.github.io/2023/10/03/arm-zhi-ling-ji-chu/</link>
             <category>arm</category>
             <pubDate>Tue, 03 Oct 2023 14:28:56 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;ARM&#34;&gt;&lt;a href=&#34;#ARM&#34; class=&#34;headerlink&#34; title=&#34;ARM&#34;&gt;&lt;/a&gt;ARM&lt;/h2&gt;&lt;p&gt;​	本文用于介绍arm指令集的基本架构，特性。&lt;/p&gt;

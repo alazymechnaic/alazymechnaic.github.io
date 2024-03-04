@@ -22,10 +22,11 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
-        <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/</id>
+        <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/</id>
         <title>数据流分析</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/"/>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/"/>
         <content type="html">&lt;h1 id=&#34;DataFlow-Analysis&#34;&gt;&lt;a href=&#34;#DataFlow-Analysis&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Analysis&#34;&gt;&lt;/a&gt;DataFlow Analysis&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;数据流分析的作用&#34;&gt;&lt;a href=&#34;#数据流分析的作用&#34; class=&#34;headerlink&#34; title=&#34;数据流分析的作用&#34;&gt;&lt;/a&gt;数据流分析的作用&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;简化执行代码&lt;/strong&gt;:&lt;/p&gt;

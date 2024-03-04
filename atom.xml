@@ -3,7 +3,7 @@
     <id>https://alazymechnaic.github.io</id>
     <title>alazymachine</title>
     <link href="https://alazymechnaic.github.io" />
-    <updated>2024-02-28T09:36:50.000Z</updated>
+    <updated>2024-03-04T06:10:57.000Z</updated>
     <category term="paper" />
     <category term="fuzz" />
     <category term="arm" />
@@ -22,6 +22,138 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/03/04/shu-xing-qian-ming-yu-men-xian/</id>
+        <title>属性签名与门限</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/03/04/shu-xing-qian-ming-yu-men-xian/"/>
+        <content type="html">&lt;h2 id=&#34;属性签名（attribute-based-signature）&#34;&gt;&lt;a href=&#34;#属性签名（attribute-based-signature）&#34; class=&#34;headerlink&#34; title=&#34;属性签名（attribute-based signature）&#34;&gt;&lt;/a&gt;属性签名（attribute-based signature）&lt;/h2&gt;&lt;h3 id=&#34;属性签名概念&#34;&gt;&lt;a href=&#34;#属性签名概念&#34; class=&#34;headerlink&#34; title=&#34;属性签名概念&#34;&gt;&lt;/a&gt;属性签名概念&lt;/h3&gt;&lt;p&gt;​	用于对数据进行签名并控制签名的访问权限。与传统的数字签名不同，基于属性的签名允许签名者为签名设置一组属性，并且只有满足特定属性集合的用户能够验证和解析签名。每个用户和签名都关联了一组属性，这一组属性在进行签名时被指定，只有满足相应属性的用户才能解析和验证。（也就是说用户需要提供具备相关属性的证明）&lt;/p&gt;
+&lt;h3 id=&#34;秘钥&#34;&gt;&lt;a href=&#34;#秘钥&#34; class=&#34;headerlink&#34; title=&#34;秘钥&#34;&gt;&lt;/a&gt;秘钥&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;签名者的私钥包括一个&lt;strong&gt;主私钥（Master Private Key）&lt;/strong&gt;和一组属性私钥&lt;strong&gt;（Attribute Private Keys）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;验证者的公钥是根据属性生成的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其实就是机构认定你属于某个范畴内，给你颁发了一个证书，你手里有个私钥，你以后做相应的签名，都可以进行证明你属于这个范畴。而别人有了你的私钥也不能证明其属于这个范畴。也就是没有办法合谋。&lt;/p&gt;
+&lt;h2 id=&#34;门限（Threshold）&#34;&gt;&lt;a href=&#34;#门限（Threshold）&#34; class=&#34;headerlink&#34; title=&#34;门限（Threshold）&#34;&gt;&lt;/a&gt;门限（Threshold）&lt;/h2&gt;&lt;h3 id=&#34;门限概念&#34;&gt;&lt;a href=&#34;#门限概念&#34; class=&#34;headerlink&#34; title=&#34;门限概念&#34;&gt;&lt;/a&gt;门限概念&lt;/h3&gt;&lt;p&gt;在多方参与的协议或者方案中，需要达到的最小参与方数量或阈值，以便进行某些操作或达成共识。目的是只有到达一定的参与方之后，才能做某些决策等，确保多方之间的共识和安全性。&lt;/p&gt;
+&lt;h3 id=&#34;门限签名（Threshold-Signature&#34;&gt;&lt;a href=&#34;#门限签名（Threshold-Signature&#34; class=&#34;headerlink&#34; title=&#34;门限签名（Threshold Signature)&#34;&gt;&lt;/a&gt;门限签名（Threshold Signature)&lt;/h3&gt;&lt;p&gt;​	参与方共同生成和签署一份签名，但需要达到预定的门限值才能生成有效的签名。这意味着不足门限值的参与方无法单独生成有效签名，确保了多方之间的共同控制和安全性。&lt;/p&gt;
+&lt;h3 id=&#34;门限加密（Threshold-Encryption&#34;&gt;&lt;a href=&#34;#门限加密（Threshold-Encryption&#34; class=&#34;headerlink&#34; title=&#34;门限加密（Threshold Encryption)&#34;&gt;&lt;/a&gt;门限加密（Threshold Encryption)&lt;/h3&gt;&lt;p&gt;​	密钥被分割成多个部分，并且需要达到门限值才能还原出有效的密钥。这样，密钥的保管和使用需要多个参与方的协作，增强了密钥的安全性。&lt;/p&gt;
+&lt;h3 id=&#34;门限秘钥共享（Threshold-Key-Sharing&#34;&gt;&lt;a href=&#34;#门限秘钥共享（Threshold-Key-Sharing&#34; class=&#34;headerlink&#34; title=&#34;门限秘钥共享（Threshold Key Sharing)&#34;&gt;&lt;/a&gt;门限秘钥共享（Threshold Key Sharing)&lt;/h3&gt;&lt;p&gt;​	一个密钥被分割成多个部分，并分配给多个参与方。只有当达到门限值的参与方合作时，才能重构出完整的密钥，确保了密钥的安全性和可用性。&lt;/p&gt;
+&lt;p&gt;我们可以设计基于属性签名的方案来解决社交平台用户身份验证和保护隐私的问题。下面是基本的思路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;属性密钥生成机构(AKG)去中心化：可以通过区块链技术来实现这个特性。这样子，不同的机构可以注册为AKG，并接入该系统。每一家机构都可以生成并处理自己的私钥，而无需担心系统的中心化问题。在用户注册或验证他们的属性（如学校、工作机构等）时，相关的机构就会为用户生成和颁发私钥。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;阻止具有不同属性的用户的合谋：属性签名可以通过一种机制来实现，即不同的属性对应不同的密钥。任何一个用户都只能拥有它相应属性的密钥。如果用户尝试将他们的密钥结合在一起，由于签名算法的特性，这将导致签名无效。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;高效、稳定运行：首先我们需要选择一种效率较高的属性签名算法。然后，针对该算法进行优化以适应大规模用户使用。我们还需要进行严格的性能和压力测试，以确保问题的可扩展性和稳定性。另外，使用高效的数据库和服务器资源也能够确保系统的高效运行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这种解决方案也尊重用户的隐私，因为用户可以选择自己想要共享哪些属性，并且证明自己拥有这些属性而无需公开任何其他可能泄露隐私的信息。例如，用户可以证明他们在某所学校工作或学习，但无需公开他们的名字或其他详细信息，大大提高了身份验证的灵活性和便利性。同时，每个用户的密钥都是去中心化生成的，无法由单一机构控制，从而进一步加强了安全性。&lt;/p&gt;
+&lt;h3 id=&#34;假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？&#34;&gt;&lt;a href=&#34;#假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？&#34; class=&#34;headerlink&#34; title=&#34;假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？&#34;&gt;&lt;/a&gt;假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？&lt;/h3&gt;&lt;figure class=&#34;highlight css&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs css&#34;&gt;基于属性签名的系统旨在对每个用户(UI)和每个属性(AI)独立地产生秘钥，而一个秘钥主要由两部分组成：用户ID部分和属性信息部分。如果两个用户交换了秘钥，他们将不能成功冒用对方的属性，原因主要有两点： &lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;. **用户标识的唯一性**：签名核验的过程将会校验签名者的ID是否匹配签名，即使用户&lt;span class=&#34;hljs-selector-tag&#34;&gt;A&lt;/span&gt;得到了&lt;span class=&#34;hljs-selector-tag&#34;&gt;B&lt;/span&gt;的秘钥并试图签名，由于签名核验过程中ID的检查，&lt;span class=&#34;hljs-selector-tag&#34;&gt;A&lt;/span&gt;将无法成功模仿&lt;span class=&#34;hljs-selector-tag&#34;&gt;B&lt;/span&gt;的属性。&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;. **秘钥与属性对应**：属性秘钥的生成过程中，特定的属性信息也被编码进秘钥中。因此，即使两个用户交换了秘钥，由于秘钥是为对应的特定属性生成的，他们也无法用这个秘钥签署不符合这个属性的信息。&lt;br&gt;&lt;br&gt;因此，基于属性的加密和签名方案本质上可以防止秘钥交换后的冒名行为。然而，仍建议在设计系统时，慎重处理秘钥管理和配发的过程，防止秘钥被滥用。&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;也就是要基于区块链实现一个能够多机构颁发属性签名的身份认证系统。&lt;/p&gt;
+&lt;p&gt;分布式身份&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/341995836&#34;&gt;https://zhuanlan.zhihu.com/p/341995836&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;区块链与属性签名&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/640139780&#34;&gt;https://zhuanlan.zhihu.com/p/640139780&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;门限签名技术&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/558143725&#34;&gt;https://zhuanlan.zhihu.com/p/558143725&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;门限签名的概念与应用&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bitalk.com/news/detail/758849051348307968&#34;&gt;https://www.bitalk.com/news/detail/758849051348307968&lt;/a&gt;&lt;/p&gt;
+</content>
+        <updated>2024-03-04T06:10:57.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/02/29/java-an-quan-shen-ji/</id>
+        <title>JAVA安全审计</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/02/29/java-an-quan-shen-ji/"/>
+        <content type="html">&lt;h2 id=&#34;环境配置&#34;&gt;&lt;a href=&#34;#环境配置&#34; class=&#34;headerlink&#34; title=&#34;环境配置&#34;&gt;&lt;/a&gt;环境配置&lt;/h2&gt;&lt;h3 id=&#34;IDEA&#34;&gt;&lt;a href=&#34;#IDEA&#34; class=&#34;headerlink&#34; title=&#34;IDEA&#34;&gt;&lt;/a&gt;IDEA&lt;/h3&gt;&lt;h3 id=&#34;Maven&#34;&gt;&lt;a href=&#34;#Maven&#34; class=&#34;headerlink&#34; title=&#34;Maven&#34;&gt;&lt;/a&gt;Maven&lt;/h3&gt;&lt;h3 id=&#34;JavaWeb&#34;&gt;&lt;a href=&#34;#JavaWeb&#34; class=&#34;headerlink&#34; title=&#34;JavaWeb&#34;&gt;&lt;/a&gt;JavaWeb&lt;/h3&gt;&lt;h4 id=&#34;Serverlet基础&#34;&gt;&lt;a href=&#34;#Serverlet基础&#34; class=&#34;headerlink&#34; title=&#34;Serverlet基础&#34;&gt;&lt;/a&gt;Serverlet基础&lt;/h4&gt;&lt;h3 id=&#34;反射机制&#34;&gt;&lt;a href=&#34;#反射机制&#34; class=&#34;headerlink&#34; title=&#34;反射机制&#34;&gt;&lt;/a&gt;反射机制&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反射修改字段&lt;/li&gt;
+&lt;li&gt;反射修改final的问题&lt;/li&gt;
+&lt;li&gt;反射调试方法&lt;/li&gt;
+&lt;li&gt;高版本绕过反射限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;ASM-x2F-javassist&#34;&gt;&lt;a href=&#34;#ASM-x2F-javassist&#34; class=&#34;headerlink&#34; title=&#34;ASM/javassist&#34;&gt;&lt;/a&gt;ASM/javassist&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;java字节码（用到再学）&lt;/li&gt;
+&lt;li&gt;如何使用ASM修改字节码&lt;/li&gt;
+&lt;li&gt;如何使用javaassist生成字节码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;JNDI攻击&#34;&gt;&lt;a href=&#34;#JNDI攻击&#34; class=&#34;headerlink&#34; title=&#34;JNDI攻击&#34;&gt;&lt;/a&gt;JNDI攻击&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;log4j2&lt;/li&gt;
+&lt;li&gt;8u191下如何攻击&lt;/li&gt;
+&lt;li&gt;8u191以上如何打（反序列化/本地工厂）&lt;/li&gt;
+&lt;li&gt;漏洞如何审计：lookup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;RMI攻击&#34;&gt;&lt;a href=&#34;#RMI攻击&#34; class=&#34;headerlink&#34; title=&#34;RMI攻击&#34;&gt;&lt;/a&gt;RMI攻击&lt;/h3&gt;&lt;h3 id=&#34;Java-Agent&#34;&gt;&lt;a href=&#34;#Java-Agent&#34; class=&#34;headerlink&#34; title=&#34;Java Agent&#34;&gt;&lt;/a&gt;Java Agent&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;启动前与运行中Agent，如何attach java agent&lt;/li&gt;
+&lt;li&gt;RASP的原理，简单实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;JMX-x2F-JDWP&#34;&gt;&lt;a href=&#34;#JMX-x2F-JDWP&#34; class=&#34;headerlink&#34; title=&#34;JMX/JDWP&#34;&gt;&lt;/a&gt;JMX/JDWP&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一个监控，一个调试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;反序列化基础&#34;&gt;&lt;a href=&#34;#反序列化基础&#34; class=&#34;headerlink&#34; title=&#34;反序列化基础&#34;&gt;&lt;/a&gt;反序列化基础&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反序列化链：URLDNS/CC/CB/7u21/8u20分析&lt;/li&gt;
+&lt;li&gt;尝试阅读并魔改ysoserial&lt;/li&gt;
+&lt;li&gt;JEP 290是什么&lt;/li&gt;
+&lt;li&gt;JEP 290鸡肋绕过&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;FastJson反序列化&#34;&gt;&lt;a href=&#34;#FastJson反序列化&#34; class=&#34;headerlink&#34; title=&#34;FastJson反序列化&#34;&gt;&lt;/a&gt;FastJson反序列化&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;1.2.47以前的分析和绕过&lt;/li&gt;
+&lt;li&gt;1.2.47 到 1.2.68的分析和绕过&lt;/li&gt;
+&lt;li&gt;1.2.80的分析&lt;/li&gt;
+&lt;li&gt;出网与不出网的利用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;weblogic&#34;&gt;&lt;a href=&#34;#weblogic&#34; class=&#34;headerlink&#34; title=&#34;weblogic&#34;&gt;&lt;/a&gt;weblogic&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反序列化漏洞&lt;/li&gt;
+&lt;li&gt;二次反序列化&lt;/li&gt;
+&lt;li&gt;14882绕过&lt;/li&gt;
+&lt;li&gt;XML Decoder绕过&lt;/li&gt;
+&lt;li&gt;IIOP/T3&lt;/li&gt;
+&lt;li&gt;文件上传&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;XStream-x2F-jackson&#34;&gt;&lt;a href=&#34;#XStream-x2F-jackson&#34; class=&#34;headerlink&#34; title=&#34;XStream/jackson&#34;&gt;&lt;/a&gt;XStream/jackson&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;历史上有很多的Gadget，如何去找新的Gadget&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Hessian&#34;&gt;&lt;a href=&#34;#Hessian&#34; class=&#34;headerlink&#34; title=&#34;Hessian&#34;&gt;&lt;/a&gt;Hessian&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Apache dubbo历史上的漏洞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;SnakeYAML&#34;&gt;&lt;a href=&#34;#SnakeYAML&#34; class=&#34;headerlink&#34; title=&#34;SnakeYAML&#34;&gt;&lt;/a&gt;SnakeYAML&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;如何利用，如何修复，如何审计&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;shiro（重点）&#34;&gt;&lt;a href=&#34;#shiro（重点）&#34; class=&#34;headerlink&#34; title=&#34;shiro（重点）&#34;&gt;&lt;/a&gt;shiro（重点）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;经典的RCE&lt;/li&gt;
+&lt;li&gt;shiro 721 Padding Oracle&lt;/li&gt;
+&lt;li&gt;如何检测（SimplePrincipalCollection）&lt;/li&gt;
+&lt;li&gt;如何自己写利用工具&lt;/li&gt;
+&lt;li&gt;如何通过Shiro注入内存木马&lt;/li&gt;
+&lt;li&gt;修改KEY&lt;/li&gt;
+&lt;li&gt;请求头过大的限制方法&lt;/li&gt;
+&lt;li&gt;请求头长度严格限制的情况下如何绕过&lt;/li&gt;
+&lt;li&gt;Nginx反向代理和负载均衡下的问题解决&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;structs2&#34;&gt;&lt;a href=&#34;#structs2&#34; class=&#34;headerlink&#34; title=&#34;structs2&#34;&gt;&lt;/a&gt;structs2&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;ognl漏洞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Spring&#34;&gt;&lt;a href=&#34;#Spring&#34; class=&#34;headerlink&#34; title=&#34;Spring&#34;&gt;&lt;/a&gt;Spring&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Spring RCE分析&lt;/li&gt;
+&lt;li&gt;Spring EL相关漏洞&lt;/li&gt;
+&lt;li&gt;Springboot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Log4j2&#34;&gt;&lt;a href=&#34;#Log4j2&#34; class=&#34;headerlink&#34; title=&#34;Log4j2&#34;&gt;&lt;/a&gt;Log4j2&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;最初版RCERC1的绕过&lt;/li&gt;
+&lt;li&gt;拒绝服务原理&lt;/li&gt;
+&lt;li&gt;Java Agent修复原理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Tomcat&#34;&gt;&lt;a href=&#34;#Tomcat&#34; class=&#34;headerlink&#34; title=&#34;Tomcat&#34;&gt;&lt;/a&gt;Tomcat&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;PUT RCE&lt;/li&gt;
+&lt;li&gt;CGI SERVERLET RCE&lt;/li&gt;
+&lt;li&gt;SESSION RCE&lt;/li&gt;
+&lt;li&gt;AJP RCE&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="java" />
+        <updated>2024-02-29T13:21:04.000Z</updated>
+    </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2024/02/28/xu-ni-hua-an-quan/</id>
         <title>虚拟化安全</title>
@@ -72,11 +204,10 @@
 &lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs go&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;package&lt;/span&gt; main&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;fmt&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// import &#34;unsafe&#34;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;change&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(v *&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;    *v = &lt;span class=&#34;hljs-number&#34;&gt;40&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; {&lt;br&gt;	&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt;(&lt;br&gt;	a = [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;{&lt;span class=&#34;hljs-number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;30&lt;/span&gt;}&lt;br&gt;	ptr [&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;]*&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;&lt;br&gt;	)&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;for&lt;/span&gt; i := &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;; i&amp;lt;&lt;span class=&#34;hljs-built_in&#34;&gt;len&lt;/span&gt;(a); i ++{&lt;br&gt;	ptr[i] = &amp;amp;a[i]&lt;br&gt;	fmt.Printf(&lt;span class=&#34;hljs-string&#34;&gt;&#34;%d 0x%x\n&#34;&lt;/span&gt;,i+&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;, ptr[i])&lt;br&gt;}&lt;br&gt;fmt.Println(*ptr[&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;])&lt;br&gt;intVal := &lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;(&lt;span class=&#34;hljs-type&#34;&gt;uintptr&lt;/span&gt;(unsafe.Pointer(ptr[&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;])))&lt;br&gt;intVal += &lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;&lt;br&gt;ptr2 := (*&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt;)(unsafe.Pointer(&lt;span class=&#34;hljs-type&#34;&gt;uintptr&lt;/span&gt;(intVal)))&lt;br&gt;fmt.Println(*(ptr2)) &lt;span class=&#34;hljs-comment&#34;&gt;// 报错 unsafe&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
 &lt;p&gt;由于Go语言的特性，直接读取给定地址的内容是不允许的，因为Go语言具有内存安全性和类型安全性的限制。Go语言的内存访问是受限制的，不能直接操纵指针或进行低级别的内存操作。直接将数字转化为指针是不安全的，因此编译都不会通过。&lt;/p&gt;
-&lt;h3 id=&#34;似乎可以利用的点&#34;&gt;&lt;a href=&#34;#似乎可以利用的点&#34; class=&#34;headerlink&#34; title=&#34;似乎可以利用的点&#34;&gt;&lt;/a&gt;似乎可以利用的点&lt;/h3&gt;&lt;p&gt;Go语言中如果将代码写在同一行是没问题的，但是需要使用分号隔开。在进行模本注入的过程中可以考虑使用该方法。	&lt;/p&gt;
 &lt;h2 id=&#34;Go语言的安全问题&#34;&gt;&lt;a href=&#34;#Go语言的安全问题&#34; class=&#34;headerlink&#34; title=&#34;Go语言的安全问题&#34;&gt;&lt;/a&gt;Go语言的安全问题&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://tyskill.github.io/posts/gossti/&#34;&gt;https://tyskill.github.io/posts/gossti/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://bycsec.top/2021/02/07/golang%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/&#34;&gt;https://bycsec.top/2021/02/07/golang%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://xz.aliyun.com/t/13674?time__1311=mqmxnQ0QeDqGuD05d4+xCqklWoqxAK5x&amp;amp;alichlgref=https://www.google.com.hk/&#34;&gt;https://xz.aliyun.com/t/13674?time__1311=mqmxnQ0QeDqGuD05d4%2BxCqklWoqxAK5x&amp;amp;alichlgref=https%3A%2F%2Fwww.google.com.hk%2F&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;模板注入&#34;&gt;&lt;a href=&#34;#模板注入&#34; class=&#34;headerlink&#34; title=&#34;模板注入&#34;&gt;&lt;/a&gt;模板注入&lt;/h3&gt;&lt;h3 id=&#34;XSS&#34;&gt;&lt;a href=&#34;#XSS&#34; class=&#34;headerlink&#34; title=&#34;XSS&#34;&gt;&lt;/a&gt;XSS&lt;/h3&gt;&lt;h3 id=&#34;命令执行&#34;&gt;&lt;a href=&#34;#命令执行&#34; class=&#34;headerlink&#34; title=&#34;命令执行&#34;&gt;&lt;/a&gt;命令执行&lt;/h3&gt;&lt;h3 id=&#34;任意文件读取&#34;&gt;&lt;a href=&#34;#任意文件读取&#34; class=&#34;headerlink&#34; title=&#34;任意文件读取&#34;&gt;&lt;/a&gt;任意文件读取&lt;/h3&gt;&lt;h2 id=&#34;Go语言漏洞&#34;&gt;&lt;a href=&#34;#Go语言漏洞&#34; class=&#34;headerlink&#34; title=&#34;Go语言漏洞&#34;&gt;&lt;/a&gt;Go语言漏洞&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://pkg.go.dev/vuln/list&#34;&gt;https://pkg.go.dev/vuln/list&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;模板注入&#34;&gt;&lt;a href=&#34;#模板注入&#34; class=&#34;headerlink&#34; title=&#34;模板注入&#34;&gt;&lt;/a&gt;模板注入&lt;/h3&gt;&lt;h3 id=&#34;XSS&#34;&gt;&lt;a href=&#34;#XSS&#34; class=&#34;headerlink&#34; title=&#34;XSS&#34;&gt;&lt;/a&gt;XSS&lt;/h3&gt;&lt;h3 id=&#34;命令执行&#34;&gt;&lt;a href=&#34;#命令执行&#34; class=&#34;headerlink&#34; title=&#34;命令执行&#34;&gt;&lt;/a&gt;命令执行&lt;/h3&gt;&lt;h3 id=&#34;任意文件读取&#34;&gt;&lt;a href=&#34;#任意文件读取&#34; class=&#34;headerlink&#34; title=&#34;任意文件读取&#34;&gt;&lt;/a&gt;任意文件读取&lt;/h3&gt;&lt;h2 id=&#34;漏洞参考网站&#34;&gt;&lt;a href=&#34;#漏洞参考网站&#34; class=&#34;headerlink&#34; title=&#34;漏洞参考网站&#34;&gt;&lt;/a&gt;漏洞参考网站&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://pkg.go.dev/vuln/list&#34;&gt;https://pkg.go.dev/vuln/list&lt;/a&gt;&lt;/p&gt;
 </content>
         <category term="go" />
         <updated>2024-01-28T01:33:23.000Z</updated>
@@ -268,9 +399,9 @@
         <updated>2023-10-03T11:03:18.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/10/03/arm-base/</id>
-        <title>Arm_Base</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/03/arm-base/"/>
+        <id>https://alazymechnaic.github.io/2023/10/03/arm-zhi-ling-ji-chu/</id>
+        <title>ARM指令基础</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/10/03/arm-zhi-ling-ji-chu/"/>
         <content type="html">&lt;h2 id=&#34;ARM&#34;&gt;&lt;a href=&#34;#ARM&#34; class=&#34;headerlink&#34; title=&#34;ARM&#34;&gt;&lt;/a&gt;ARM&lt;/h2&gt;&lt;p&gt;​	本文用于介绍arm指令集的基本架构，特性。&lt;/p&gt;
 &lt;h3 id=&#34;寄存器用法&#34;&gt;&lt;a href=&#34;#寄存器用法&#34; class=&#34;headerlink&#34; title=&#34;寄存器用法&#34;&gt;&lt;/a&gt;寄存器用法&lt;/h3&gt;&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs assembly&#34;&gt;通用寄存器（General-Purpose Registers）：&lt;br&gt;&lt;br&gt;r0~r3 主要用于子程序间传递参数&lt;br&gt;&lt;br&gt;r4~r11 主要用于保存局部变量，但在 Thumb 程序中，通常只能使用 r4~r7 来保存局部变量&lt;br&gt;&lt;br&gt;r12 用作子程序间scratch 寄存器，即 ip 寄存器&lt;br&gt;&lt;br&gt;r13 通常用做栈指针，即 sp&lt;br&gt;&lt;br&gt;r14 寄存器又被称为连接寄存器（lr），用于保存子程序以及中断的返回地址&lt;br&gt;&lt;br&gt;r15 用作程序计数器（pc），由于 ARM 采用了流水线机制，当正确读取了 PC 的值后，该值为当前指令地址加 8 个字节，即 PC 指向当前指令的下两条指令地址。&lt;br&gt;&lt;br&gt;CPSR和SPSR都是程序状态寄存器，其中SPSR是用来保存中断前的CPSR中的值，以便在中断返回之后恢复处理器程序状态&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 
@@ -419,12 +550,13 @@
 
 &lt;h2 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#参考链接&#34; class=&#34;headerlink&#34; title=&#34;参考链接&#34;&gt;&lt;/a&gt;参考链接&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://www.xjx100.cn/news/510354.html?action=onClick&#34;&gt;https://www.xjx100.cn/news/510354.html?action=onClick&lt;/a&gt;&lt;/p&gt;
 </content>
+        <category term="binary" />
         <updated>2023-10-02T13:05:07.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/</id>
+        <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/</id>
         <title>数据流分析</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/"/>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/"/>
         <content type="html">&lt;h1 id=&#34;DataFlow-Analysis&#34;&gt;&lt;a href=&#34;#DataFlow-Analysis&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Analysis&#34;&gt;&lt;/a&gt;DataFlow Analysis&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&#34;数据流分析的作用&#34;&gt;&lt;a href=&#34;#数据流分析的作用&#34; class=&#34;headerlink&#34; title=&#34;数据流分析的作用&#34;&gt;&lt;/a&gt;数据流分析的作用&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;简化执行代码&lt;/strong&gt;:&lt;/p&gt;
@@ -613,9 +745,9 @@
         <updated>2023-08-30T08:38:13.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</id>
-        <title>Sec_paper_list</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/22/sec-paper-list/"/>
+        <id>https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/</id>
+        <title>相关论文合集</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/"/>
         <content type="html">&lt;h2 id=&#34;安全相关论文及博客汇总&#34;&gt;&lt;a href=&#34;#安全相关论文及博客汇总&#34; class=&#34;headerlink&#34; title=&#34;安全相关论文及博客汇总&#34;&gt;&lt;/a&gt;安全相关论文及博客汇总&lt;/h2&gt;&lt;hr&gt;
 &lt;h3 id=&#34;安全会议&#34;&gt;&lt;a href=&#34;#安全会议&#34; class=&#34;headerlink&#34; title=&#34;安全会议&#34;&gt;&lt;/a&gt;安全会议&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;NDSS&lt;/strong&gt;：  &lt;a href=&#34;https://www.ndss-symposium.org/ndss2023/accepted-papers/&#34;&gt;https://www.ndss-symposium.org/ndss2023/accepted-papers/&lt;/a&gt;&lt;/li&gt;
@@ -1000,9 +1132,9 @@
         <updated>2023-06-27T01:50:02.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</id>
-        <title>堆利用管理</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/"/>
+        <id>https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/</id>
+        <title>堆溢出利用</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/"/>
         <content type="html">&lt;h1 id=&#34;堆利用&#34;&gt;&lt;a href=&#34;#堆利用&#34; class=&#34;headerlink&#34; title=&#34;堆利用&#34;&gt;&lt;/a&gt;堆利用&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。&lt;/p&gt;
 &lt;h2 id=&#34;堆管理机制&#34;&gt;&lt;a href=&#34;#堆管理机制&#34; class=&#34;headerlink&#34; title=&#34;堆管理机制&#34;&gt;&lt;/a&gt;堆管理机制&lt;/h2&gt;&lt;p&gt;​	堆区域与栈区域在内存使用上存在不同：&lt;/p&gt;
@@ -1241,15 +1373,15 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/05/bypass-aslr/</id>
-        <title>bypass-aslr</title>
+        <title>BYPASS-ASLR</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/05/bypass-aslr/"/>
         <content type="html"></content>
         <updated>2023-05-05T02:29:48.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/05/02/cfi-sec/</id>
-        <title>CFI-Sec</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/02/cfi-sec/"/>
+        <id>https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/</id>
+        <title>控制流完整性（CFI）</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/"/>
         <content type="html">&lt;h2 id=&#34;Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms&#34;&gt;&lt;a href=&#34;#Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms&#34; class=&#34;headerlink&#34; title=&#34;Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms&#34;&gt;&lt;/a&gt;Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms&lt;/h2&gt;&lt;hr&gt;
 &lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png&#34; alt=&#34;image-20230502185448539&#34;&gt;&lt;/p&gt;
 &lt;p&gt;​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）&lt;/p&gt;
@@ -1264,7 +1396,7 @@
     </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/02/bypass-nx/</id>
-        <title>bypass-NX</title>
+        <title>BYPASS-NX</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/02/bypass-nx/"/>
         <content type="html">&lt;h2 id=&#34;Bypass-NX（DEP）&#34;&gt;&lt;a href=&#34;#Bypass-NX（DEP）&#34; class=&#34;headerlink&#34; title=&#34;Bypass NX（DEP）&#34;&gt;&lt;/a&gt;Bypass NX（DEP）&lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;&lt;a href=&#34;#简介&#34; class=&#34;headerlink&#34; title=&#34;简介&#34;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的&lt;strong&gt;SIGSEGV&lt;/strong&gt; 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。&lt;/p&gt;
 &lt;h3 id=&#34;绕过&#34;&gt;&lt;a href=&#34;#绕过&#34; class=&#34;headerlink&#34; title=&#34;绕过&#34;&gt;&lt;/a&gt;绕过&lt;/h3&gt;&lt;p&gt;​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（&lt;strong&gt;如果在开启了NX的情况下如何进行单字节溢出的利用&lt;/strong&gt;）。&lt;/p&gt;
@@ -1310,9 +1442,9 @@
         <updated>2023-05-02T06:56:58.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/04/27/one-byte-overflow/</id>
-        <title>one_byte_overflow</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/04/27/one-byte-overflow/"/>
+        <id>https://alazymechnaic.github.io/2023/04/27/dan-zi-jie-yi-chu-one-byte-overflow/</id>
+        <title>单字节溢出（one-byte-overflow）</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/04/27/dan-zi-jie-yi-chu-one-byte-overflow/"/>
         <content type="html">&lt;h2 id=&#34;off-By-One-缓冲区溢出&#34;&gt;&lt;a href=&#34;#off-By-One-缓冲区溢出&#34; class=&#34;headerlink&#34; title=&#34;off-By-One 缓冲区溢出&#34;&gt;&lt;/a&gt;off-By-One 缓冲区溢出&lt;/h2&gt;&lt;h3 id=&#34;前言&#34;&gt;&lt;a href=&#34;#前言&#34; class=&#34;headerlink&#34; title=&#34;前言&#34;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。&lt;strong&gt;缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等&lt;/strong&gt;。主要参考：&lt;a href=&#34;https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/&#34;&gt;https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerability-stack-based-2/&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;单字节溢出案例&#34;&gt;&lt;a href=&#34;#单字节溢出案例&#34; class=&#34;headerlink&#34; title=&#34;单字节溢出案例&#34;&gt;&lt;/a&gt;单字节溢出案例&lt;/h3&gt;&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs c&#34;&gt;&lt;span class=&#34;hljs-meta&#34;&gt;#&lt;span class=&#34;hljs-keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;#&lt;span class=&#34;hljs-keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-type&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;hljs-title function_&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(&lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt;* arg)&lt;/span&gt;;&lt;br&gt;&lt;span class=&#34;hljs-type&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;hljs-title function_&#34;&gt;bar&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(&lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt;* arg)&lt;/span&gt;;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-type&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;hljs-title function_&#34;&gt;foo&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(&lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt;* arg)&lt;/span&gt; {&lt;br&gt; bar(arg); &lt;span class=&#34;hljs-comment&#34;&gt;/* [1] */&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-type&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;hljs-title function_&#34;&gt;bar&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(&lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt;* arg)&lt;/span&gt; {&lt;br&gt; &lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt; buf[&lt;span class=&#34;hljs-number&#34;&gt;256&lt;/span&gt;];&lt;br&gt; &lt;span class=&#34;hljs-built_in&#34;&gt;strcpy&lt;/span&gt;(buf, arg); &lt;span class=&#34;hljs-comment&#34;&gt;/* [2] */&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;hljs-title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(&lt;span class=&#34;hljs-type&#34;&gt;int&lt;/span&gt; argc, &lt;span class=&#34;hljs-type&#34;&gt;char&lt;/span&gt; *argv[])&lt;/span&gt; {&lt;br&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;hljs-built_in&#34;&gt;strlen&lt;/span&gt;(argv[&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;])&amp;gt;&lt;span class=&#34;hljs-number&#34;&gt;256&lt;/span&gt;) { &lt;span class=&#34;hljs-comment&#34;&gt;/* [3] */&lt;/span&gt;&lt;br&gt;  &lt;span class=&#34;hljs-built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;Attempted Buffer Overflow\n&#34;&lt;/span&gt;);&lt;br&gt;  fflush(&lt;span class=&#34;hljs-built_in&#34;&gt;stdout&lt;/span&gt;);&lt;br&gt;  &lt;span class=&#34;hljs-keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;hljs-number&#34;&gt;-1&lt;/span&gt;;&lt;br&gt; }&lt;br&gt; foo(argv[&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;]); &lt;span class=&#34;hljs-comment&#34;&gt;/* [4] */&lt;/span&gt;&lt;br&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
 

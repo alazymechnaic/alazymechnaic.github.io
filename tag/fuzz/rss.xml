@@ -25,6 +25,7 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/30/afl-ru-men/</guid>
             <title>AFL入门</title>

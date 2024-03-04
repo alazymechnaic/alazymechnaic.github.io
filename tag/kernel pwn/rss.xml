@@ -25,6 +25,7 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/13/kernel-pwn/</guid>
             <title>kernel_pwn</title>

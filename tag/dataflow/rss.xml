@@ -25,10 +25,11 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/</guid>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/</guid>
             <title>数据流分析</title>
-            <link>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi/</link>
+            <link>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/</link>
             <category>dataflow</category>
             <pubDate>Sat, 30 Sep 2023 14:48:10 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;DataFlow-Analysis&#34;&gt;&lt;a href=&#34;#DataFlow-Analysis&#34; class=&#34;headerlink&#34; title=&#34;DataFlow Analysis&#34;&gt;&lt;/a&gt;DataFlow Analysis&lt;/h1&gt;&lt;hr&gt;

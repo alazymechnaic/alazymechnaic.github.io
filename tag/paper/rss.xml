@@ -25,6 +25,7 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</guid>
             <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>
@@ -85,9 +86,9 @@
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</guid>
-            <title>Sec_paper_list</title>
-            <link>https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</link>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/</guid>
+            <title>相关论文合集</title>
+            <link>https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/</link>
             <category>Paper</category>
             <pubDate>Tue, 22 Aug 2023 10:00:57 +0800</pubDate>
             <description><![CDATA[ &lt;h2 id=&#34;安全相关论文及博客汇总&#34;&gt;&lt;a href=&#34;#安全相关论文及博客汇总&#34; class=&#34;headerlink&#34; title=&#34;安全相关论文及博客汇总&#34;&gt;&lt;/a&gt;安全相关论文及博客汇总&lt;/h2&gt;&lt;hr&gt;

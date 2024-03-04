@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;java&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 29 Feb 2024 21:21:04 +0800</pubDate>
+        <lastBuildDate>Thu, 29 Feb 2024 21:21:04 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>fuzz</category>
+        <category>arm</category>
+        <category>Linux</category>
+        <category>C</category>
+        <category>go</category>
+        <category>Paper</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>Hook</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>writing</category>
+        <category>HEAP PWN CTF</category>
+        <category>Android</category>
+        <category>dataflow</category>
+        <category>pwn</category>
+        <category>java</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/02/29/java-an-quan-shen-ji/</guid>
+            <title>JAVA安全审计</title>
+            <link>https://alazymechnaic.github.io/2024/02/29/java-an-quan-shen-ji/</link>
+            <category>java</category>
+            <pubDate>Thu, 29 Feb 2024 21:21:04 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;环境配置&#34;&gt;&lt;a href=&#34;#环境配置&#34; class=&#34;headerlink&#34; title=&#34;环境配置&#34;&gt;&lt;/a&gt;环境配置&lt;/h2&gt;&lt;h3 id=&#34;IDEA&#34;&gt;&lt;a href=&#34;#IDEA&#34; class=&#34;headerlink&#34; title=&#34;IDEA&#34;&gt;&lt;/a&gt;IDEA&lt;/h3&gt;&lt;h3 id=&#34;Maven&#34;&gt;&lt;a href=&#34;#Maven&#34; class=&#34;headerlink&#34; title=&#34;Maven&#34;&gt;&lt;/a&gt;Maven&lt;/h3&gt;&lt;h3 id=&#34;JavaWeb&#34;&gt;&lt;a href=&#34;#JavaWeb&#34; class=&#34;headerlink&#34; title=&#34;JavaWeb&#34;&gt;&lt;/a&gt;JavaWeb&lt;/h3&gt;&lt;h4 id=&#34;Serverlet基础&#34;&gt;&lt;a href=&#34;#Serverlet基础&#34; class=&#34;headerlink&#34; title=&#34;Serverlet基础&#34;&gt;&lt;/a&gt;Serverlet基础&lt;/h4&gt;&lt;h3 id=&#34;反射机制&#34;&gt;&lt;a href=&#34;#反射机制&#34; class=&#34;headerlink&#34; title=&#34;反射机制&#34;&gt;&lt;/a&gt;反射机制&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反射修改字段&lt;/li&gt;
+&lt;li&gt;反射修改final的问题&lt;/li&gt;
+&lt;li&gt;反射调试方法&lt;/li&gt;
+&lt;li&gt;高版本绕过反射限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;ASM-x2F-javassist&#34;&gt;&lt;a href=&#34;#ASM-x2F-javassist&#34; class=&#34;headerlink&#34; title=&#34;ASM/javassist&#34;&gt;&lt;/a&gt;ASM/javassist&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;java字节码（用到再学）&lt;/li&gt;
+&lt;li&gt;如何使用ASM修改字节码&lt;/li&gt;
+&lt;li&gt;如何使用javaassist生成字节码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;JNDI攻击&#34;&gt;&lt;a href=&#34;#JNDI攻击&#34; class=&#34;headerlink&#34; title=&#34;JNDI攻击&#34;&gt;&lt;/a&gt;JNDI攻击&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;log4j2&lt;/li&gt;
+&lt;li&gt;8u191下如何攻击&lt;/li&gt;
+&lt;li&gt;8u191以上如何打（反序列化/本地工厂）&lt;/li&gt;
+&lt;li&gt;漏洞如何审计：lookup&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;RMI攻击&#34;&gt;&lt;a href=&#34;#RMI攻击&#34; class=&#34;headerlink&#34; title=&#34;RMI攻击&#34;&gt;&lt;/a&gt;RMI攻击&lt;/h3&gt;&lt;h3 id=&#34;Java-Agent&#34;&gt;&lt;a href=&#34;#Java-Agent&#34; class=&#34;headerlink&#34; title=&#34;Java Agent&#34;&gt;&lt;/a&gt;Java Agent&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;启动前与运行中Agent，如何attach java agent&lt;/li&gt;
+&lt;li&gt;RASP的原理，简单实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;JMX-x2F-JDWP&#34;&gt;&lt;a href=&#34;#JMX-x2F-JDWP&#34; class=&#34;headerlink&#34; title=&#34;JMX/JDWP&#34;&gt;&lt;/a&gt;JMX/JDWP&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;一个监控，一个调试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;反序列化基础&#34;&gt;&lt;a href=&#34;#反序列化基础&#34; class=&#34;headerlink&#34; title=&#34;反序列化基础&#34;&gt;&lt;/a&gt;反序列化基础&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反序列化链：URLDNS/CC/CB/7u21/8u20分析&lt;/li&gt;
+&lt;li&gt;尝试阅读并魔改ysoserial&lt;/li&gt;
+&lt;li&gt;JEP 290是什么&lt;/li&gt;
+&lt;li&gt;JEP 290鸡肋绕过&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;FastJson反序列化&#34;&gt;&lt;a href=&#34;#FastJson反序列化&#34; class=&#34;headerlink&#34; title=&#34;FastJson反序列化&#34;&gt;&lt;/a&gt;FastJson反序列化&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;1.2.47以前的分析和绕过&lt;/li&gt;
+&lt;li&gt;1.2.47 到 1.2.68的分析和绕过&lt;/li&gt;
+&lt;li&gt;1.2.80的分析&lt;/li&gt;
+&lt;li&gt;出网与不出网的利用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;weblogic&#34;&gt;&lt;a href=&#34;#weblogic&#34; class=&#34;headerlink&#34; title=&#34;weblogic&#34;&gt;&lt;/a&gt;weblogic&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;反序列化漏洞&lt;/li&gt;
+&lt;li&gt;二次反序列化&lt;/li&gt;
+&lt;li&gt;14882绕过&lt;/li&gt;
+&lt;li&gt;XML Decoder绕过&lt;/li&gt;
+&lt;li&gt;IIOP/T3&lt;/li&gt;
+&lt;li&gt;文件上传&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;XStream-x2F-jackson&#34;&gt;&lt;a href=&#34;#XStream-x2F-jackson&#34; class=&#34;headerlink&#34; title=&#34;XStream/jackson&#34;&gt;&lt;/a&gt;XStream/jackson&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;历史上有很多的Gadget，如何去找新的Gadget&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Hessian&#34;&gt;&lt;a href=&#34;#Hessian&#34; class=&#34;headerlink&#34; title=&#34;Hessian&#34;&gt;&lt;/a&gt;Hessian&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Apache dubbo历史上的漏洞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;SnakeYAML&#34;&gt;&lt;a href=&#34;#SnakeYAML&#34; class=&#34;headerlink&#34; title=&#34;SnakeYAML&#34;&gt;&lt;/a&gt;SnakeYAML&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;如何利用，如何修复，如何审计&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;shiro（重点）&#34;&gt;&lt;a href=&#34;#shiro（重点）&#34; class=&#34;headerlink&#34; title=&#34;shiro（重点）&#34;&gt;&lt;/a&gt;shiro（重点）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;经典的RCE&lt;/li&gt;
+&lt;li&gt;shiro 721 Padding Oracle&lt;/li&gt;
+&lt;li&gt;如何检测（SimplePrincipalCollection）&lt;/li&gt;
+&lt;li&gt;如何自己写利用工具&lt;/li&gt;
+&lt;li&gt;如何通过Shiro注入内存木马&lt;/li&gt;
+&lt;li&gt;修改KEY&lt;/li&gt;
+&lt;li&gt;请求头过大的限制方法&lt;/li&gt;
+&lt;li&gt;请求头长度严格限制的情况下如何绕过&lt;/li&gt;
+&lt;li&gt;Nginx反向代理和负载均衡下的问题解决&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;structs2&#34;&gt;&lt;a href=&#34;#structs2&#34; class=&#34;headerlink&#34; title=&#34;structs2&#34;&gt;&lt;/a&gt;structs2&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;ognl漏洞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Spring&#34;&gt;&lt;a href=&#34;#Spring&#34; class=&#34;headerlink&#34; title=&#34;Spring&#34;&gt;&lt;/a&gt;Spring&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Spring RCE分析&lt;/li&gt;
+&lt;li&gt;Spring EL相关漏洞&lt;/li&gt;
+&lt;li&gt;Springboot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Log4j2&#34;&gt;&lt;a href=&#34;#Log4j2&#34; class=&#34;headerlink&#34; title=&#34;Log4j2&#34;&gt;&lt;/a&gt;Log4j2&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;最初版RCERC1的绕过&lt;/li&gt;
+&lt;li&gt;拒绝服务原理&lt;/li&gt;
+&lt;li&gt;Java Agent修复原理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Tomcat&#34;&gt;&lt;a href=&#34;#Tomcat&#34; class=&#34;headerlink&#34; title=&#34;Tomcat&#34;&gt;&lt;/a&gt;Tomcat&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;PUT RCE&lt;/li&gt;
+&lt;li&gt;CGI SERVERLET RCE&lt;/li&gt;
+&lt;li&gt;SESSION RCE&lt;/li&gt;
+&lt;li&gt;AJP RCE&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

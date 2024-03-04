@@ -25,9 +25,10 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/02/bypass-nx/</guid>
-            <title>bypass-NX</title>
+            <title>BYPASS-NX</title>
             <link>https://alazymechnaic.github.io/2023/05/02/bypass-nx/</link>
             <category>bypass</category>
             <pubDate>Tue, 02 May 2023 14:56:58 +0800</pubDate>

@@ -25,10 +25,11 @@
         <category>Android</category>
         <category>dataflow</category>
         <category>pwn</category>
+        <category>java</category>
         <item>
-            <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</guid>
-            <title>堆利用管理</title>
-            <link>https://alazymechnaic.github.io/2023/05/12/dui-li-yong-guan-li/</link>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/</guid>
+            <title>堆溢出利用</title>
+            <link>https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/</link>
             <category>HEAP PWN CTF</category>
             <pubDate>Fri, 12 May 2023 19:47:55 +0800</pubDate>
             <description><![CDATA[ &lt;h1 id=&#34;堆利用&#34;&gt;&lt;a href=&#34;#堆利用&#34; class=&#34;headerlink&#34; title=&#34;堆利用&#34;&gt;&lt;/a&gt;堆利用&lt;/h1&gt;&lt;hr&gt;

@@ -22,6 +22,7 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</id>
         <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>
@@ -82,9 +83,9 @@
         <updated>2023-12-03T05:15:08.000Z</updated>
     </entry>
     <entry>
-        <id>https://alazymechnaic.github.io/2023/08/22/sec-paper-list/</id>
-        <title>Sec_paper_list</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/22/sec-paper-list/"/>
+        <id>https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/</id>
+        <title>相关论文合集</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/08/22/xiang-guan-lun-wen-he-ji/"/>
         <content type="html">&lt;h2 id=&#34;安全相关论文及博客汇总&#34;&gt;&lt;a href=&#34;#安全相关论文及博客汇总&#34; class=&#34;headerlink&#34; title=&#34;安全相关论文及博客汇总&#34;&gt;&lt;/a&gt;安全相关论文及博客汇总&lt;/h2&gt;&lt;hr&gt;
 &lt;h3 id=&#34;安全会议&#34;&gt;&lt;a href=&#34;#安全会议&#34; class=&#34;headerlink&#34; title=&#34;安全会议&#34;&gt;&lt;/a&gt;安全会议&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;NDSS&lt;/strong&gt;：  &lt;a href=&#34;https://www.ndss-symposium.org/ndss2023/accepted-papers/&#34;&gt;https://www.ndss-symposium.org/ndss2023/accepted-papers/&lt;/a&gt;&lt;/li&gt;

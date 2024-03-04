@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202402281041471.png">
 <meta property="article:published_time" content="2024-01-28T01:33:23.000Z">
-<meta property="article:modified_time" content="2024-02-28T10:01:02.402Z">
+<meta property="article:modified_time" content="2024-03-01T02:50:26.169Z">
 <meta property="article:author" content="alazymachine">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
@@ -235,7 +235,7 @@
         
         
         
-          21 分钟
+          20 分钟
         
       </span>
     
@@ -317,11 +317,10 @@
 <figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span><br><span class="hljs-comment">// import "unsafe"</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(v *<span class="hljs-type">int</span>)</span></span> {<br>    *v = <span class="hljs-number">40</span><br>}<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {<br>	<span class="hljs-keyword">var</span>(<br>	a = [<span class="hljs-number">3</span>]<span class="hljs-type">int</span>{<span class="hljs-number">10</span>,<span class="hljs-number">20</span>,<span class="hljs-number">30</span>}<br>	ptr [<span class="hljs-number">3</span>]*<span class="hljs-type">int</span><br>	)<br><br><span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i&lt;<span class="hljs-built_in">len</span>(a); i ++{<br>	ptr[i] = &amp;a[i]<br>	fmt.Printf(<span class="hljs-string">"%d 0x%x\n"</span>,i+<span class="hljs-number">1</span>, ptr[i])<br>}<br>fmt.Println(*ptr[<span class="hljs-number">0</span>])<br>intVal := <span class="hljs-type">int</span>(<span class="hljs-type">uintptr</span>(unsafe.Pointer(ptr[<span class="hljs-number">0</span>])))<br>intVal += <span class="hljs-number">8</span><br>ptr2 := (*<span class="hljs-type">int</span>)(unsafe.Pointer(<span class="hljs-type">uintptr</span>(intVal)))<br>fmt.Println(*(ptr2)) <span class="hljs-comment">// 报错 unsafe</span><br>}<br></code></pre></td></tr></tbody></table></figure>
 
 <p>由于Go语言的特性，直接读取给定地址的内容是不允许的，因为Go语言具有内存安全性和类型安全性的限制。Go语言的内存访问是受限制的，不能直接操纵指针或进行低级别的内存操作。直接将数字转化为指针是不安全的，因此编译都不会通过。</p>
-<h3 id="似乎可以利用的点"><a href="#似乎可以利用的点" class="headerlink" title="似乎可以利用的点"></a>似乎可以利用的点</h3><p>Go语言中如果将代码写在同一行是没问题的，但是需要使用分号隔开。在进行模本注入的过程中可以考虑使用该方法。	</p>
 <h2 id="Go语言的安全问题"><a href="#Go语言的安全问题" class="headerlink" title="Go语言的安全问题"></a>Go语言的安全问题</h2><p><a target="_blank" rel="noopener" href="https://tyskill.github.io/posts/gossti/">https://tyskill.github.io/posts/gossti/</a></p>
 <p><a target="_blank" rel="noopener" href="https://bycsec.top/2021/02/07/golang%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">https://bycsec.top/2021/02/07/golang%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/</a></p>
 <p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/13674?time__1311=mqmxnQ0QeDqGuD05d4+xCqklWoqxAK5x&amp;alichlgref=https://www.google.com.hk/">https://xz.aliyun.com/t/13674?time__1311=mqmxnQ0QeDqGuD05d4%2BxCqklWoqxAK5x&amp;alichlgref=https%3A%2F%2Fwww.google.com.hk%2F</a></p>
-<h3 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h3><h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><h3 id="任意文件读取"><a href="#任意文件读取" class="headerlink" title="任意文件读取"></a>任意文件读取</h3><h2 id="Go语言漏洞"><a href="#Go语言漏洞" class="headerlink" title="Go语言漏洞"></a>Go语言漏洞</h2><p><a target="_blank" rel="noopener" href="https://pkg.go.dev/vuln/list">https://pkg.go.dev/vuln/list</a></p>
+<h3 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h3><h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><h3 id="任意文件读取"><a href="#任意文件读取" class="headerlink" title="任意文件读取"></a>任意文件读取</h3><h2 id="漏洞参考网站"><a href="#漏洞参考网站" class="headerlink" title="漏洞参考网站"></a>漏洞参考网站</h2><p><a target="_blank" rel="noopener" href="https://pkg.go.dev/vuln/list">https://pkg.go.dev/vuln/list</a></p>
 
                 
               </div>

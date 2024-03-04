@@ -22,6 +22,7 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/07/14/clash-build/</id>
         <title>clash_build</title>

@@ -16,23 +16,21 @@
   <meta name="author" content="alazymachine">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms  ​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合">
+    <meta name="description" content="属性签名（attribute-based signature）属性签名概念​	用于对数据进行签名并控制签名的访问权限。与传统的数字签名不同，基于属性的签名允许签名者为签名设置一组属性，并且只有满足特定属性集合的用户能够验证和解析签名。每个用户和签名都关联了一组属性，这一组属性在进行签名时被指定，只有满足相应属性的用户才能解析和验证。（也就是说用户需要提供具备相关属性的证明） 秘钥 签名者的私钥包括">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CFI-Sec">
-<meta property="og:url" content="https://alazymechnaic.github.io/2023/05/02/cfi-sec/index.html">
+<meta property="og:title" content="属性签名与门限">
+<meta property="og:url" content="https://alazymechnaic.github.io/2024/03/04/shu-xing-qian-ming-yu-men-xian/index.html">
 <meta property="og:site_name" content="alazymachine">
-<meta property="og:description" content="Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms  ​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合">
+<meta property="og:description" content="属性签名（attribute-based signature）属性签名概念​	用于对数据进行签名并控制签名的访问权限。与传统的数字签名不同，基于属性的签名允许签名者为签名设置一组属性，并且只有满足特定属性集合的用户能够验证和解析签名。每个用户和签名都关联了一组属性，这一组属性在进行签名时被指定，只有满足相应属性的用户才能解析和验证。（也就是说用户需要提供具备相关属性的证明） 秘钥 签名者的私钥包括">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png">
-<meta property="article:published_time" content="2023-05-02T10:21:39.000Z">
-<meta property="article:modified_time" content="2023-05-04T12:48:53.000Z">
+<meta property="article:published_time" content="2024-03-04T06:10:57.000Z">
+<meta property="article:modified_time" content="2024-03-04T06:12:55.109Z">
 <meta property="article:author" content="alazymachine">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png">
   
   
   
-  <title>CFI-Sec - alazymachine</title>
+  <title>属性签名与门限 - alazymachine</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CFI-Sec"></span>
+            <span id="subtitle" data-typed-text="属性签名与门限"></span>
           
         </div>
 
@@ -211,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-02 18:21" pubdate>
-          2023年5月2日 晚上
+        <time datetime="2024-03-04 14:10" pubdate>
+          2024年3月4日 下午
         </time>
       </span>
     
@@ -223,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          370 字
+          2k 字
         
       </span>
     
@@ -234,7 +232,7 @@
         
         
         
-          4 分钟
+          17 分钟
         
       </span>
     
@@ -272,20 +270,44 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">CFI-Sec</h1>
+            <h1 style="display: none">属性签名与门限</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms"><a href="#Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms" class="headerlink" title="Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms"></a>Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms</h2><hr>
-<p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png" srcset="/img/loading.gif" lazyload alt="image-20230502185448539"></p>
-<p>​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）</p>
-<p>​	当前的任何CFI控制流安全策略都需要解决以下几个问题：</p>
-<ul>
-<li>如何让claimed boundary和real boundary match？</li>
-<li>有些可行的目标组合依然会导致漏洞利用（这不就是DOP么？）</li>
+                <h2 id="属性签名（attribute-based-signature）"><a href="#属性签名（attribute-based-signature）" class="headerlink" title="属性签名（attribute-based signature）"></a>属性签名（attribute-based signature）</h2><h3 id="属性签名概念"><a href="#属性签名概念" class="headerlink" title="属性签名概念"></a>属性签名概念</h3><p>​	用于对数据进行签名并控制签名的访问权限。与传统的数字签名不同，基于属性的签名允许签名者为签名设置一组属性，并且只有满足特定属性集合的用户能够验证和解析签名。每个用户和签名都关联了一组属性，这一组属性在进行签名时被指定，只有满足相应属性的用户才能解析和验证。（也就是说用户需要提供具备相关属性的证明）</p>
+<h3 id="秘钥"><a href="#秘钥" class="headerlink" title="秘钥"></a>秘钥</h3><ul>
+<li>签名者的私钥包括一个<strong>主私钥（Master Private Key）</strong>和一组属性私钥<strong>（Attribute Private Keys）</strong>。</li>
+<li>验证者的公钥是根据属性生成的</li>
 </ul>
-<p>然后这个文章后面讲了评估CFI方案好坏的方法，等用到的时候再看</p>
+<p>其实就是机构认定你属于某个范畴内，给你颁发了一个证书，你手里有个私钥，你以后做相应的签名，都可以进行证明你属于这个范畴。而别人有了你的私钥也不能证明其属于这个范畴。也就是没有办法合谋。</p>
+<h2 id="门限（Threshold）"><a href="#门限（Threshold）" class="headerlink" title="门限（Threshold）"></a>门限（Threshold）</h2><h3 id="门限概念"><a href="#门限概念" class="headerlink" title="门限概念"></a>门限概念</h3><p>在多方参与的协议或者方案中，需要达到的最小参与方数量或阈值，以便进行某些操作或达成共识。目的是只有到达一定的参与方之后，才能做某些决策等，确保多方之间的共识和安全性。</p>
+<h3 id="门限签名（Threshold-Signature"><a href="#门限签名（Threshold-Signature" class="headerlink" title="门限签名（Threshold Signature)"></a>门限签名（Threshold Signature)</h3><p>​	参与方共同生成和签署一份签名，但需要达到预定的门限值才能生成有效的签名。这意味着不足门限值的参与方无法单独生成有效签名，确保了多方之间的共同控制和安全性。</p>
+<h3 id="门限加密（Threshold-Encryption"><a href="#门限加密（Threshold-Encryption" class="headerlink" title="门限加密（Threshold Encryption)"></a>门限加密（Threshold Encryption)</h3><p>​	密钥被分割成多个部分，并且需要达到门限值才能还原出有效的密钥。这样，密钥的保管和使用需要多个参与方的协作，增强了密钥的安全性。</p>
+<h3 id="门限秘钥共享（Threshold-Key-Sharing"><a href="#门限秘钥共享（Threshold-Key-Sharing" class="headerlink" title="门限秘钥共享（Threshold Key Sharing)"></a>门限秘钥共享（Threshold Key Sharing)</h3><p>​	一个密钥被分割成多个部分，并分配给多个参与方。只有当达到门限值的参与方合作时，才能重构出完整的密钥，确保了密钥的安全性和可用性。</p>
+<p>我们可以设计基于属性签名的方案来解决社交平台用户身份验证和保护隐私的问题。下面是基本的思路：</p>
+<ol>
+<li><p>属性密钥生成机构(AKG)去中心化：可以通过区块链技术来实现这个特性。这样子，不同的机构可以注册为AKG，并接入该系统。每一家机构都可以生成并处理自己的私钥，而无需担心系统的中心化问题。在用户注册或验证他们的属性（如学校、工作机构等）时，相关的机构就会为用户生成和颁发私钥。</p>
+</li>
+<li><p>阻止具有不同属性的用户的合谋：属性签名可以通过一种机制来实现，即不同的属性对应不同的密钥。任何一个用户都只能拥有它相应属性的密钥。如果用户尝试将他们的密钥结合在一起，由于签名算法的特性，这将导致签名无效。</p>
+</li>
+<li><p>高效、稳定运行：首先我们需要选择一种效率较高的属性签名算法。然后，针对该算法进行优化以适应大规模用户使用。我们还需要进行严格的性能和压力测试，以确保问题的可扩展性和稳定性。另外，使用高效的数据库和服务器资源也能够确保系统的高效运行。</p>
+</li>
+</ol>
+<p>这种解决方案也尊重用户的隐私，因为用户可以选择自己想要共享哪些属性，并且证明自己拥有这些属性而无需公开任何其他可能泄露隐私的信息。例如，用户可以证明他们在某所学校工作或学习，但无需公开他们的名字或其他详细信息，大大提高了身份验证的灵活性和便利性。同时，每个用户的密钥都是去中心化生成的，无法由单一机构控制，从而进一步加强了安全性。</p>
+<h3 id="假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？"><a href="#假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？" class="headerlink" title="假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？"></a>假设在基于属性的方案中，用户A获得了对学校S1的属性秘钥X，用户B获得了对于学校S2的属性秘钥Y，那么A和B合谋交换了自己的秘钥后，A是否就能冒用S2学校的属性？</h3><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">基于属性签名的系统旨在对每个用户(UI)和每个属性(AI)独立地产生秘钥，而一个秘钥主要由两部分组成：用户ID部分和属性信息部分。如果两个用户交换了秘钥，他们将不能成功冒用对方的属性，原因主要有两点： <br><br><span class="hljs-number">1</span>. **用户标识的唯一性**：签名核验的过程将会校验签名者的ID是否匹配签名，即使用户<span class="hljs-selector-tag">A</span>得到了<span class="hljs-selector-tag">B</span>的秘钥并试图签名，由于签名核验过程中ID的检查，<span class="hljs-selector-tag">A</span>将无法成功模仿<span class="hljs-selector-tag">B</span>的属性。<br><br><span class="hljs-number">2</span>. **秘钥与属性对应**：属性秘钥的生成过程中，特定的属性信息也被编码进秘钥中。因此，即使两个用户交换了秘钥，由于秘钥是为对应的特定属性生成的，他们也无法用这个秘钥签署不符合这个属性的信息。<br><br>因此，基于属性的加密和签名方案本质上可以防止秘钥交换后的冒名行为。然而，仍建议在设计系统时，慎重处理秘钥管理和配发的过程，防止秘钥被滥用。<br></code></pre></td></tr></tbody></table></figure>
+
+
+
+<p>也就是要基于区块链实现一个能够多机构颁发属性签名的身份认证系统。</p>
+<p>分布式身份</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/341995836">https://zhuanlan.zhihu.com/p/341995836</a></p>
+<p>区块链与属性签名</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/640139780">https://zhuanlan.zhihu.com/p/640139780</a></p>
+<p>门限签名技术</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/558143725">https://zhuanlan.zhihu.com/p/558143725</a></p>
+<p>门限签名的概念与应用</p>
+<p><a target="_blank" rel="noopener" href="https://www.bitalk.com/news/detail/758849051348307968">https://www.bitalk.com/news/detail/758849051348307968</a></p>
 
                 
               </div>
@@ -303,8 +325,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CFI-Sec</div>
-      <div>https://alazymechnaic.github.io/2023/05/02/cfi-sec/</div>
+      <div>属性签名与门限</div>
+      <div>https://alazymechnaic.github.io/2024/03/04/shu-xing-qian-ming-yu-men-xian/</div>
     </div>
     <div class="license-meta">
       
@@ -316,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月2日</div>
+          <div>2024年3月4日</div>
         </div>
       
       
@@ -348,18 +370,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/05/bypass-aslr/" title="bypass-aslr">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">bypass-aslr</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/02/bypass-nx/" title="bypass-NX">
-                        <span class="hidden-mobile">bypass-NX</span>
+                      <a href="/2024/02/29/java-an-quan-shen-ji/" title="JAVA安全审计">
+                        <span class="hidden-mobile">JAVA安全审计</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

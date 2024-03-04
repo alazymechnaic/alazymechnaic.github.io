@@ -22,9 +22,10 @@
     <category term="Android" />
     <category term="dataflow" />
     <category term="pwn" />
+    <category term="java" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/05/02/bypass-nx/</id>
-        <title>bypass-NX</title>
+        <title>BYPASS-NX</title>
         <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/02/bypass-nx/"/>
         <content type="html">&lt;h2 id=&#34;Bypass-NX（DEP）&#34;&gt;&lt;a href=&#34;#Bypass-NX（DEP）&#34; class=&#34;headerlink&#34; title=&#34;Bypass NX（DEP）&#34;&gt;&lt;/a&gt;Bypass NX（DEP）&lt;/h2&gt;&lt;h3 id=&#34;简介&#34;&gt;&lt;a href=&#34;#简介&#34; class=&#34;headerlink&#34; title=&#34;简介&#34;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的&lt;strong&gt;SIGSEGV&lt;/strong&gt; 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。&lt;/p&gt;
 &lt;h3 id=&#34;绕过&#34;&gt;&lt;a href=&#34;#绕过&#34; class=&#34;headerlink&#34; title=&#34;绕过&#34;&gt;&lt;/a&gt;绕过&lt;/h3&gt;&lt;p&gt;​	既然无法将shellcode注入到数据段上并执行，那就只能修改IP指向已有的代码部分。例如采用技术 Return-to-libc,修改当前的EIP指针向已有的库函数，并且传递相应的参数。（&lt;strong&gt;如果在开启了NX的情况下如何进行单字节溢出的利用&lt;/strong&gt;）。&lt;/p&gt;
