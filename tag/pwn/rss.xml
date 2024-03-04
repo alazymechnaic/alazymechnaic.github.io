@@ -26,6 +26,9 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/04/26/zhan-yi-chu-lou-dong-li-yong/</guid>
             <title>栈溢出漏洞利用</title>

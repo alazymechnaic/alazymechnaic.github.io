@@ -23,6 +23,9 @@
     <category term="dataflow" />
     <category term="pwn" />
     <category term="java" />
+    <category term="web" />
+    <category term="exploit" />
+    <category term="network" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</id>
         <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>

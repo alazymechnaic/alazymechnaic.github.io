@@ -26,6 +26,9 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/05/12/dui-yi-chu-li-yong/</guid>
             <title>堆溢出利用</title>

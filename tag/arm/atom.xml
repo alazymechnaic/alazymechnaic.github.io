@@ -23,6 +23,9 @@
     <category term="dataflow" />
     <category term="pwn" />
     <category term="java" />
+    <category term="web" />
+    <category term="exploit" />
+    <category term="network" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/10/03/arm-zhi-ling-ji-chu/</id>
         <title>ARM指令基础</title>

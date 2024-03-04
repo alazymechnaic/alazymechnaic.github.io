@@ -26,6 +26,9 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/07/14/clash-build/</guid>
             <title>clash_build</title>

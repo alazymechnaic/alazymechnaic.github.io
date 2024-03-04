@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"network\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/",
+            "url": "https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/",
+            "title": "计算机网络基础",
+            "date_published": "2024-03-04T06:48:04.000Z",
+            "content_html": "<h3 id=\"TCP链接建立过程\"><a href=\"#TCP链接建立过程\" class=\"headerlink\" title=\"TCP链接建立过程\"></a>TCP链接建立过程</h3><h3 id=\"HTTP链接建立过程\"><a href=\"#HTTP链接建立过程\" class=\"headerlink\" title=\"HTTP链接建立过程\"></a>HTTP链接建立过程</h3><h3 id=\"常见网络协议及端口\"><a href=\"#常见网络协议及端口\" class=\"headerlink\" title=\"常见网络协议及端口\"></a>常见网络协议及端口</h3><p>1.HTTP (Hyper Text Transfer Protocol) 端口号：80</p>\n<p>2.HTTPS (Secure Hyper Text Transfer Protocol) 端口号：443</p>\n<p>3.FTP (File Transfer Protocol) 端口号：21</p>\n<p>4.SMTP (Simple Mail Transfer Protocol) 端口号：25</p>\n<p>5.POP3 (Post Office Protocol version 3) 端口号：110</p>\n<p>6.IMAP (Internet Message Access Protocol) 端口号：143</p>\n<p>7.DNS (Domain Name System) 端口号：53</p>\n<p>8.DHCP (Dynamic Host Configuration Protocol) 端口号：67/68</p>\n<p>9.Telnet (Terminal Emulation) 端口号：23</p>\n<p>10.SSH (Secure Shell) 端口号：22</p>\n<p>11.NTP (Network Time Protocol) 端口号：123</p>\n<p>12.SNMP (Simple Network Management Protocol) 端口号：161/162</p>\n<p>13.RDP (Remote Desktop Protocol) 端口号：3389</p>\n<p>14.SIP (Session Initiation Protocol) 端口号：5060/5061</p>\n<p>15.ICQ (Internet Control Message Protocol) 端口号：7</p>\n<p>16.IRC (Internet Relay Chat) 端口号：194</p>\n<p>17.BitTorrent 端口号：6881-6889</p>\n",
+            "tags": [
+                "network"
+            ]
+        }
+    ]
+}

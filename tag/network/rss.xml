@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;network&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Mon, 04 Mar 2024 14:48:04 +0800</pubDate>
+        <lastBuildDate>Mon, 04 Mar 2024 14:48:04 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>fuzz</category>
+        <category>arm</category>
+        <category>Linux</category>
+        <category>C</category>
+        <category>go</category>
+        <category>Paper</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>Hook</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>writing</category>
+        <category>HEAP PWN CTF</category>
+        <category>Android</category>
+        <category>dataflow</category>
+        <category>pwn</category>
+        <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/</guid>
+            <title>计算机网络基础</title>
+            <link>https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/</link>
+            <category>network</category>
+            <pubDate>Mon, 04 Mar 2024 14:48:04 +0800</pubDate>
+            <description><![CDATA[ &lt;h3 id=&#34;TCP链接建立过程&#34;&gt;&lt;a href=&#34;#TCP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;TCP链接建立过程&#34;&gt;&lt;/a&gt;TCP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;HTTP链接建立过程&#34;&gt;&lt;a href=&#34;#HTTP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;HTTP链接建立过程&#34;&gt;&lt;/a&gt;HTTP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;常见网络协议及端口&#34;&gt;&lt;a href=&#34;#常见网络协议及端口&#34; class=&#34;headerlink&#34; title=&#34;常见网络协议及端口&#34;&gt;&lt;/a&gt;常见网络协议及端口&lt;/h3&gt;&lt;p&gt;1.HTTP (Hyper Text Transfer Protocol) 端口号：80&lt;/p&gt;
+&lt;p&gt;2.HTTPS (Secure Hyper Text Transfer Protocol) 端口号：443&lt;/p&gt;
+&lt;p&gt;3.FTP (File Transfer Protocol) 端口号：21&lt;/p&gt;
+&lt;p&gt;4.SMTP (Simple Mail Transfer Protocol) 端口号：25&lt;/p&gt;
+&lt;p&gt;5.POP3 (Post Office Protocol version 3) 端口号：110&lt;/p&gt;
+&lt;p&gt;6.IMAP (Internet Message Access Protocol) 端口号：143&lt;/p&gt;
+&lt;p&gt;7.DNS (Domain Name System) 端口号：53&lt;/p&gt;
+&lt;p&gt;8.DHCP (Dynamic Host Configuration Protocol) 端口号：67/68&lt;/p&gt;
+&lt;p&gt;9.Telnet (Terminal Emulation) 端口号：23&lt;/p&gt;
+&lt;p&gt;10.SSH (Secure Shell) 端口号：22&lt;/p&gt;
+&lt;p&gt;11.NTP (Network Time Protocol) 端口号：123&lt;/p&gt;
+&lt;p&gt;12.SNMP (Simple Network Management Protocol) 端口号：161/162&lt;/p&gt;
+&lt;p&gt;13.RDP (Remote Desktop Protocol) 端口号：3389&lt;/p&gt;
+&lt;p&gt;14.SIP (Session Initiation Protocol) 端口号：5060/5061&lt;/p&gt;
+&lt;p&gt;15.ICQ (Internet Control Message Protocol) 端口号：7&lt;/p&gt;
+&lt;p&gt;16.IRC (Internet Relay Chat) 端口号：194&lt;/p&gt;
+&lt;p&gt;17.BitTorrent 端口号：6881-6889&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

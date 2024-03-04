@@ -26,6 +26,9 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/09/11/c-yu-yan-fu-jian/</guid>
             <title>C语言复健</title>

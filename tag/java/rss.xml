@@ -26,6 +26,9 @@
         <category>dataflow</category>
         <category>pwn</category>
         <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2024/02/29/java-an-quan-shen-ji/</guid>
             <title>JAVA安全审计</title>
