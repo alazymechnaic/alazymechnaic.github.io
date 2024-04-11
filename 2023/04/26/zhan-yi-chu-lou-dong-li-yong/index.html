@@ -24,9 +24,10 @@
 <meta property="og:description" content="随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-26T03:17:43.000Z">
-<meta property="article:modified_time" content="2024-02-28T10:00:02.074Z">
+<meta property="article:modified_time" content="2024-03-05T12:21:38.543Z">
 <meta property="article:author" content="alazymachine">
 <meta property="article:tag" content="pwn">
+<meta property="article:tag" content="stack overflow">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -459,6 +460,8 @@
       
         <a href="/tags/pwn/">#pwn</a>
       
+        <a href="/tags/stack-overflow/">#stack overflow</a>
+      
     </div>
   
 </div>
@@ -523,6 +526,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/02/28/xu-ni-hua-an-quan/" title="虚拟化安全">
+                        <span class="hidden-mobile">虚拟化安全</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202309172016734.png">
 <meta property="article:published_time" content="2023-07-13T12:41:24.000Z">
-<meta property="article:modified_time" content="2023-09-17T12:16:21.675Z">
+<meta property="article:modified_time" content="2024-04-02T16:29:24.000Z">
 <meta property="article:author" content="alazymachine">
 <meta property="article:tag" content="kernel pwn">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          2k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          10 分钟
+          17 分钟
         
       </span>
     
@@ -304,9 +304,31 @@
 </ul>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">commit_creds(prepare_kernel_cred(<span class="hljs-number">0</span>))<br><span class="hljs-comment">// prepare_kernel_cred(0) 用0为参数生成一个root权限的结构体，并将其传递给commit_creds</span><br><span class="hljs-comment">// commit_creds 用于将当前结构体设置为当前程序的凭证</span><br></code></pre></td></tr></tbody></table></figure>
 
-
-
-<h2 id="安装qemu启动一个Linux内核调试试一下"><a href="#安装qemu启动一个Linux内核调试试一下" class="headerlink" title="安装qemu启动一个Linux内核调试试一下"></a>安装qemu启动一个Linux内核调试试一下</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-262425.htm">https://bbs.kanxue.com/thread-262425.htm</a></p>
+<h2 id="自问自答"><a href="#自问自答" class="headerlink" title="自问自答"></a>自问自答</h2><h3 id="为什么会产生僵尸进程（Zombie-Process）"><a href="#为什么会产生僵尸进程（Zombie-Process）" class="headerlink" title="为什么会产生僵尸进程（Zombie Process）"></a>为什么会产生僵尸进程（Zombie Process）</h3><p>僵尸进程指已经完成了执行任务的子进程，但是由于其父进程没有及时处理该子进程的完成状态，该子进程的进程控制块PCB仍然被保留在系统中，占用了系统资源，但是无法被调用和执行任何任务，也无法被清除。僵尸进程会一直存在，直到父进程执行结束，或者对子进程进行处理wait或者waitpid。</p>
+<h3 id="内核如何实现对进程资源的回收"><a href="#内核如何实现对进程资源的回收" class="headerlink" title="内核如何实现对进程资源的回收"></a>内核如何实现对进程资源的回收</h3><p>程序退出一般有以下几种情况：</p>
+<p>exit()函数退出，也是正常退出。</p>
+<p>quick_exit函数: 执行部分清理工作后再退出</p>
+<p> _Exit()函数：立即终止程序而不进行任何的清理工作。</p>
+<p>信号退出：</p>
+<ul>
+<li>SIGINT：中断信号。通常由用户按下 Ctrl+C 产生。</li>
+<li>SIGTERM：终止信号。通常由 kill 命令发出，表示要求进程正常退出。</li>
+<li>SIGQUIT：退出信号。通常由用户按下 Ctrl+\ 产生，表示要求进程退出并生成核心转储文件。</li>
+<li>SIGKILL：强制终止信号。通常由 kill 命令发出，表示要求进程立即退出，无法被捕获或阻塞。</li>
+<li>SIGABRT：异常中止信号。通常由进程本身发出，表示要求进程退出并生成核心转储文件。</li>
+</ul>
+<p>与exit不同，接收信号退出时一般不会执行完整的清理工作，比如刷新I/O缓冲区、关闭文件描述符等，在编写信号处理函数时需要手动执行该操作。</p>
+<p>当程序执行exit函数时，操作系统会完成以下几个操作：</p>
+<ul>
+<li>调用atexi()注册的终止函数。这些函数通常用于在程序结束时执行特定的清理任务。</li>
+<li>刷新所有的I/O缓冲区，以确保所有的数据被写入到文件中</li>
+<li>关闭所有打开的文件描述符</li>
+<li>释放所有的动态分配内存</li>
+<li>操作系统向父进程发送一个 SIGCHLD 信号，将程序的退出状态（成功退出还是异常退出）返还给父进程或者操作系统</li>
+<li>父进程通过调用诸如 wait() 或 waitpid() 等函数来回收子进程的资源：以获取子进程的退出状态码和回收子进程的进程表项</li>
+<li>父进程回收子进程的进程表项：子进程结束后，父进程需要回收子进程的进程表项，以便其他进程可以使用该进程号</li>
+</ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-262425.htm">https://bbs.kanxue.com/thread-262425.htm</a></p>
 
                 
               </div>

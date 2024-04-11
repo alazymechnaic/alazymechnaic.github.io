@@ -26,11 +26,17 @@
     <category term="web" />
     <category term="exploit" />
     <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
     <entry>
-        <id>https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/</id>
-        <title>计算机网络基础</title>
-        <link rel="alternate" href="https://alazymechnaic.github.io/2024/03/04/ji-suan-ji-wang-luo-ji-chu/"/>
-        <content type="html">&lt;h3 id=&#34;TCP链接建立过程&#34;&gt;&lt;a href=&#34;#TCP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;TCP链接建立过程&#34;&gt;&lt;/a&gt;TCP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;HTTP链接建立过程&#34;&gt;&lt;a href=&#34;#HTTP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;HTTP链接建立过程&#34;&gt;&lt;/a&gt;HTTP链接建立过程&lt;/h3&gt;&lt;h3 id=&#34;常见网络协议及端口&#34;&gt;&lt;a href=&#34;#常见网络协议及端口&#34; class=&#34;headerlink&#34; title=&#34;常见网络协议及端口&#34;&gt;&lt;/a&gt;常见网络协议及端口&lt;/h3&gt;&lt;p&gt;1.HTTP (Hyper Text Transfer Protocol) 端口号：80&lt;/p&gt;
+        <id>https://alazymechnaic.github.io/2024/03/04/wang-an-xuan-shou-de-ji-suan-ji-ba-gu-ji-chu/</id>
+        <title>网安选手的计算机八股基础</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/03/04/wang-an-xuan-shou-de-ji-suan-ji-ba-gu-ji-chu/"/>
+        <content type="html">&lt;h2 id=&#34;网络协议原理&#34;&gt;&lt;a href=&#34;#网络协议原理&#34; class=&#34;headerlink&#34; title=&#34;网络协议原理&#34;&gt;&lt;/a&gt;网络协议原理&lt;/h2&gt;&lt;h3 id=&#34;网络结构模型&#34;&gt;&lt;a href=&#34;#网络结构模型&#34; class=&#34;headerlink&#34; title=&#34;网络结构模型&#34;&gt;&lt;/a&gt;网络结构模型&lt;/h3&gt;&lt;h3 id=&#34;TCP协议&#34;&gt;&lt;a href=&#34;#TCP协议&#34; class=&#34;headerlink&#34; title=&#34;TCP协议&#34;&gt;&lt;/a&gt;TCP协议&lt;/h3&gt;&lt;h4 id=&#34;TCP链接建立过程&#34;&gt;&lt;a href=&#34;#TCP链接建立过程&#34; class=&#34;headerlink&#34; title=&#34;TCP链接建立过程&#34;&gt;&lt;/a&gt;TCP链接建立过程&lt;/h4&gt;&lt;h3 id=&#34;HTTP协议&#34;&gt;&lt;a href=&#34;#HTTP协议&#34; class=&#34;headerlink&#34; title=&#34;HTTP协议&#34;&gt;&lt;/a&gt;HTTP协议&lt;/h3&gt;&lt;h4 id=&#34;HTTPS&#34;&gt;&lt;a href=&#34;#HTTPS&#34; class=&#34;headerlink&#34; title=&#34;HTTPS&#34;&gt;&lt;/a&gt;HTTPS&lt;/h4&gt;&lt;h3 id=&#34;常见网络协议及端口&#34;&gt;&lt;a href=&#34;#常见网络协议及端口&#34; class=&#34;headerlink&#34; title=&#34;常见网络协议及端口&#34;&gt;&lt;/a&gt;常见网络协议及端口&lt;/h3&gt;&lt;p&gt;1.HTTP (Hyper Text Transfer Protocol) 端口号：80&lt;/p&gt;
 &lt;p&gt;2.HTTPS (Secure Hyper Text Transfer Protocol) 端口号：443&lt;/p&gt;
 &lt;p&gt;3.FTP (File Transfer Protocol) 端口号：21&lt;/p&gt;
 &lt;p&gt;4.SMTP (Simple Mail Transfer Protocol) 端口号：25&lt;/p&gt;
@@ -47,6 +53,20 @@
 &lt;p&gt;15.ICQ (Internet Control Message Protocol) 端口号：7&lt;/p&gt;
 &lt;p&gt;16.IRC (Internet Relay Chat) 端口号：194&lt;/p&gt;
 &lt;p&gt;17.BitTorrent 端口号：6881-6889&lt;/p&gt;
+&lt;h2 id=&#34;网络安全技术&#34;&gt;&lt;a href=&#34;#网络安全技术&#34; class=&#34;headerlink&#34; title=&#34;网络安全技术&#34;&gt;&lt;/a&gt;网络安全技术&lt;/h2&gt;&lt;h3 id=&#34;防火墙技术&#34;&gt;&lt;a href=&#34;#防火墙技术&#34; class=&#34;headerlink&#34; title=&#34;防火墙技术&#34;&gt;&lt;/a&gt;防火墙技术&lt;/h3&gt;&lt;h3 id=&#34;CDN原理&#34;&gt;&lt;a href=&#34;#CDN原理&#34; class=&#34;headerlink&#34; title=&#34;CDN原理&#34;&gt;&lt;/a&gt;CDN原理&lt;/h3&gt;&lt;h2 id=&#34;网络攻击&#34;&gt;&lt;a href=&#34;#网络攻击&#34; class=&#34;headerlink&#34; title=&#34;网络攻击&#34;&gt;&lt;/a&gt;网络攻击&lt;/h2&gt;&lt;h3 id=&#34;DDOS&#34;&gt;&lt;a href=&#34;#DDOS&#34; class=&#34;headerlink&#34; title=&#34;DDOS&#34;&gt;&lt;/a&gt;DDOS&lt;/h3&gt;&lt;h2 id=&#34;面试题目&#34;&gt;&lt;a href=&#34;#面试题目&#34; class=&#34;headerlink&#34; title=&#34;面试题目&#34;&gt;&lt;/a&gt;面试题目&lt;/h2&gt;&lt;h3 id=&#34;当浏览器输入网址敲下回车后发生了什么？&#34;&gt;&lt;a href=&#34;#当浏览器输入网址敲下回车后发生了什么？&#34; class=&#34;headerlink&#34; title=&#34;当浏览器输入网址敲下回车后发生了什么？&#34;&gt;&lt;/a&gt;当浏览器输入网址敲下回车后发生了什么？&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;浏览器对URL地址进行补全，并进行请求DNS域名服务器进行解析，获取对应的IP&lt;/li&gt;
+&lt;li&gt;与目标服务器三次握手建立TCP连接&lt;/li&gt;
+&lt;li&gt;建立HTPPS链接：双发基于证书&lt;ul&gt;
+&lt;li&gt;客户端发出TLS请求，包含一个随机数A&lt;/li&gt;
+&lt;li&gt;服务器给出数字证书和随机数B&lt;/li&gt;
+&lt;li&gt;客户端取出公钥加密随机数C&lt;/li&gt;
+&lt;li&gt;服务器解出随机数C，计算得到本次的会话秘钥，并使用会话秘钥加密&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;发送HTTP请求，服务器进行响应&lt;/li&gt;
+&lt;li&gt;浏览器解析HTML，浏览器渲染布局&lt;/li&gt;
+&lt;li&gt;四次挥手关闭TCP连接&lt;/li&gt;
+&lt;/ul&gt;
 </content>
         <category term="network" />
         <updated>2024-03-04T06:48:04.000Z</updated>

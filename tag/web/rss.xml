@@ -5,8 +5,8 @@
         <link>https://alazymechnaic.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Mon, 04 Mar 2024 14:45:25 +0800</pubDate>
-        <lastBuildDate>Mon, 04 Mar 2024 14:45:25 +0800</lastBuildDate>
+        <pubDate>Mon, 08 Apr 2024 10:33:41 +0800</pubDate>
+        <lastBuildDate>Mon, 08 Apr 2024 10:33:41 +0800</lastBuildDate>
         <category>paper</category>
         <category>fuzz</category>
         <category>arm</category>
@@ -29,6 +29,63 @@
         <category>web</category>
         <category>exploit</category>
         <category>network</category>
+        <category>代码分析</category>
+        <category>二进制安全</category>
+        <category>渗透</category>
+        <category>程序分析</category>
+        <category>stack overflow</category>
+        <category>算法</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/04/08/er-jin-zhi-xuan-shou-de-web-jiu-shu/</guid>
+            <title>二进制选手のWEB救赎</title>
+            <link>https://alazymechnaic.github.io/2024/04/08/er-jin-zhi-xuan-shou-de-web-jiu-shu/</link>
+            <category>web</category>
+            <pubDate>Mon, 08 Apr 2024 10:33:41 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;语言类型漏洞&#34;&gt;&lt;a href=&#34;#语言类型漏洞&#34; class=&#34;headerlink&#34; title=&#34;语言类型漏洞&#34;&gt;&lt;/a&gt;语言类型漏洞&lt;/h2&gt;&lt;h3 id=&#34;JAVA&#34;&gt;&lt;a href=&#34;#JAVA&#34; class=&#34;headerlink&#34; title=&#34;JAVA&#34;&gt;&lt;/a&gt;JAVA&lt;/h3&gt;&lt;h4 id=&#34;反序列化&#34;&gt;&lt;a href=&#34;#反序列化&#34; class=&#34;headerlink&#34; title=&#34;反序列化&#34;&gt;&lt;/a&gt;反序列化&lt;/h4&gt;&lt;h4 id=&#34;内存马&#34;&gt;&lt;a href=&#34;#内存马&#34; class=&#34;headerlink&#34; title=&#34;内存马&#34;&gt;&lt;/a&gt;内存马&lt;/h4&gt;&lt;h4 id=&#34;jndi注入&#34;&gt;&lt;a href=&#34;#jndi注入&#34; class=&#34;headerlink&#34; title=&#34;jndi注入&#34;&gt;&lt;/a&gt;jndi注入&lt;/h4&gt;&lt;h4 id=&#34;springboot&#34;&gt;&lt;a href=&#34;#springboot&#34; class=&#34;headerlink&#34; title=&#34;springboot&#34;&gt;&lt;/a&gt;springboot&lt;/h4&gt;&lt;h2 id=&#34;中间件相关问题&#34;&gt;&lt;a href=&#34;#中间件相关问题&#34; class=&#34;headerlink&#34; title=&#34;中间件相关问题&#34;&gt;&lt;/a&gt;中间件相关问题&lt;/h2&gt;&lt;h3 id=&#34;Nginx&#34;&gt;&lt;a href=&#34;#Nginx&#34; class=&#34;headerlink&#34; title=&#34;Nginx&#34;&gt;&lt;/a&gt;Nginx&lt;/h3&gt;&lt;h3 id=&#34;Redis缓存穿透、缓存雪崩、缓存击穿问题&#34;&gt;&lt;a href=&#34;#Redis缓存穿透、缓存雪崩、缓存击穿问题&#34; class=&#34;headerlink&#34; title=&#34;Redis缓存穿透、缓存雪崩、缓存击穿问题&#34;&gt;&lt;/a&gt;Redis缓存穿透、缓存雪崩、缓存击穿问题&lt;/h3&gt;&lt;p&gt;参考链接：&lt;a href=&#34;https://blog.csdn.net/weixin_43888891/article/details/131397044&#34;&gt;https://blog.csdn.net/weixin_43888891/article/details/131397044&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在实际的业务场景中，Redis 一般和其他数据库搭配使用，用来减轻后端数据库的压力，比如和关系型数据库 MySQL 配合使用。Redis 会把 MySQL 中经常被查询的数据缓存起来，比如热点数据，这样当用户来访问的时候，就不需要到 MySQL 中去查询了，而是直接获取 Redis 中的缓存数据，从而降低了后端数据库的读取压力。如果说用户查询的数据 Redis 没有，此时用户的查询请求就会转到 MySQL 数据库，当 MySQL 将数据返回给客户端时，同时会将数据缓存到 Redis 中，这样用户再次读取时，就可以直接从 Redis 中获取数据。Redis相当于MySQL的缓存，二者互为内存与磁盘的关系。&lt;/p&gt;
+&lt;h4 id=&#34;缓存穿透&#34;&gt;&lt;a href=&#34;#缓存穿透&#34; class=&#34;headerlink&#34; title=&#34;缓存穿透&#34;&gt;&lt;/a&gt;缓存穿透&lt;/h4&gt;&lt;p&gt;​	Redis中没有，MySQL中也没有。不断有请求穿过Redis到达MySQL，导致MySQL返回一个空对象。如果查询次数非常多就会造成MySQL压力过大，直到崩溃。&lt;/p&gt;
+&lt;p&gt;​	解决方案： &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在Redis中缓存空对象，但这种操作会占用Redis缓存空间&lt;/li&gt;
+&lt;li&gt;业务前端逻辑验证。在业务请求入口对输入的数据做逻辑检查。&lt;/li&gt;
+&lt;li&gt;用户黑名单限制：发生异常情况时，实时监控访问的对象和数据，分析用户行为，针对故意请求、爬虫或攻击者，进行特定用户的限制；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;缓存击穿&#34;&gt;&lt;a href=&#34;#缓存击穿&#34; class=&#34;headerlink&#34; title=&#34;缓存击穿&#34;&gt;&lt;/a&gt;缓存击穿&lt;/h4&gt;&lt;p&gt;Redis中不存在该数据，但MySQL中存在该数据。某个热点数据在Redis中突然过期，导致大量请求涌入到MySQL中。&lt;/p&gt;
+&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置热点数据永不过期。&lt;/li&gt;
+&lt;li&gt;分布式锁：第一个获取锁的进程进入后端数据查询后，其他进程就没必要再去查询，而是等待Redis中的结果即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;缓存雪崩&#34;&gt;&lt;a href=&#34;#缓存雪崩&#34; class=&#34;headerlink&#34; title=&#34;缓存雪崩&#34;&gt;&lt;/a&gt;缓存雪崩&lt;/h4&gt;&lt;p&gt;​	某一批热点数据同时过期，或者缓存服务故障。出现大量数据涌入到MySQL中。&lt;/p&gt;
+&lt;p&gt;解决方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;构建多级缓存架构： nginx缓存 + redis缓存 +其他缓存（ehcache等）&lt;/li&gt;
+&lt;li&gt;使用锁或队列： 用加锁或者队列的方式保证来保证不会有大量的线程对数据库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。不适用高并发情况&lt;/li&gt;
+&lt;li&gt;设置过期标志更新缓存： 记录缓存数据是否过期（设置提前量），如果过期会触发通知另外的线程在后台去更新实际key的缓存。&lt;/li&gt;
+&lt;li&gt;将缓存失效时间分散开： 比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。&lt;/li&gt;
+&lt;li&gt;不设置过期时间： 热点数据可以考虑不失效，后台异步更新缓存，适用于不严格要求缓存一致性的场景。&lt;br&gt;双key策略：主key设置过期时间，备key不设置过期时间，当主key失效时，直接返回备key值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;泛Web安全技术&#34;&gt;&lt;a href=&#34;#泛Web安全技术&#34; class=&#34;headerlink&#34; title=&#34;泛Web安全技术&#34;&gt;&lt;/a&gt;泛Web安全技术&lt;/h2&gt;&lt;h3 id=&#34;虚拟机逃逸相关&#34;&gt;&lt;a href=&#34;#虚拟机逃逸相关&#34; class=&#34;headerlink&#34; title=&#34;虚拟机逃逸相关&#34;&gt;&lt;/a&gt;虚拟机逃逸相关&lt;/h3&gt;&lt;h3 id=&#34;病毒免杀&#34;&gt;&lt;a href=&#34;#病毒免杀&#34; class=&#34;headerlink&#34; title=&#34;病毒免杀&#34;&gt;&lt;/a&gt;病毒免杀&lt;/h3&gt;&lt;h2 id=&#34;安全工具相关&#34;&gt;&lt;a href=&#34;#安全工具相关&#34; class=&#34;headerlink&#34; title=&#34;安全工具相关&#34;&gt;&lt;/a&gt;安全工具相关&lt;/h2&gt;&lt;h3 id=&#34;Burpsuite&#34;&gt;&lt;a href=&#34;#Burpsuite&#34; class=&#34;headerlink&#34; title=&#34;Burpsuite&#34;&gt;&lt;/a&gt;Burpsuite&lt;/h3&gt;&lt;h3 id=&#34;nmap&#34;&gt;&lt;a href=&#34;#nmap&#34; class=&#34;headerlink&#34; title=&#34;nmap&#34;&gt;&lt;/a&gt;nmap&lt;/h3&gt;&lt;h3 id=&#34;sqlmap&#34;&gt;&lt;a href=&#34;#sqlmap&#34; class=&#34;headerlink&#34; title=&#34;sqlmap&#34;&gt;&lt;/a&gt;sqlmap&lt;/h3&gt;&lt;h4 id=&#34;sqlmap源码的阅读&#34;&gt;&lt;a href=&#34;#sqlmap源码的阅读&#34; class=&#34;headerlink&#34; title=&#34;sqlmap源码的阅读&#34;&gt;&lt;/a&gt;sqlmap源码的阅读&lt;/h4&gt;&lt;h3 id=&#34;awvs&#34;&gt;&lt;a href=&#34;#awvs&#34; class=&#34;headerlink&#34; title=&#34;awvs&#34;&gt;&lt;/a&gt;awvs&lt;/h3&gt;&lt;h3 id=&#34;蚁剑-amp-冰蝎&#34;&gt;&lt;a href=&#34;#蚁剑-amp-冰蝎&#34; class=&#34;headerlink&#34; title=&#34;蚁剑 &amp;amp; 冰蝎&#34;&gt;&lt;/a&gt;蚁剑 &amp;amp; 冰蝎&lt;/h3&gt;&lt;h3 id=&#34;dirsearch&#34;&gt;&lt;a href=&#34;#dirsearch&#34; class=&#34;headerlink&#34; title=&#34;dirsearch&#34;&gt;&lt;/a&gt;dirsearch&lt;/h3&gt;&lt;h2 id=&#34;场景题目&#34;&gt;&lt;a href=&#34;#场景题目&#34; class=&#34;headerlink&#34; title=&#34;场景题目&#34;&gt;&lt;/a&gt;场景题目&lt;/h2&gt;&lt;h4 id=&#34;曾经挖掘过什么漏洞&#34;&gt;&lt;a href=&#34;#曾经挖掘过什么漏洞&#34; class=&#34;headerlink&#34; title=&#34;曾经挖掘过什么漏洞&#34;&gt;&lt;/a&gt;曾经挖掘过什么漏洞&lt;/h4&gt;&lt;p&gt;​	原本是一个横向越权，后来扫描C段的时候发现了另一个界面，是很早之前的一个参会登记页面，然后存在一个可以填写的表单，能够进行二次注入。&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/06/mo-ban-zhu-ru/</guid>
+            <title>模板注入</title>
+            <link>https://alazymechnaic.github.io/2024/03/06/mo-ban-zhu-ru/</link>
+            <category>web</category>
+            <pubDate>Wed, 06 Mar 2024 19:46:59 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;模板注入&#34;&gt;&lt;a href=&#34;#模板注入&#34; class=&#34;headerlink&#34; title=&#34;模板注入&#34;&gt;&lt;/a&gt;模板注入&lt;/h1&gt;&lt;h2 id=&#34;模板注入原理&#34;&gt;&lt;a href=&#34;#模板注入原理&#34; class=&#34;headerlink&#34; title=&#34;模板注入原理&#34;&gt;&lt;/a&gt;模板注入原理&lt;/h2&gt;&lt;p&gt;当前使用的一些框架，比如python的flask，php的tp，java的spring等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。&lt;/p&gt;
+&lt;p&gt;漏洞成因就是服务端接收了用户的恶意输入以后，未经任何处理就将其作为 Web 应用模板内容的一部分，&lt;a href=&#34;https://so.csdn.net/so/search?q=%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E&amp;amp;spm=1001.2101.3001.7020&#34;&gt;模板引擎&lt;/a&gt;在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。&lt;/p&gt;
+&lt;h2 id=&#34;模板注入基本格式&#34;&gt;&lt;a href=&#34;#模板注入基本格式&#34; class=&#34;headerlink&#34; title=&#34;模板注入基本格式&#34;&gt;&lt;/a&gt;模板注入基本格式&lt;/h2&gt;&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs php&#34;&gt;&lt;span class=&#34;hljs-meta&#34;&gt;&amp;lt;?php&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;require_once&lt;/span&gt;(&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;dirname&lt;/span&gt;(&lt;span class=&#34;hljs-keyword&#34;&gt;__FILE__&lt;/span&gt;).&lt;span class=&#34;hljs-string&#34;&gt;&#39;/../lib/Twig/Autoloader.php&#39;&lt;/span&gt;);&lt;br&gt;    &lt;span class=&#34;hljs-title class_&#34;&gt;Twig_Autoloader&lt;/span&gt;::&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;register&lt;/span&gt;(&lt;span class=&#34;hljs-literal&#34;&gt;true&lt;/span&gt;);&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$twig&lt;/span&gt; = &lt;span class=&#34;hljs-keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;Twig_Environment&lt;/span&gt;(&lt;span class=&#34;hljs-keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;hljs-title class_&#34;&gt;Twig_Loader_String&lt;/span&gt;());&lt;br&gt;    &lt;span class=&#34;hljs-variable&#34;&gt;$output&lt;/span&gt; = &lt;span class=&#34;hljs-variable&#34;&gt;$twig&lt;/span&gt;-&amp;gt;&lt;span class=&#34;hljs-title function_ invoke__&#34;&gt;render&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;Hello {{name}}&#34;&lt;/span&gt;, &lt;span class=&#34;hljs-keyword&#34;&gt;array&lt;/span&gt;(&lt;span class=&#34;hljs-string&#34;&gt;&#34;name&#34;&lt;/span&gt; =&amp;gt;&lt;span class=&#34;hljs-variable&#34;&gt;$_GET&lt;/span&gt;[&lt;span class=&#34;hljs-string&#34;&gt;&#34;name&#34;&lt;/span&gt;]));  &lt;span class=&#34;hljs-comment&#34;&gt;// 将用户输入作为模版变量的值&lt;/span&gt;&lt;br&gt;    &lt;span class=&#34;hljs-keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;hljs-variable&#34;&gt;$output&lt;/span&gt;;&lt;br&gt;&lt;span class=&#34;hljs-meta&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;上面的形式并不会造成XSS，但是会造成模板注入问题，会对name字段的内容进行渲染。本质是模板引擎将程序的输入作为需要解析的代码进行处理，那么在处理的过程中用户就可以尝试调用类中的对象。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403061952251.png&#34; alt=&#34;image-20240306195239155&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/huangyongkang666/article/details/123628875&#34;&gt;https://blog.csdn.net/huangyongkang666/article/details/123628875&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基本思路是使用Python的魔术方法&lt;/p&gt;
+&lt;figure class=&#34;highlight markdown&#34;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;code class=&#34;hljs markdown&#34;&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__dict__&lt;/span&gt; 保存类实例或对象实例的属性变量键值对字典&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__class__&lt;/span&gt;  返回类型所属的对象&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__mro__&lt;/span&gt;    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__bases__&lt;/span&gt;   返回该对象所继承的基类&lt;br&gt;// &lt;span class=&#34;hljs-strong&#34;&gt;__base__&lt;/span&gt;和&lt;span class=&#34;hljs-strong&#34;&gt;__mro__&lt;/span&gt;都是用来寻找基类的&lt;br&gt;&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__subclasses__&lt;/span&gt;   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__init__&lt;/span&gt;  类的初始化方法&lt;br&gt;&lt;span class=&#34;hljs-strong&#34;&gt;__globals__&lt;/span&gt;  对包含函数全局变量的字典的引用&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;
+
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/04/owasp-top10-hui-zong/</guid>
             <title>OWASP top10 汇总</title>
@@ -212,12 +269,11 @@
 &lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429924.png&#34; alt=&#34;image-20221030144228649&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;慢查询日志getshell&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429941.png&#34; alt=&#34;image-20221030144241107&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;a href=&#34;#防御手段：可以采用预编译的方式进行。&#34; class=&#34;headerlink&#34; title=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;/a&gt;防御手段：可以采用预编译的方式进行。&lt;/h2&gt;&lt;ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403041429941.png&#34; alt=&#34;image-20221030144241107&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;a href=&#34;#防御手段：可以采用预编译的方式进行。&#34; class=&#34;headerlink&#34; title=&#34;防御手段：可以采用预编译的方式进行。&#34;&gt;&lt;/a&gt;防御手段：可以采用预编译的方式进行。&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;过滤函数：&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;命令注入&lt;/p&gt;

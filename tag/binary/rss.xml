@@ -29,6 +29,12 @@
         <category>web</category>
         <category>exploit</category>
         <category>network</category>
+        <category>代码分析</category>
+        <category>二进制安全</category>
+        <category>渗透</category>
+        <category>程序分析</category>
+        <category>stack overflow</category>
+        <category>算法</category>
         <item>
             <guid isPermalink="true">https://alazymechnaic.github.io/2023/10/02/jin-cheng-zhu-ru/</guid>
             <title>进程注入</title>

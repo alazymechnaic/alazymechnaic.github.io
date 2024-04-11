@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>alazymachine • Posts by &#34;代码分析&#34; tag</title>
+        <link>https://alazymechnaic.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Sun, 10 Mar 2024 20:22:32 +0800</pubDate>
+        <lastBuildDate>Sun, 10 Mar 2024 20:22:32 +0800</lastBuildDate>
+        <category>paper</category>
+        <category>fuzz</category>
+        <category>arm</category>
+        <category>Linux</category>
+        <category>C</category>
+        <category>go</category>
+        <category>Paper</category>
+        <category>bypass</category>
+        <category>clash</category>
+        <category>Hook</category>
+        <category>go, RE</category>
+        <category>kernel pwn</category>
+        <category>binary</category>
+        <category>writing</category>
+        <category>HEAP PWN CTF</category>
+        <category>Android</category>
+        <category>dataflow</category>
+        <category>pwn</category>
+        <category>java</category>
+        <category>web</category>
+        <category>exploit</category>
+        <category>network</category>
+        <category>代码分析</category>
+        <category>二进制安全</category>
+        <category>渗透</category>
+        <category>程序分析</category>
+        <category>stack overflow</category>
+        <category>算法</category>
+        <item>
+            <guid isPermalink="true">https://alazymechnaic.github.io/2024/03/10/dai-ma-fen-xi-nan-jing-da-xue-ke-cheng-bi-ji/</guid>
+            <title>《代码分析》-南京大学-课程笔记</title>
+            <link>https://alazymechnaic.github.io/2024/03/10/dai-ma-fen-xi-nan-jing-da-xue-ke-cheng-bi-ji/</link>
+            <category>代码分析</category>
+            <pubDate>Sun, 10 Mar 2024 20:22:32 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;代码中间表示（IR）&#34;&gt;&lt;a href=&#34;#代码中间表示（IR）&#34; class=&#34;headerlink&#34; title=&#34;代码中间表示（IR）&#34;&gt;&lt;/a&gt;代码中间表示（IR）&lt;/h2&gt;&lt;h3 id=&#34;关于Compiler&#34;&gt;&lt;a href=&#34;#关于Compiler&#34; class=&#34;headerlink&#34; title=&#34;关于Compiler&#34;&gt;&lt;/a&gt;关于Compiler&lt;/h3&gt;&lt;p&gt;编译的过程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;词法分析器： 检查每一个单词的正确性。→ Tokens&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;语法分析器：检查当前代码的语法是否正确。使用context free grammar分析程序的代码，而不是使用context sensitive的方式进行分析，这个分析成本太高，更适合的是人类语言。→  AST&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;语义分析：检查当前语句的语义是否是合理的。例如float能否赋值给一个int，检查语义是否正常。→ Decorated AST&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Translator: 将代码转化为优化后的三地址码IR，也是静态分析所在的位置。→ IR&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;IR-与-AST的差别&#34;&gt;&lt;a href=&#34;#IR-与-AST的差别&#34; class=&#34;headerlink&#34; title=&#34;IR 与 AST的差别&#34;&gt;&lt;/a&gt;IR 与 AST的差别&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324212437242.png&#34; alt=&#34;image-20240324212437242&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IR更加底层与语言本身无关 || AST 则相当依赖于语言本身的特性&lt;/li&gt;
+&lt;li&gt;IR则本身比较简洁 || AST 保留了变量之间的结构信息，便于检查类型间的匹配：可以直接递归找类型与类型之间的assign等操作是否类型匹配&lt;/li&gt;
+&lt;li&gt;IR本身包含了控制流信息 || AST 本身缺乏控制流信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;IR定义&#34;&gt;&lt;a href=&#34;#IR定义&#34; class=&#34;headerlink&#34; title=&#34;IR定义&#34;&gt;&lt;/a&gt;IR定义&lt;/h3&gt;&lt;p&gt;三地址码IR中一行代码只能包含一个运算符，如果一行代码包含多个运算符，那就需要引入临时变量来暂存运算结果，保证格式合法。所谓的三地址码其实是指一条指令上面其实只能有三个操作数（包括，变量名，常量，临时变量）&lt;/p&gt;
+&lt;h3 id=&#34;以SOOT为例讲解三地址码&#34;&gt;&lt;a href=&#34;#以SOOT为例讲解三地址码&#34; class=&#34;headerlink&#34; title=&#34;以SOOT为例讲解三地址码&#34;&gt;&lt;/a&gt;以SOOT为例讲解三地址码&lt;/h3&gt;&lt;p&gt;其实Soot的设计方式比较简单，基本上是类似bash指令的魔改版，这里需要注意的点在于函数调用的部分：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324215230808.png&#34; alt=&#34;image-20240324215230808&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;关于this&lt;/strong&gt;：上图中能够看到在foo函数的执行过程中首先定义了一个变量r0，用来存放当前的类，也就是this。在java字节码中首先会将局部索引表中代号为0的变量压到栈中aload_0。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;invokespecial:&lt;/strong&gt; call constroctor 用来调用构造函数，父类方法, 私有方法。所以先new一个类，然后后面一般跟invokespecial开始进行构造方法的调用了。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;invokevirtual&lt;/strong&gt;：实例方法的调用，包括派生方法&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;invokeinterface&lt;/strong&gt; 不能进行优化，检查接口是否实现&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;invokestatic&lt;/strong&gt;：call 静态方法。&lt;/li&gt;
+&lt;li&gt;method signature：类型class名称： 返回类型： 方法method名称 参数的类型。在java字节码中每一个方法开始之前按也会交代类型和接受参数等信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Static-Single-Assignment（SSA）&#34;&gt;&lt;a href=&#34;#Static-Single-Assignment（SSA）&#34; class=&#34;headerlink&#34; title=&#34;Static Single Assignment（SSA）&#34;&gt;&lt;/a&gt;Static Single Assignment（SSA）&lt;/h3&gt;&lt;p&gt;原则是对所有的赋值操作赋以一个新的变量，&lt;strong&gt;其实这里就是考虑了不同时刻，变量的数据状态是不同的&lt;/strong&gt;，同时也是为了保证有的变量取值由于if-else的存在，有多个可取的值。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324225828064.png&#34; alt=&#34;image-20240324225828064&#34;&gt;&lt;/p&gt;
+&lt;p&gt;缺点：引入的变量太多，内存可能绷不住，并且存在性能上的问题。&lt;/p&gt;
+&lt;h3 id=&#34;问题&#34;&gt;&lt;a href=&#34;#问题&#34; class=&#34;headerlink&#34; title=&#34;问题&#34;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;啥叫实例方法调用？咋区分&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

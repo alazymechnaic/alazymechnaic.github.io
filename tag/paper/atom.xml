@@ -3,7 +3,7 @@
     <id>https://alazymechnaic.github.io</id>
     <title>alazymachine • Posts by &#34;paper&#34; tag</title>
     <link href="https://alazymechnaic.github.io" />
-    <updated>2023-12-03T05:15:08.000Z</updated>
+    <updated>2024-04-02T12:40:27.000Z</updated>
     <category term="paper" />
     <category term="fuzz" />
     <category term="arm" />
@@ -26,6 +26,82 @@
     <category term="web" />
     <category term="exploit" />
     <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/04/02/lun-wen-yue-du-bi-ji-practical-data-only-attack-generation/</id>
+        <title>论文阅读笔记：Practical Data-Only Attack Generation</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/04/02/lun-wen-yue-du-bi-ji-practical-data-only-attack-generation/"/>
+        <content type="html">&lt;h1 id=&#34;Practical-Data-Only-Attack-Generation&#34;&gt;&lt;a href=&#34;#Practical-Data-Only-Attack-Generation&#34; class=&#34;headerlink&#34; title=&#34;Practical Data-Only Attack Generation&#34;&gt;&lt;/a&gt;Practical Data-Only Attack Generation&lt;/h1&gt;&lt;hr&gt;
+&lt;h2 id=&#34;摘要&#34;&gt;&lt;a href=&#34;#摘要&#34; class=&#34;headerlink&#34; title=&#34;摘要&#34;&gt;&lt;/a&gt;摘要&lt;/h2&gt;&lt;h3 id=&#34;主体思路：&#34;&gt;&lt;a href=&#34;#主体思路：&#34; class=&#34;headerlink&#34; title=&#34;主体思路：&#34;&gt;&lt;/a&gt;主体思路：&lt;/h3&gt;&lt;p&gt;​	抽象不必要的复杂性，使用轻量级的方案解决最优希望的漏洞（意思是最简单的DOP漏洞？&lt;/p&gt;
+&lt;h3 id=&#34;设计框架EINSTEIN&#34;&gt;&lt;a href=&#34;#设计框架EINSTEIN&#34; class=&#34;headerlink&#34; title=&#34;设计框架EINSTEIN:&#34;&gt;&lt;/a&gt;设计框架EINSTEIN:&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;扫描系统调用并将其串联成一个攻击链。&lt;/li&gt;
+&lt;li&gt;基于unmodified attacker data（这里暂时理解为POC）作为输入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;对DOP的理解&#34;&gt;&lt;a href=&#34;#对DOP的理解&#34; class=&#34;headerlink&#34; title=&#34;对DOP的理解&#34;&gt;&lt;/a&gt;对DOP的理解&lt;/h2&gt;&lt;p&gt;现有的解决方案通常使用符号执行，简化假设&lt;strong&gt;（即便是这个假设并不符合攻击目标）&lt;/strong&gt;，手动构建gadget链的方法。现有的方法虽然并不破坏控制数据，但是破坏了一些&lt;strong&gt;control-adjacent data&lt;/strong&gt;,(这里理解为和控制数据差不多的branch condition的数据)，实现所谓的合法路径，其实还是在以最小攻击面上劫持控制流，这就导致使用重量级的分析会导致大量复杂的约束。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202404022113797.png&#34; alt=&#34;image-20240402211350712&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在现实中，对于一个足够复杂的程序，要在有限的时间内解决所有约束条件是极其困难，甚至是不可能的。问题空间——即覆盖任何可能的数据到任何可能的值，在任何可能的程序点使用它，以实现任意计算——太大了&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;现有工作的困境：&lt;/p&gt;
+&lt;p&gt;（1）攻击只能覆盖特定的内存部分&lt;/p&gt;
+&lt;p&gt;（2）攻击者必须使用另一个漏洞来到达gadget的入口点&lt;/p&gt;
+&lt;p&gt;（3）攻击者必须手动将gadget链接在一起构建利用代码。&lt;/p&gt;
+&lt;p&gt;​	这些做法简化了问题，但是它们要么极大地限制了生成的利用代码的范围，要么将其中的一部分留给未来或手动工作。简而言之，这些方法的整体复杂性阻止上了上图中所有目标的实现。&lt;/p&gt;
+&lt;h2 id=&#34;轻量级方法&#34;&gt;&lt;a href=&#34;#轻量级方法&#34; class=&#34;headerlink&#34; title=&#34;轻量级方法&#34;&gt;&lt;/a&gt;轻量级方法&lt;/h2&gt;&lt;h3 id=&#34;设计原则&#34;&gt;&lt;a href=&#34;#设计原则&#34; class=&#34;headerlink&#34; title=&#34;设计原则&#34;&gt;&lt;/a&gt;设计原则&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;动态污点分析削减了仅数据攻击复杂的约束。使用具体执行来确定一些数据，而不是推算一些数据。（这不还是实例化吗）&lt;/li&gt;
+&lt;li&gt;图灵完备性是不必要的部分，没有必要去追求图灵完备才实现攻击。&lt;/li&gt;
+&lt;li&gt;操纵目标程序的路径是不必要的，程序不需要攻击者的干预就能执行execve等敏感函数（这只有nginx可以吧？&lt;/li&gt;
+&lt;li&gt;在程序初始化后，许多数据被视为是不可变的，因此这些数据的约束量很少，因为程序原本的逻辑都不会操纵它。那么这些数据就可以在一开始调用原语破坏掉，其数据一致性自然保证。（这是啥，nginx oriented programming&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;框架实现&#34;&gt;&lt;a href=&#34;#框架实现&#34; class=&#34;headerlink&#34; title=&#34;框架实现&#34;&gt;&lt;/a&gt;框架实现&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;使用动态污点分析，标记攻击者可污染的部分还是人工指定的。&lt;/li&gt;
+&lt;li&gt;如果动态污点分析结果表明syscall用了污染的数据，就认为这个syscall可以被控制，如果两个syscall都用了就说明这俩能缝合？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Contribution&#34;&gt;&lt;a href=&#34;#Contribution&#34; class=&#34;headerlink&#34; title=&#34;Contribution&#34;&gt;&lt;/a&gt;Contribution&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;发表了一个在复杂程序上构建仅数据攻击的实用方法&lt;/li&gt;
+&lt;li&gt;开发了EINSTEIN&lt;/li&gt;
+&lt;li&gt;使用EINSTEIN找到了数千个未知的系统调用，并在nginx上构造了数百个exploits&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;Threat-Model&#34;&gt;&lt;a href=&#34;#Threat-Model&#34; class=&#34;headerlink&#34; title=&#34;Threat Model&#34;&gt;&lt;/a&gt;Threat Model&lt;/h3&gt;&lt;p&gt;​	与先前的研究类似，将所有的保护措施都保持开启，并且开启shadow stack等所有严格的栈保护措施。此外还包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能够访问与攻击目标等效的二进制程序（不直接说能够获得目标二进制&lt;/li&gt;
+&lt;li&gt;能够与目标服务正常地交互&lt;/li&gt;
+&lt;li&gt;能够通过信息泄露bypass ASLR（意思就是说可以忽略ASLR了？之前说的开启保护不是扯扯淡&lt;/li&gt;
+&lt;li&gt;能够在程序的静止状态获取一个任意写原语（意思是还得有个任意写原语来修改内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;DESIGN&#34;&gt;&lt;a href=&#34;#DESIGN&#34; class=&#34;headerlink&#34; title=&#34;DESIGN&#34;&gt;&lt;/a&gt;DESIGN&lt;/h3&gt;&lt;h4 id=&#34;执行步骤&#34;&gt;&lt;a href=&#34;#执行步骤&#34; class=&#34;headerlink&#34; title=&#34;执行步骤&#34;&gt;&lt;/a&gt;执行步骤&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;框架从程序的静息状态开始接手&lt;/strong&gt;：例如nginx等待链接请求时的状态开始，这个时候所有的变量初始化都基本完成。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模拟一个任意内存写入的原语&lt;/strong&gt;：手动引入一个任意内存写入漏洞完成对所有可控数据的污染标记（这不还是标记所有的内存？）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发送正常的用户输入&lt;/strong&gt;：向目标程序中发送标准输入，记录污染能够传播到syscall。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;记录受污染情况&lt;/strong&gt;：如果syscall 的变量可被污染，就证明该变量可用，将其作为候选的gadget，并且它还记录了有关系统调用的信息，例如其参数及其是否受到污点的影响。（这不就是一般的污点分析做的事情吗&lt;/li&gt;
+&lt;li&gt;、&lt;strong&gt;生成Exploit&lt;/strong&gt;：检查受污染参数和之前标记的污染变量的范围，发现参数和预先标记的内存是完全相同的（&lt;strong&gt;这咋发现的，只能知道影不影响，又不能知道是不是一样&lt;/strong&gt;），将这种直接的数据流称为身份数据流，EINSTEIN通过生成(addr, val)对来构建一个候选利用代码，以将目标数据从”/usr/local/server/cgi-bin”更改为”/bin”（这种情况太少了吧&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Exploit验证&lt;/strong&gt;：利用键值对修改内存，然后发送数据包执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;污点分析引擎&#34;&gt;&lt;a href=&#34;#污点分析引擎&#34; class=&#34;headerlink&#34; title=&#34;污点分析引擎&#34;&gt;&lt;/a&gt;污点分析引擎&lt;/h4&gt;&lt;p&gt;污点分析引擎设计需要满足下面两个目标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能够标记足够大的范围&lt;/li&gt;
+&lt;li&gt;要求使用一个成本较低的污点分析？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;污点分析策略&#34;&gt;&lt;a href=&#34;#污点分析策略&#34; class=&#34;headerlink&#34; title=&#34;污点分析策略&#34;&gt;&lt;/a&gt;污点分析策略&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;只污染具有长期保存的内存部分，也就自然排除了栈段（作者PS:如果想要污染栈上的长期变量也可以）&lt;/li&gt;
+&lt;li&gt;指针处理策略：将受污染的指针索引得到的任何内容都视为被污染的（我们也做了，甚至还做了内存搜索&lt;/li&gt;
+&lt;li&gt;系统调用缝合，一个系统调用可以创建一个文件指针FD，另一个系统调用使用了这个文件指针，那么这两个系统调用就实现了缝合&lt;ul&gt;
+&lt;li&gt;Directly 缝合：直接污染的syscall&lt;/li&gt;
+&lt;li&gt;In-Directly 缝合：一个受污染的syscall的结果被另一个syscall使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;分析践行轻量级：只找那些从snapshot开始不变的量，如果到syscal之后还是不变就表明污染是一致的没有断掉&lt;/li&gt;
+&lt;li&gt;所以exploit求解其实还是求出的snapshot状态下的（addr，val）键值对。&lt;/li&gt;
+&lt;li&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240404233058728.png&#34; alt=&#34;image-20240404233058728&#34;&gt;&lt;/li&gt;
+&lt;li&gt;exploit键值对的验证方法：重新运行程序，依照键值对设置内存，发送workload（这里为什么不叫payload就是因为这个东西并不触发攻击，所以这里才给他叫做workload）&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="paper" />
+        <updated>2024-04-02T12:40:27.000Z</updated>
+    </entry>
     <entry>
         <id>https://alazymechnaic.github.io/2023/12/03/lun-wen-yue-du-bi-ji-tunter-assessing-exploitability-of-vulnerabilities-with-taint-guided-exploitable-states-exploration/</id>
         <title>论文阅读笔记：Tunter Assessing Exploitability of Vulnerabilities with Taint-Guided Exploitable States Exploration</title>

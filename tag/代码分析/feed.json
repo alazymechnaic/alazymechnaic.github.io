@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"代码分析\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2024/03/10/dai-ma-fen-xi-nan-jing-da-xue-ke-cheng-bi-ji/",
+            "url": "https://alazymechnaic.github.io/2024/03/10/dai-ma-fen-xi-nan-jing-da-xue-ke-cheng-bi-ji/",
+            "title": "《代码分析》-南京大学-课程笔记",
+            "date_published": "2024-03-10T12:22:32.000Z",
+            "content_html": "<h2 id=\"代码中间表示（IR）\"><a href=\"#代码中间表示（IR）\" class=\"headerlink\" title=\"代码中间表示（IR）\"></a>代码中间表示（IR）</h2><h3 id=\"关于Compiler\"><a href=\"#关于Compiler\" class=\"headerlink\" title=\"关于Compiler\"></a>关于Compiler</h3><p>编译的过程：</p>\n<ul>\n<li><p>词法分析器： 检查每一个单词的正确性。→ Tokens</p>\n</li>\n<li><p>语法分析器：检查当前代码的语法是否正确。使用context free grammar分析程序的代码，而不是使用context sensitive的方式进行分析，这个分析成本太高，更适合的是人类语言。→  AST</p>\n</li>\n<li><p>语义分析：检查当前语句的语义是否是合理的。例如float能否赋值给一个int，检查语义是否正常。→ Decorated AST</p>\n</li>\n<li><p>Translator: 将代码转化为优化后的三地址码IR，也是静态分析所在的位置。→ IR</p>\n</li>\n</ul>\n<h3 id=\"IR-与-AST的差别\"><a href=\"#IR-与-AST的差别\" class=\"headerlink\" title=\"IR 与 AST的差别\"></a>IR 与 AST的差别</h3><p><img src=\"https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324212437242.png\" alt=\"image-20240324212437242\"></p>\n<ul>\n<li>IR更加底层与语言本身无关 || AST 则相当依赖于语言本身的特性</li>\n<li>IR则本身比较简洁 || AST 保留了变量之间的结构信息，便于检查类型间的匹配：可以直接递归找类型与类型之间的assign等操作是否类型匹配</li>\n<li>IR本身包含了控制流信息 || AST 本身缺乏控制流信息</li>\n</ul>\n<h3 id=\"IR定义\"><a href=\"#IR定义\" class=\"headerlink\" title=\"IR定义\"></a>IR定义</h3><p>三地址码IR中一行代码只能包含一个运算符，如果一行代码包含多个运算符，那就需要引入临时变量来暂存运算结果，保证格式合法。所谓的三地址码其实是指一条指令上面其实只能有三个操作数（包括，变量名，常量，临时变量）</p>\n<h3 id=\"以SOOT为例讲解三地址码\"><a href=\"#以SOOT为例讲解三地址码\" class=\"headerlink\" title=\"以SOOT为例讲解三地址码\"></a>以SOOT为例讲解三地址码</h3><p>其实Soot的设计方式比较简单，基本上是类似bash指令的魔改版，这里需要注意的点在于函数调用的部分：</p>\n<p><img src=\"https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324215230808.png\" alt=\"image-20240324215230808\"></p>\n<ul>\n<li><strong>关于this</strong>：上图中能够看到在foo函数的执行过程中首先定义了一个变量r0，用来存放当前的类，也就是this。在java字节码中首先会将局部索引表中代号为0的变量压到栈中aload_0。</li>\n<li><strong>invokespecial:</strong> call constroctor 用来调用构造函数，父类方法, 私有方法。所以先new一个类，然后后面一般跟invokespecial开始进行构造方法的调用了。</li>\n<li><strong>invokevirtual</strong>：实例方法的调用，包括派生方法</li>\n<li><strong>invokeinterface</strong> 不能进行优化，检查接口是否实现</li>\n<li><strong>invokestatic</strong>：call 静态方法。</li>\n<li>method signature：类型class名称： 返回类型： 方法method名称 参数的类型。在java字节码中每一个方法开始之前按也会交代类型和接受参数等信息。</li>\n</ul>\n<h3 id=\"Static-Single-Assignment（SSA）\"><a href=\"#Static-Single-Assignment（SSA）\" class=\"headerlink\" title=\"Static Single Assignment（SSA）\"></a>Static Single Assignment（SSA）</h3><p>原则是对所有的赋值操作赋以一个新的变量，<strong>其实这里就是考虑了不同时刻，变量的数据状态是不同的</strong>，同时也是为了保证有的变量取值由于if-else的存在，有多个可取的值。</p>\n<p><img src=\"https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240324225828064.png\" alt=\"image-20240324225828064\"></p>\n<p>缺点：引入的变量太多，内存可能绷不住，并且存在性能上的问题。</p>\n<h3 id=\"问题\"><a href=\"#问题\" class=\"headerlink\" title=\"问题\"></a>问题</h3><p>啥叫实例方法调用？咋区分</p>\n",
+            "tags": [
+                "代码分析"
+            ]
+        }
+    ]
+}

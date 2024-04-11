@@ -26,6 +26,12 @@
     <category term="web" />
     <category term="exploit" />
     <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/10/03/frida-hook/</id>
         <title>frida-hook</title>

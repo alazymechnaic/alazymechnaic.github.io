@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "alazymachine • All posts by \"程序分析\" tag",
+    "description": "",
+    "home_page_url": "https://alazymechnaic.github.io",
+    "items": [
+        {
+            "id": "https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/",
+            "url": "https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/",
+            "title": "控制流完整性（CFI）",
+            "date_published": "2023-05-02T10:21:39.000Z",
+            "content_html": "<h2 id=\"Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms\"><a href=\"#Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms\" class=\"headerlink\" title=\"Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms\"></a>Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms</h2><hr>\n<p><img src=\"https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png\" alt=\"image-20230502185448539\"></p>\n<p>​\t最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）</p>\n<p>​\t当前的任何CFI控制流安全策略都需要解决以下几个问题：</p>\n<ul>\n<li>如何让claimed boundary和real boundary match？</li>\n<li>有些可行的目标组合依然会导致漏洞利用（这不就是DOP么？）</li>\n</ul>\n<p>然后这个文章后面讲了评估CFI方案好坏的方法，等用到的时候再看</p>\n",
+            "tags": [
+                "程序分析"
+            ]
+        }
+    ]
+}

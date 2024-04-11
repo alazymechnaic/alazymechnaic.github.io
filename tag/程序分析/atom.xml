@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;程序分析&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2023-05-02T10:21:39.000Z</updated>
+    <category term="paper" />
+    <category term="fuzz" />
+    <category term="arm" />
+    <category term="Linux" />
+    <category term="C" />
+    <category term="go" />
+    <category term="Paper" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="Hook" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="writing" />
+    <category term="HEAP PWN CTF" />
+    <category term="Android" />
+    <category term="dataflow" />
+    <category term="pwn" />
+    <category term="java" />
+    <category term="web" />
+    <category term="exploit" />
+    <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/</id>
+        <title>控制流完整性（CFI）</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/"/>
+        <content type="html">&lt;h2 id=&#34;Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms&#34;&gt;&lt;a href=&#34;#Finding-Cracks-in-Shields-On-the-Security-of-Control-Flow-Integrity-Mechanisms&#34; class=&#34;headerlink&#34; title=&#34;Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms&#34;&gt;&lt;/a&gt;Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202305042048279.png&#34; alt=&#34;image-20230502185448539&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合法的跳转目标，但是在每次执行的时候只能跳转到一个确定的位置。（因此最理想的情况就是每条跳转指令只能有一个确定的跳转位置）&lt;/p&gt;
+&lt;p&gt;​	当前的任何CFI控制流安全策略都需要解决以下几个问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如何让claimed boundary和real boundary match？&lt;/li&gt;
+&lt;li&gt;有些可行的目标组合依然会导致漏洞利用（这不就是DOP么？）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然后这个文章后面讲了评估CFI方案好坏的方法，等用到的时候再看&lt;/p&gt;
+</content>
+        <category term="程序分析" />
+        <updated>2023-05-02T10:21:39.000Z</updated>
+    </entry>
+</feed>

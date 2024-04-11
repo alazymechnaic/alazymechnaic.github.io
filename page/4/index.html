@@ -226,15 +226,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/" target="_self">
-          论文阅读笔记：VIPER-SSGVDOA
+        <a href="/2023/10/02/an-zhuo-hook/" target="_self">
+          安卓hook
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/27/lun-wen-yue-du-bi-ji-viper-ssgvdoa/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/an-zhuo-hook/" target="_self">
         <div>
-          VIPER: Spotting Syscall-Guard Variables for Data-Only Attacks 摘要 文章的主要目的是检查那些影响数据流，促使程序运行至关键系统调用的关键变量。VIPER能够自动化地查找实现对系统调用保护分支和变量的自动和可扩展检测 两个关键定义：Syscall-Guard Variables，syscallguard变量决定是否调用与安全相关的系统调用
+          移动安全开发 定制化外挂的开发流程 逆向分析游戏逻辑 验证外挂功能可行性：程序中可能存在对数据的校验，导致外挂不可行。 注入游戏进程：获得root，使用ptrace方式注入游戏进程。 枚举游戏进程模块信息：游戏进程在运行过程中会加载许多模块，定制化外挂需要获取游戏主逻辑模块的基地址，在Android中可以读取/proc/$pid/maps文件获取游戏进程中当前加载的所有模块名称、基址、权限等信息。
         </div>
       </a>
 
@@ -242,8 +242,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-27 09:50" pubdate>
-              2023-06-27
+            <time datetime="2023-10-02 21:20" pubdate>
+              2023-10-02
             </time>
           </div>
         
@@ -252,7 +252,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/paper/">#paper</a>
+              <a href="/tags/Android/">#Android</a>
             
           </div>
         
@@ -266,15 +266,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/05/12/dui-yi-chu-li-yong/" target="_self">
-          堆溢出利用
+        <a href="/2023/10/02/jin-cheng-zhu-ru/" target="_self">
+          进程注入
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/12/dui-yi-chu-li-yong/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/10/02/jin-cheng-zhu-ru/" target="_self">
         <div>
-          堆利用 ​	本文用于介绍当前堆管理方式，堆溢出原理，常见的攻击方式及相关例题题解。 堆管理机制​	堆区域与栈区域在内存使用上存在不同：  堆位于当前程序中较低的地址位置，栈位于当前程序中的较高内存空间位置 堆在使用时从低地址内存向高地址内存增长，栈从高地址内存向低地址内存增长 堆和栈都可以是每个线程所有独有的，堆依然存在线程堆的概念   (上图中的共享库段中包含有不同权限的几个内存段，如下图所示，
+          PC 端注入移动端注入​	由于程序本身是存在进程隔离的，导致一个程序本身是不能影响其他程序的执行的。但是注入技术的初衷是热补丁，调试器功能的实现。因此只要有debug API存在就是可以注入的。 Zygote 注入ptrace注入https://blog.csdn.net/hp910315/article/details/77335058 1long ptrace(enum __ptrace_re
         </div>
       </a>
 
@@ -282,154 +282,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-12 19:47" pubdate>
-              2023-05-12
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/HEAP-PWN-CTF/">#HEAP PWN CTF</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/05/bypass-aslr/" target="_self">
-          BYPASS-ASLR
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/05/bypass-aslr/" target="_self">
-        <div>
-          
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-05 10:29" pubdate>
-              2023-05-05
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/" target="_self">
-          控制流完整性（CFI）
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/02/kong-zhi-liu-wan-zheng-xing-cfi/" target="_self">
-        <div>
-          Finding Cracks in Shields:On the Security of Control Flow Integrity Mechanisms  ​	最早的CFI机制在2005年被提出，后续又出现了各种各样的CFI，但是有一点就是这些机制都不能给予程序绝对的控制流安全性。通常的做法是给ICT（indirect control transfer）指令施加监视器，一个ICT可能存在多个合
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-02 18:21" pubdate>
-              2023-05-02
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/02/bypass-nx/" target="_self">
-          BYPASS-NX
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/02/bypass-nx/" target="_self">
-        <div>
-          Bypass NX（DEP）简介​	栈不可执行（NX），其实也称为DEP(Data Execution PreventionData Execution Prevention),用于防止在栈上执行代码，当该保护开启时，会触发程序的SIGSEGV 错误。这里需要注意的一点为，开启该选项后，不只是栈段，数据段（堆段）依然处于不可执行的状态。 绕过​	既然无法将shellcode注入到数据段上并执行，那
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-02 14:56" pubdate>
-              2023-05-02
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/bypass/">#bypass</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/04/27/dan-zi-jie-yi-chu-one-byte-overflow/" target="_self">
-          单字节溢出（one-byte-overflow）
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/27/dan-zi-jie-yi-chu-one-byte-overflow/" target="_self">
-        <div>
-          off-By-One 缓冲区溢出前言​	本文用于填补先前对于二进制漏洞一些理解上的不足，学习off-by-one的漏洞利用方式。缓冲区溢出的终极目的在于获取目标机器的权限，但是获取权限未必只要一种方式，你可以添加用户，反弹shell、开启一个新的网络链接等。主要参考：https://sploitfun.wordpress.com/2015/06/07/off-by-one-vulnerabilit
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-27 19:40" pubdate>
-              2023-04-27
+            <time datetime="2023-10-02 21:05" pubdate>
+              2023-10-02
             </time>
           </div>
         
@@ -452,15 +306,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/26/zhan-yi-chu-lou-dong-li-yong/" target="_self">
-          栈溢出漏洞利用
+        <a href="/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/" target="_self">
+          数据流分析
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/26/zhan-yi-chu-lou-dong-li-yong/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/" target="_self">
         <div>
-          随着 NX 保护的开启，以往直接向栈或者堆上直接注入代码的方式难以继续发挥效果。攻击者们也提出来相应的方法来绕过保护，目前主要的是 ROP(Return Oriented Programming)，其主要思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。所谓 gadgets 就是以 ret 结尾的指令序列，通过这些指令序
+          DataFlow Analysis 数据流分析的作用 简化执行代码:  ```c// 在下面代码x = a + b;x = 5 * 2;// 可以直接简化为x = 10;123456789101112- **变量取值分析**  - ```c    a = 1;    b = 2;    c = 3;    if (...) x = a + 5;    else x = b + 4;    c =
         </div>
       </a>
 
@@ -468,8 +322,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-26 11:17" pubdate>
-              2023-04-26
+            <time datetime="2023-09-30 14:48" pubdate>
+              2023-09-30
             </time>
           </div>
         
@@ -478,7 +332,240 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/pwn/">#pwn</a>
+              <a href="/tags/dataflow/">#dataflow</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/11/c-yu-yan-fu-jian/" target="_self">
+          C语言复健
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/11/c-yu-yan-fu-jian/" target="_self">
+        <div>
+          SpeedRunner_for_C ​	本文用于帮助常年不使用C语言的程序员进行复健。  图片来源：https://mp.weixin.qq.com/s/aSiVNXJ0rKBWLy_MlzOMWA 直接上例子，哪里不会读哪里 12345678910111213141516171819202122232425262728293031323334353637383940414243444546#in
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-11 19:24" pubdate>
+              2023-09-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">#C</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/05/bash-chang-yong-zhi-ling/" target="_self">
+          Bash常用指令
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/05/bash-chang-yong-zhi-ling/" target="_self">
+        <div>
+          tar12345678# 打包操作tar -cvf archive.tar file1 file2 ...# -c表示创建打包文件，-v表示显示详细的操作信息，-f指定打包文件的名称。archive.tar是打包文件的名称，file1 file2 ...是要添加到打包文件中的文件或目录的列表。可以根据需要添加多个文件或目录# 解包操作tar -xvf archive.tartar -xvf arc
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-05 15:15" pubdate>
+              2023-09-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">#Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/03/libdft/" target="_self">
+          libdft
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/03/libdft/" target="_self">
+        <div>
+          libdft64https://github.com/AngoraFuzzer/libdft64 安装踩坑1234567# 设置pin进入libdft64中执行 ./install_pin.sh# 手动执行Please set:export PIN_ROOT=/home/harry/pin-3.20-98437-gf02b61307-gcc-linux# 编译安装make
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-03 16:24" pubdate>
+              2023-09-03
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/30/afl-ru-men/" target="_self">
+          AFL入门
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/30/afl-ru-men/" target="_self">
+        <div>
+          AFL ++ 面试题目相关AFL中使用的路径的度量机制是什么？针对协议的fuzz主要是做哪些内容？TLSAttacker 为什么针对二级制的工作要比针对源代码的工作更少？原因：针对二级制的分析开销大，很多基于仿真的方法效率太低；收集目标信息困难；往二进制里面打标签很困难。 解决办法：使用处理器追踪的Intel PT，使用触发和过滤功能在指令级别跟踪代码执行。英特尔PT通过记录分支来工作。在运行时，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-30 16:38" pubdate>
+              2023-08-30
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/fuzz/">#fuzz</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/22/xiang-guan-lun-wen-he-ji/" target="_self">
+          相关论文合集
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/22/xiang-guan-lun-wen-he-ji/" target="_self">
+        <div>
+          安全相关论文及博客汇总 安全会议 NDSS：  https://www.ndss-symposium.org/ndss2023/accepted-papers/ ACM CCS： https://www.sigsac.org/ccs/CCS2023/ USENIX：https://www.usenix.org/conference/usenixsecurity23/ S&amp;P: https:
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-22 10:00" pubdate>
+              2023-08-22
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Paper/">#Paper</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/21/aeg-reviwer/" target="_self">
+          AEG_reviwer
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/08/21/aeg-reviwer/" target="_self">
+        <div>
+          Detecting Exploit Primitives Automatically for Heap Vulnerabilities on Binary Programs 文章贡献：  提出了primitive-crucialbehaviors analysis  ，该方法用于在符号执行过程中查找关键执行结构 利用模糊测试和符号执行设计了一套攻击原语确定方法 设计DEPA方法用于检测堆溢出相关原
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-21 14:40" pubdate>
+              2023-08-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/paper/">#paper</a>
             
           </div>
         
@@ -490,7 +577,7 @@
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/5/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

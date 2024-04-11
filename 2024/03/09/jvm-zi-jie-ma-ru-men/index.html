@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="alazymachine">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JAVA 基础.java .class 与 .jar的区别 .java是JAVA代码的源代码文件，就和C语言中的.c一样。 .class则是字节码文件，是java源码通过javac这个工具生成的中间语言，这个和机器架构之类的没有任何关系。而java虚拟机的任务就是去运行这个.class文件中的内容。 JAR文件则是将多个Class文件打包压缩，并添加META-INF&#x2F;MANIFEST.MF 文件，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm字节码入门">
+<meta property="og:url" content="https://alazymechnaic.github.io/2024/03/09/jvm-zi-jie-ma-ru-men/index.html">
+<meta property="og:site_name" content="alazymachine">
+<meta property="og:description" content="JAVA 基础.java .class 与 .jar的区别 .java是JAVA代码的源代码文件，就和C语言中的.c一样。 .class则是字节码文件，是java源码通过javac这个工具生成的中间语言，这个和机器架构之类的没有任何关系。而java虚拟机的任务就是去运行这个.class文件中的内容。 JAR文件则是将多个Class文件打包压缩，并添加META-INF&#x2F;MANIFEST.MF 文件，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403091958023.png">
+<meta property="article:published_time" content="2024-03-09T07:24:28.000Z">
+<meta property="article:modified_time" content="2024-03-17T13:17:40.000Z">
+<meta property="article:author" content="alazymachine">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403091958023.png">
+  
+  
+  
+  <title>jvm字节码入门 - alazymachine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alazymechnaic.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="jvm字节码入门"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-09 15:24" pubdate>
+          2024年3月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          66 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">jvm字节码入门</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="JAVA-基础"><a href="#JAVA-基础" class="headerlink" title="JAVA 基础"></a>JAVA 基础</h2><h3 id="java-class-与-jar的区别"><a href="#java-class-与-jar的区别" class="headerlink" title=".java .class 与 .jar的区别"></a>.java .class 与 .jar的区别</h3><ul>
+<li>.java是JAVA代码的源代码文件，就和C语言中的.c一样。</li>
+<li>.class则是字节码文件，是java源码通过javac这个工具生成的中间语言，这个和机器架构之类的没有任何关系。而java虚拟机的任务就是去运行这个.class文件中的内容。</li>
+<li>JAR文件则是将多个Class文件打包压缩，并添加META-INF/MANIFEST.MF 文件，构成的一个压缩包</li>
+</ul>
+<h2 id="JVM虚拟机编译原理"><a href="#JVM虚拟机编译原理" class="headerlink" title="JVM虚拟机编译原理"></a>JVM虚拟机编译原理</h2><h3 id="JVM虚拟机的设计特性"><a href="#JVM虚拟机的设计特性" class="headerlink" title="JVM虚拟机的设计特性"></a>JVM虚拟机的设计特性</h3><ul>
+<li>java是面向对象的语言，类在其中十分重要。类的唯一性不仅仅由路径和类名决定，还需要考虑类的加载。</li>
+<li>JVM来负责java程序运行时的内存管理，垃圾回收等机制，通过调整jvm的参数可以优化java应用的启动速度和运行效率。</li>
+<li>源代码-&gt;字节码-&gt;机器码，这两次转换分别依靠javac和JVM虚拟机进行转译。</li>
+<li>JVM虚拟机接收的字节码不一定非要来自java程序，还可以来自JRuby或者Groovy等程序。</li>
+</ul>
+<h3 id="JVM架构"><a href="#JVM架构" class="headerlink" title="JVM架构"></a>JVM架构</h3><p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202403091958023.png" srcset="/img/loading.gif" lazyload alt="image-20240309195820483"></p>
+<p><em>图片转载自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655490660">https://zhuanlan.zhihu.com/p/655490660</a></em></p>
+<h4 id="类加载器子系统"><a href="#类加载器子系统" class="headerlink" title="类加载器子系统"></a>类加载器子系统</h4><p>可以看到这个部分是会直接对class文件进行处理的，处理的过程中会加载class中的描述类数据，并进行校验，解析和初始化。Java语言只有在运行时才会完成<strong>类型的加载、链接和初始化</strong>（这里注意，是类型的加载也在运行时完成，也就是在这之前类还是不被确定的，那么是否存在攻击面？），java可以在运行时动态地指定使用的类。这个类可以是Java预制的，甚至是可以从网络上来的二进制字节流（这就是java反序列化漏洞的来源机制？）</p>
+<h4 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h4><p>可以看到在运行时，JVM划定了堆栈区域，线程间的共享方式与x86指令的机器类似。但是需要注意，方法区是共享的。</p>
+<h4 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h4><p>执行引擎用于对中间语言的字节码进行翻译，翻译成符合当前程序的底层机器码，同时对不受支持的指令做转换。这个部分是对java字节码直接解析的部分。JIT的工作也是将字节码转换为本地CPU的机器码，而不是执行该字节码的语义。</p>
+<h2 id="JAVA字节码"><a href="#JAVA字节码" class="headerlink" title="JAVA字节码"></a>JAVA字节码</h2><p>编译java源代码并获取反编译后的字节码：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">javac .\test.java<br>javap -v -p .\test.class<br></code></pre></td></tr></tbody></table></figure>
+
+<p>终于到这一部分了。java有200多个操作码，主要由<strong>类型前缀</strong>和<strong>操作名称</strong>两个部分组成。主要包含下面几种指令类型：</p>
+<ul>
+<li>堆栈操作指令</li>
+<li>控制流操作指令</li>
+<li>对象操作指令</li>
+<li>算数运算指令</li>
+</ul>
+<p>要明白的一点是，一个class文件中只可能包含一个类，所以编译出的java字节码只有一个class可以写。同时JVM的指令集是基于栈实现的，所以运算的本质是从栈中取内容进行操作。以下面的代码为例讲解：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StackStruTest</span> { <br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> { <br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> i + j; <br>  } <br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p>产生的字节码如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><br>Classfile /java/javaDemoTest/StackStruTest.class：指明类文件的路径和名称。<br><br>Last modified Sep <span class="hljs-number">5</span>, <span class="hljs-number">2023</span>; size <span class="hljs-number">291</span> bytes：表示类文件最后修改的时间和文件大小。<br><br>MD5 checksum 5df16de26bb720cea2f763c042f9dc30：给出类文件内容的MD5校验和。<br><br>Compiled from <span class="hljs-string">"StackStruTest.java"</span>：表示该类文件是从名为<span class="hljs-string">"StackStruTest.java"</span>的源文件编译而来。<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StackStruTest</span>：定义一个公共的类名为StackStruTest。<br><br>minor version: <span class="hljs-number">0</span>：表示类文件的次版本号。<br><br>major version: <span class="hljs-number">52</span>：表示类文件的主版本号。<br><br>flags: ACC_PUBLIC, ACC_SUPER：表示类的访问修饰符为<span class="hljs-keyword">public</span>，并且使用了ACC_SUPER标志。<br><br>Constant pool:：常量池开始。<br><br>#<span class="hljs-number">1</span> = Methodref          #<span class="hljs-number">3.</span>#<span class="hljs-number">12</span>         <span class="hljs-comment">// java/lang/Object."&lt;init&gt;":()V：常量池中的一项，表示对java/lang/Object类的构造方法&lt;init&gt;的引用。</span><br><br>#<span class="hljs-number">2</span> = Class              #<span class="hljs-number">13</span>            <span class="hljs-comment">// StackStruTest：常量池中的一项，表示对StackStruTest类的引用。</span><br><br>#<span class="hljs-number">3</span> = Class              #<span class="hljs-number">14</span>            <span class="hljs-comment">// java/lang/Object：常量池中的一项，表示对java/lang/Object类的引用。</span><br><br>#<span class="hljs-number">4</span> = Utf8               &lt;init&gt;：常量池中的一项，表示字符串<span class="hljs-string">"&lt;init&gt;"</span>。<br><br>#<span class="hljs-number">5</span> = Utf8               ()V：常量池中的一项，表示字符串<span class="hljs-string">"()V"</span>，表示无参数无返回值的方法描述符。<br><br>#<span class="hljs-number">6</span> = Utf8               Code：常量池中的一项，表示字符串<span class="hljs-string">"Code"</span>，表示接下来是字节码指令。<br><br>#<span class="hljs-number">7</span> = Utf8               LineNumberTable：常量池中的一项，表示字符串<span class="hljs-string">"LineNumberTable"</span>，表示接下来是行号表。<br><br>#<span class="hljs-number">8</span> = Utf8               main：常量池中的一项，表示字符串<span class="hljs-string">"main"</span>，表示方法名。<br><br>#<span class="hljs-number">9</span> = Utf8               ([Ljava/lang/String;)V：常量池中的一项，表示字符串<span class="hljs-string">"([Ljava/lang/String;)V"</span>，表示入口方法的描述符。<br><br>#<span class="hljs-number">10</span> = Utf8               SourceFile：常量池中的一项，表示字符串<span class="hljs-string">"SourceFile"</span>，表示接下来是源文件信息。<br><br>#<span class="hljs-number">11</span> = Utf8               StackStruTest.java：常量池中的一项，表示字符串<span class="hljs-string">"StackStruTest.java"</span>，表示源文件名。<br><br>#<span class="hljs-number">12</span> = NameAndType        #<span class="hljs-number">4</span>:#<span class="hljs-number">5</span>          <span class="hljs-comment">// "&lt;init&gt;":()V：常量池中的一项，表示NameAndType类型的项，表示构造方法的名称和描述符。</span><br><br>#<span class="hljs-number">13</span> = Utf8               StackStruTest：常量池中的一项，表示字符串<span class="hljs-string">"StackStruTest"</span>。<br><br>#<span class="hljs-number">14</span> = Utf8               java/lang/Object：常量池中的一项，表示字符串<span class="hljs-string">"java/lang/Object"</span>。<br><br>{：类的开始。<br><br><span class="hljs-keyword">public</span> <span class="hljs-title function_">StackStruTest</span><span class="hljs-params">()</span>;：定义一个公共的无参构造方法。<br><br>descriptor: ()V：表示方法的描述符，无参数无返回值。<br><br>flags: ACC_PUBLIC：表示方法的访问修饰符为<span class="hljs-keyword">public</span>。<br><br>Code:：方法的字节码指令开始。<br><br>stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">1</span>, args_size=<span class="hljs-number">1</span>：表示方法的最大堆栈深度为<span class="hljs-number">1</span>，局部变量表大小为<span class="hljs-number">1</span>，参数数量为<span class="hljs-number">1</span>。<br><br><span class="hljs-number">0</span>: aload_0：将局部变量表索引<span class="hljs-number">0</span>的引用类型值（<span class="hljs-built_in">this</span>）加载到操作数栈。<br><br><span class="hljs-number">1</span>: invokespecial #<span class="hljs-number">1</span>：调用常量池中索引为<span class="hljs-number">1</span>的方法（java/lang/Object类的构造方法）。<br><br><span class="hljs-number">4</span>: <span class="hljs-keyword">return</span>：返回。<br><br>LineNumberTable:：行号表开始。<br><br>line <span class="hljs-number">1</span>: <span class="hljs-number">0</span>：表示第<span class="hljs-number">1</span>行对应的字节码指令索引为<span class="hljs-number">0</span>。<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(java.lang.String[])</span>;：定义一个公共的静态方法main，接受一个String数组作为参数。<br><br>descriptor: ([Ljava/lang/String;)V：表示方法的描述符，接受一个String数组（前面那一长串用来描述这个类），V表示无返回值。<br><br>flags: ACC_PUBLIC, ACC_STATIC：表示方法的访问修饰符为<span class="hljs-keyword">public</span>和<span class="hljs-keyword">static</span>。<br><br>Code:：方法的字节码指令开始。<br><br>stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">4</span>, args_size=<span class="hljs-number">1</span>：表示方法的最大堆栈深度为<span class="hljs-number">2</span>，局部变量表大小为<span class="hljs-number">4</span>，参数数量为<span class="hljs-number">1</span>。<br><br><span class="hljs-number">0</span>: iconst_2：将<span class="hljs-type">int</span>类型常量<span class="hljs-number">2</span>压入操作数栈。<br><br><span class="hljs-number">1</span>: istore_1：将操作数栈顶的<span class="hljs-type">int</span>类型值存储到局部变量表的索引<span class="hljs-number">1</span>位置。<br><br><span class="hljs-number">2</span>: bipush        <span class="hljs-number">7</span>：将<span class="hljs-type">int</span>类型常量<span class="hljs-number">7</span>压入操作数栈。<br><br><span class="hljs-number">3</span>: istore_2：将操作数栈顶的<span class="hljs-type">int</span>类型值存储到局部变量表的索引<span class="hljs-number">2</span>位置。<br><br><span class="hljs-number">4</span>: iload_1：将局部变量表索引<span class="hljs-number">1</span>位置的<span class="hljs-type">int</span>类型值压入操作数栈。<br><br><span class="hljs-number">5</span>: iload_2：将局部变量表索引<span class="hljs-number">2</span>位置的<span class="hljs-type">int</span>类型值压入操作数栈。<br><br><span class="hljs-number">6</span>: iadd：从操作数栈中弹出两个<span class="hljs-type">int</span>类型值，执行加法操作，将结果压入操作数栈。<br><br><span class="hljs-number">7</span>: istore_3：将操作数栈顶的<span class="hljs-type">int</span>类型值存储到局部变量表的索引<span class="hljs-number">3</span>位置。<br><br><span class="hljs-number">8</span>: <span class="hljs-keyword">return</span>：返回。<br><br>LineNumberTable:：行号表开始。<br><br>line <span class="hljs-number">3</span>: <span class="hljs-number">0</span>：表示第<span class="hljs-number">3</span>行对应的字节码指令索引为<span class="hljs-number">0</span>。<br><br>line <span class="hljs-number">4</span>: <span class="hljs-number">2</span>：表示第<span class="hljs-number">4</span>行对应的字节码指令索引为<span class="hljs-number">2</span>。<br><br>line <span class="hljs-number">5</span>: <span class="hljs-number">4</span>：表示第<span class="hljs-number">5</span>行对应的字节码指令索引为<span class="hljs-number">4</span>。<br><br>line <span class="hljs-number">6</span>: <span class="hljs-number">8</span>：表示第<span class="hljs-number">6</span>行对应的字节码指令索引为<span class="hljs-number">8</span>。<br><br></code></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>在反编译后的信息中，最上面是当前这个文件的信息，包括编译来源等操作。</li>
+<li>后面的常量池，可以理解为C语言中的Define，对符号的引用情况做个记录。其中#num其实就是在常量池中定义的临时变量。java代码在运行的时候通常会将常量直接嵌入到字节码中，而对于符号的引用则会转化为对应的常量池索引。</li>
+<li>最后一行用于记录第几行的汇编，在字节码中占据第几位。（这是不是就类似汇编语言中的指令地址？只不过不能按照偏移算了，于是要手工记一下。（gpt说是的 ：）</li>
+</ul>
+<h2 id="JAVA指令集分类"><a href="#JAVA指令集分类" class="headerlink" title="JAVA指令集分类"></a>JAVA指令集分类</h2><ul>
+<li><strong>[x]const_[n]:</strong> 指令，这个指令是加载一个常量指令并且将其压入到栈中，前面的x表示操作数的类型i表示int，f表示float，后面的n表示常量值。但是这里注意，int类型下，n常量最大只能取到5，超过这个数就只能使用[x]ipush的方式压栈</li>
+<li>bipush / sipush [n]： 表示将八位(b),十六位(s)带符号整数n压入到栈中。</li>
+<li><strong>ldc:</strong>  将常量池中的项压入到栈中。（我猜后面应该是跟编号</li>
+<li><strong>[x]load_[n]：</strong> 同样是压栈指令，但是使用从局部变量表类型为x编号为n的变量取出压栈。这里的<strong>局部变量表</strong>其实就是类似X86架构中的临时栈，其中存放了外部传来的参数和当前方法的局部变量，当前过程退出之后，就会回收该部分。<strong>这里注意一点，如果是static类，传参用0号局部变量开始表示，如果不是static则存在this指针，则从1号变量开始</strong></li>
+<li><strong>[x]store_[n]:</strong> 从栈顶取出内容并将其存入到局部变量n中保存。</li>
+<li><strong>运算指令</strong>：运算指令将当前栈顶的两个元素先出栈，然后将其相加后再压回栈顶。idiv将第二个整数除以栈顶的整数，将结果放在栈顶。</li>
+<li><strong>比较指令</strong>： icmp指令的执行是比较第二个元素和栈顶元素的之间的关系，并且将结果放到栈里面。同时，<strong>被比较的两个数会被弹出，这点和X86架构不同</strong>。其实就是第二个数减去第一个数，减为负数就存-1，相等存0，否则存1，就这样简单。</li>
+<li><strong>跳转指令</strong>：ifeq如果栈顶的int型数字为0则跳转。当栈顶的 int 值等于零时，JVM会将程序计数器（Program Counter）设置为当前指令的地址加上指令中给定的偏移量。ifeq执行完，无论结果如何，都会将栈顶的内容弹出。ifgt（大于则0则跳转）。无条件跳转就直接goto。<strong>跳转位置使用相对于当前跳转指令的偏移进行计算的</strong>。tableswitch使用索引访问跳转表并进行跳转。</li>
+<li><strong>比较跳转</strong>：if_icmplt比较栈顶的两个元素，同样也是第二个元素比较栈顶的元素的大小关系。运算结束后同样会出栈。if_acmpnc还能比较引用。</li>
+<li><strong>[x]return</strong>:返回指令，前面的x表示了返回值的类型，如果x为空，直接return则表示返回值是void。</li>
+</ul>
+<p>上面的数似乎太温和了，不好表示所有的操作。稍稍修改地复杂些：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span> { <br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> { <br>    <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">996</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">700</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> i*<span class="hljs-number">3</span> + j*<span class="hljs-number">9</span>; <br>    <span class="hljs-keyword">return</span> k;<br>  } <br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<p>反编译出字节码如下：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span><br>  minor version: <span class="hljs-number">0</span><br>  major version: <span class="hljs-number">63</span><br>  flags: (<span class="hljs-number">0x0021</span>) ACC_PUBLIC, ACC_SUPER<br>  this_class: #<span class="hljs-number">7</span>                          <span class="hljs-comment">// test</span><br>  super_class: #<span class="hljs-number">2</span>                         <span class="hljs-comment">// java/lang/Object</span><br>  interfaces: <span class="hljs-number">0</span>, fields: <span class="hljs-number">0</span>, methods: <span class="hljs-number">2</span>, attributes: <span class="hljs-number">1</span><br>Constant pool:<br>   #<span class="hljs-number">1</span> = Methodref          #<span class="hljs-number">2.</span>#<span class="hljs-number">3</span>          <span class="hljs-comment">// java/lang/Object."&lt;init&gt;":()V</span><br>   #<span class="hljs-number">2</span> = Class              #<span class="hljs-number">4</span>             <span class="hljs-comment">// java/lang/Object</span><br>   #<span class="hljs-number">3</span> = NameAndType        #<span class="hljs-number">5</span>:#<span class="hljs-number">6</span>          <span class="hljs-comment">// "&lt;init&gt;":()V</span><br>   #<span class="hljs-number">4</span> = Utf8               java/lang/Object<br>   #<span class="hljs-number">5</span> = Utf8               &lt;init&gt;<br>   #<span class="hljs-number">6</span> = Utf8               ()V<br>   #<span class="hljs-number">7</span> = Class              #<span class="hljs-number">8</span>             <span class="hljs-comment">// test</span><br>   #<span class="hljs-number">8</span> = Utf8               test<br>   #<span class="hljs-number">9</span> = Utf8               Code<br>  #<span class="hljs-number">10</span> = Utf8               LineNumberTable<br>  #<span class="hljs-number">11</span> = Utf8               main<br>  #<span class="hljs-number">12</span> = Utf8               ([Ljava/lang/String;)I<br>  #<span class="hljs-number">13</span> = Utf8               SourceFile<br>  #<span class="hljs-number">14</span> = Utf8               test.java<br>{<br>  <span class="hljs-keyword">public</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span>;<br>    descriptor: ()V<br>    flags: (<span class="hljs-number">0x0001</span>) ACC_PUBLIC<br>    Code:<br>      stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">1</span>, args_size=<span class="hljs-number">1</span><br>         <span class="hljs-number">0</span>: aload_0<br>         <span class="hljs-number">1</span>: invokespecial #<span class="hljs-number">1</span>                  <span class="hljs-comment">// Method java/lang/Object."&lt;init&gt;":()V</span><br>         <span class="hljs-number">4</span>: <span class="hljs-keyword">return</span><br>      LineNumberTable:<br>        line <span class="hljs-number">1</span>: <span class="hljs-number">0</span><br><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(java.lang.String[])</span>;<br>    descriptor: ([Ljava/lang/String;)I<br>    flags: (<span class="hljs-number">0x0009</span>) ACC_PUBLIC, ACC_STATIC<br>    Code:<br>      stack=<span class="hljs-number">3</span>, locals=<span class="hljs-number">4</span>, args_size=<span class="hljs-number">1</span><br>         <span class="hljs-number">0</span>: sipush        <span class="hljs-number">996</span> <span class="hljs-comment">// 将常量996压入到本地栈中，</span><br>         <span class="hljs-number">3</span>: istore_1  <span class="hljs-comment">// 将栈中的内容存到临时变量1中</span><br>         <span class="hljs-number">4</span>: sipush        <span class="hljs-number">700</span> <span class="hljs-comment">// 将常量700压入到栈中</span><br>         <span class="hljs-number">7</span>: istore_2  <span class="hljs-comment">// 存到临时变量</span><br>         <span class="hljs-number">8</span>: iload_1<br>         <span class="hljs-number">9</span>: iconst_3<br>        <span class="hljs-number">10</span>: imul<br>        <span class="hljs-number">11</span>: iload_2<br>        <span class="hljs-number">12</span>: bipush        <span class="hljs-number">9</span><br>        <span class="hljs-number">14</span>: imul<br>        <span class="hljs-number">15</span>: iadd<br>        <span class="hljs-number">16</span>: istore_3<br>        <span class="hljs-number">17</span>: iload_3<br>        <span class="hljs-number">18</span>: ireturn<br>      LineNumberTable:<br>        line <span class="hljs-number">3</span>: <span class="hljs-number">0</span><br>        line <span class="hljs-number">4</span>: <span class="hljs-number">4</span><br>        line <span class="hljs-number">5</span>: <span class="hljs-number">8</span><br>        line <span class="hljs-number">6</span>: <span class="hljs-number">17</span><br>}<br></code></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li><strong>对象操作指令</strong>：JAVA是面向对象的语言，但是与C的不同，java指令集直接定义了这些操作<ul>
+<li><strong>new</strong>：创建一个对象，并且将创建出来的该对象的索引压入栈中。在底层会为该对象创建一个heap区域的内存块。在分配内存后，JVM 会调用初始化函数，根据对象的类信息初始化对象头，包括存储对象的元数据、锁信息等。需要注意的是，对象的分配和初始化过过程是原子过程，以便于在多线程环境下保证对象的正确创建。new指令只能创建对象，不能创建数组。</li>
+<li><strong>getstatic</strong>: getstatic只能用于获取静态字段的值，不能用于获取实例的值。<code>getstatic</code> 指令需要指定要获取的静态字段的符号引用，包括字段所在的类、字段的名称和字段的描述符。JVM 首先根据符号引用解析静态字段的实际引用，确定要获取的字段的具体位置。JVM 在执行 <code>getstatic</code> 之前会检查当前执行线程对静态字段的访问权限，确保它具有足够的权限来读取该字段。</li>
+<li><strong>getfield</strong>：从对象中获取字段。</li>
+<li><strong>checkcast</strong>：将对象转换为所给类型。</li>
+<li><strong>instanceof</strong>：判断给定对象是否是给定类型。</li>
+</ul>
+</li>
+</ul>
+<h2 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h2><h3 id="JAVA插装怎么插？"><a href="#JAVA插装怎么插？" class="headerlink" title="JAVA插装怎么插？"></a>JAVA插装怎么插？</h3><ul>
+<li>使用ASM工具直接对java的class字段进行操作即可。 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/496213736">https://zhuanlan.zhihu.com/p/496213736</a></li>
+</ul>
+<h3 id="JIT和JVM是啥关系？"><a href="#JIT和JVM是啥关系？" class="headerlink" title="JIT和JVM是啥关系？"></a>JIT和JVM是啥关系？</h3><p>上面的图已经解释了，jvm中包含jit，jvm在运行的过程中需要把java的字节码丢到jit中去进行处理。</p>
+<h3 id="安卓中的-dex文件和一般java中的jar文件有什么不同？"><a href="#安卓中的-dex文件和一般java中的jar文件有什么不同？" class="headerlink" title="安卓中的.dex文件和一般java中的jar文件有什么不同？"></a>安卓中的.dex文件和一般java中的jar文件有什么不同？</h3><p>Java虚拟机(Java Virtual Machine, JVM)和Dalvik虚拟机(Dalvik Virtual Machine, DVM)是两种不同的虚拟机，它们在设计、编译后的文件格式、运行架构等方面存在显著差异：</p>
+<ol>
+<li>编译后的文件不同： JVM运行的是<code>.class</code>字节码文件。 DVM运行的是其专有的<code>.dex</code>文件。Java程序中的Java类会被编译成<code>.class</code>字节码文件，然后打包到<code>.jar</code>文件中。对于Android平台，这些<code>.class</code>文件会被转换成<code>.dex</code>文件，以适应Dalvik虚拟机。此外，<code>.odex</code>文件是<code>.dex</code>文件的优化版本，用于提高运行性能。</li>
+<li>基于的架构不同： JVM是基于栈的架构，栈是一个连续的内存空间，存取速度相对较慢。 DVM是基于寄存器的架构，寄存器是CPU上的缓存，存取速度比从内存中存取的速度快很多，更适合移动设备的使用</li>
+<li>内存管理不同：</li>
+</ol>
+<p>DVM为每个应用程序默认分配最多16MB内存。如果应用程序加载的资源超过这个限制，可能会导致OutOfMemoryError异常。JVM的内存管理方式与DVM不同，但通常更加灵活和高效。</p>
+<ol start="4">
+<li>应用范围和兼容性：</li>
+</ol>
+<ul>
+<li>JVM可以运行多种编程语言（如Java、Kotlin等），不限于Java语言。</li>
+<li>DVM是Google公司为Android平台设计的虚拟机，专门针对ARM架构的处理器优化。虽然Dalvik虚拟机不是按照Java虚拟机的规范来实现的，且两者不兼容，但它们都提供了进程隔离和线程管理的功能。</li>
+</ul>
+<h3 id="JVM虚拟机和DALVIK虚拟机有何不同？"><a href="#JVM虚拟机和DALVIK虚拟机有何不同？" class="headerlink" title="JVM虚拟机和DALVIK虚拟机有何不同？"></a>JVM虚拟机和DALVIK虚拟机有何不同？</h3><ul>
+<li>JVM是读取.class文件进行运行，一个class文件中只包含一个类，而Dalvik虚拟机的dex的文件包含有多个类（因为他是多个class文件打包成的），</li>
+<li>alvik的指令集基于寄存器，而JVM的指令集基于堆栈。不同之处在于，基于寄存器的指令在寄存器中寻址，速度更快但指令长度长；基于堆栈的指令集更短，但占用CPU时间较多。（所以说二者的指令集是不一样的）</li>
+</ul>
+<h3 id="Smali字节码和JVM字节码有什么不一样？"><a href="#Smali字节码和JVM字节码有什么不一样？" class="headerlink" title="Smali字节码和JVM字节码有什么不一样？"></a>Smali字节码和JVM字节码有什么不一样？</h3><h3 id="进程隔离和线程管理的概念是什么？"><a href="#进程隔离和线程管理的概念是什么？" class="headerlink" title="进程隔离和线程管理的概念是什么？"></a>进程隔离和线程管理的概念是什么？</h3><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43896318/article/details/104631106">https://blog.csdn.net/weixin_43896318/article/details/104631106</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Megetood/article/details/109114038">https://blog.csdn.net/Megetood/article/details/109114038</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/655490660">https://zhuanlan.zhihu.com/p/655490660</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>jvm字节码入门</div>
+      <div>https://alazymechnaic.github.io/2024/03/09/jvm-zi-jie-ma-ru-men/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>alazymachine</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/10/dai-ma-fen-xi-nan-jing-da-xue-ke-cheng-bi-ji/" title="《代码分析》-南京大学-课程笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《代码分析》-南京大学-课程笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/06/yu-shen-tou/" title="域渗透">
+                        <span class="hidden-mobile">域渗透</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

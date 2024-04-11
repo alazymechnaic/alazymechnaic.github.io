@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://alazymechnaic.github.io</id>
+    <title>alazymachine • Posts by &#34;渗透&#34; tag</title>
+    <link href="https://alazymechnaic.github.io" />
+    <updated>2024-03-06T13:00:00.000Z</updated>
+    <category term="paper" />
+    <category term="fuzz" />
+    <category term="arm" />
+    <category term="Linux" />
+    <category term="C" />
+    <category term="go" />
+    <category term="Paper" />
+    <category term="bypass" />
+    <category term="clash" />
+    <category term="Hook" />
+    <category term="go, RE" />
+    <category term="kernel pwn" />
+    <category term="binary" />
+    <category term="writing" />
+    <category term="HEAP PWN CTF" />
+    <category term="Android" />
+    <category term="dataflow" />
+    <category term="pwn" />
+    <category term="java" />
+    <category term="web" />
+    <category term="exploit" />
+    <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
+    <entry>
+        <id>https://alazymechnaic.github.io/2024/03/06/yu-shen-tou/</id>
+        <title>域渗透</title>
+        <link rel="alternate" href="https://alazymechnaic.github.io/2024/03/06/yu-shen-tou/"/>
+        <content type="html">&lt;p&gt;&lt;strong&gt;信息收集&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;**oneforall:**子域名收集工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;whois****查询&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;多地&lt;strong&gt;&lt;strong&gt;ping&lt;/strong&gt;&lt;/strong&gt;查询是否存在&lt;strong&gt;&lt;strong&gt;CDN&lt;/strong&gt;&lt;/strong&gt;服务器，&lt;strong&gt;&lt;strong&gt;nslookup&lt;/strong&gt;&lt;/strong&gt;若存在多个&lt;strong&gt;&lt;strong&gt;IP&lt;/strong&gt;&lt;/strong&gt;则证明有****CDN&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;国外&lt;strong&gt;&lt;strong&gt;ping&lt;/strong&gt;&lt;/strong&gt;一般会是真正的服务器&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;历史&lt;strong&gt;&lt;strong&gt;DNS&lt;/strong&gt;&lt;/strong&gt;解析&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;利用&lt;strong&gt;&lt;strong&gt;fofa&lt;/strong&gt;&lt;/strong&gt;，比如在图标中会有一串唯一的哈希，可以利用网络空间搜索引擎全网&lt;strong&gt;&lt;strong&gt;ip&lt;/strong&gt;&lt;/strong&gt;信息进行排序&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;依照网站证书，按照证书上的序列号转换为&lt;strong&gt;&lt;strong&gt;10&lt;/strong&gt;&lt;/strong&gt;进制，去&lt;strong&gt;&lt;strong&gt;fofa&lt;/strong&gt;&lt;/strong&gt;上搜&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;C****段查询&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;文件泄露扫描：使用目录扫描器，&lt;strong&gt;&lt;strong&gt;svn&lt;/strong&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;strong&gt;swp&lt;/strong&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;strong&gt;git&lt;/strong&gt;&lt;/strong&gt;文件泄露&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;系统后门：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Windows****：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SC****后门，将后门程序注册为自启动服务&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;WMI****后门：&lt;/strong&gt;必须要在提权成功后才能够使用，UAC机制会阻碍该方法（需要在empire中可以进行bypass uac，然后在empire中找到persistence/elevated/wmi模块执行，而后在主机上发送&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Get-WMIObject-Namespaceroot\Subscription-ClassCommandLineEventConsumer-Filter“Name=’Updater’”即可创建WMI后门&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Linux后门&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;pam后门&lt;/li&gt;
+&lt;li&gt;vim后门&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;关于免杀&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;文件免杀：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;webshell****：混淆，加密&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;C2****工具：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;利用加载器伪装，加载&lt;strong&gt;&lt;strong&gt;shellcode&lt;/strong&gt;&lt;/strong&gt;，将&lt;strong&gt;&lt;strong&gt;shellcode&lt;/strong&gt;&lt;/strong&gt;生成出来。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DLL****劫持，进行代码的注入&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;载荷分离，将载荷放在公网的服务器上，每次调用时会下载载荷执行&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Kerberos原理&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;客户机向AS发送通信请求，其中内容是客户机的明文ID&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;AS检查该ID是否合法，若合法则从数据库中找到对应的NTLM  HASH（该用户密码的NTLM哈希值）用作和客户机通信的加密密钥。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;即UserHash(infor，TGT)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;其中的TGT=TgsHash(用户id，客户端网络地址，票据有效信息和客户机的NTLM     Hash)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;客户机解密出来TGT后，向TGS发出TGT，要访问的服务器的ID，使用自己NTLM     Hash加密的时间戳等信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;TGS拿到消息后，先解开TGT，得到客户机的HASH，而后利用该HASH解密客户机发来的身份认证，从而证实客户机的身份。随后TGS生成客户机与服务器的会话密钥，利用服务器端的Hash加密一份会话密钥，外层用客户端的哈希加密后发送给客户机&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;客户机解密后得到会话密钥，同时将对应服务器端的密钥发送给服务器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;密钥交换完成&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;注意：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;其中KDC包含（AS，TGS）&lt;/li&gt;
+&lt;li&gt;AS用于生成临时会话票据TGT&lt;/li&gt;
+&lt;li&gt;TGS用于为客户访问服务器生成Ticket&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;黄金票据&lt;/strong&gt;：伪造TGT，需要窃取域控的NTLM HASH，用于TGT的构成是利用TGS的哈希加密的内容，因此得到域控用户的哈希后可以不通过AS而伪造出TGT&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;白银票据&lt;/strong&gt;：伪造Ticket 需要目标服务器的NTLM Hash，由于Ticket的构成需要两个密钥，一个本地用户的哈希，另一个是服务器用户的哈希，从而构造出Ticket，可以使其不与域控进行通信而完成密钥的协商&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;静态抓取方式：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;data:image/png;base64,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&#34; alt=&#34;reg save HKl_m SYSTEM c: windows temp Sys. hiv  • ndows temp Sam. hiv  reg save HKLm SYSTEM c: &#34;&gt;&lt;/p&gt;
+&lt;p&gt;而后使用mimikatz进行明文密码的抓取&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;动态抓取方式：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用&lt;strong&gt;&lt;strong&gt;procdump.exe&lt;/strong&gt;&lt;/strong&gt;对&lt;strong&gt;&lt;strong&gt;lsas.exe&lt;/strong&gt;&lt;/strong&gt;的内存&lt;strong&gt;&lt;strong&gt;dump&lt;/strong&gt;&lt;/strong&gt;到本地。其中&lt;strong&gt;&lt;strong&gt;lsass.exe&lt;/strong&gt;&lt;/strong&gt;用于进行密码验证因此会存有明文密码&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;使用&lt;strong&gt;&lt;strong&gt;sqldumper.exe&lt;/strong&gt;&lt;/strong&gt;（&lt;strong&gt;&lt;strong&gt;mssql&lt;/strong&gt;&lt;/strong&gt;安装目录下提取出来的工具），****sekurlsa::minidump&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;mimikatz&lt;strong&gt;&lt;strong&gt;进行&lt;/strong&gt;&lt;/strong&gt;debug&lt;strong&gt;&lt;strong&gt;从而进行&lt;/strong&gt;&lt;/strong&gt;NTLM****哈希的抓取：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;而后进行分析&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;横向移动：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;信息收集：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;内网结构，键盘记录，每个主机上各种密码收集，构造字典&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;移动方法：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;弱口令&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高危内网服务&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;web&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bloodhound****一把梭&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;利用猕猴桃获得其他主机的凭证，在域内进行横向的转移&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WMIC工具能够进行远程命令执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;WCE工具能够进行远程哈希注入&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;MSF的PSEXEC模块能够进行哈希传递&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;netsh能够进行防火墙的规则设置&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;psexec哈希传递&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;smb重放（攻击者进行中间人攻击，由于SMB认证是基于挑战响应机制的，因此作为中间人可以直接转发客户机的challenge值），远程计划任务&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;端口扫描：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;nmap****：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-sP 使用ping扫描&lt;/p&gt;
+&lt;p&gt;-PE ICMP扫描&lt;/p&gt;
+&lt;p&gt;-sS 半开式扫描&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;漏洞扫描工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AWVS&lt;strong&gt;&lt;strong&gt;，&lt;/strong&gt;&lt;/strong&gt;APPSCAN&lt;strong&gt;&lt;strong&gt;，&lt;/strong&gt;&lt;/strong&gt;nessus&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nmap     –script&lt;/strong&gt; &lt;strong&gt;选择脚本&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;内网流量代理工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;流量代理&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;frp&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nps&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;venom&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;本地转发&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;windows&lt;strong&gt;&lt;strong&gt;：&lt;/strong&gt;&lt;/strong&gt;netsh&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;linux&lt;strong&gt;&lt;strong&gt;：&lt;/strong&gt;&lt;/strong&gt;ssh&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;DNS&lt;strong&gt;&lt;strong&gt;相关内容&lt;/strong&gt;&lt;/strong&gt;：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;DNS&lt;/strong&gt; &lt;strong&gt;A记录****：即用来指定主机名（域名）对应的IP地址记录，用户可以将该域名下的网站服务器指向到自己的web&lt;/strong&gt; &lt;strong&gt;server上****。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;CNAME记录：别名&lt;strong&gt;&lt;strong&gt;解析&lt;/strong&gt;&lt;/strong&gt;，由主机名到主机名到映射，当需要将域名指向另一个域名，再由另一个域名提供IP地址时需要CNAME记录，包括CDN，企业邮箱等操作。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;A记录和CNAME记录之间的区别：CNAME可以实现一台服务器上搭载多个网站，也就是多个域名解析到一个主机名上，该主机名对应一条A记录，用于解析域名到IP之间的记录，当主机需要更换IP时，只修改该A记录即可&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;域名与IP之间的关系：&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;一个域名可以对应多个IP，用于实现类似负载均衡。一个域名设置多个dns服务器进行解析，同一个域名的不同解析会指向不同的地址，这样应答快的dns现解析，这样就可以保证最快定向到指定的网站空间去。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一个IP也可以对应多个域名：例如CNAME记录就是这类方式。将不通过的域名通过CNAME映射到同一个域名上去。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;http相关内容：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Accept字段****：在http请求数据包中，用于告知服务器自己接受什么样的数据&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text&lt;/strong&gt;&lt;strong&gt;/html****，&lt;/strong&gt; &lt;strong&gt;image/jpeg&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Content-Type****：表名实体主体的文件类型（文件上传绕过可以尝试该方式）&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Referer：用于告知服务器，客户机是从哪个资源来访问服务器的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;X&lt;/strong&gt;&lt;strong&gt;-Forward-For****：与Referer不同之处在于其填写的内容是IP，而XFF填写的内容是上一个访问的资源地址。在进行编程时选择使用remote&lt;/strong&gt; &lt;strong&gt;addr则得到的是真实IP****，即进行握手时的IP。而XFF是可以进行伪造的。当使用类似Nginx进行反向代理时，remote&lt;/strong&gt; &lt;strong&gt;addr得到的是代理服务器的IP****，因此需要填写XFF指向真正的外部用户。当然真正的web服务器此时需要禁止对外提供服务。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="渗透" />
+        <updated>2024-03-06T13:00:00.000Z</updated>
+    </entry>
+</feed>

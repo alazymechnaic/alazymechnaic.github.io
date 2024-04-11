@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="alazymachine">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Practical Data-Only Attack Generation 摘要主体思路：​	抽象不必要的复杂性，使用轻量级的方案解决最优希望的漏洞（意思是最简单的DOP漏洞？ 设计框架EINSTEIN: 扫描系统调用并将其串联成一个攻击链。 基于unmodified attacker data（这里暂时理解为POC）作为输入  对DOP的理解现有的解决方案通常使用符号执行，简化假设（即便是这个假">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文阅读笔记：Practical Data-Only Attack Generation">
+<meta property="og:url" content="https://alazymechnaic.github.io/2024/04/02/lun-wen-yue-du-bi-ji-practical-data-only-attack-generation/index.html">
+<meta property="og:site_name" content="alazymachine">
+<meta property="og:description" content="Practical Data-Only Attack Generation 摘要主体思路：​	抽象不必要的复杂性，使用轻量级的方案解决最优希望的漏洞（意思是最简单的DOP漏洞？ 设计框架EINSTEIN: 扫描系统调用并将其串联成一个攻击链。 基于unmodified attacker data（这里暂时理解为POC）作为输入  对DOP的理解现有的解决方案通常使用符号执行，简化假设（即便是这个假">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202404022113797.png">
+<meta property="og:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240404233058728.png">
+<meta property="article:published_time" content="2024-04-02T12:40:27.000Z">
+<meta property="article:modified_time" content="2024-04-06T13:22:12.000Z">
+<meta property="article:author" content="alazymachine">
+<meta property="article:tag" content="paper">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202404022113797.png">
+  
+  
+  
+  <title>论文阅读笔记：Practical Data-Only Attack Generation - alazymachine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alazymechnaic.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="论文阅读笔记：Practical Data-Only Attack Generation"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-02 20:40" pubdate>
+          2024年4月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">论文阅读笔记：Practical Data-Only Attack Generation</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Practical-Data-Only-Attack-Generation"><a href="#Practical-Data-Only-Attack-Generation" class="headerlink" title="Practical Data-Only Attack Generation"></a>Practical Data-Only Attack Generation</h1><hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><h3 id="主体思路："><a href="#主体思路：" class="headerlink" title="主体思路："></a>主体思路：</h3><p>​	抽象不必要的复杂性，使用轻量级的方案解决最优希望的漏洞（意思是最简单的DOP漏洞？</p>
+<h3 id="设计框架EINSTEIN"><a href="#设计框架EINSTEIN" class="headerlink" title="设计框架EINSTEIN:"></a>设计框架EINSTEIN:</h3><ul>
+<li>扫描系统调用并将其串联成一个攻击链。</li>
+<li>基于unmodified attacker data（这里暂时理解为POC）作为输入</li>
+</ul>
+<h2 id="对DOP的理解"><a href="#对DOP的理解" class="headerlink" title="对DOP的理解"></a>对DOP的理解</h2><p>现有的解决方案通常使用符号执行，简化假设<strong>（即便是这个假设并不符合攻击目标）</strong>，手动构建gadget链的方法。现有的方法虽然并不破坏控制数据，但是破坏了一些<strong>control-adjacent data</strong>,(这里理解为和控制数据差不多的branch condition的数据)，实现所谓的合法路径，其实还是在以最小攻击面上劫持控制流，这就导致使用重量级的分析会导致大量复杂的约束。</p>
+<p><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/202404022113797.png" srcset="/img/loading.gif" lazyload alt="image-20240402211350712"></p>
+<p><strong>在现实中，对于一个足够复杂的程序，要在有限的时间内解决所有约束条件是极其困难，甚至是不可能的。问题空间——即覆盖任何可能的数据到任何可能的值，在任何可能的程序点使用它，以实现任意计算——太大了</strong></p>
+<p>现有工作的困境：</p>
+<p>（1）攻击只能覆盖特定的内存部分</p>
+<p>（2）攻击者必须使用另一个漏洞来到达gadget的入口点</p>
+<p>（3）攻击者必须手动将gadget链接在一起构建利用代码。</p>
+<p>​	这些做法简化了问题，但是它们要么极大地限制了生成的利用代码的范围，要么将其中的一部分留给未来或手动工作。简而言之，这些方法的整体复杂性阻止上了上图中所有目标的实现。</p>
+<h2 id="轻量级方法"><a href="#轻量级方法" class="headerlink" title="轻量级方法"></a>轻量级方法</h2><h3 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h3><ul>
+<li>动态污点分析削减了仅数据攻击复杂的约束。使用具体执行来确定一些数据，而不是推算一些数据。（这不还是实例化吗）</li>
+<li>图灵完备性是不必要的部分，没有必要去追求图灵完备才实现攻击。</li>
+<li>操纵目标程序的路径是不必要的，程序不需要攻击者的干预就能执行execve等敏感函数（这只有nginx可以吧？</li>
+<li>在程序初始化后，许多数据被视为是不可变的，因此这些数据的约束量很少，因为程序原本的逻辑都不会操纵它。那么这些数据就可以在一开始调用原语破坏掉，其数据一致性自然保证。（这是啥，nginx oriented programming</li>
+</ul>
+<h3 id="框架实现"><a href="#框架实现" class="headerlink" title="框架实现"></a>框架实现</h3><ul>
+<li>使用动态污点分析，标记攻击者可污染的部分还是人工指定的。</li>
+<li>如果动态污点分析结果表明syscall用了污染的数据，就认为这个syscall可以被控制，如果两个syscall都用了就说明这俩能缝合？</li>
+</ul>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
+<li>发表了一个在复杂程序上构建仅数据攻击的实用方法</li>
+<li>开发了EINSTEIN</li>
+<li>使用EINSTEIN找到了数千个未知的系统调用，并在nginx上构造了数百个exploits</li>
+</ul>
+<h3 id="Threat-Model"><a href="#Threat-Model" class="headerlink" title="Threat Model"></a>Threat Model</h3><p>​	与先前的研究类似，将所有的保护措施都保持开启，并且开启shadow stack等所有严格的栈保护措施。此外还包括：</p>
+<ul>
+<li>能够访问与攻击目标等效的二进制程序（不直接说能够获得目标二进制</li>
+<li>能够与目标服务正常地交互</li>
+<li>能够通过信息泄露bypass ASLR（意思就是说可以忽略ASLR了？之前说的开启保护不是扯扯淡</li>
+<li>能够在程序的静止状态获取一个任意写原语（意思是还得有个任意写原语来修改内存</li>
+</ul>
+<h3 id="DESIGN"><a href="#DESIGN" class="headerlink" title="DESIGN"></a>DESIGN</h3><h4 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a>执行步骤</h4><ol>
+<li><strong>框架从程序的静息状态开始接手</strong>：例如nginx等待链接请求时的状态开始，这个时候所有的变量初始化都基本完成。</li>
+<li><strong>模拟一个任意内存写入的原语</strong>：手动引入一个任意内存写入漏洞完成对所有可控数据的污染标记（这不还是标记所有的内存？）</li>
+<li><strong>发送正常的用户输入</strong>：向目标程序中发送标准输入，记录污染能够传播到syscall。</li>
+<li><strong>记录受污染情况</strong>：如果syscall 的变量可被污染，就证明该变量可用，将其作为候选的gadget，并且它还记录了有关系统调用的信息，例如其参数及其是否受到污点的影响。（这不就是一般的污点分析做的事情吗</li>
+<li>、<strong>生成Exploit</strong>：检查受污染参数和之前标记的污染变量的范围，发现参数和预先标记的内存是完全相同的（<strong>这咋发现的，只能知道影不影响，又不能知道是不是一样</strong>），将这种直接的数据流称为身份数据流，EINSTEIN通过生成(addr, val)对来构建一个候选利用代码，以将目标数据从”/usr/local/server/cgi-bin”更改为”/bin”（这种情况太少了吧</li>
+<li><strong>Exploit验证</strong>：利用键值对修改内存，然后发送数据包执行</li>
+</ol>
+<h4 id="污点分析引擎"><a href="#污点分析引擎" class="headerlink" title="污点分析引擎"></a>污点分析引擎</h4><p>污点分析引擎设计需要满足下面两个目标：</p>
+<ul>
+<li>能够标记足够大的范围</li>
+<li>要求使用一个成本较低的污点分析？</li>
+</ul>
+<h4 id="污点分析策略"><a href="#污点分析策略" class="headerlink" title="污点分析策略"></a>污点分析策略</h4><ul>
+<li>只污染具有长期保存的内存部分，也就自然排除了栈段（作者PS:如果想要污染栈上的长期变量也可以）</li>
+<li>指针处理策略：将受污染的指针索引得到的任何内容都视为被污染的（我们也做了，甚至还做了内存搜索</li>
+<li>系统调用缝合，一个系统调用可以创建一个文件指针FD，另一个系统调用使用了这个文件指针，那么这两个系统调用就实现了缝合<ul>
+<li>Directly 缝合：直接污染的syscall</li>
+<li>In-Directly 缝合：一个受污染的syscall的结果被另一个syscall使用</li>
+</ul>
+</li>
+<li>分析践行轻量级：只找那些从snapshot开始不变的量，如果到syscal之后还是不变就表明污染是一致的没有断掉</li>
+<li>所以exploit求解其实还是求出的snapshot状态下的（addr，val）键值对。</li>
+<li><img src="https://alazymechnaic.oss-cn-hangzhou.aliyuncs.com/blog-page/image-20240404233058728.png" srcset="/img/loading.gif" lazyload alt="image-20240404233058728"></li>
+<li>exploit键值对的验证方法：重新运行程序，依照键值对设置内存，发送workload（这里为什么不叫payload就是因为这个东西并不触发攻击，所以这里才给他叫做workload）</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/paper/">#paper</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>论文阅读笔记：Practical Data-Only Attack Generation</div>
+      <div>https://alazymechnaic.github.io/2024/04/02/lun-wen-yue-du-bi-ji-practical-data-only-attack-generation/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>alazymachine</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/08/er-jin-zhi-xuan-shou-de-web-jiu-shu/" title="二进制选手のWEB救赎">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">二进制选手のWEB救赎</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/27/windows-pwn-ru-men/" title="Windows PWN入门">
+                        <span class="hidden-mobile">Windows PWN入门</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -26,6 +26,12 @@
     <category term="web" />
     <category term="exploit" />
     <category term="network" />
+    <category term="代码分析" />
+    <category term="二进制安全" />
+    <category term="渗透" />
+    <category term="程序分析" />
+    <category term="stack overflow" />
+    <category term="算法" />
     <entry>
         <id>https://alazymechnaic.github.io/2023/09/30/shu-ju-liu-fen-xi-ji-zhu-dfa/</id>
         <title>数据流分析</title>
@@ -94,6 +100,10 @@
 &lt;p&gt;（1）自反性：a≤a，∀a∈P；&lt;/p&gt;
 &lt;p&gt;（2）反对称性：∀a，b∈P，若a≤b且b≤a，则a=b；&lt;/p&gt;
 &lt;p&gt;（3）传递性：∀a，b，c∈P，若a≤b且b≤c，则a≤c；&lt;/p&gt;
+&lt;p&gt;campus&lt;/p&gt;
+&lt;p&gt;technology&lt;/p&gt;
+&lt;p&gt;located&lt;/p&gt;
+&lt;p&gt;league&lt;/p&gt;
 &lt;h2 id=&#34;参考文献&#34;&gt;&lt;a href=&#34;#参考文献&#34; class=&#34;headerlink&#34; title=&#34;参考文献&#34;&gt;&lt;/a&gt;参考文献&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/2.DATAFLOW.html&#34;&gt;https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/2.DATAFLOW.html&lt;/a&gt;&lt;/p&gt;
 </content>
         <category term="dataflow" />
